@@ -1,0 +1,16 @@
+
+.met-html{
+  position: relative;
+  min-height: 500px;
+}
+.met-html .html-link{
+  line-height: 35px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.met-html .html-loading{
+top: 0;
+height: 400px;
+width: 500px;
+max-width: 50%;
+}
