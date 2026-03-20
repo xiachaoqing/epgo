@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <style>
+            html,body{
+                height:100%;
+                width:100%;
+                padding:0;
+                margin:0;
+            }
+            body{overflow-y: auto;}
+            #preview{
+                padding:8px;
+                font:14px/1.571429 "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",Roboto,Arial,sans-serif;font-size:14px;
+            }
+            #preview *{max-width: 100%;}
+            #preview p{margin-bottom: 0.8em;}
+        </style>
+        <script type="text/javascript" src="../internal.js"></script>
+        <script src="../../ueditor.parse.min.js"></script>
+        <title></title>
+    </head>
+    <body class="view">
+        <div id="preview"></div>
+    </body>
+    <script>
+        document.getElementById('preview').innerHTML = editor.getContent().replace(/src="..\/upload\//g,'src="../../../../../upload/');
+        uParse('#preview',{
+            rootPath : '../../',
+            chartContainerHeight:500
+        })
+        dialog.oncancel = function(){
+            document.getElementById('preview').innerHTML = '';
+        }
+    </script>
+</html>
