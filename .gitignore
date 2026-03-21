@@ -1,0 +1,22 @@
+# 运行时生成，不纳入git
+cache/*
+!cache/.gitkeep
+logs/*
+!logs/.gitkeep
+
+# 用户上传文件，服务器独立保存，绝不用 git clean 删除
+upload/*
+!upload/.gitkeep
+
+# 系统配置（含数据库密码）
+config/metinfo.db
+config/metinfo.txt
+config/config_safe.php
+
+# 编辑器
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
