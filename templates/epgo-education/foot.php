@@ -1,107 +1,68 @@
 <?php defined('IN_MET') or exit('No permission'); ?>
-<!-- ========== 页脚 ========== -->
 <footer class="met-foot">
-    <div class="container">
-        <div class="footer-content">
-            <!-- 关于我们 -->
-            <div class="footer-section">
-                <h4>关于EPGO</h4>
-                <p style="color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.8;">
-                    英语陪跑GO是一个专业的英语教育平台，专注于KET/PET考试培训和英语学习资源分享。
-                </p>
-                <div style="margin-top: 15px;">
-                    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; margin-right: 15px;">
-                        <i class="icon wb-wechat" style="font-size: 18px;"></i>
-                    </a>
-                    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">
-                        <i class="icon wb-email" style="font-size: 18px;"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- 快速链接 -->
-            <div class="footer-section">
-                <h4>快速链接</h4>
-                <ul>
-                    <li><a href="{$c.index_url}">首页</a></li>
-                    <tag action='category' type='head' limit='4'>
-                    <li><a href="{$m.url}" title="{$m.name}">{$m._name}</a></li>
-                    </tag>
-                    <li><a href="{$c.index_url}#service-cards">资源中心</a></li>
-                </ul>
-            </div>
-
-            <!-- 学习资源 -->
-            <div class="footer-section">
-                <h4>学习资源</h4>
-                <ul>
-                    <li><a href="#">KET考试教程</a></li>
-                    <li><a href="#">PET考试教程</a></li>
-                    <li><a href="#">词汇表下载</a></li>
-                    <li><a href="#">真题精选</a></li>
-                </ul>
-            </div>
-
-            <!-- 联系我们 -->
-            <div class="footer-section">
-                <h4>联系我们</h4>
-                <ul style="list-style: none; padding: 0;">
-                    <if value="$lang.company_phone">
-                    <li style="margin-bottom: 10px;">
-                        <i class="icon wb-phone" style="margin-right: 8px;"></i>
-                        {$lang.company_phone}
-                    </li>
-                    </if>
-                    <if value="$lang.company_email">
-                    <li style="margin-bottom: 10px;">
-                        <i class="icon wb-email" style="margin-right: 8px;"></i>
-                        {$lang.company_email}
-                    </li>
-                    </if>
-                    <if value="$lang.company_address">
-                    <li>
-                        <i class="icon wb-map" style="margin-right: 8px;"></i>
-                        {$lang.company_address}
-                    </li>
-                    </if>
-                </ul>
-            </div>
+    <div class="footer-main container">
+        <div class="footer-brand">
+            <div style="font-size:20px; font-weight:700; color:#fff; margin-bottom:12px;">英语陪跑GO</div>
+            <p>专注剑桥英语备考，KET/PET/FCE全阶段陪伴。每日干货推送，让英语学习不再孤单。</p>
         </div>
-
-        <!-- 页脚底部 -->
-        <div class="footer-bottom">
-            <p style="margin-bottom: 10px;">
-                © 2024 {$lang.company_name|default:'英语陪跑GO'}. All Rights Reserved.
-            </p>
-            <if value="$lang.copyright">
-                <p style="color: rgba(255,255,255,0.5); font-size: 12px;">
-                    {$lang.copyright}
-                </p>
-            </if>
-            <if value="$lang.icp">
-                <p style="color: rgba(255,255,255,0.5); font-size: 12px;">
-                    <a href="https://beian.miit.gov.cn" target="_blank" style="color: rgba(255,255,255,0.5); text-decoration: none;">
-                        {$lang.icp}
-                    </a>
-                </p>
-            </if>
+        <div class="footer-col">
+            <h4>学习栏目</h4>
+            <ul>
+                <tag action='category' type='head' num='5'>
+                <li><a href="{$m.url}">{$m.name}</a></li>
+                </tag>
+            </ul>
         </div>
+        <div class="footer-col">
+            <h4>备考资源</h4>
+            <ul>
+                <li><a href="#">KET词汇表</a></li>
+                <li><a href="#">PET真题解析</a></li>
+                <li><a href="#">写作模板</a></li>
+                <li><a href="#">听力训练</a></li>
+                <li><a href="#">单词对战游戏</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>关于我们</h4>
+            <ul>
+                <li><a href="javascript:void(0)" onclick="epgoEducation.showQRCode()">关注公众号</a></li>
+                <if value="$c['met_foottel']"><li><a href="tel:{$c.met_foottel}">{$c.met_foottel}</a></li></if>
+                <if value="$lang['company_email']"><li><a href="mailto:{$lang.company_email}">{$lang.company_email}</a></li></if>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 友情链接 -->
+    <tag action='link.list'></tag>
+    <if value="$lang['link_ok'] && $sub">
+    <div style="border-top:1px solid rgba(255,255,255,0.06); padding:16px 0; text-align:center;">
+        <div class="container">
+            <list data="$result" name="$v">
+            <a href="{$v.weburl}" {$v.nofollow} target="_blank" style="color:rgba(255,255,255,0.4); font-size:13px; margin:0 10px; text-decoration:none;">{$v.webname}</a>
+            </list>
+        </div>
+    </div>
+    </if>
+
+    <div class="footer-bottom container">
+        <span>{$c.met_footright}</span>
+        <if value="$c['met_foottext']"><span style="margin-left:16px;">{$c.met_foottext}</span></if>
+        <if value="$lang['icp']">
+        <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(255,255,255,0.4); margin-left:16px; text-decoration:none;">{$lang.icp}</a>
+        </if>
     </div>
 </footer>
 
-<!-- JavaScript库 -->
 <script src="{$metui_url2}vendor/jquery/jquery-3.6.0.min.js"></script>
 <script src="{$metui_url2}vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- 模板JS -->
+<script src="{$template_url}js/epgo-education.js?v=2026032201"></script>
 <if value="$_M['html']['js']">
-    <list data="$_M['html']['js']" name="$v">
-    <script src="{$v}"></script>
-    </list>
+<list data="$_M['html']['js']" name="$v">
+<script src="{$v}"></script>
+</list>
 </if>
-
-<!-- 全局脚本 -->
 {$g.foot}
-
+<met_foot />
 </body>
 </html>

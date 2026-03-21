@@ -1,96 +1,64 @@
 <?php defined('IN_MET') or exit('No permission'); ?><!DOCTYPE html>
 <html lang="{$g.lang}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{$lang.index_title|default:'英语陪跑GO - 专业KET/PET考试培训平台'}">
-    <meta name="keywords" content="{$lang.index_key|default:'KET,PET,英语培训,考试辅导'}">
-    <title>{$data.title|default:$lang.index_title} - {$lang.company_name}</title>
-
-    <!-- 预加载关键资源 -->
-    <link rel="preload" as="style" href="{$metui_url3}fonts/iconfont/iconfont.css">
-    <link rel="preload" as="style" href="{$template_url}css/epgo-education.css">
-
-    <!-- 基础样式 -->
-    <link rel="stylesheet" href="{$metui_url2}vendor/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{$metui_url3}fonts/iconfont/iconfont.css">
-    <link rel="stylesheet" href="{$template_url}css/epgo-education.css">
-
-    <!-- favicon -->
-    <link rel="icon" type="image/png" href="{$lang.favicon|default:$metui_url3}images/favicon.png">
-
-    <!-- 其他模板CSS -->
-    <if value="$_M['html']['css']">
-        <list data="$_M['html']['css']" name="$v">
-        <link rel="stylesheet" href="{$v}">
-        </list>
-    </if>
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313"
-         crossorigin="anonymous"></script>
-
-    <!-- 其他head标签 -->
-    {$g.head}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<met_meta page="$met_page" />
+<link rel="stylesheet" href="{$metui_url2}vendor/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$metui_url3}fonts/iconfont/iconfont.css">
+<link rel="stylesheet" href="{$template_url}css/epgo-education.css?v=2026032201">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313" crossorigin="anonymous"></script>
+<if value="$_M['html']['css']">
+<list data="$_M['html']['css']" name="$v">
+<link rel="stylesheet" href="{$v}">
+</list>
+</if>
+{$g.head}
 </head>
 <body>
-<!-- 顶部导航栏 -->
-<nav class="met-head navbar navbar-expand-md navbar-light">
+
+<!-- 顶部导航 -->
+<nav class="met-head navbar navbar-expand-md" id="mainNav">
     <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="{$c.index_url}">
-            <if value="$lang.logo">
-                <img src="{$lang.logo}" alt="{$lang.company_name}" style="max-height: 40px;">
+        <a class="navbar-brand" href="{$c.index_url}" title="{$c.met_webname}">
+            <if value="$c['met_logo']">
+                <img src="{$c.met_logo}" alt="{$c.met_webname}" height="40">
             <else/>
-                {$lang.company_name|default:'EPGO'}
+                <span class="brand-text">英语陪跑GO</span>
             </if>
         </a>
 
-        <!-- 导航菜单切换按钮 -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
         </button>
 
-        <!-- 导航菜单 -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <!-- 首页 -->
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ml-auto align-items-center">
                 <li class="nav-item">
-                    <a href="{$c.index_url}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">
-                        {$word.home|default:'首页'}
-                    </a>
+                    <a href="{$c.index_url}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">{$word.home}</a>
                 </li>
-
-                <!-- 动态栏目菜单 -->
-                <tag action='category' type='head'>
-                    <if value="$m['sub']">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle <if value="$m['class']">active</if>"
-                               href="{$m.url}"
-                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {$m._name}
-                            </a>
-                            <div class="dropdown-menu">
-                                <tag action='category' cid="$m['id']" type='son'>
-                                    <a class="dropdown-item" href="{$m.url}" title="{$m.name}">
-                                        {$m._name}
-                                    </a>
-                                </tag>
-                            </div>
-                        </li>
-                    <else/>
-                        <li class="nav-item">
-                            <a class="nav-link <if value="$m['class']">active</if>" href="{$m.url}">
-                                {$m._name}
-                            </a>
-                        </li>
-                    </if>
-                </tag>
-
-                <!-- 公众号 -->
+                <tag action='category' type='head' class='active'>
+                <if value="$m['sub']">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {$m.class}" href="{$m.url}" data-toggle="dropdown">{$m._name}</a>
+                    <div class="dropdown-menu">
+                        <tag action='category' cid="$m['id']" type='son' class='active'>
+                        <a class="dropdown-item {$m.class}" href="{$m.url}">{$m._name}</a>
+                        </tag>
+                    </div>
+                </li>
+                <else/>
                 <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link" onclick="epgoEducation.showQRCode()">
-                        <i class="icon wb-share"></i> {$word.wechat|default:'公众号'}
+                    <a class="nav-link {$m.class}" href="{$m.url}">{$m._name}</a>
+                </li>
+                </if>
+                </tag>
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link nav-wechat" onclick="epgoEducation.showQRCode()">
+                        <i class="icon wb-share"></i> 公众号
                     </a>
                 </li>
             </ul>
@@ -98,83 +66,77 @@
     </div>
 </nav>
 
-<!-- 公众号二维码弹窗 -->
-<div id="qrcode-modal" class="qrcode-modal" style="display: none;">
+<!-- 内页Banner（首页不显示）-->
+<if value="$data['classnow'] neq 10001">
+<tag action='category' type='current' cid="$data['classnow']">
+<div class="inner-banner">
+    <div class="container">
+        <h1 class="inner-banner-title">{$m.name}</h1>
+        <nav class="breadcrumb-nav" aria-label="breadcrumb">
+            <a href="{$c.index_url}">{$word.home}</a>
+            <span class="sep">›</span>
+            <span>{$m.name}</span>
+        </nav>
+    </div>
+</div>
+</tag>
+</if>
+
+<!-- 二维码弹窗 -->
+<div id="qrcode-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:2000; align-items:center; justify-content:center; backdrop-filter:blur(2px);">
     <div class="qrcode-modal-content">
-        <span class="qrcode-modal-close" onclick="epgoEducation.closeQRCode()">&times;</span>
-        <div class="qrcode-modal-body">
-            <h3>关注公众号</h3>
-            <p>英语陪跑GO</p>
-            <div class="qrcode-box">
-                <if value="$lang.wechat_qrcode">
-                    <img src="{$lang.wechat_qrcode}" alt="微信公众号二维码" style="width: 240px; height: 240px;">
-                <else/>
-                    <div style="width: 240px; height: 240px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-                        <p style="color: #999; text-align: center;">二维码配置中<br>(请在后台上传)</p>
-                    </div>
-                </if>
-            </div>
-            <p style="margin-top: 20px; color: #666; font-size: 14px;">长按识别二维码关注</p>
+        <span onclick="epgoEducation.closeQRCode()" class="qrcode-close">&times;</span>
+        <h3 style="margin-bottom:4px;">英语陪跑GO</h3>
+        <p style="color:#999; font-size:14px; margin-bottom:16px;">扫码关注公众号</p>
+        <div style="background:#f7f8fa; padding:10px; border-radius:10px; display:inline-block;">
+            <if value="$lang['wechat_qrcode']">
+                <img src="{$lang.wechat_qrcode}" alt="英语陪跑GO公众号" style="width:200px; height:200px; display:block;">
+            <else/>
+                <div style="width:200px; height:200px; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:13px;">二维码待配置</div>
+            </if>
         </div>
+        <p style="margin-top:12px; font-size:13px; color:#999;">长按识别二维码关注</p>
     </div>
 </div>
 
 <style>
-.qrcode-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-}
-
+/* 弹窗样式 */
+#qrcode-modal { display: none; }
+#qrcode-modal.show { display: flex !important; }
 .qrcode-modal-content {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
+    background: #fff;
+    padding: 36px 32px;
+    border-radius: 16px;
     text-align: center;
     position: relative;
-    max-width: 400px;
-    animation: slideUp 0.3s ease;
+    width: 320px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    animation: slideUp .3s ease;
 }
-
-.qrcode-modal-close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
-    color: #999;
+.qrcode-close {
+    position: absolute; top: 14px; right: 18px;
+    font-size: 24px; cursor: pointer; color: #bbb; line-height: 1;
 }
-
-.qrcode-modal-close:hover {
-    color: #333;
+.qrcode-close:hover { color: #333; }
+/* 导航hamburger */
+.hamburger-bar {
+    display: block; width: 22px; height: 2px;
+    background: #333; margin: 5px 0; transition: .3s;
 }
-
-@keyframes slideUp {
-    from {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+/* 内页banner */
+.inner-banner {
+    background: linear-gradient(135deg, #1565C0 0%, #1E88E5 100%);
+    padding: 48px 0 36px;
+    color: #fff;
 }
-
-@media (max-width: 768px) {
-    .qrcode-modal-content {
-        max-width: 90%;
-        padding: 30px 20px;
-    }
-
-    .qrcode-modal-content h3 {
-        margin-bottom: 10px;
-    }
-}
+.inner-banner-title { font-size: 28px; font-weight: 700; margin-bottom: 10px; color: #fff; }
+.breadcrumb-nav { font-size: 14px; color: rgba(255,255,255,0.8); }
+.breadcrumb-nav a { color: rgba(255,255,255,0.8); text-decoration: none; }
+.breadcrumb-nav a:hover { color: #fff; }
+.breadcrumb-nav .sep { margin: 0 8px; }
+.brand-text { font-size: 20px; font-weight: 700; color: var(--color-primary); }
+/* dropdown */
+.met-head .dropdown-menu { border:1px solid #eee; box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-radius:10px; padding:6px; }
+.met-head .dropdown-item { border-radius:6px; padding:8px 14px; font-size:14px; color:#333; }
+.met-head .dropdown-item:hover { background: var(--color-primary-light); color: var(--color-primary); }
 </style>
