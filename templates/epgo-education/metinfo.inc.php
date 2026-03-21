@@ -1,6 +1,7 @@
 <?php
-/**
- * EPGO教育模板标记文件
- * 此文件标识这是MetInfo框架的一个模板
- */
-defined('IN_MET') or exit('No permission');
+global $metinfover;
+$metinfover = "v2";
+$template_type = "tag";
+$metadmin["categorynamemark"] = 1;
+$metadmin["categoryimage"] = 1;
+$metadmin["categorymarkimage"] = 0;
