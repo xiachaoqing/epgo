@@ -1,37 +1,15 @@
-<?php defined('IN_MET') or exit('No permission'); ?><!DOCTYPE html>
+<?php defined('IN_MET') or exit('No permission'); ?><met_meta page="$met_page" /><!DOCTYPE html>
 <html lang="{$g.lang}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{$lang.index_title}">
-    <meta name="keywords" content="{$lang.index_key}">
-    <title>{$data.title} - {$lang.company_name}</title>
 
-    <!-- 预加载关键资源 -->
-    <link rel="preload" as="style" href="{$metui_url3}fonts/iconfont/iconfont.css">
-    <link rel="preload" as="style" href="{$template_url}css/epgo-education.css">
-
-    <!-- 基础样式 -->
-    <link rel="stylesheet" href="{$metui_url2}vendor/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{$metui_url3}fonts/iconfont/iconfont.css">
-    <link rel="stylesheet" href="{$template_url}css/epgo-education.css">
-
-    <!-- favicon -->
-    <link rel="icon" type="image/png" href="{$lang.favicon}images/favicon.png">
-
-    <!-- 其他模板CSS -->
-    <if value="$_M['html']['css']">
-        <list data="$_M['html']['css']" name="$v">
-        <link rel="stylesheet" href="{$v}">
-        </list>
-    </if>
+    <!-- 自定义CSS（路径通过 $url.site 拼接，不要用 $metui_url / $template_url，那些变量不存在于运行时） -->
+    <link rel="stylesheet" href="{$url.site}templates/epgo-education/css/epgo-education.css">
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313"
          crossorigin="anonymous"></script>
-
-    <!-- 其他head标签 -->
-    {$g.head}
 </head>
 <body>
 <!-- 顶部导航栏 -->
