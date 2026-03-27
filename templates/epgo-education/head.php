@@ -1,17 +1,8 @@
-<?php defined('IN_MET') or exit('No permission'); ?><met_meta page="$met_page" /><!DOCTYPE html>
-<html lang="{$g.lang}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- 自定义CSS（路径通过 $url.site 拼接，不要用 $metui_url / $template_url，那些变量不存在于运行时） -->
-    <link rel="stylesheet" href="{$url.site}templates/epgo-education/css/epgo-education.css">
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313"
-         crossorigin="anonymous"></script>
-</head>
-<body>
+<?php defined('IN_MET') or exit('No permission'); ?><met_meta page="$met_page" />
+<!-- 自定义CSS：config.json 里的样式已由框架合并，这里只追加 -->
+<link rel="stylesheet" href="{$url.site}templates/epgo-education/css/epgo-education.css">
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313" crossorigin="anonymous"></script>
 <!-- 顶部导航栏 -->
 <nav class="met-head navbar navbar-expand-md navbar-light">
     <div class="container">
