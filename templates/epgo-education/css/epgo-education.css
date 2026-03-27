@@ -723,3 +723,36 @@ a:hover { color: var(--color-primary-dark); }
 .epgo-modal-sub { color: #888; font-size: 14px; margin: 4px 0 16px; }
 .epgo-modal-qr img { width: 170px; height: 170px; border-radius: 6px; }
 .epgo-modal-hint { color: #aaa; font-size: 12px; margin-top: 12px; }
+
+/* ========== 子栏目导航条 ========== */
+.met-column-nav {
+  text-align: center;
+  background: #fff;
+  border-bottom: 1px solid #e8edf2;
+}
+.met-column-nav .met-column-nav-ul {
+  padding: 0; list-style: none; margin: 0;
+  display: flex; justify-content: center; flex-wrap: wrap;
+}
+.met-column-nav .met-column-nav-ul > li {
+  white-space: nowrap; display: inline-block;
+}
+.met-column-nav .met-column-nav-ul > li a.link {
+  text-decoration: none; display: block;
+  margin: 0 4px; font-size: 15px;
+  line-height: 56px; padding: 0 20px; height: 56px;
+  color: #555; transition: all 0.3s; position: relative;
+}
+.met-column-nav .met-column-nav-ul > li a.link:hover {
+  color: #1565C0; text-decoration: none;
+}
+.met-column-nav .met-column-nav-ul > li a.active.link,
+.met-column-nav .met-column-nav-ul > li a.link.active {
+  color: #1565C0; font-weight: 600;
+}
+.met-column-nav .met-column-nav-ul > li a.active.link::after,
+.met-column-nav .met-column-nav-ul > li a.link.active::after {
+  content: ''; position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 3px; background: #1565C0; border-radius: 2px 2px 0 0;
+}
