@@ -64,6 +64,34 @@
    正确写法：直接用 {$lang.name}，在后台配置好对应值
 ```
 
+### 2.3 CSS/JS 路径——高频踩坑点
+
+**绝对不能在模板里用的变量（运行时为空）：**
+
+```
+❌ {$metui_url2}    仅编译阶段可用，运行时输出空字符串
+❌ {$metui_url3}    同上
+❌ {$template_url}  根本不存在于框架
+```
+
+**正确做法：**
+
+```php
+<!-- 1. 框架基础CSS/JS（bootstrap, iconfont等）→ 靠 <met_meta> 自动注入 -->
+<!-- head.php 第一行必须有 -->
+<met_meta page="$met_page" />
+
+<!-- 2. 模板公共CSS/JS → 写进 config.json，框架合并成 metinfo.css 注入 -->
+
+<!-- 3. 模板自定义CSS → 用 {$url.site} 拼绝对路径 -->
+<link rel="stylesheet" href="{$url.site}templates/epgo-education/css/epgo-education.css">
+
+<!-- 4. 可用的路径变量 -->
+{$url.site}         网站根URL，如 https://go.xiachaoqing.com/
+{$url.public_web}   public/web/ 路径
+{$c.index_url}      首页URL
+```
+
 ### 2.3 条件判断
 
 ```php
