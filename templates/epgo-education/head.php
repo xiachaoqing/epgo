@@ -36,28 +36,18 @@
                         </li>
                         <tag action='category' type='head' class='active'>
                         <if value="$m['sub']">
+                        <?php $_cid = (int)$m['id']; ?>
                         <li class="nav-item dropdown">
                             <a href="{$m.url}" title="{$m.name}" class="nav-link dropdown-toggle {$m.class}" data-toggle="dropdown" data-hover="dropdown">{$m._name}</a>
                             <div class="dropdown-menu dropdown-menu-right animate animate-reverse">
-                                <tag action='category' cid="$m['id']" type='son' class='active'>
-                                <if value="$m['sub']">
-                                    <div class="dropdown-submenu">
-                                        <a href="{$m.url}" class="dropdown-item {$m.class}">{$m._name}</a>
-                                        <div class="dropdown-menu animate animate-reverse">
-                                            <tag action='category' cid="$m['id']" type='son' class='active'>
-                                                <a href="{$m.url}" class="dropdown-item {$m.class}">{$m._name}</a>
-                                            </tag>
-                                        </div>
-                                    </div>
-                                <else/>
-                                    <a href="{$m.url}" title="{$m.name}" class='dropdown-item {$m.class}'>{$m._name}</a>
-                                </if>
+                                <tag action='category' cid="$_cid" type='son' class='active'>
+                                    <a href="{$m.url}" {$m.urlnew} title="{$m.name}" class='dropdown-item {$m.class}'>{$m._name}</a>
                                 </tag>
                             </div>
                         </li>
                         <else/>
                         <li class='nav-item'>
-                            <a href="{$m.url}" title="{$m.name}" class="nav-link {$m.class}">{$m._name}</a>
+                            <a href="{$m.url}" {$m.urlnew} title="{$m.name}" class="nav-link {$m.class}">{$m._name}</a>
                         </li>
                         </if>
                         </tag>
