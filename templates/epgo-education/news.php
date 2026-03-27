@@ -1,139 +1,97 @@
 <?php defined('IN_MET') or exit('No permission'); ?>
 <include file="head.php" />
 
-<main>
-    <!-- 页面标题区 -->
-    <section style="background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%); color: white; padding: 60px 20px; text-align: center;">
-        <div class="container">
-            <h1 style="color: white; margin-bottom: 10px;">{$data.classname}</h1>
-            <nav aria-label="breadcrumb" style="text-align: center;">
-                <ol class="breadcrumb" style="background: transparent; justify-content: center; margin-bottom: 0;">
-                    <li class="breadcrumb-item"><a href="{$c.index_url}" style="color: rgba(255,255,255,0.8);">首页</a></li>
-                    <li class="breadcrumb-item active" style="color: white;">{$data.classname}</li>
-                </ol>
-            </nav>
+<!-- 子栏目页面 Header - 升级版 -->
+<section class="epgo-category-header" style="background:linear-gradient(135deg, #1E3A8A 0%, #2563EB 55%, #3B82F6 100%); color:white; padding:80px 0 60px; margin-bottom:50px; position:relative; overflow:hidden;">
+    <div style="position:absolute; width:400px; height:400px; border-radius:50%; background:rgba(255,255,255,0.08); top:-100px; right:-100px; pointer-events:none; animation:float 20s infinite ease-in-out;"></div>
+    <div style="position:absolute; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,0.05); bottom:-50px; left:-50px; pointer-events:none; animation:float-reverse 15s infinite ease-in-out;"></div>
+    <div class="container" style="position:relative; z-index:1;">
+        <div style="margin-bottom:20px; font-size:14px; color:rgba(255,255,255,0.9);">
+            <a href="{$c.index_url}" style="color:rgba(255,255,255,0.9); text-decoration:none; transition:color 0.2s;">首页</a> <span style="margin:0 8px;">›</span> <span>{$data['name']}</span>
         </div>
-    </section>
+        <h1 style="font-size:48px; font-weight:800; margin:0 0 20px 0; color:white; line-height:1.1; text-shadow:0 2px 8px rgba(0,0,0,0.2);">{$data['name']}</h1>
+        <if value="$data['description']">
+            <p style="font-size:17px; margin:0 0 0 0; color:rgba(255,255,255,0.9); line-height:1.6; max-width:600px;">{$data['description']}</p>
+        </if>
+    </div>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+    </style>
+</section>
 
-    <!-- 内容区 -->
-    <section style="padding: 60px 20px;">
-        <div class="container">
-            <div style="display: grid; grid-template-columns: 1fr 320px; gap: 40px;">
-                <!-- 左侧：文章列表 -->
-                <div>
-                    <div class="content-list" style="grid-template-columns: 1fr;">
-                        <tag action='list' cid="$data['classid']" num='20' type='news' orderby='inputtime DESC'>
-                        <div class="card" style="display: grid; grid-template-columns: 200px 1fr; gap: 20px; overflow: hidden;">
-                            <!-- 文章图片 -->
-                            <div style="overflow: hidden; border-radius: 8px;">
-                                <if value="$v['imgurl']">
-                                    <img src="{$v.imgurl|thumb:200,150}" alt="{$v.title}" style="width: 100%; height: 150px; object-fit: cover; transition: transform 0.3s ease;">
-                                <else/>
-                                    <div style="width: 100%; height: 150px; background: linear-gradient(135deg, #E3F2FD 0%, #F3E5F5 100%); display: flex; align-items: center; justify-content: center;">
-                                        <i class="icon wb-book" style="font-size: 48px; color: rgba(30, 136, 229, 0.3);"></i>
-                                    </div>
-                                </if>
-                            </div>
-
-                            <!-- 文章信息 -->
-                            <div class="card-body" style="padding: 0;">
-                                <div class="badge badge-primary mb-3" style="background-color: #1E88E5;">{$v.columnname}</div>
-                                <h3 style="margin-bottom: 10px; font-size: 18px;">
-                                    <a href="{$v.url}" title="{$v.title}" style="color: #1E1E1E; text-decoration: none;">
-                                        {$v.title}
-                                    </a>
-                                </h3>
-                                <div style="font-size: 13px; color: #999; margin-bottom: 12px;">
-                                    <span><i class="icon wb-time"></i> {$v.inputtime|date_format:'%Y-%m-%d'}</span>
-                                    <span style="margin-left: 15px;"><i class="icon wb-eye"></i> {$v.hits}</span>
-                                </div>
-                                <if value="$v['description']">
-                                    <p style="color: #666; line-height: 1.6; margin-bottom: 12px; font-size: 14px;">
-                                        {$v.description|htmlspecialchars|truncate:150}
-                                    </p>
-                                </if>
-                                <a href="{$v.url}" class="btn btn-sm btn-primary" style="display: inline-block;">继续阅读</a>
-                            </div>
+<include file="para_search.php" />
+<section class="epgo-section" style="padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <!-- 左侧文章列表 -->
+            <div class="col-md-9 met-news-body">
+                <div class="met-news-list met-news" m-id="noset">
+                    <tag action='news.list' num="$c['met_news_list']" cid="$data['classnow']"></tag>
+                    <if value="$sub">
+                        <div class="ulstyle met-pager-ajax imagesize" data-scale='{$c.met_newsimg_y}x{$c.met_newsimg_x}'>
+                            <include file='ajax/news'/>
                         </div>
-                        </tag>
+                    <else/>
+                        <div class='text-xs-center font-size-20 p-y-40' style="color:var(--color-muted);">{$c.met_data_null}</div>
+                    </if>
+                    <div class='m-t-20 text-xs-center hidden-sm-down' m-type="nosysdata">
+                        <pager/>
                     </div>
-
-                    <!-- 分页 -->
-                    <div style="margin-top: 40px; text-align: center;">
-                        {$data.pagebar}
+                    <div class="met_pager met-pager-ajax-link hidden-md-up" m-type="nosysdata">
+                        <button type="button" class="btn btn-primary btn-block btn-squared ladda-button"
+                            id="met-pager-btn" data-plugin="ladda" data-style="slide-left" data-url="" data-page="1">
+                            <i class="icon wb-chevron-down m-r-5"></i> 加载更多
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- 右侧：侧边栏 -->
-                <aside>
-                    <!-- 搜索框 -->
-                    <div class="card" style="margin-bottom: 30px;">
-                        <div class="card-body">
-                            <h5>搜索</h5>
-                            <form action="{$url.search}" method="get" style="margin-top: 15px;">
-                                <div class="input-group">
-                                    <input type="text" name="searchword" class="form-control" placeholder="搜索文章..." required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="icon wb-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+            <!-- 右侧边栏 -->
+            <div class="col-md-3">
+                <aside class="met-sidebar panel panel-body m-b-0" boxmh-h m-id='news_bar' m-type='nocontent' style="border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.08); border:1px solid #e5e7eb;">
+                    <div class="sidebar-search" data-placeholder="search" style="margin-bottom:16px;">
+                        <tag action="search.column"></tag>
                     </div>
-
-                    <!-- 热门文章 -->
-                    <div class="card" style="margin-bottom: 30px;">
-                        <div class="card-body">
-                            <h5 style="margin-bottom: 20px;">热门文章</h5>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <tag action='list' cid="$data['classid']" num='5' type='news' orderby='hits DESC'>
-                                <li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #EEEEEE;">
-                                    <a href="{$v.url}" title="{$v.title}" style="color: #1E88E5; text-decoration: none; font-size: 14px; line-height: 1.6;">
-                                        {$v.title|truncate:30}
-                                    </a>
-                                    <div style="font-size: 12px; color: #999; margin-top: 5px;">
-                                        <i class="icon wb-eye"></i> {$v.hits}
-                                    </div>
+                    <if value="$lang['bar_column_open']">
+                        <div style="padding-bottom:16px; border-bottom:1px solid #e5e7eb; margin-bottom:16px;">
+                            <h4 style="font-size:14px; font-weight:700; color:#111827; margin:0 0 12px 0; padding-bottom:8px; border-bottom:2px solid #2563eb;">📂 栏目导航</h4>
+                            <ul class="sidebar-column list-icons" style="list-style:none;padding:0;margin:0;">
+                                <tag action='category' cid="$data['releclass1']">
+                                <li style="margin-bottom:8px;">
+                                    <a href="{$m.url}" title="{$m.name}" class="<if value='$data["classnow"] eq $m["id"]'>active</if>" {$m.urlnew} style="color:#6b7280; text-decoration:none; transition:all 0.3s; display:inline-block; padding-bottom:2px; border-bottom:2px solid transparent;" onmouseover="this.style.color='#2563eb'; this.style.borderColor='#2563eb'" onmouseout="this.style.color='#6b7280'; this.style.borderColor='transparent'">{$m.name}</a>
                                 </li>
+                                <tag action='category' cid="$m['id']" type='son' class='active'>
+                                <li style="padding-left:16px; margin-bottom:6px;">
+                                    <a href="{$m.url}" title="{$m.name}" class='{$m.class}' {$m.urlnew} style="color:#9ca3af; font-size:14px; text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#9ca3af'">└ {$m.name}</a>
+                                </li>
+                                </tag>
                                 </tag>
                             </ul>
                         </div>
-                    </div>
-
-                    <!-- 分类标签 -->
-                    <div class="card" style="margin-bottom: 30px;">
-                        <div class="card-body">
-                            <h5 style="margin-bottom: 20px;">分类</h5>
-                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                <tag action='category' cid="$data['classid']" type='son'>
-                                <a href="{$m.url}" class="badge badge-light" style="padding: 8px 12px; background-color: #E3F2FD; color: #1E88E5; text-decoration: none; border-radius: 20px; font-size: 13px;">
-                                    {$m._name}
-                                </a>
+                    </if>
+                    <if value="$lang['news_bar_list_open']">
+                        <div class="sidebar-news-list recommend">
+                            <h4 style="font-size:14px; font-weight:700; color:#111827; margin:0 0 12px 0; padding-bottom:8px; border-bottom:2px solid #2563eb;">⭐ {$lang.news_bar_list_title}</h4>
+                            <ul class="list-group list-group-bordered m-b-0" style="list-style:none;padding:0;margin:0;">
+                                <?php $id=$lang['sidebar_newslist_idid']?$lang['sidebar_newslist_idid']:$data['class1']; ?>
+                                <tag action='list' type="$lang['news_bar_list_type']" cid="$id" num="$lang['sidebar_newslist_num']">
+                                    <li class="list-group-item" style="border:none; border-bottom:1px solid #f3f4f6; padding:8px 0; margin:0;">
+                                        <a href="{$v.url}" title="{$v.title}" {$g.urlnew} style="color:#374151; text-decoration:none; font-size:13px; line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; transition:color 0.3s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#374151'">{$v.title}</a>
+                                    </li>
                                 </tag>
-                            </div>
+                            </ul>
                         </div>
-                    </div>
-
-                    <!-- Google AdSense广告 -->
-                    <div class="card">
-                        <div class="card-body">
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-client="ca-pub-2043497135383313"
-                                 data-ad-slot="2043497135383313"
-                                 data-ad-format="rectangle"
-                                 data-full-width-responsive="true"></ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                        </div>
-                    </div>
+                    </if>
                 </aside>
             </div>
         </div>
-    </section>
-</main>
-
+    </div>
+</section>
 <include file="foot.php" />

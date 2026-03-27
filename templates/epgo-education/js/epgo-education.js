@@ -1,140 +1,109 @@
-/* ========================================
-   EPGO教育模板 - JavaScript
-   英语陪跑GO | go.xiachaoqing.com
-   ======================================== */
-
+/* 英语陪跑GO - 主JS */
 (function () {
   'use strict';
 
-  /* -------- 导航栏滚动变色 -------- */
+  /* 导航滚动变色 */
   function initNavScroll() {
-    var nav = document.querySelector('.met-head');
+    var nav = document.getElementById('mainNav');
     if (!nav) return;
-    function onScroll() {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
   }
 
-  /* -------- 滚动进入动画 -------- */
-  function initScrollAnimations() {
+  /* 滚动进入动画 */
+  function initAnimate() {
     var els = document.querySelectorAll('[data-animate]');
-    if (!els.length) return;
-
-    if (!window.IntersectionObserver) {
-      els.forEach(function (el) { el.classList.add('animated'); });
+    if (!els.length || !window.IntersectionObserver) {
+      els.forEach(function(el){ el.classList.add('animated'); });
       return;
     }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var delay = entry.target.dataset.delay || 0;
-        setTimeout(function () {
-          entry.target.classList.add('animated');
-        }, +delay);
-        observer.unobserve(entry.target);
+    var ob = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('animated'); ob.unobserve(e.target); }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
-    els.forEach(function (el, i) {
-      if (!el.dataset.delay) el.dataset.delay = i * 80;
-      observer.observe(el);
-    });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el){ ob.observe(el); });
   }
 
-  /* -------- 数字计数动画 -------- */
+  /* 数字动画 */
   function initCountUp() {
-    var nums = document.querySelectorAll('[data-countup]');
-    if (!nums.length || !window.IntersectionObserver) return;
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        var target = parseFloat(el.dataset.countup);
-        var suffix = el.dataset.suffix || '';
-        var duration = 1400;
-        var start = performance.now();
-
-        function update(now) {
-          var p = Math.min((now - start) / duration, 1);
-          var ease = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
-          var val = target * ease;
-          el.textContent = (Number.isInteger(target) ? Math.round(val) : val.toFixed(1)) + suffix;
-          if (p < 1) requestAnimationFrame(update);
+    var els = document.querySelectorAll('[data-countup]');
+    if (!els.length || !window.IntersectionObserver) return;
+    var ob = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target, target = +el.dataset.countup, suffix = el.dataset.suffix || '';
+        var start = performance.now(), dur = 1200;
+        function tick(now) {
+          var p = Math.min((now - start) / dur, 1);
+          var ease = 1 - Math.pow(1 - p, 3);
+          el.textContent = (Number.isInteger(target) ? Math.round(target * ease) : (target * ease).toFixed(1)) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
         }
-
-        requestAnimationFrame(update);
-        observer.unobserve(el);
+        requestAnimationFrame(tick);
+        ob.unobserve(el);
       });
     }, { threshold: 0.5 });
-
-    nums.forEach(function (el) { observer.observe(el); });
+    els.forEach(function(el){ ob.observe(el); });
   }
 
-  /* -------- 平滑滚动 -------- */
-  function initSmoothScroll() {
-    document.addEventListener('click', function (e) {
+  /* 平滑锚点 */
+  function initScroll() {
+    document.addEventListener('click', function(e){
       var a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      var href = a.getAttribute('href');
-      if (href === '#') return;
-      var target = document.querySelector(href);
-      if (!target) return;
+      if (!a || a.getAttribute('href') === '#') return;
+      var t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
       e.preventDefault();
-      var navH = (document.querySelector('.met-head') || {}).offsetHeight || 0;
-      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navH - 16, behavior: 'smooth' });
+      var navH = (document.getElementById('mainNav') || {}).offsetHeight || 60;
+      window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - navH - 12, behavior: 'smooth' });
     });
   }
 
-  /* -------- 二维码弹窗 -------- */
-  var modal = null;
-  function getModal() { return modal || (modal = document.getElementById('qrcode-modal')); }
+  /* 弹窗 */
+  function getModal() { return document.getElementById('qrcode-modal'); }
+
+  function initModal() {
+    var m = getModal();
+    if (!m) return;
+    m.addEventListener('click', function(e){ if (e.target === m) closeModal(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+  }
 
   function showModal() {
     var m = getModal();
-    if (m) { m.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+    if (m) { m.classList.add('show'); document.body.style.overflow = 'hidden'; }
   }
 
   function closeModal() {
     var m = getModal();
-    if (m) { m.style.display = 'none'; document.body.style.overflow = ''; }
+    if (m) { m.classList.remove('show'); document.body.style.overflow = ''; }
   }
 
-  function initQRModal() {
-    var m = getModal();
-    if (!m) return;
-    m.addEventListener('click', function (e) { if (e.target === m) closeModal(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  /* 手机导航 */
+  function toggleNav(btn) {
+    var menu = document.getElementById('navMenu');
+    if (!menu) return;
+    menu.classList.toggle('show');
   }
 
-  /* -------- 服务卡片点击 -------- */
-  function initServiceCards() {
-    document.querySelectorAll('.service-card').forEach(function (card) {
-      card.addEventListener('click', function () {
-        var a = this.closest('a') || this.querySelector('a');
-        if (a && a.href && !/javascript|#$/.test(a.href)) window.location.href = a.href;
-      });
-    });
-  }
-
-  /* -------- 初始化 -------- */
+  /* 初始化 */
   function init() {
     initNavScroll();
-    initScrollAnimations();
+    initAnimate();
     initCountUp();
-    initSmoothScroll();
-    initQRModal();
-    initServiceCards();
+    initScroll();
+    initModal();
   }
 
   document.readyState === 'loading'
     ? document.addEventListener('DOMContentLoaded', init)
     : init();
 
-  /* -------- 全局 API -------- */
-  window.epgoEducation = { showQRCode: showModal, closeQRCode: closeModal };
-
+  window.epgoEducation = {
+    showQRCode: showModal,
+    closeQRCode: closeModal,
+    toggleNav: toggleNav
+  };
 })();
