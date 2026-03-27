@@ -10,12 +10,14 @@
                     英语陪跑GO是一个专业的英语教育平台，专注于KET/PET考试培训和英语学习资源分享。
                 </p>
                 <div style="margin-top: 15px;">
-                    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; margin-right: 15px;">
+                    <a href="javascript:void(0)" onclick="epgoEducation.showQRCode()" style="color: rgba(255,255,255,0.7); text-decoration: none; margin-right: 15px;">
                         <i class="icon wb-wechat" style="font-size: 18px;"></i>
                     </a>
-                    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">
-                        <i class="icon wb-email" style="font-size: 18px;"></i>
+                    <if value="$lang['footinfo_email']">
+                    <a href="mailto:{$lang.footinfo_email}" style="color: rgba(255,255,255,0.7); text-decoration: none;">
+                        <i class="icon wb-envelope" style="font-size: 18px;"></i>
                     </a>
+                    </if>
                 </div>
             </div>
 
@@ -24,10 +26,9 @@
                 <h4>快速链接</h4>
                 <ul>
                     <li><a href="{$c.index_url}">首页</a></li>
-                    <tag action='category' type='head' limit='4'>
+                    <tag action='category' type='head' num='5'>
                     <li><a href="{$m.url}" title="{$m.name}">{$m._name}</a></li>
                     </tag>
-                    <li><a href="{$c.index_url}#service-cards">资源中心</a></li>
                 </ul>
             </div>
 
@@ -46,43 +47,53 @@
             <div class="footer-section">
                 <h4>联系我们</h4>
                 <ul style="list-style: none; padding: 0;">
-                    <if value="$lang.company_phone">
+                    <if value="$lang['footinfo_tel']">
                     <li style="margin-bottom: 10px;">
                         <i class="icon wb-phone" style="margin-right: 8px;"></i>
-                        {$lang.company_phone}
+                        {$lang.footinfo_tel}
                     </li>
                     </if>
-                    <if value="$lang.company_email">
+                    <if value="$lang['footinfo_dsc']">
                     <li style="margin-bottom: 10px;">
-                        <i class="icon wb-email" style="margin-right: 8px;"></i>
-                        {$lang.company_email}
+                        <i class="icon wb-mobile" style="margin-right: 8px;"></i>
+                        {$lang.footinfo_dsc}
                     </li>
                     </if>
-                    <if value="$lang.company_address">
+                    <if value="$lang['footinfo_email']">
                     <li>
-                        <i class="icon wb-map" style="margin-right: 8px;"></i>
-                        {$lang.company_address}
+                        <i class="icon wb-envelope" style="margin-right: 8px;"></i>
+                        <a href="mailto:{$lang.footinfo_email}" style="color: rgba(255,255,255,0.7); text-decoration: none;">
+                            {$lang.footinfo_email}
+                        </a>
                     </li>
                     </if>
                 </ul>
             </div>
         </div>
 
+        <!-- 友情链接 -->
+        <tag action='link.list'></tag>
+        <if value="$lang['link_ok'] && $sub">
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding: 16px 0; text-align: center; margin-top: 16px;">
+            <list data="$result" name="$v">
+            <a href="{$v.weburl}" {$v.nofollow} target="_blank" style="color: rgba(255,255,255,0.4); font-size: 13px; margin: 0 10px; text-decoration: none;">{$v.webname}</a>
+            </list>
+        </div>
+        </if>
+
         <!-- 页脚底部 -->
         <div class="footer-bottom">
             <p style="margin-bottom: 10px;">
-                © 2024 {$lang.company_name}. All Rights Reserved.
+                {$c.met_footright}
             </p>
-            <if value="$lang.copyright">
-                <p style="color: rgba(255,255,255,0.5); font-size: 12px;">
-                    {$lang.copyright}
+            <if value="$c['met_foottel']">
+                <p style="margin-bottom: 10px;">
+                    {$c.met_foottel}
                 </p>
             </if>
-            <if value="$lang.icp">
+            <if value="$c['met_footother']">
                 <p style="color: rgba(255,255,255,0.5); font-size: 12px;">
-                    <a href="https://beian.miit.gov.cn" target="_blank" style="color: rgba(255,255,255,0.5); text-decoration: none;">
-                        {$lang.icp}
-                    </a>
+                    {$c.met_footother}
                 </p>
             </if>
         </div>
