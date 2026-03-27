@@ -688,3 +688,38 @@ a:hover { color: var(--color-primary-dark); }
 .justify-content-center { justify-content: center; }
 .mt-lg { margin-top: var(--space-lg); }
 .mb-lg { margin-bottom: var(--space-lg); }
+
+/* ========== 导航深蓝色主题修正 ========== */
+.met-nav.navbar { min-height: 60px; }
+.met-nav .nav-link,
+.met-nav .navlist > .nav-item > a { color: #fff !important; }
+.met-nav .nav-link:hover,
+.met-nav .navlist > .nav-item > a:hover { color: #90CAF9 !important; background: rgba(255,255,255,0.1); }
+.met-nav .nav-link.active { color: #fff !important; border-bottom: 3px solid #FFB81C; }
+.met-nav .hamburger-bar { background: #fff !important; }
+.met-nav .navbar-toggler .hamburger-bar { background: #fff; }
+/* Logo在深蓝导航上可见 */
+.met-nav .met-logo .pclogo { display: block; }
+.met-nav .met-logo .mblogo { display: none; }
+@media (max-width: 767px) {
+  .met-nav .met-logo .pclogo { display: none; }
+  .met-nav .met-logo .mblogo { display: block; }
+}
+/* 下拉菜单白色背景 */
+.met-nav .dropdown-menu { background: #fff; border: none; box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+.met-nav .dropdown-item { color: #333; }
+.met-nav .dropdown-item:hover { background: #EFF6FF; color: #1565C0; }
+.met-nav .dropdown-item.active { color: #1565C0; background: #EFF6FF; }
+
+/* ========== 二维码弹窗隐藏（默认） ========== */
+#epgo-qr-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 9999; align-items: center; justify-content: center; }
+#epgo-qr-modal.show { display: flex !important; }
+.epgo-modal-box { background: #fff; border-radius: 12px; padding: 36px 32px;
+  text-align: center; position: relative; max-width: 360px; width: 90%; }
+.epgo-modal-close { position: absolute; top: 12px; right: 16px; background: none;
+  border: none; font-size: 24px; cursor: pointer; color: #999; line-height: 1; }
+.epgo-modal-close:hover { color: #333; }
+.epgo-modal-sub { color: #888; font-size: 14px; margin: 4px 0 16px; }
+.epgo-modal-qr img { width: 170px; height: 170px; border-radius: 6px; }
+.epgo-modal-hint { color: #aaa; font-size: 12px; margin-top: 12px; }
