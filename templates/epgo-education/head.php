@@ -1,4 +1,4 @@
-<met_meta page="$met_meta" />
+<met_meta page="$met_page" />
 <header class='met-head' m-id='met_head' m-type="head_nav">
     <nav class="navbar navbar-default box-shadow-none met-nav" style="background:#1565C0;">
         <div class="container">
@@ -22,7 +22,7 @@
                     </div>
                     <button type="button" class="navbar-toggler hamburger hamburger-close collapsed p-x-5 p-y-0 met-nav-toggler" data-target="#met-nav-collapse" data-toggle="collapse">
                         <span class="sr-only"></span>
-                        <span class="hamburger-bar" style="background:#fff;"></span>
+                        <span class="hamburger-bar"></span>
                     </button>
                 </div>
 
