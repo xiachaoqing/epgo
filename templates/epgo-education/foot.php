@@ -1,141 +1,119 @@
 <?php defined('IN_MET') or exit('No permission'); ?>
-<footer class="met-foot" style="background:#2C3E50; color:rgba(255,255,255,0.75);">
-    <div class="container">
-        <!-- 页脚内容 3列布局 -->
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; padding:40px 0;
-                    border-bottom:1px solid rgba(255,255,255,0.1);">
+<footer class='met-foot-info border-top1' m-id='met_foot' m-type="foot">
+    <div class="met-footnav p-b-20" m-id='noset' m-type='foot_nav'>
+        <div class="container">
+            <div class="row mob-masonry">
 
-            <!-- 特色功能 -->
-            <div class="footer-col" style="color:rgba(255,255,255,0.75);">
-                <h4 style="color:#fff; font-size:14px; font-weight:600; margin:0 0 14px 0;">特色功能</h4>
-                <ul style="list-style:none; padding:0; margin:0;">
-                    <tag action='category' type='head' num='4'>
-                    <li style="margin-bottom:8px;">
-                        <a href="{$m.url}" title="{$m.name}"
-                           style="color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none; transition:color 0.3s;">
-                            {$m._name}
-                        </a>
-                    </li>
-                    </tag>
-                    <li style="margin-bottom:8px;">
-                        <a href="#" style="color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none; transition:color 0.3s;">
-                            网站地图
-                        </a>
-                    </li>
-                    <li style="margin-bottom:8px;">
-                        <a href="#" style="color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none; transition:color 0.3s;">
-                            聚合标签
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" style="color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none; transition:color 0.3s;">
-                            站内搜索
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- 关注我们 -->
-            <div class="footer-col" style="text-align:center;">
-                <h4 style="color:#fff; font-size:14px; font-weight:600; margin:0 0 14px 0;">关注我们</h4>
-                <div style="display:flex; justify-content:center; align-items:center; flex-direction:column;">
-                    <if value="$lang['footinfo_wx']">
-                    <img src="{$lang.footinfo_wx}" alt="{$c.met_webname}"
-                         style="width:130px; height:130px; border-radius:4px; margin-bottom:10px;">
-                    <p style="color:rgba(255,255,255,0.5); font-size:12px; margin:0;">
-                        <if value="$lang['erweima_one']">{$lang.erweima_one}<else/>扫码关注公众号</if>
-                    </p>
-                    <else/>
-                    <div style="width:130px; height:130px; background:rgba(255,255,255,0.1); border-radius:4px;
-                                display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.3); font-size:12px; margin-bottom:10px;">
-                        二维码待配置
-                    </div>
-                    </if>
+                <!-- 特色功能（栏目导航） -->
+                <div class="col-lg-3 col-md-3 col-xs-12 masonry-item foot-nav">
+                    <h4 class='font-size-20 m-t-0'>特色功能</h4>
+                    <ul class='ulstyle m-b-0'>
+                        <tag action='category' type='foot'>
+                        <if value="$m['_index'] lt 3">
+                        <li>
+                            <a href="{$m.url}" title="{$m.name}">{$m.name}</a>
+                        </li>
+                        </if>
+                        </tag>
+                        <li><a href="{$url.site}sitemap/">网站地图</a></li>
+                        <li><a href="{$url.site}tags/">聚合标签</a></li>
+                        <li><a href="{$url.site}search/">站内搜索</a></li>
+                    </ul>
                 </div>
-            </div>
 
-            <!-- 联系我们 -->
-            <div class="footer-col" style="color:rgba(255,255,255,0.75);">
-                <h4 style="color:#fff; font-size:14px; font-weight:600; margin:0 0 14px 0;">联系我们</h4>
-                <div style="font-size:13px;">
+                <!-- 占位 -->
+                <div class="col-lg-3 col-md-3 col-xs-12 masonry-item"></div>
+
+                <!-- 关注我们二维码 -->
+                <div class="col-lg-3 col-md-3 col-xs-12 info masonry-item" m-type="nocontent">
+                    <h4 class='font-size-20 m-t-0'>关注我们</h4>
+                    <div class="erweima">
+                        <div class="imgbox1">
+                            <if value="$lang['footinfo_wx']">
+                                <img src='{$lang.footinfo_wx}' alt='{$c.met_webname}' style="width:130px;height:130px;">
+                            </if>
+                            <p class="weixintext">
+                                <if value="$lang['erweima_one']">{$lang.erweima_one}<else/>关注公众号</if>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 联系我们 -->
+                <div class="col-lg-3 col-md-3 col-xs-12 info masonry-item font-size-20" m-id='met_contact' m-type="nocontent">
+                    <h4 class='font-size-20 m-t-0'>联系我们</h4>
                     <if value="$lang['footinfo_tel']">
-                    <p style="margin:0 0 10px 0; color:rgba(255,255,255,0.6);">
-                        <i class="fa fa-phone" style="margin-right:6px; width:16px; text-align:center;"></i>
-                        {$lang.footinfo_tel}
-                    </p>
+                        <p class='font-size-20'>{$lang.footinfo_tel}</p>
                     </if>
                     <if value="$lang['footinfo_dsc']">
-                    <p style="margin:0 0 10px 0; color:rgba(255,255,255,0.6);">
-                        <i class="fa fa-mobile" style="margin-right:6px; width:16px; text-align:center;"></i>
-                        {$lang.footinfo_dsc}
-                    </p>
-                    </if>
-                    <if value="$lang['footinfo_email']">
-                    <p style="margin:0 0 10px 0; color:rgba(255,255,255,0.6);">
-                        <i class="fa fa-envelope" style="margin-right:6px; width:16px; text-align:center;"></i>
-                        <a href="mailto:{$lang.footinfo_email}"
-                           style="color:rgba(255,255,255,0.6); text-decoration:none; transition:color 0.3s;">
-                            {$lang.footinfo_email}
-                        </a>
-                    </p>
+                        <p class="font-size-24">
+                            <a href="tel:{$lang.footinfo_dsc}" title="{$lang.footinfo_dsc}">{$lang.footinfo_dsc}</a>
+                        </p>
                     </if>
                     <if value="$lang['wooktime_text']">
-                    <p style="margin:0; color:rgba(255,255,255,0.5); font-size:12px;">
-                        <i class="fa fa-clock-o" style="margin-right:6px; width:16px; text-align:center;"></i>
-                        {$lang.wooktime_text}
-                    </p>
+                        <p class="font-size-16 weekbox">{$lang.wooktime_text}</p>
+                    </if>
+                    <if value="$lang['footinfo_wx_ok']">
+                        <a class="p-r-5" id="met-weixin" data-plugin="webuiPopover" data-trigger="hover" data-animation="pop" data-placement='top' data-width='155' data-padding='0'
+                           data-content="<div class='text-xs-center'><img src='{$lang.footinfo_wx}' alt='{$c.met_webname}' width='150' height='150'></div>">
+                            <i class="fa fa-weixin"></i>
+                        </a>
                     </if>
                 </div>
+
             </div>
-
         </div>
+    </div>
 
-        <!-- 友情链接 -->
-        <tag action='link.list'></tag>
-        <if value="$lang['link_ok'] && $sub">
-        <div style="padding:12px 0; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1);">
-            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;">
-                <span style="color:rgba(255,255,255,0.4); font-size:12px;">友情链接：</span>
+    <!-- 友情链接 -->
+    <tag action='link.list'></tag>
+    <if value="$lang['link_ok'] && $sub">
+    <div class="met-link text-xs-center p-y-10" m-id='noset' m-type='link'>
+        <div class="container">
+            <ul class="breadcrumb p-0 link-img m-0">
+                <li class='breadcrumb-item'>{$lang.footlink_title} :</li>
                 <list data="$result" name="$v">
-                    <a href="{$v.weburl}" title="{$v.info}" {$v.nofollow} target="_blank"
-                       style="color:rgba(255,255,255,0.4); font-size:12px; text-decoration:none; transition:color 0.3s;">
-                        {$v.webname}
-                    </a>
+                    <li class='breadcrumb-item'>
+                        <a href="{$v.weburl}" title="{$v.info}" {$v.nofollow} target="_blank">
+                            <if value="$v.link_type eq 1">
+                                <img data-original="{$v.weblogo}" alt="{$v.info}" height='40'>
+                            <else/>
+                                <span>{$v.webname}</span>
+                            </if>
+                        </a>
+                    </li>
                 </list>
-            </div>
+            </ul>
         </div>
-        </if>
+    </div>
+    </if>
 
-        <!-- 版权信息 -->
-        <div style="padding:16px 0; text-align:center; color:rgba(255,255,255,0.4); font-size:12px;">
-            <if value="$c['met_footright']">
-                <p style="margin:0 0 4px 0;">{$c.met_footright}</p>
+    <!-- 版权信息 -->
+    <div class="copy p-y-10 border-top1">
+        <div class="container text-xs-center">
+            <if value="$c['met_footright'] || $c['met_footstat']">
+                <div class="met_footright">
+                    <span>{$c.met_footright}</span>
+                    <if value="$c['met_foottel']"><span>&nbsp;{$c.met_foottel}</span></if>
+                    <if value="$c['met_footaddress']"><span>&nbsp;{$c.met_footaddress}</span></if>
+                </div>
             </if>
-            <if value="$c['met_foottel']">
-                <p style="margin:0 0 4px 0;">{$c.met_foottel}</p>
-            </if>
-            <if value="$c['met_footother']">
-                <p style="margin:0 0 4px 0;">{$c.met_footother}</p>
-            </if>
-            <if value="$c['met_foottext']">
-                <p style="margin:0;">{$c.met_foottext}</p>
-            </if>
+            <if value="$c['met_footother']"><div>{$c.met_footother}</div></if>
+            <if value="$c['met_foottext']"><div>{$c.met_foottext}</div></if>
         </div>
     </div>
 </footer>
 
-<!-- 移动端底部菜单 -->
 <div class="met-menu-list text-xs-center <if value="$_M['form']['pageset']">iskeshi</if>" m-id="noset" m-type="menu">
     <div class="main">
         <tag action="menu.list">
-        <div style="background-color: {$v.but_color};">
-            <a href="{$v.url}" class="item" <if value="$v['target']">target="_blank"</if> style="color: {$v.text_color};">
-                <i class="{$v.icon}"></i>
-                <span>{$v.name}</span>
-            </a>
-        </div>
+            <div style="background-color: {$v.but_color};">
+                <a href="{$v.url}" class="item" <if value="$v['target']">target="_blank"</if> style="color: {$v.text_color};">
+                    <i class="{$v.icon}"></i>
+                    <span>{$v.name}</span>
+                </a>
+            </div>
         </tag>
     </div>
 </div>
-
 <met_foot />
