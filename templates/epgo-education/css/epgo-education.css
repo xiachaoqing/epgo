@@ -756,3 +756,9 @@ a:hover { color: var(--color-primary-dark); }
   transform: translateX(-50%);
   width: 60%; height: 3px; background: #1565C0; border-radius: 2px 2px 0 0;
 }
+
+/* ========== 隐藏框架空banner（首页用自定义banner） ========== */
+/* index.php已有自定义banner(epgo-banner-wrap)，框架met-banner会产生灰色空白 */
+.met-banner { display: none !important; }
+/* 内页的met-banner-ny（栏目标题蓝色背景）保留 */
+.met-banner-ny { display: flex !important; }
