@@ -698,12 +698,12 @@ a:hover { color: var(--color-primary-dark); }
 .met-nav .nav-link.active { color: #fff !important; border-bottom: 3px solid #FFB81C; }
 .met-nav .hamburger-bar { background: #fff !important; }
 .met-nav .navbar-toggler .hamburger-bar { background: #fff; }
-/* Logo在深蓝导航上可见 */
-.met-nav .met-logo .pclogo { display: block; }
-.met-nav .met-logo .mblogo { display: none; }
+/* Logo在深蓝导航上可见 —— !important 覆盖metinfo.css里的display:none */
+.met-nav .met-logo .pclogo { display: block !important; }
+.met-nav .met-logo .mblogo { display: none !important; }
 @media (max-width: 767px) {
-  .met-nav .met-logo .pclogo { display: none; }
-  .met-nav .met-logo .mblogo { display: block; }
+  .met-nav .met-logo .pclogo { display: none !important; }
+  .met-nav .met-logo .mblogo { display: block !important; }
 }
 /* 下拉菜单白色背景 */
 .met-nav .dropdown-menu { background: #fff; border: none; box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
@@ -760,5 +760,5 @@ a:hover { color: var(--color-primary-dark); }
 /* ========== 隐藏框架空banner（首页用自定义banner） ========== */
 /* index.php已有自定义banner(epgo-banner-wrap)，框架met-banner会产生灰色空白 */
 .met-banner { display: none !important; }
-/* 内页的met-banner-ny（栏目标题蓝色背景）保留 */
-.met-banner-ny { display: flex !important; }
+/* 内页met-banner-ny（栏目蓝色背景标题）也隐藏，news.php已有自定义epgo-category-header */
+.met-banner-ny { display: none !important; }
