@@ -1,142 +1,203 @@
-<?php defined('IN_MET') or exit('No permission'); ?><!DOCTYPE html>
-<html lang="{$g.lang}">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <met_meta page="$met_page" />
-<link rel="stylesheet" href="{$metui_url2}vendor/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="{$metui_url3}fonts/iconfont/iconfont.css">
-<link rel="stylesheet" href="{$template_url}css/epgo-education.css?v=2026032201">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313" crossorigin="anonymous"></script>
-<if value="$_M['html']['css']">
-<list data="$_M['html']['css']" name="$v">
-<link rel="stylesheet" href="{$v}">
-</list>
-</if>
-{$g.head}
-</head>
-<body>
 
-<!-- 顶部导航 -->
-<nav class="met-head navbar navbar-expand-md" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" href="{$c.index_url}" title="{$c.met_webname}">
-            <if value="$c['met_logo']">
-                <img src="{$c.met_logo}" alt="{$c.met_webname}" height="40">
-            <else/>
-                <span class="brand-text">英语陪跑GO</span>
-            </if>
-        </a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu">
-            <span class="hamburger-bar"></span>
-            <span class="hamburger-bar"></span>
-            <span class="hamburger-bar"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav ml-auto align-items-center">
-                <li class="nav-item">
-                    <a href="{$c.index_url}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">{$word.home}</a>
-                </li>
-                <tag action='category' type='head' class='active'>
-                <if value="$m['sub']">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {$m.class}" href="{$m.url}" data-toggle="dropdown">{$m._name}</a>
-                    <div class="dropdown-menu">
-                        <tag action='category' cid="$m['id']" type='son' class='active'>
-                        <a class="dropdown-item {$m.class}" href="{$m.url}">{$m._name}</a>
-                        </tag>
-                    </div>
-                </li>
-                <else/>
-                <li class="nav-item">
-                    <a class="nav-link {$m.class}" href="{$m.url}">{$m._name}</a>
-                </li>
-                </if>
-                </tag>
-                <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link nav-wechat" onclick="epgoEducation.showQRCode()">
-                        <i class="icon wb-share"></i> 公众号
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- 内页Banner（首页不显示）-->
-<if value="$data['classnow'] neq 10001">
-<tag action='category' type='current' cid="$data['classnow']">
-<div class="inner-banner">
-    <div class="container">
-        <h1 class="inner-banner-title">{$m.name}</h1>
-        <nav class="breadcrumb-nav" aria-label="breadcrumb">
-            <a href="{$c.index_url}">{$word.home}</a>
-            <span class="sep">›</span>
-            <span>{$m.name}</span>
-        </nav>
-    </div>
-</div>
-</tag>
-</if>
-
-<!-- 二维码弹窗 -->
-<div id="qrcode-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:2000; align-items:center; justify-content:center; backdrop-filter:blur(2px);">
-    <div class="qrcode-modal-content">
-        <span onclick="epgoEducation.closeQRCode()" class="qrcode-close">&times;</span>
-        <h3 style="margin-bottom:4px;">英语陪跑GO</h3>
-        <p style="color:#999; font-size:14px; margin-bottom:16px;">扫码关注公众号</p>
-        <div style="background:#f7f8fa; padding:10px; border-radius:10px; display:inline-block;">
-            <if value="$lang['wechat_qrcode']">
-                <img src="{$lang.wechat_qrcode}" alt="英语陪跑GO公众号" style="width:200px; height:200px; display:block;">
-            <else/>
-                <div style="width:200px; height:200px; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:13px;">二维码待配置</div>
-            </if>
-        </div>
-        <p style="margin-top:12px; font-size:13px; color:#999;">长按识别二维码关注</p>
-    </div>
-</div>
-
+<!-- 微信分享SDK和样式优化 -->
+<script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <style>
-/* 弹窗样式 */
-#qrcode-modal { display: none; }
-#qrcode-modal.show { display: flex !important; }
-.qrcode-modal-content {
-    background: #fff;
-    padding: 36px 32px;
-    border-radius: 16px;
-    text-align: center;
-    position: relative;
-    width: 320px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-    animation: slideUp .3s ease;
+/* 快速响应式修复 */
+html { font-size: 16px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+
+/* Logo修复 - 彻底去掉四个角的黑点/边框 */
+.met-logo,
+.met-logo .vertical-align,
+.met-logo .vertical-align-middle {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  text-decoration: none !important;
 }
-.qrcode-close {
-    position: absolute; top: 14px; right: 18px;
-    font-size: 24px; cursor: pointer; color: #bbb; line-height: 1;
+.met-logo img {
+  max-height: 48px;
+  width: auto;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  display: block;
 }
-.qrcode-close:hover { color: #333; }
-/* 导航hamburger */
-.hamburger-bar {
-    display: block; width: 22px; height: 2px;
-    background: #333; margin: 5px 0; transition: .3s;
+/* MetInfo框架有时给 .vertical-align 加outline */
+.vertical-align:focus,
+.met-logo:focus { outline: none !important; }
+/* 去掉图片自带的尖角控制点（浏览器selection handle） */
+img::selection { background: transparent; }
+
+/* 导航栏优化 */
+.met-nav {
+  background: linear-gradient(90deg, #1e40af 0%, #1d4ed8 100%);
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 10px 0 !important;
 }
-/* 内页banner */
-.inner-banner {
-    background: linear-gradient(135deg, #1565C0 0%, #1E88E5 100%);
-    padding: 48px 0 36px;
-    color: #fff;
+
+/* 导航链接样式 */
+.nav-link {
+  color: white !important;
+  font-weight: 500;
+  padding: 8px 16px !important;
+  margin: 0 2px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
-.inner-banner-title { font-size: 28px; font-weight: 700; margin-bottom: 10px; color: #fff; }
-.breadcrumb-nav { font-size: 14px; color: rgba(255,255,255,0.8); }
-.breadcrumb-nav a { color: rgba(255,255,255,0.8); text-decoration: none; }
-.breadcrumb-nav a:hover { color: #fff; }
-.breadcrumb-nav .sep { margin: 0 8px; }
-.brand-text { font-size: 20px; font-weight: 700; color: var(--color-primary); }
-/* dropdown */
-.met-head .dropdown-menu { border:1px solid #eee; box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-radius:10px; padding:6px; }
-.met-head .dropdown-item { border-radius:6px; padding:8px 14px; font-size:14px; color:#333; }
-.met-head .dropdown-item:hover { background: var(--color-primary-light); color: var(--color-primary); }
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.2);
+  color: white !important;
+}
+
+.nav-link.active {
+  background: rgba(255,255,255,0.3);
+  color: white !important;
+}
+
+/* 下拉菜单现代化 */
+.dropdown-menu {
+  background: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  padding: 8px 0 !important;
+  min-width: 200px;
+  animation: dropdownSlideDown 0.2s ease;
+}
+
+@keyframes dropdownSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-menu li {
+  padding: 0 !important;
+}
+
+.dropdown-menu a {
+  color: #374151 !important;
+  padding: 10px 20px !important;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background: #eff6ff;
+  color: #1e40af !important;
+  padding-left: 24px !important;
+}
+
+/* 移动端响应式处理 */
+@media (max-width: 768px) {
+  html { font-size: 14px; }
+  .navbar { padding: 10px 0; }
+  .met-nav-btn .navbar-header { width: 80%; }
+  .container { padding: 0 15px; }
+
+  .nav-link {
+    padding: 6px 12px !important;
+  }
+}
+
+/* 内容安全策略 */
+img { max-width: 100%; height: auto; }
 </style>
+<header class='met-head' m-id='met_head' m-type="head_nav">
+    <nav class="navbar navbar-default met-nav">
+        <div class="container">
+            <div class="row">
+                <div class='met-nav-btn'>
+                    <if value="$data['classnow'] eq 10001">
+                    <h1 hidden>{$c.met_webname}</h1>
+                    <else/>
+                    <if value="!$data['id'] || $data['module'] eq 1">
+                    <h1 hidden>{$data.name}</h1>
+                    </if>
+                    <h3 hidden>{$c.met_webname}</h3>
+                    </if>
+
+                    <div class="navbar-header pull-xs-left">
+                        <a href="{$c.index_url}" class="met-logo vertical-align block pull-xs-left" title="{$c.met_logo_keyword}">
+                            <div class="vertical-align-middle">
+                                <if value="$c['met_mobile_logo']">
+                                    <img src="{$c.met_mobile_logo}" alt="{$c.met_logo_keyword}" class="mblogo" />
+                                    <img src="{$c.met_logo}" alt="{$c.met_logo_keyword}" class="pclogo" />
+                                    <else/>
+                                    <img src="{$c.met_logo}" alt="{$c.met_logo_keyword}" class="mblogo" />
+                                    <img src="{$c.met_logo}" alt="{$c.met_logo_keyword}" class="pclogo" />
+                                </if>
+                            </div>
+                        </a>
+                    </div>
+
+                    <button type="button" class="navbar-toggler hamburger hamburger-close collapsed p-x-5 p-y-0 met-nav-toggler" data-target="#met-nav-collapse" data-toggle="collapse">
+                        <span class="sr-only"></span>
+                        <span class="hamburger-bar"></span>
+                    </button>
+                </div>
+
+                <div class="navbar-collapse-toolbar pull-md-right p-0 collapse" id="met-nav-collapse">
+                    <ul class="nav navbar-nav navlist">
+                        <li class='nav-item'>
+                            <a href="{$c.index_url}" title="网站首页" class="nav-link <if value="$data['classnow'] eq 10001">
+                            active
+                            </if>">网站首页</a>
+                        </li>
+
+                        <!-- KET备考 -->
+                        <li class="nav-item dropdown">
+                            <a href="{$c.index_url}ket/" title="KET备考" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">KET备考</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{$c.index_url}ket-exam/" title="KET真题解析">KET真题解析</a></li>
+                                <li><a href="{$c.index_url}ket-word/" title="KET词汇速记">KET词汇速记</a></li>
+                                <li><a href="{$c.index_url}ket-write/" title="KET写作指导">KET写作指导</a></li>
+                                <li><a href="{$c.index_url}ket-listen/" title="KET听力技巧">KET听力技巧</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- PET备考 -->
+                        <li class="nav-item dropdown">
+                            <a href="{$c.index_url}pet/" title="PET备考" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PET备考</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{$c.index_url}pet-exam/" title="PET真题解析">PET真题解析</a></li>
+                                <li><a href="{$c.index_url}pet-word/" title="PET词汇速记">PET词汇速记</a></li>
+                                <li><a href="{$c.index_url}pet-write/" title="PET写作指导">PET写作指导</a></li>
+                                <li><a href="{$c.index_url}pet-read/" title="PET阅读技巧">PET阅读技巧</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- 其他栏目 -->
+                        <li class="nav-item">
+                            <a href="{$c.index_url}reading/" title="英语阅读" class="nav-link">英语阅读</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{$c.index_url}speech/" title="英语演讲" class="nav-link">英语演讲</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{$c.index_url}daily/" title="每日英语" class="nav-link">每日英语</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{$c.index_url}download/" title="资料下载" class="nav-link">资料下载</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{$c.index_url}about/" title="关于我们" class="nav-link">关于我们</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
