@@ -849,3 +849,45 @@ html {
     font-size: 13px !important;
   }
 }
+
+/* ============================================================
+   手机菜单颜色优化 (2026-03-21)
+   ============================================================ */
+.met-menu-list .main div a {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  transition: all 0.3s ease !important;
+}
+
+.met-menu-list .main div a:hover {
+  color: #ffffff !important;
+}
+
+.met-menu-list .main div a span {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.3s ease;
+}
+
+.met-menu-list .main div a:hover span {
+  color: #ffffff !important;
+}
+
+/* 菜单项悬停效果 */
+.met-menu-list .main div {
+  transition: all 0.3s ease;
+}
+
+.met-menu-list .main div:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* 菜单文字和图标颜色统一 */
+.met-menu-list .main div a i {
+  color: rgba(255, 255, 255, 0.9) !important;
+  transition: color 0.3s ease;
+}
+
+.met-menu-list .main div a:hover i {
+  color: #ffffff !important;
+}
