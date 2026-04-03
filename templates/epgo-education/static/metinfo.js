@@ -27,13 +27,12 @@
     });
 
     // PC端导航 hover 展开下拉菜单（替代 bootstrap-hover-dropdown 插件）
+    // basic.css 用 Bootstrap 3 风格：父元素加 .open 类展开 .dropdown-menu
     if(M.device_type=='d'){
         $('.met-nav .nav-item.dropdown').on('mouseenter', function(){
-            $(this).addClass('show');
-            $(this).find('> .dropdown-menu').addClass('show');
+            $(this).addClass('open');
         }).on('mouseleave', function(){
-            $(this).removeClass('show');
-            $(this).find('> .dropdown-menu').removeClass('show');
+            $(this).removeClass('open');
         });
     }
 
