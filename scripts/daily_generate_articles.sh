@@ -1,281 +1,159 @@
 #!/bin/bash
-# hanhong 网站文章每日自动生成脚本
-# 功能: 每天自动生成高质量文章，无需人工干预
-# 使用: 配置到 crontab，每天自动执行
+# epgo 网站文章每日自动生成脚本
+# 数据库: epgo_db, 表前缀: ep_
+# crontab: 0 8 * * * /www/wwwroot/go.xiachaoqing.com/scripts/daily_generate_articles.sh
 
-set -e
-
-# 配置
 DB_HOST="127.0.0.1"
-DB_USER="hanhong"
+DB_USER="xiachaoqing"
 DB_PASS="***REMOVED***"
-DB_NAME="hanhong"
-LOG_FILE="/var/log/hanhong_article_gen.log"
+DB_NAME="epgo_db"
+LOG_FILE="/var/log/epgo_article_gen.log"
 
-# 颜色输出
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"; }
 
-# 日志函数
-log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
-}
+# 栏目 ID 映射
+# 101=KET备考  102=PET备考  103=英语阅读  104=英语演讲  105=每日英语
+# 111=KET真题  112=KET词汇  113=KET写作  114=KET听力
+# 121=PET真题  122=PET词汇  123=PET写作  124=PET阅读
 
-log_success() {
-    echo -e "${GREEN}[$(date '+%Y-%m-%d %H:%M:%S')] ✓ $1${NC}" | tee -a "$LOG_FILE"
-}
-
-log_error() {
-    echo -e "${RED}[$(date '+%Y-%m-%d %H:%M:%S')] ✗ $1${NC}" | tee -a "$LOG_FILE"
-}
-
-# ========== 文章模板库 ==========
-# 根据日期循环生成不同类型的文章，每天3-5篇
-
-generate_daily_articles() {
-    local day=$(date +%d)
-    local month=$(date +%m)
-    local today=$(date +%Y-%m-%d)
-
-    log "【开始生成每日文章】 $today"
-
-    # 计算今天应该生成的文章组合
-    local article_group=$((($day % 10)))
-
-    case $article_group in
-        0)
-            # 产品系列文章
-            insert_article "MR-707系列产品深度对标：为什么这款产品最适合中小企业" \
-                "MR-707,中小企业,产品对标,选型" \
-                "深度分析MR-707为何是中小企业的首选" \
-                "MR-707系列产品凭借其高性价比和可靠性，成为中小企业的首选。本文从产品设计、性能指标、应用案例等多个维度进行深度对标分析..."
-
-            insert_article "MR-808智能保护器的5个必知特性" \
-                "MR-808,智能保护,特性,功能" \
-                "详解MR-808的5个核心智能特性" \
-                "MR-808系列智能保护器具有5个必知的核心特性，包括云平台集成、远程诊断、数据分析、预测维护和智能告警..."
-
-            insert_article "为什么选MR-807而不是普通保护器" \
-                "MR-807,对比,选择理由,优势" \
-                "MR-807相比普通保护器的竞争优势" \
-                "与传统的空气开关和普通保护器相比，MR-807具有显著的优势..."
-            ;;
-        1)
-            # 行业应用系列
-            insert_article "石油行业采用MR-808后的真实效果报告" \
-                "石油,MR-808,效果,案例" \
-                "石油企业使用MR-808的实际效果" \
-                "某大型石油企业部署MR-808系列保护器后，故障率从12%降至2.5%，维修成本节省60%..."
-
-            insert_article "纺织工业电机保护的最优方案" \
-                "纺织,电机保护,最优方案,应用" \
-                "纺织行业的电机保护解决方案" \
-                "纺织机械因负载变化频繁，对保护器的智能识别能力要求最高。本文介绍最优的部署方案..."
-
-            insert_article "食品加工行业的卫生级电机保护要求" \
-                "食品加工,卫生,电机保护,要求" \
-                "食品行业的特殊保护需求" \
-                "食品加工行业对电机保护有特殊的卫生和安全要求..."
-            ;;
-        2)
-            # 技术知识系列
-            insert_article "电机绝缘老化的科学监测方法" \
-                "绝缘老化,监测,诊断,技术" \
-                "科学的绝缘老化监测方法" \
-                "电机绝缘老化是无声的杀手。通过科学的监测方法，可以提前预测绝缘寿命..."
-
-            insert_article "谐波对电机的危害及保护策略" \
-                "谐波,危害,保护,策略" \
-                "谐波问题和应对方案" \
-                "现代电网中的谐波污染对电机运行造成严重威胁。本文详解谐波危害和防护策略..."
-
-            insert_article "三相不平衡的识别和处理方案" \
-                "三相不平衡,识别,处理,方案" \
-                "三相不平衡问题解决" \
-                "三相电源不平衡是常见的电网问题，会严重影响电机运行..."
-            ;;
-        3)
-            # FAQ和常见问题
-            insert_article "电机保护器安装最常犯的3个错误" \
-                "安装错误,常见问题,纠正" \
-                "安装过程中的常见错误" \
-                "许多企业在安装电机保护器时都会犯一些常见错误，导致保护效果大打折扣..."
-
-            insert_article "保护器频繁误动作？看这篇就够了" \
-                "误动作,故障排查,解决" \
-                "频繁误动作的原因和解决" \
-                "频繁误动作是最常见的问题。本文列举10个常见原因和对应的解决方案..."
-
-            insert_article "如何判断保护器是否该维修或更换" \
-                "维修,更换,判断标准" \
-                "保护器维护判断标准" \
-                "当保护器出现故障时，是维修还是更换？本文提供科学的判断标准..."
-            ;;
-        4)
-            # 成本和ROI分析
-            insert_article "10年电机保护总成本对比分析" \
-                "成本分析,10年,对比,ROI" \
-                "10年的总成本对比" \
-                "对一台电机的10年全生命周期成本进行深度分析，包括购置、维护、故障等成本..."
-
-            insert_article "一次电机烧损的成本有多高" \
-                "电机烧损,成本,损失" \
-                "电机故障的真实成本" \
-                "一次电机烧损不仅是设备成本，更包括生产中断、人工成本等隐性成本..."
-
-            insert_article "预防性维护vs事后维修的经济学分析" \
-                "预防维护,事后维修,经济学" \
-                "维护策略的经济分析" \
-                "预防性维护虽然前期投入较高，但从长期看成本更低、效益更高..."
-            ;;
-        5)
-            # 数字化和智能化
-            insert_article "工业4.0时代的电机保护新思路" \
-                "工业4.0,数字化,智能化,转型" \
-                "电机保护的数字化转型" \
-                "在工业4.0时代，电机保护也需要进行数字化升级，实现智能化管理..."
-
-            insert_article "大数据分析如何预测电机故障" \
-                "大数据,预测,故障诊断,AI" \
-                "大数据预测电机故障" \
-                "利用大数据和机器学习算法，可以提前数周预测电机可能发生的故障..."
-
-            insert_article "云平台监控系统的部署和应用" \
-                "云平台,监控,部署,应用" \
-                "云平台系统部署" \
-                "云平台让企业可以从任何地点、任何时间监控所有电机的运行状态..."
-            ;;
-        6)
-            # 用户成功故事
-            insert_article "从故障频繁到零停机：一个企业的转变故事" \
-                "成功案例,转变,零停机" \
-                "企业的成功转变" \
-                "某制造企业原来每月有2-3次电机故障，导致生产中断。采用我们的方案后实现零停机..."
-
-            insert_article "节省维修费用200万的秘诀" \
-                "节省,成本,维修费用,秘诀" \
-                "成本节省秘诀" \
-                "某企业通过实施预防性维护计划，3年内节省维修费用200万元..."
-
-            insert_article "员工安全和设备可靠性的双重保障" \
-                "安全,可靠性,保障,员工" \
-                "安全和可靠性保障" \
-                "正确的电机保护不仅保护设备，更保护员工的生命安全..."
-            ;;
-        7)
-            # 对比和选型
-            insert_article "国产vs进口电机保护器的真实对比" \
-                "国产,进口,对比,选择" \
-                "国产与进口对比" \
-                "中国的电机保护器产业已经达到国际先进水平，在某些方面甚至优于进口产品..."
-
-            insert_article "中小企业vs大企业的保护器选型差异" \
-                "中小企业,大企业,选型,差异" \
-                "企业规模与选型" \
-                "不同规模的企业对电机保护器有不同的需求..."
-
-            insert_article "一次性投资vs分步投资哪个更经济" \
-                "一次性,分步,投资,经济" \
-                "投资策略选择" \
-                "企业在部署电机保护系统时需要选择合适的投资策略..."
-            ;;
-        8)
-            # 维护和最佳实践
-            insert_article "电机保护器的日常维护清单" \
-                "日常维护,清单,最佳实践" \
-                "日常维护清单" \
-                "建立一份完整的日常维护清单，可以让保护器始终保持最佳状态..."
-
-            insert_article "电机保护预案和应急流程" \
-                "应急预案,流程,处理" \
-                "应急处理流程" \
-                "当电机发生故障时，需要有完整的应急处理流程确保快速恢复..."
-
-            insert_article "如何建立企业级的电机管理制度" \
-                "管理制度,企业级,规范化" \
-                "企业管理制度" \
-                "大型企业需要建立规范化的电机管理制度..."
-            ;;
-        9)
-            # 教育和培训
-            insert_article "电机保护器操作员培训要点" \
-                "培训,操作,要点,人员" \
-                "操作员培训" \
-                "电机保护器的正确使用需要专业的操作员培训..."
-
-            insert_article "故障诊断技能快速上手指南" \
-                "故障诊断,技能,培训,指南" \
-                "诊断技能指南" \
-                "掌握故障诊断技能，可以大大加快问题解决速度..."
-
-            insert_article "参数设置的完整学习路线" \
-                "参数设置,学习,路线,指南" \
-                "参数设置学习路线" \
-                "电机保护器的参数设置是核心技能..."
-            ;;
-    esac
-
-    # 查询今天生成的文章数
-    local count=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -N -e \
-        "SELECT COUNT(*) FROM hh_news WHERE lang='cn' AND DATE(addtime)='$today';" 2>/dev/null || echo "0")
-
-    log_success "今日生成 $count 篇文章"
-}
-
-# 插入文章到数据库的函数
 insert_article() {
     local title="$1"
     local keywords="$2"
     local description="$3"
     local content="$4"
+    local class1="$5"
+    local class2="${6:-0}"
 
-    mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" << EOF 2>/dev/null
-INSERT INTO hh_news
-(title, keywords, description, content, class1, wap_ok, img_ok, lang, addtime, hits)
+    mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" 2>/dev/null <<EOF
+INSERT INTO ep_news
+(title, keywords, description, content, class1, class2, wap_ok, img_ok, lang, add_time, hits, display)
 VALUES
-('$title', '$keywords', '$description', '$content', 10, 1, 0, 'cn', NOW(), 0);
+('$title', '$keywords', '$description', '$content', $class1, $class2, 1, 0, 'cn', NOW(), FLOOR(RAND()*500+50), 1);
 EOF
-
-    if [ $? -eq 0 ]; then
-        log "✓ 已插入: ${title:0:40}..."
-    else
-        log_error "✗ 插入失败: ${title:0:40}..."
-    fi
+    [ $? -eq 0 ] && log "  ✓ 插入: ${title:0:40}" || log "  ✗ 失败: ${title:0:40}"
 }
 
-# 统计信息
-show_stats() {
-    log "【统计信息】"
-
-    local total=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -N -e \
-        "SELECT COUNT(*) FROM hh_news WHERE lang='cn';" 2>/dev/null)
-
-    local today=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -N -e \
-        "SELECT COUNT(*) FROM hh_news WHERE lang='cn' AND DATE(addtime)=CURDATE();" 2>/dev/null)
-
-    local week=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -N -e \
-        "SELECT COUNT(*) FROM hh_news WHERE lang='cn' AND DATE(addtime)>=DATE_SUB(CURDATE(), INTERVAL 7 DAY);" 2>/dev/null)
-
-    log "  总文章数: $total 篇"
-    log "  今日新增: $today 篇"
-    log "  本周新增: $week 篇"
-}
-
-# 主函数
 main() {
-    log "=========================================="
-    log "hanhong 每日自动生成文章脚本启动"
-    log "=========================================="
+    local day=$(date +%d)
+    local group=$(( day % 7 ))
+    local today=$(date +%Y-%m-%d)
+    log "===== epgo 每日文章生成 [$today group=$group] ====="
 
-    generate_daily_articles
-    show_stats
+    case $group in
+      0)
+        insert_article \
+          "KET真题精讲：2024年最新真题阅读Part3解题思路" \
+          "KET真题,阅读,Part3,解题" \
+          "详解KET阅读Part3的题型特点和高分解题策略" \
+          "<p>KET阅读Part3是配对题，要求考生将人物与描述进行匹配。本文结合2024年最新真题，详细讲解做题思路和注意事项。</p><p>解题步骤：1. 先读问题，圈出关键词；2. 扫读文本，定位信息；3. 注意同义替换，避免原词匹配陷阱。</p>" \
+          111 101
 
-    log_success "=========================================="
-    log_success "脚本执行完成"
-    log_success "=========================================="
+        insert_article \
+          "KET词汇速记：交通出行类100个必考单词" \
+          "KET词汇,交通,单词记忆" \
+          "KET考试交通出行类核心词汇汇总与记忆方法" \
+          "<p>交通出行类词汇是KET考试的高频考点，本文整理100个必考单词，配合例句帮助记忆。</p><p>核心词汇：airport, station, platform, departure, arrival, ticket, boarding pass...</p>" \
+          112 101
+        ;;
+      1)
+        insert_article \
+          "PET写作Part1邮件写作：5个高分模板句型" \
+          "PET写作,邮件,模板,高分" \
+          "PET邮件写作的万能模板句型，覆盖开头、正文、结尾" \
+          "<p>PET写作Part1要求在35-45词内完成邮件写作。掌握以下5个模板句型，轻松拿高分。</p><p>开头：Thank you for your email about... / I am writing to tell you about...</p><p>正文：I would like to... / Could you please...</p><p>结尾：I hope to hear from you soon. / Best wishes,</p>" \
+          123 102
+
+        insert_article \
+          "PET阅读Part5词汇填空：高频考点分类整理" \
+          "PET阅读,词汇,填空,考点" \
+          "PET阅读Part5的词汇考点分类，包含介词、连词、动词短语" \
+          "<p>PET阅读Part5考查词汇和语法，本文按考点类型分类整理高频题目。</p><p>介词搭配：interested in, good at, famous for, rely on...</p>" \
+          124 102
+        ;;
+      2)
+        insert_article \
+          "英语阅读技巧：如何快速定位细节题答案" \
+          "英语阅读,细节题,技巧,速读" \
+          "细节题是英语阅读的必考题型，掌握定位技巧事半功倍" \
+          "<p>细节题要求考生在文章中找到具体信息。关键是学会扫读（scanning）技术，快速锁定答案区域。</p><p>方法：1. 提取问题关键词（时间、地点、数字、人名）；2. 在文章中定位相同或相近词汇；3. 阅读该句上下文验证答案。</p>" \
+          103
+
+        insert_article \
+          "适合中学生的英文原著推荐：从简单到挑战" \
+          "英语阅读,原著,推荐,中学生" \
+          "精选适合KET/PET水平的英文读物，培养阅读兴趣" \
+          "<p>大量阅读是提高英语能力的最有效方式。以下书单根据难度分级，适合KET/PET阶段的同学。</p><p>入门级：《Charlotte's Web》《The Very Hungry Caterpillar》；进阶级：《The BFG》《Charlie and the Chocolate Factory》。</p>" \
+          103
+        ;;
+      3)
+        insert_article \
+          "每日英语 | 今日表达：描述天气的10个地道说法" \
+          "每日英语,天气,表达,口语" \
+          "日常英语中描述天气的地道表达，从简单到丰富" \
+          "<p>天气是日常英语对话中最常见的话题。今天学10个地道表达，告别只会说 'It's sunny'。</p><p>1. It's boiling hot! 热死了！2. It's freezing! 冷死了！3. It's drizzling. 在下毛毛雨。4. There's a light breeze. 有微风。</p>" \
+          105
+
+        insert_article \
+          "每日英语 | 情绪表达：生气、开心、难过怎么说" \
+          "每日英语,情绪,表达,口语" \
+          "英语中描述各种情绪的地道表达方式" \
+          "<p>学好情绪词汇，让你的英语表达更丰富。今天整理常见情绪的地道说法。</p><p>开心：I'm thrilled! / I'm over the moon! 生气：I'm furious. / I'm steaming. 难过：I'm heartbroken. / I'm gutted.</p>" \
+          105
+        ;;
+      4)
+        insert_article \
+          "英语演讲入门：克服上台紧张的5个实用方法" \
+          "英语演讲,紧张,技巧,入门" \
+          "针对初学者的英语演讲紧张感克服方法" \
+          "<p>上台演讲感到紧张是完全正常的。本文介绍5个经过验证的方法，帮助你在英语演讲时更加自信。</p><p>1. 充分准备：熟背开头和结尾；2. 深呼吸：台上先做3次深呼吸；3. 视线技巧：选择几个友善的听众目光接触。</p>" \
+          104
+
+        insert_article \
+          "英语演讲结构：三段式框架让演讲更有条理" \
+          "英语演讲,结构,框架,三段式" \
+          "掌握三段式演讲框架，快速组织英语演讲内容" \
+          "<p>好的演讲结构是成功的一半。最经典的是「告诉他们三次」法则：开头告诉听众你要说什么，中间说，结尾再总结。</p><p>开头：Today I'd like to talk about... First, I'll explain... Then... Finally...</p>" \
+          104
+        ;;
+      5)
+        insert_article \
+          "KET听力Part1图片题：这3类图片差异最容易混淆" \
+          "KET听力,图片题,技巧" \
+          "KET听力Part1图片选择题的易混淆类型和应对方法" \
+          "<p>KET听力Part1要从三张图片中选择正确答案。最容易混淆的三类是：时间类、地点类、物品类。</p><p>应对技巧：听音频前先看图找差异；听到的信息逐一排除；注意否定词（not, don't, can't）。</p>" \
+          114 101
+
+        insert_article \
+          "KET写作Part9小作文：20个万能衔接词" \
+          "KET写作,衔接词,小作文,技巧" \
+          "KET写作Part9使用衔接词，让文章结构更清晰" \
+          "<p>衔接词能让你的KET作文更有逻辑感，是拿高分的关键。以下20个衔接词覆盖所有写作场景。</p><p>顺序：First, Then, After that, Finally; 转折：However, But, Although; 原因：Because, Since, As</p>" \
+          113 101
+        ;;
+      6)
+        insert_article \
+          "PET词汇：B1级别必知的100个动词短语" \
+          "PET词汇,动词短语,B1,必备" \
+          "PET考试B1级别核心动词短语汇总，附例句" \
+          "<p>动词短语（phrasal verbs）是PET词汇的重点和难点。本文整理100个B1级必知动词短语。</p><p>高频词：carry out（执行）、find out（发现）、give up（放弃）、look after（照顾）、pick up（捡起/学会）</p>" \
+          122 102
+
+        insert_article \
+          "PET真题解析：阅读Part4长文章如何快速找主旨" \
+          "PET真题,阅读,主旨题,技巧" \
+          "PET阅读Part4主旨题解题方法详解" \
+          "<p>PET阅读Part4是500词左右的长文章，主旨题是必考题型。掌握以下方法，30秒找到答案。</p><p>方法：1. 先读第一段和最后一段；2. 注意每段第一句（主题句）；3. 归纳共同主题即为文章主旨。</p>" \
+          121 102
+        ;;
+    esac
+
+    # 统计
+    local total=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -Ne \
+        "SELECT COUNT(*) FROM ep_news WHERE lang='cn'" 2>/dev/null)
+    local today_count=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -Ne \
+        "SELECT COUNT(*) FROM ep_news WHERE lang='cn' AND DATE(add_time)=CURDATE()" 2>/dev/null)
+    log "总文章: $total 篇 | 今日新增: $today_count 篇"
+    log "===== 完成 ====="
 }
 
-# 执行主函数
 main

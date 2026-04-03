@@ -1,13 +1,19 @@
 <?php defined('IN_MET') or exit('No permission'); ?>
 <list data="$result" num="$c['met_news_list']" name="$v">
 <li class="epgo-list-item" style="background:white; border-radius:12px; overflow:hidden; margin-bottom:24px; box-shadow:0 2px 8px rgba(0,0,0,0.08); transition:all 0.3s ease; display:flex; flex-direction:row; border:1px solid #E5E7EB;">
-    <if value="$lang['news_imgok'] && $v['imgurl']">
-    <div class="epgo-list-img" style="flex-shrink:0; width:220px; height:160px; overflow:hidden; position:relative; background:#F3F4F6;">
+    <if value="$lang['news_imgok']">
+    <div class="epgo-list-img" style="flex-shrink:0; width:220px; height:160px; overflow:hidden; position:relative; background:#EFF6FF;">
         <a href="{$v.url}" title="{$v.title}" {$g.urlnew} style="display:block; width:100%; height:100%; overflow:hidden;">
+            <if value="$v['imgurl']">
             <img <if value="$v['_index'] gt 3 || $data['page'] gt 1">data-original<else/>src</if>="{$v.imgurl|thumb:220,160}" alt="{$v.title}" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease;">
+            <else/>
+            <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#EFF6FF,#DBEAFE); color:#93C5FD; font-size:40px;">
+                <i class="icon wb-book"></i>
+            </div>
+            </if>
         </a>
         <!-- 分类标签 -->
-        <div style="position:absolute; top:12px; left:12px; background:rgba(0,0,0,0.6); color:white; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; text-transform:uppercase;">
+        <div style="position:absolute; top:12px; left:12px; background:rgba(0,0,0,0.55); color:white; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700;">
             {$v.issue}
         </div>
     </div>
