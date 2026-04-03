@@ -73,6 +73,9 @@ a {
 
 /*头部*/
 /* #region */
+.met-head {
+  background: #1565C0;
+}
 body.met-navfixed {
   padding-top: 60px;
 }
