@@ -77,6 +77,9 @@ a {
   background: #1565C0 !important;
   border-bottom: none !important;
   box-shadow: none !important;
+  height: auto !important;
+  overflow: visible !important;
+  position: relative !important;
 }
 body.met-navfixed {
   padding-top: 60px;
