@@ -81,6 +81,13 @@ a {
   overflow: visible !important;
   position: relative !important;
 }
+/* 强制 logo 在所有屏幕宽度下可见 */
+.met-nav .met-logo .pclogo,
+.met-nav .met-logo .mblogo,
+.met-nav .pclogo,
+.met-nav .mblogo {
+  display: inline-block !important;
+}
 
 /* 修复框架注入 display:block 导致空下拉菜单一直显示 */
 .met-nav .nav-item.dropdown > .dropdown-menu {
@@ -410,7 +417,7 @@ body.met-navfixed {
     /* display: none; */
   }
   .met-nav .pclogo {
-    display: none;
+    display: block;
   }
   .navbar-header.pull-xs-left {
     margin-left: 0.9375rem;
@@ -1216,12 +1223,12 @@ body.met-navfixed {
 /*底部版权信息*/
 /* #region */
 .met-foot-info {
-  background-color: $bg_color$;
+  background-color: #1a2744 !important;
   padding: 20px 0px;
   color: #fff;
   height: auto;
   line-height: 1.8;
-  padding-top: 88px;
+  padding-top: 50px;
 }
 
 .met-foot-info .foot-nav {
