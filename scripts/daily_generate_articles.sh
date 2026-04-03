@@ -26,9 +26,9 @@ insert_article() {
 
     mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" 2>/dev/null <<EOF
 INSERT INTO ep_news
-(title, keywords, description, content, class1, class2, wap_ok, img_ok, lang, addtime, hits, display)
+(title, keywords, description, content, class1, class2, wap_ok, img_ok, lang, addtime, hits)
 VALUES
-('$title', '$keywords', '$description', '$content', $class1, $class2, 1, 0, 'cn', NOW(), FLOOR(RAND()*500+50), 1);
+('$title', '$keywords', '$description', '$content', $class1, $class2, 1, 0, 'cn', NOW(), FLOOR(RAND()*500+50));
 EOF
     [ $? -eq 0 ] && log "  ✓ 插入: ${title:0:40}" || log "  ✗ 失败: ${title:0:40}"
 }
