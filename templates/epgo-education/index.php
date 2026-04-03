@@ -33,7 +33,7 @@ try {
             <?php if($_b['img_des']): ?>
             <p style="font-size:17px;color:rgba(255,255,255,.9);margin:0 0 18px;"><?php echo htmlspecialchars($_b['img_des']); ?></p>
             <?php endif; ?>
-            <a href="<?php echo htmlspecialchars($_b['img_link']); ?>" style="display:inline-block;background:#FDB022;color:#1e3a8a;font-weight:700;padding:11px 26px;border-radius:6px;text-decoration:none;font-size:15px;">立即查看 →</a>
+            <a href="<?php echo htmlspecialchars($_b['img_link']); ?>" style="display:inline-block;background:white;color:#1e3a8a;font-weight:700;padding:11px 26px;border-radius:6px;text-decoration:none;font-size:15px;">立即查看 →</a>
         </div>
         <?php endif; ?>
     </div>
@@ -42,7 +42,7 @@ try {
     <div class="epgo-slide" style="display:block;background:linear-gradient(135deg,#1e3a8a,#2563eb);padding:90px 0;text-align:center;">
         <h1 style="font-size:46px;font-weight:800;color:white;margin:0 0 14px;">英语陪跑GO</h1>
         <p style="font-size:19px;color:rgba(255,255,255,.9);margin:0 0 28px;">专业 KET / PET 备考平台，每天进步一点点</p>
-        <a href="{$c.index_url}ket/" style="display:inline-block;background:#FDB022;color:#1e3a8a;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;margin:0 8px;">KET备考 →</a>
+        <a href="{$c.index_url}ket/" style="display:inline-block;background:white;color:#1e3a8a;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;margin:0 8px;">KET备考 →</a>
         <a href="{$c.index_url}pet/" style="display:inline-block;background:rgba(255,255,255,.18);color:white;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;border:2px solid white;margin:0 8px;">PET备考</a>
     </div>
 <?php endif; ?>
