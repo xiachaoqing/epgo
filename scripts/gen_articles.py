@@ -54,7 +54,6 @@ ARTICLES = [
         'col': 'ket_exam',
         'title': 'KET 2024年真题解析：Reading Part 1完全攻略',
         'content': '''
-        <h2>KET 2024年真题解析：Reading Part 1完全攻略</h2>
         <p>Cambridge English: Key（KET）是剑桥英语认证中的初级水平考试。Reading and Writing部分占总分的50%，而Reading Part 1作为阅读部分的开篇，难度不高但容易出错。</p>
 
         <h3>Part 1 题型介绍</h3>
@@ -98,7 +97,6 @@ E) Near the station
         'col': 'ket_exam',
         'title': 'KET 2024年写作真题详解：Part 2邮件写作',
         'content': '''
-        <h2>KET 2024年写作真题详解：Part 2邮件写作</h2>
         <p>KET的Writing Part 2要求考生写一封约100字的邮件或笔记。这部分考察的是实际英语交流能力和基本的商务写作技能。</p>
 
         <h3>题型分析</h3>
@@ -156,7 +154,6 @@ John Smith
         'col': 'ket_word',
         'title': 'KET考试高频词汇大全：A-L部分',
         'content': '''
-        <h2>KET考试高频词汇大全：A-L部分</h2>
         <p>KET考试要求掌握约1500个单词和短语。其中有一些高频词汇会反复出现在不同题型中。掌握这些词汇是通过考试的基础。</p>
 
         <h3>高频词汇分类</h3>
@@ -244,7 +241,6 @@ John Smith
         'col': 'ket_word',
         'title': '如何快速背诵KET核心短语：短语搭配大全',
         'content': '''
-        <h2>如何快速背诵KET核心短语：短语搭配大全</h2>
         <p>很多考生背单词时忽视了短语（phrasal verbs）和短语搭配（collocations），但这在阅读理解中经常出现。掌握常用短语能大大提升答题速度。</p>
 
         <h3>常用动词短语</h3>
@@ -309,7 +305,6 @@ John Smith
         'col': 'ket_write',
         'title': 'KET写作从0到120分：5个必练题型',
         'content': '''
-        <h2>KET写作从0到120分：5个必练题型</h2>
         <p>KET的Writing部分共120分钟，包含5个不同的写作任务。每个任务有不同的要求和评分标准。掌握每个题型的套路是得分的关键。</p>
 
         <h3>Part 1 - 补全对话</h3>
@@ -394,7 +389,6 @@ John Smith
         'col': 'ket_listen',
         'title': 'KET听力Part 1-4技巧详解：从基础到高分',
         'content': '''
-        <h2>KET听力Part 1-4技巧详解：从基础到高分</h2>
         <p>KET听力考试共40分钟，分为4个部分，考察的是日常生活中的听力理解能力。与阅读不同，听力无法重复听取，所以策略和技巧尤为重要。</p>
 
         <h3>Part 1 - 单句理解</h3>
@@ -462,7 +456,6 @@ John Smith
         'col': 'reading',
         'title': '英文阅读技巧：如何用Skimming和Scanning快速找到答案',
         'content': '''
-        <h2>英文阅读技巧：如何用Skimming和Scanning快速找到答案</h2>
         <p>在英语学习中，阅读速度和理解准确性往往成为学生的痛点。特别是在考试环境下，时间压力会进一步降低理解质量。掌握两种基本的阅读技巧——skimming和scanning——能显著提升阅读效率。</p>
 
         <h3>什么是Skimming（略读）</h3>
@@ -551,7 +544,6 @@ John Smith
         'col': 'reading',
         'title': '英语口语中的日常短语：学会这100个表达，和外国人聊天无压力',
         'content': '''
-        <h2>英语口语中的日常短语：学会这100个表达，和外国人聊天无压力</h2>
         <p>很多学生的英语成绩不错，但一到实际交流就卡壳。这是因为日常口语和考试英语有很大差异。学会常用的日常短语和习语是提高口语能力的快捷方式。</p>
 
         <h3>问候和告别</h3>
