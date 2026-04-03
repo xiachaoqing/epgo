@@ -24,12 +24,13 @@ insert_article() {
     local class1="$5"
     local class2="${6:-0}"
 
-    mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" 2>/dev/null <<EOF
-INSERT INTO ep_news
-(title, keywords, description, content, class1, class2, wap_ok, img_ok, lang, addtime, hits)
-VALUES
-('$title', '$keywords', '$description', '$content', $class1, $class2, 1, 0, 'cn', NOW(), FLOOR(RAND()*500+50));
-EOF
+    # 转义单引号，避免 SQL 注入
+    local t=$(echo "$title"      | sed "s/'/''/g")
+    local k=$(echo "$keywords"   | sed "s/'/''/g")
+    local d=$(echo "$description"| sed "s/'/''/g")
+    local ct=$(echo "$content"   | sed "s/'/''/g")
+    local sql="INSERT INTO ep_news (title,keywords,description,content,class1,class2,wap_ok,img_ok,lang,addtime,hits) VALUES ('$t','$k','$d','$ct',$class1,$class2,1,0,'cn',NOW(),FLOOR(RAND()*500+50))"
+    mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" 2>/dev/null -Ne "$sql"
     [ $? -eq 0 ] && log "  ✓ 插入: ${title:0:40}" || log "  ✗ 失败: ${title:0:40}"
 }
 
