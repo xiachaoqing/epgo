@@ -229,10 +229,10 @@ try {
                     <h3 class="epgo-course-title">KET 备考</h3>
                     <p class="epgo-course-desc">剑桥英语初级认证，适合初中到高中学生，全面覆盖听说读写，从零基础到高分通过。</p>
                     <div class="epgo-course-links">
-                        <a href="{$c.index_url}ket-exam/">真题解析</a>
-                        <a href="{$c.index_url}ket-word/">词汇速记</a>
-                        <a href="{$c.index_url}ket-write/">写作指导</a>
-                        <a href="{$c.index_url}ket-listen/">听力技巧</a>
+                        <a href="{$c.index_url}ket-exam/list-111.html">真题解析</a>
+                        <a href="{$c.index_url}ket-word/list-112.html">词汇速记</a>
+                        <a href="{$c.index_url}ket-write/list-113.html">写作指导</a>
+                        <a href="{$c.index_url}ket-listen/list-114.html">听力技巧</a>
                     </div>
                 </div>
             </div>
@@ -242,10 +242,10 @@ try {
                     <h3 class="epgo-course-title">PET 备考</h3>
                     <p class="epgo-course-desc">剑桥英语中级认证，适合高中到大学学生，国际认可资格证书，提升竞争力必备选择。</p>
                     <div class="epgo-course-links">
-                        <a href="{$c.index_url}pet-exam/">真题解析</a>
-                        <a href="{$c.index_url}pet-word/">词汇速记</a>
-                        <a href="{$c.index_url}pet-write/">写作指导</a>
-                        <a href="{$c.index_url}pet-read/">阅读技巧</a>
+                        <a href="{$c.index_url}pet-exam/list-121.html">真题解析</a>
+                        <a href="{$c.index_url}pet-word/list-122.html">词汇速记</a>
+                        <a href="{$c.index_url}pet-write/list-123.html">写作指导</a>
+                        <a href="{$c.index_url}pet-read/list-124.html">阅读技巧</a>
                     </div>
                 </div>
             </div>
