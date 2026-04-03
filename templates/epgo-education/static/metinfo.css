@@ -138,14 +138,14 @@ body.met-navfixed {
   max-height: 50px;
 }
 .met-nav .nav-item .nav-link {
-  color: #666;
+  color: rgba(255,255,255,0.85);
   position: relative;
   z-index: 2;
   font-size: 15px;
 }
 .met-nav .dropdown.open > a,
 .met-nav .nav li > a.active {
-  color: $thirdcolor$ !important;
+  color: #fff !important;
   background-color: transparent;
 }
 .met-nav .navbar-nav > .open > .nav-link,
@@ -153,32 +153,23 @@ body.met-navfixed {
 .met-nav .navbar-nav .nav-link.active:hover,
 .met-nav .navbar-nav .nav-link.active {
   background-color: transparent;
-  color: $thirdcolor$;
-}
-.met-nav .nav-item {
-  position: relative;
-}
-.met-nav .nav-item .nav-link {
-  padding-left: 7px;
-  padding-right: 7px;
+  color: #fff !important;
 }
 .met-nav .nav-item .nav-link:after {
   content: "";
-  width: 100%;
-  height: 5px;
+  width: 60%;
+  height: 3px;
   opacity: 0;
-  background-color: $thirdcolor$;
-  left: 0;
+  background-color: #fff;
+  left: 20%;
   position: absolute;
   top: 0;
   margin-top: 0px;
   margin-left: 0px;
-  /* -webkit-transition: all 0.66s cubic-bezier(0.17, 0.84, 0.44, 1); */
-  /* transition: all 0.66s cubic-bezier(0.17, 0.84, 0.44, 1); */
   z-index: -1;
   border: none;
+  border-radius: 2px;
 }
-
 .met-nav .nav-item:hover .nav-link:after,
 .met-nav .nav-item .nav-link.active::after {
   opacity: 1;
@@ -187,7 +178,7 @@ body.met-navfixed {
 }
 .met-nav .nav-item:hover .nav-link,
 .met-nav .navlist .nav-item a.nav-link:hover {
-  color: $thirdcolor$;
+  color: #fff !important;
 }
 .met-nav .nav-item .nav-link i {
   -webkit-transition: all 0.3s ease-out;
