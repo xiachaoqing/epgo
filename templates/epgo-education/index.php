@@ -266,58 +266,64 @@ try {
             </p>
         </div>
         <div class="row">
-            <!-- 演讲卡片1 -->
+            <!-- 演讲卡片1 - TED：What makes a good life -->
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
                 <div style="background:#f9fafb; border-radius:12px; overflow:hidden; border:1px solid #e5e7eb; transition:all 0.3s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(37,99,235,0.12)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
-                    <div style="height:200px; background:linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="alert('点击播放演讲视频')">
-                        <div style="width:60px; height:60px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">▶</div>
+                    <div style="position:relative; padding-top:56.25%; background:#000; overflow:hidden;">
+                        <iframe src="//player.bilibili.com/player.html?bvid=BV1GW411Q7FX&page=1&high_quality=1&danmaku=0&autoplay=0"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                            scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
                     </div>
                     <div style="padding:20px;">
-                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">TED演讲：改变世界的想法</h3>
+                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">TED：什么让生活变得美好</h3>
                         <p style="font-size:13px; color:#6b7280; margin:0 0 15px; line-height:1.6;">
-                            学习如何用英文表达改变世界的理想，提升演讲技巧
+                            哈佛大学75年研究揭示幸福的秘密，学习地道英语表达
                         </p>
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9ca3af;">
-                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>18分钟</span>
-                            <span><i class="icon wb-eye" style="margin-right:4px;"></i>3.2K次观看</span>
+                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>12分钟</span>
+                            <a href="{$c.index_url}speech/" style="color:#2563eb; text-decoration:none; font-weight:600;">更多演讲 →</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 演讲卡片2 -->
+            <!-- 演讲卡片2 - 乔布斯斯坦福演讲 -->
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
                 <div style="background:#f9fafb; border-radius:12px; overflow:hidden; border:1px solid #e5e7eb; transition:all 0.3s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(37,99,235,0.12)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
-                    <div style="height:200px; background:linear-gradient(135deg, #16a34a 0%, #15803d 100%); position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="alert('点击播放演讲视频')">
-                        <div style="width:60px; height:60px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">▶</div>
+                    <div style="position:relative; padding-top:56.25%; background:#000; overflow:hidden;">
+                        <iframe src="//player.bilibili.com/player.html?bvid=BV1Ks411k7Ha&page=1&high_quality=1&danmaku=0&autoplay=0"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                            scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
                     </div>
                     <div style="padding:20px;">
-                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">BBC纪录片精选</h3>
+                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">乔布斯斯坦福毕业演讲</h3>
                         <p style="font-size:13px; color:#6b7280; margin:0 0 15px; line-height:1.6;">
-                            地道英文发音与用法，感受英伦风情与文化
+                            经典英文演讲，感受原版英语的力量与魅力
                         </p>
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9ca3af;">
-                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>22分钟</span>
-                            <span><i class="icon wb-eye" style="margin-right:4px;"></i>2.8K次观看</span>
+                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>15分钟</span>
+                            <a href="{$c.index_url}speech/" style="color:#16a34a; text-decoration:none; font-weight:600;">更多演讲 →</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 演讲卡片3 -->
+            <!-- 演讲卡片3 - BBC英语 -->
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
                 <div style="background:#f9fafb; border-radius:12px; overflow:hidden; border:1px solid #e5e7eb; transition:all 0.3s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(37,99,235,0.12)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
-                    <div style="height:200px; background:linear-gradient(135deg, #ea580c 0%, #c2410c 100%); position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="alert('点击播放演讲视频')">
-                        <div style="width:60px; height:60px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">▶</div>
+                    <div style="position:relative; padding-top:56.25%; background:#000; overflow:hidden;">
+                        <iframe src="//player.bilibili.com/player.html?bvid=BV1vb411n7nk&page=1&high_quality=1&danmaku=0&autoplay=0"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                            scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
                     </div>
                     <div style="padding:20px;">
-                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">牛津讲座合集</h3>
+                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">BBC 6 Minute English 合集</h3>
                         <p style="font-size:13px; color:#6b7280; margin:0 0 15px; line-height:1.6;">
-                            顶级学府的学术演讲，学习高阶英语表达
+                            BBC经典英语节目，每集6分钟学一个话题
                         </p>
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9ca3af;">
-                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>25分钟</span>
-                            <span><i class="icon wb-eye" style="margin-right:4px;"></i>1.9K次观看</span>
+                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>6分钟</span>
+                            <a href="{$c.index_url}speech/" style="color:#ea580c; text-decoration:none; font-weight:600;">更多演讲 →</a>
                         </div>
                     </div>
                 </div>
