@@ -144,15 +144,15 @@ templates/epgo-education/
 **当前栏目结构：**
 ```
 KET备考(101)  classtype=1 nav=1
-  KET真题解析(111) classtype=2 nav=0
-  KET词汇速记(112) classtype=2 nav=0
-  KET写作指导(113) classtype=2 nav=0
-  KET听力技巧(114) classtype=2 nav=0
+  KET真题解析(111) classtype=2 nav=1  ← 2026-04-03 改为1，使下拉菜单可见
+  KET词汇速记(112) classtype=2 nav=1
+  KET写作指导(113) classtype=2 nav=1
+  KET听力技巧(114) classtype=2 nav=1
 PET备考(102)  classtype=1 nav=1
-  PET真题解析(121) classtype=2 nav=0
-  PET词汇速记(122) classtype=2 nav=0
-  PET写作指导(123) classtype=2 nav=0
-  PET阅读技巧(124) classtype=2 nav=0
+  PET真题解析(121) classtype=2 nav=1  ← 2026-04-03 改为1，使下拉菜单可见
+  PET词汇速记(122) classtype=2 nav=1
+  PET写作指导(123) classtype=2 nav=1
+  PET阅读技巧(124) classtype=2 nav=1
 英语阅读(103)  classtype=1 nav=1
 英语演讲(104)  classtype=1 nav=1
 每日英语(105)  classtype=1 nav=1
@@ -160,7 +160,8 @@ PET备考(102)  classtype=1 nav=1
 关于我们(107)  classtype=1 nav=1
 ```
 
-> ⚠️ **子栏目nav必须是0**，否则会平铺在一级导航里
+> ⚠️ **子栏目nav**：`nav=1` 才能在下拉菜单中显示；`type='son'`查询依赖nav值
+> KET/PET 子栏目（111-114, 121-124）已于 2026-04-03 设为 nav=1
 
 ### 4.2 缓存文件说明
 
