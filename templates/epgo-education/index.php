@@ -1,8 +1,8 @@
 <?php defined('IN_MET') or exit('No permission'); ?>
 <include file="head.php" />
 
-<!-- 首页轮播 Banner（从 ep_flash 表读取，PHP直接查库） -->
 <?php
+/* ── Banner：从数据库读取，否则显示静态 fallback ── */
 $_epgo_banners = array();
 try {
     $_epgo_pdo = new PDO(
@@ -10,12 +10,14 @@ try {
         'xiachaoqing', '***REMOVED***',
         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
     );
-    $_epgo_stmt = $_epgo_pdo->query("SELECT img_title,img_des,img_path,img_link FROM ep_flash ORDER BY no_order ASC LIMIT 6");
-    if ($_epgo_stmt) {
-        $_epgo_banners = $_epgo_stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $_epgo_stmt = $_epgo_pdo->query(
+        "SELECT img_title,img_des,img_path,img_link FROM ep_flash ORDER BY no_order ASC LIMIT 6"
+    );
+    if ($_epgo_stmt) $_epgo_banners = $_epgo_stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(Exception $_e) {}
 ?>
+
+<!-- ════════════ BANNER ════════════ -->
 <section class="epgo-banner-wrap" style="position:relative;overflow:hidden;background:#1e3a8a;line-height:0;">
 <?php if (!empty($_epgo_banners)): ?>
     <?php foreach($_epgo_banners as $_bi => $_b): ?>
@@ -23,41 +25,40 @@ try {
         <a href="<?php echo htmlspecialchars($_b['img_link']); ?>" title="<?php echo htmlspecialchars($_b['img_title']); ?>">
             <img src="<?php echo htmlspecialchars($_b['img_path']); ?>"
                  alt="<?php echo htmlspecialchars($_b['img_title']); ?>"
-                 style="width:100%;height:520px;object-fit:cover;display:block;">
+                 style="width:100%;height:480px;object-fit:cover;display:block;">
         </a>
         <?php if($_b['img_title']): ?>
-        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:50px 60px 36px;line-height:1.4;">
-            <h2 style="font-size:38px;font-weight:700;color:white;margin:0 0 10px;text-shadow:0 2px 8px rgba(0,0,0,.4);"><?php echo htmlspecialchars($_b['img_title']); ?></h2>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.6));padding:40px 60px 32px;line-height:1.4;">
+            <h2 style="font-size:36px;font-weight:700;color:white;margin:0 0 10px;"><?php echo htmlspecialchars($_b['img_title']); ?></h2>
             <?php if($_b['img_des']): ?>
-            <p style="font-size:18px;color:rgba(255,255,255,.9);margin:0 0 20px;text-shadow:0 1px 4px rgba(0,0,0,.3);"><?php echo htmlspecialchars($_b['img_des']); ?></p>
+            <p style="font-size:17px;color:rgba(255,255,255,.9);margin:0 0 18px;"><?php echo htmlspecialchars($_b['img_des']); ?></p>
             <?php endif; ?>
-            <a href="<?php echo htmlspecialchars($_b['img_link']); ?>" style="display:inline-block;background:#FDB022;color:#1e3a8a;font-weight:700;padding:12px 28px;border-radius:6px;text-decoration:none;font-size:15px;">立即查看 →</a>
+            <a href="<?php echo htmlspecialchars($_b['img_link']); ?>" style="display:inline-block;background:#FDB022;color:#1e3a8a;font-weight:700;padding:11px 26px;border-radius:6px;text-decoration:none;font-size:15px;">立即查看 →</a>
         </div>
         <?php endif; ?>
     </div>
     <?php endforeach; ?>
 <?php else: ?>
-    <!-- fallback: 没有banner数据时显示静态背景 -->
-    <div class="epgo-slide" style="display:block;background:linear-gradient(135deg,#1e3a8a,#2563eb);padding:80px 0;text-align:center;">
-        <h1 style="font-size:48px;font-weight:800;color:white;margin:0 0 16px;">英语陪跑GO</h1>
-        <p style="font-size:20px;color:rgba(255,255,255,.9);margin:0 0 28px;">专业KET/PET英语备考平台 · 10000+学员</p>
-        <a href="{$c.index_url}ket/" style="display:inline-block;background:#FDB022;color:#1e3a8a;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;margin:0 8px;">KET备考 →</a>
-        <a href="{$c.index_url}pet/" style="display:inline-block;background:rgba(255,255,255,.2);color:white;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;border:2px solid white;margin:0 8px;">PET备考</a>
+    <div class="epgo-slide" style="display:block;background:linear-gradient(135deg,#1e3a8a,#2563eb);padding:90px 0;text-align:center;">
+        <h1 style="font-size:46px;font-weight:800;color:white;margin:0 0 14px;">英语陪跑GO</h1>
+        <p style="font-size:19px;color:rgba(255,255,255,.9);margin:0 0 28px;">专业 KET / PET 备考平台，每天进步一点点</p>
+        <a href="{$c.index_url}ket/" style="display:inline-block;background:#FDB022;color:#1e3a8a;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;margin:0 8px;">KET备考 →</a>
+        <a href="{$c.index_url}pet/" style="display:inline-block;background:rgba(255,255,255,.18);color:white;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;border:2px solid white;margin:0 8px;">PET备考</a>
     </div>
 <?php endif; ?>
 
-    <!-- 指示点 -->
-    <div id="epgo-dots" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;"></div>
-    <button onclick="epgoBannerPrev()" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.25);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer;z-index:10;line-height:1;">‹</button>
-    <button onclick="epgoBannerNext()" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.25);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer;z-index:10;line-height:1;">›</button>
+    <div id="epgo-dots" style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;"></div>
+    <button onclick="epgoBannerPrev()" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.22);border:none;color:white;width:42px;height:42px;border-radius:50%;font-size:22px;cursor:pointer;z-index:10;line-height:1;">‹</button>
+    <button onclick="epgoBannerNext()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.22);border:none;color:white;width:42px;height:42px;border-radius:50%;font-size:22px;cursor:pointer;z-index:10;line-height:1;">›</button>
 </section>
 
 <style>
 @media(max-width:768px){
-  .epgo-banner-wrap img{height:240px !important;}
-  .epgo-banner-wrap [style*="font-size:38px"]{font-size:22px !important;}
-  .epgo-banner-wrap [style*="padding:50px"]{padding:20px 20px 16px !important;}
-  .epgo-banner-wrap p{display:none;}
+  .epgo-banner-wrap img{height:220px !important;}
+  .epgo-banner-wrap [style*="font-size:36px"]{font-size:20px !important;}
+  .epgo-banner-wrap [style*="padding:40px"]{padding:16px 16px 14px !important;}
+  .epgo-banner-wrap p{display:none !important;}
+  .epgo-banner-wrap button{display:none;}
 }
 </style>
 
@@ -69,13 +70,13 @@ try {
     var cur=0,timer;
     slides.forEach(function(_,i){
         var d=document.createElement('div');
-        d.style.cssText='width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,'+(i?'.45':'1')+');cursor:pointer;transition:all .3s;';
+        d.style.cssText='width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,'+(i?'.4':'1')+');cursor:pointer;transition:all .3s;';
         d.onclick=function(){stop();go(i);start();};
         dots.appendChild(d);
     });
     function go(n){
         slides[cur].style.display='none';
-        dots.children[cur].style.background='rgba(255,255,255,.45)';
+        dots.children[cur].style.background='rgba(255,255,255,.4)';
         cur=(n+slides.length)%slides.length;
         slides[cur].style.display='block';
         dots.children[cur].style.background='rgba(255,255,255,1)';
@@ -97,409 +98,390 @@ try {
 })();
 </script>
 
-<!-- 数据统计 - 优化版 -->
-<section style="background:linear-gradient(135deg, #ffffff 0%, #f9fafb 100%); padding:50px 0; border-bottom:1px solid #E5E7EB;">
+
+<!-- ════════════ 数据统计 ════════════ -->
+<section style="background:#fff;padding:40px 0;border-bottom:1px solid #E5E7EB;">
     <div class="container">
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:40px; text-align:center;">
-            <div style="transition:all 0.3s; transform:translateY(0);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-                <div style="font-size:42px; font-weight:800; background:linear-gradient(135deg, #2563EB, #1d4ed8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">10000+</div>
-                <div style="font-size:14px; color:#6B7280; margin-top:12px; font-weight:500;">学员已学</div>
-                <div style="font-size:12px; color:#9CA3AF; margin-top:6px;">遍布全国各地</div>
+        <div class="epgo-stat-grid">
+            <div class="epgo-stat-item">
+                <div class="epgo-stat-num" style="color:#2563EB;">10000+</div>
+                <div class="epgo-stat-label">学员已学</div>
             </div>
-            <div style="transition:all 0.3s; transform:translateY(0);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-                <div style="font-size:42px; font-weight:800; background:linear-gradient(135deg, #16A34A, #15803d); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">1000+</div>
-                <div style="font-size:14px; color:#6B7280; margin-top:12px; font-weight:500;">精品课程</div>
-                <div style="font-size:12px; color:#9CA3AF; margin-top:6px;">持续更新维护</div>
+            <div class="epgo-stat-item">
+                <div class="epgo-stat-num" style="color:#16A34A;">1000+</div>
+                <div class="epgo-stat-label">精品课程</div>
             </div>
-            <div style="transition:all 0.3s; transform:translateY(0);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-                <div style="font-size:42px; font-weight:800; background:linear-gradient(135deg, #EA580C, #c2410c); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">98%</div>
-                <div style="font-size:14px; color:#6B7280; margin-top:12px; font-weight:500;">通过率</div>
-                <div style="font-size:12px; color:#9CA3AF; margin-top:6px;">历史成绩统计</div>
+            <div class="epgo-stat-item">
+                <div class="epgo-stat-num" style="color:#EA580C;">98%</div>
+                <div class="epgo-stat-label">考试通过率</div>
             </div>
-            <div style="transition:all 0.3s; transform:translateY(0);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-                <div style="font-size:42px; font-weight:800; background:linear-gradient(135deg, #FDB022, #d99e04); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">24H</div>
-                <div style="font-size:14px; color:#6B7280; margin-top:12px; font-weight:500;">快速反馈</div>
-                <div style="font-size:12px; color:#9CA3AF; margin-top:6px;">平均响应时间</div>
+            <div class="epgo-stat-item">
+                <div class="epgo-stat-num" style="color:#FDB022;">24H</div>
+                <div class="epgo-stat-label">快速答疑</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 课程分类 -->
-<section style="padding:60px 0; background:#f9fafb;">
+<style>
+.epgo-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;}
+.epgo-stat-num{font-size:38px;font-weight:800;line-height:1.1;}
+.epgo-stat-label{font-size:13px;color:#6B7280;margin-top:8px;}
+@media(max-width:576px){
+  .epgo-stat-grid{grid-template-columns:repeat(2,1fr);gap:24px 16px;}
+  .epgo-stat-num{font-size:28px;}
+}
+</style>
+
+
+<!-- ════════════ 每日英语打卡 ════════════ -->
+<section style="padding:60px 0;background:linear-gradient(135deg,#EFF6FF,#F0FDF4);">
     <div class="container">
-        <h2 style="font-size:36px; font-weight:700; text-align:center; color:#111827; margin:0 0 50px 0;">
-            精选课程体系
-        </h2>
+        <div style="text-align:center;margin-bottom:40px;">
+            <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 10px;">每日英语打卡</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0;">坚持每天学一句，量变引发质变</p>
+        </div>
+        <div class="epgo-daily-grid">
+            <!-- 今日金句 -->
+            <div class="epgo-daily-card" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);color:white;border-radius:16px;padding:32px;position:relative;overflow:hidden;">
+                <div style="font-size:11px;font-weight:700;letter-spacing:2px;opacity:.7;margin-bottom:16px;text-transform:uppercase;">TODAY'S SENTENCE</div>
+                <blockquote style="font-size:20px;font-weight:700;line-height:1.5;margin:0 0 14px;font-style:italic;">
+                    "The secret of getting ahead is getting started."
+                </blockquote>
+                <p style="font-size:14px;opacity:.85;margin:0 0 20px;">万事开头难，迈出第一步才是关键。— Mark Twain</p>
+                <a href="{$c.index_url}news/" style="display:inline-block;background:rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.4);">查看更多金句 →</a>
+                <div style="position:absolute;right:-20px;bottom:-20px;font-size:120px;opacity:.06;line-height:1;">❝</div>
+            </div>
+
+            <!-- KET / PET 学习路径 -->
+            <div style="background:white;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+                <div style="font-size:13px;font-weight:700;color:#16A34A;margin-bottom:16px;">学习路径指南</div>
+                <div class="epgo-path-list">
+                    <a href="{$c.index_url}ket/" class="epgo-path-item" style="--c:#2563EB;">
+                        <span class="epgo-path-badge" style="background:#EFF6FF;color:#2563EB;">KET</span>
+                        <span>初级认证 · 适合初高中生</span>
+                        <span class="epgo-path-arrow">→</span>
+                    </a>
+                    <a href="{$c.index_url}pet/" class="epgo-path-item" style="--c:#16A34A;">
+                        <span class="epgo-path-badge" style="background:#F0FDF4;color:#16A34A;">PET</span>
+                        <span>中级认证 · 适合高中大学</span>
+                        <span class="epgo-path-arrow">→</span>
+                    </a>
+                    <a href="{$c.index_url}reading/" class="epgo-path-item" style="--c:#EA580C;">
+                        <span class="epgo-path-badge" style="background:#FFF7ED;color:#EA580C;">阅读</span>
+                        <span>英语阅读 · 精读泛读技巧</span>
+                        <span class="epgo-path-arrow">→</span>
+                    </a>
+                    <a href="{$c.index_url}download/" class="epgo-path-item" style="--c:#7C3AED;">
+                        <span class="epgo-path-badge" style="background:#F5F3FF;color:#7C3AED;">资料</span>
+                        <span>免费下载 · 历年真题资料</span>
+                        <span class="epgo-path-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 关注公众号获取每日推送 -->
+            <div style="background:white;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);text-align:center;">
+                <div style="font-size:13px;font-weight:700;color:#EA580C;margin-bottom:16px;">关注公众号</div>
+                <div style="width:130px;height:130px;margin:0 auto 16px;background:#f3f4f6;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+                    <if value="$c['footinfo_wx']">
+                        <img src="{$c.footinfo_wx|thumb:130,130}" alt="英语陪跑GO公众号" style="width:100%;height:100%;object-fit:cover;">
+                    <else/>
+                        <span style="font-size:12px;color:#9CA3AF;text-align:center;padding:10px;">扫码关注<br>每日推送</span>
+                    </if>
+                </div>
+                <p style="font-size:13px;color:#6B7280;margin:0 0 14px;line-height:1.6;">每日备考干货<br>词汇 / 真题 / 写作技巧</p>
+                <a href="{$c.index_url}about/" style="display:inline-block;background:#07C160;color:white;padding:9px 22px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;">微信扫码关注</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.epgo-daily-grid{display:grid;grid-template-columns:1fr 1fr 280px;gap:20px;align-items:start;}
+.epgo-path-list{display:flex;flex-direction:column;gap:10px;}
+.epgo-path-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:#F9FAFB;text-decoration:none;color:#374151;font-size:13px;transition:background .2s;}
+.epgo-path-item:hover{background:#EFF6FF;color:#2563EB;text-decoration:none;}
+.epgo-path-item:hover .epgo-path-arrow{opacity:1;transform:translateX(4px);}
+.epgo-path-badge{font-size:11px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;}
+.epgo-path-arrow{margin-left:auto;opacity:.3;transition:all .2s;}
+@media(max-width:992px){
+  .epgo-daily-grid{grid-template-columns:1fr 1fr;}
+  .epgo-daily-grid>:last-child{grid-column:1/-1;}
+}
+@media(max-width:576px){
+  .epgo-daily-grid{grid-template-columns:1fr;}
+}
+</style>
+
+
+<!-- ════════════ 课程体系 ════════════ -->
+<section style="padding:60px 0;background:#F9FAFB;">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:40px;">
+            <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 10px;">精选课程体系</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0;">从入门到进阶，全覆盖 KET / PET 备考需求</p>
+        </div>
         <div class="row">
-            <!-- KET备考 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div class="epgo-course-card" style="background:white; border-radius:12px; padding:40px 30px; box-shadow:0 2px 8px rgba(0,0,0,0.08); text-align:center; transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); border-top:4px solid #2563EB; position:relative; overflow:hidden;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 24px rgba(37,99,235,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'">
-                    <div style="font-size:56px; margin-bottom:20px; transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.15) rotate(5deg)'" onmouseout="this.style.transform='scale(1) rotate(0)'">🎯</div>
-                    <h3 style="font-size:24px; font-weight:700; margin:20px 0; color:#111827;">KET备考</h3>
-                    <p style="color:#6B7280; line-height:1.8; margin-bottom:25px; font-size:15px;">
-                        剑桥英语初级认证<br>
-                        适合初中到高中学生<br>
-                        全面覆盖听说读写<br>
-                        从零基础到高分
-                    </p>
-                    <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-                        <a href="{$c.index_url}ket-exam/" class="btn btn-sm btn-primary" style="margin:5px; transition:all 0.3s;">真题解析</a>
-                        <a href="{$c.index_url}ket-word/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">词汇速记</a>
-                        <a href="{$c.index_url}ket-write/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">写作指导</a>
-                        <a href="{$c.index_url}ket-listen/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">听力技巧</a>
+            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
+                <div class="epgo-course-card" style="border-top-color:#2563EB;">
+                    <div class="epgo-course-icon" style="background:#EFF6FF;color:#2563EB;">K</div>
+                    <h3 class="epgo-course-title">KET 备考</h3>
+                    <p class="epgo-course-desc">剑桥英语初级认证，适合初中到高中学生，全面覆盖听说读写，从零基础到高分通过。</p>
+                    <div class="epgo-course-links">
+                        <a href="{$c.index_url}ket-exam/">真题解析</a>
+                        <a href="{$c.index_url}ket-word/">词汇速记</a>
+                        <a href="{$c.index_url}ket-write/">写作指导</a>
+                        <a href="{$c.index_url}ket-listen/">听力技巧</a>
                     </div>
-                    <div style="position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg, transparent, #2563EB, transparent); opacity:0; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
                 </div>
             </div>
-
-            <!-- PET备考 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div class="epgo-course-card" style="background:white; border-radius:12px; padding:40px 30px; box-shadow:0 2px 8px rgba(0,0,0,0.08); text-align:center; transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); border-top:4px solid #16A34A; position:relative; overflow:hidden;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 24px rgba(22,163,74,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'">
-                    <div style="font-size:56px; margin-bottom:20px; transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.15) rotate(-5deg)'" onmouseout="this.style.transform='scale(1) rotate(0)'">🚀</div>
-                    <h3 style="font-size:24px; font-weight:700; margin:20px 0; color:#111827;">PET备考</h3>
-                    <p style="color:#6B7280; line-height:1.8; margin-bottom:25px; font-size:15px;">
-                        剑桥英语中级认证<br>
-                        适合高中到大学学生<br>
-                        国际认可资格证书<br>
-                        提升竞争力必备
-                    </p>
-                    <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-                        <a href="{$c.index_url}pet-exam/" class="btn btn-sm btn-primary" style="margin:5px; transition:all 0.3s;">真题解析</a>
-                        <a href="{$c.index_url}pet-word/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">词汇速记</a>
-                        <a href="{$c.index_url}pet-write/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">写作指导</a>
-                        <a href="{$c.index_url}pet-read/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">阅读技巧</a>
+            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
+                <div class="epgo-course-card" style="border-top-color:#16A34A;">
+                    <div class="epgo-course-icon" style="background:#F0FDF4;color:#16A34A;">P</div>
+                    <h3 class="epgo-course-title">PET 备考</h3>
+                    <p class="epgo-course-desc">剑桥英语中级认证，适合高中到大学学生，国际认可资格证书，提升竞争力必备选择。</p>
+                    <div class="epgo-course-links">
+                        <a href="{$c.index_url}pet-exam/">真题解析</a>
+                        <a href="{$c.index_url}pet-word/">词汇速记</a>
+                        <a href="{$c.index_url}pet-write/">写作指导</a>
+                        <a href="{$c.index_url}pet-read/">阅读技巧</a>
                     </div>
-                    <div style="position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg, transparent, #16A34A, transparent); opacity:0; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
                 </div>
             </div>
-
-            <!-- 其他课程 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div class="epgo-course-card" style="background:white; border-radius:12px; padding:40px 30px; box-shadow:0 2px 8px rgba(0,0,0,0.08); text-align:center; transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); border-top:4px solid #EA580C; position:relative; overflow:hidden;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 24px rgba(234,88,12,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'">
-                    <div style="font-size:56px; margin-bottom:20px; transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.15) rotate(5deg)'" onmouseout="this.style.transform='scale(1) rotate(0)'">📚</div>
-                    <h3 style="font-size:24px; font-weight:700; margin:20px 0; color:#111827;">通用英语</h3>
-                    <p style="color:#6B7280; line-height:1.8; margin-bottom:25px; font-size:15px;">
-                        日常英语学习<br>
-                        包括阅读演讲等<br>
-                        提升英语综合能力<br>
-                        适合各个年龄
-                    </p>
-                    <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-                        <a href="{$c.index_url}reading/" class="btn btn-sm btn-primary" style="margin:5px; transition:all 0.3s;">英语阅读</a>
-                        <a href="{$c.index_url}speech/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">演讲训练</a>
-                        <a href="{$c.index_url}daily/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">每日英语</a>
-                        <a href="{$c.index_url}download/" class="btn btn-sm btn-default" style="margin:5px; transition:all 0.3s;">资料下载</a>
+            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
+                <div class="epgo-course-card" style="border-top-color:#EA580C;">
+                    <div class="epgo-course-icon" style="background:#FFF7ED;color:#EA580C;">英</div>
+                    <h3 class="epgo-course-title">通用英语</h3>
+                    <p class="epgo-course-desc">日常英语综合学习，涵盖阅读、写作和演讲等，提升综合语言能力，适合各个年龄段。</p>
+                    <div class="epgo-course-links">
+                        <a href="{$c.index_url}reading/">英语阅读</a>
+                        <a href="{$c.index_url}daily/">每日英语</a>
+                        <a href="{$c.index_url}download/">资料下载</a>
+                        <a href="{$c.index_url}news/">学习资讯</a>
                     </div>
-                    <div style="position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg, transparent, #EA580C, transparent); opacity:0; transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 最新文章推荐 -->
-<section style="padding:80px 0; background:linear-gradient(180deg, #fafbfc 0%, #f3f4f6 100%);">
+<style>
+.epgo-course-card{background:white;border-radius:12px;padding:32px 28px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid #eee;height:100%;transition:box-shadow .3s,transform .3s;}
+.epgo-course-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12);transform:translateY(-4px);}
+.epgo-course-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;margin-bottom:18px;}
+.epgo-course-title{font-size:20px;font-weight:700;color:#111827;margin:0 0 10px;}
+.epgo-course-desc{color:#6B7280;font-size:14px;line-height:1.7;margin:0 0 20px;}
+.epgo-course-links{display:flex;flex-wrap:wrap;gap:8px;}
+.epgo-course-links a{background:#F3F4F6;color:#374151;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;transition:background .2s,color .2s;}
+.epgo-course-links a:hover{background:#2563EB;color:white;text-decoration:none;}
+</style>
+
+
+<!-- ════════════ 最新文章 ════════════ -->
+<section style="padding:60px 0;background:white;">
     <div class="container">
-        <div style="text-align:center; margin-bottom:60px;">
-            <h2 style="font-size:40px; font-weight:800; color:#111827; margin:0 0 16px;">
-                最新学习资源
-            </h2>
-            <p style="font-size:16px; color:#6b7280; margin:0;">
-                精选最新的英语学习内容，助力考试备考
-            </p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:12px;">
+            <div>
+                <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">最新学习资源</h2>
+                <p style="font-size:14px;color:#6B7280;margin:0;">精选英语学习内容，每日更新</p>
+            </div>
+            <a href="{$c.index_url}news/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
         </div>
         <div class="row">
-            <tag action='list' type='news' num='12'>
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div class="epgo-article-card" style="background:white; border-radius:12px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.08); transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); transform:translateY(0); border:1px solid #E5E7EB;" onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 4px rgba(0,0,0,0.08)'">
+            <tag action='list' type='news' num='9'>
+            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
+                <div class="epgo-article-card">
                     <if value="$v['imgurl']">
-                    <div style="height:200px; overflow:hidden; position:relative; background:#F3F4F6;">
-                        <a href="{$v.url}" title="{$v.title}" {$g.urlnew} style="display:block; width:100%; height:100%;">
-                            <img src="{$v.imgurl|thumb:400,200}" alt="{$v.title}" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease; display:block;">
+                    <div class="epgo-article-img">
+                        <a href="{$v.url}" title="{$v.title}" {$g.urlnew}>
+                            <img src="{$v.imgurl|thumb:400,200}" alt="{$v.title}">
                         </a>
-                        <div style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(37,99,235,0) 100%); opacity:0; transition:opacity 0.3s;" onmouseover="this.parentElement.style.opacity='1'" onmouseout="this.parentElement.style.opacity='0'"></div>
                     </div>
                     <else/>
-                    <div style="height:200px; background:linear-gradient(135deg, #E5E7EB 0%, #D1D5DB 100%); display:flex; align-items:center; justify-content:center;">
-                        <span style="color:#9CA3AF; font-size:14px;">📄 图片加载中</span>
+                    <div class="epgo-article-img epgo-article-img-fallback">
+                        <span>{$v.issue}</span>
                     </div>
                     </if>
-                    <div style="padding:20px;">
-                        <div style="font-size:11px; color:#2563EB; font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;">
-                            📌 {$v.issue}
-                        </div>
-                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px 0; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
-                            <a href="{$v.url}" title="{$v.title}" style="color:inherit; text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='#2563EB'" onmouseout="this.style.color='inherit'" {$g.urlnew}>
-                                {$v.title}
-                            </a>
+                    <div class="epgo-article-body">
+                        <div class="epgo-article-cat">{$v.issue}</div>
+                        <h3 class="epgo-article-title">
+                            <a href="{$v.url}" title="{$v.title}" {$g.urlnew}>{$v.title}</a>
                         </h3>
-                        <p style="color:#6B7280; font-size:13px; line-height:1.6; margin:0 0 15px 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
-                            {$v.description}
-                        </p>
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9CA3AF; padding-top:12px; border-top:1px solid #f3f4f6;">
-                            <span>📅 {$v.updatetime}</span>
-                            <span style="background:#f0fdf4; color:#16a34a; padding:2px 8px; border-radius:4px;"><i class="icon wb-eye" style="margin-right:4px;"></i>{$v.hits}</span>
+                        <p class="epgo-article-desc">{$v.description}</p>
+                        <div class="epgo-article-meta">
+                            <span>{$v.updatetime}</span>
+                            <span>{$v.hits} 阅读</span>
                         </div>
                     </div>
                 </div>
             </div>
             </tag>
         </div>
-        <div style="text-align:center; margin-top:40px;">
-            <a href="{$c.index_url}news/" class="btn btn-lg" style="background:#2563EB; color:white; font-weight:700; border-radius:8px; padding:14px 32px; text-decoration:none; transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 16px rgba(37,99,235,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                查看全部文章 →
-            </a>
-        </div>
     </div>
 </section>
 
-<!-- 英文演讲推荐 -->
-<section style="padding:80px 0; background:white; border-top:1px solid #e5e7eb;">
+<style>
+.epgo-article-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px solid #E5E7EB;transition:box-shadow .3s,transform .3s;height:100%;}
+.epgo-article-card:hover{box-shadow:0 8px 20px rgba(0,0,0,.11);transform:translateY(-4px);}
+.epgo-article-img{height:180px;overflow:hidden;background:#F3F4F6;}
+.epgo-article-img a{display:block;width:100%;height:100%;}
+.epgo-article-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.epgo-article-card:hover .epgo-article-img img{transform:scale(1.04);}
+.epgo-article-img-fallback{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);}
+.epgo-article-img-fallback span{font-size:13px;color:#3B82F6;font-weight:700;}
+.epgo-article-body{padding:18px;}
+.epgo-article-cat{font-size:11px;color:#2563EB;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
+.epgo-article-title{font-size:15px;font-weight:700;color:#111827;margin:0 0 10px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.epgo-article-title a{color:inherit;text-decoration:none;}
+.epgo-article-title a:hover{color:#2563EB;}
+.epgo-article-desc{color:#6B7280;font-size:13px;line-height:1.6;margin:0 0 12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.epgo-article-meta{display:flex;justify-content:space-between;font-size:11px;color:#9CA3AF;padding-top:10px;border-top:1px solid #F3F4F6;}
+</style>
+
+
+<!-- ════════════ 学员评价 ════════════ -->
+<section style="padding:60px 0;background:#EFF6FF;">
     <div class="container">
-        <div style="text-align:center; margin-bottom:60px;">
-            <h2 style="font-size:40px; font-weight:800; color:#111827; margin:0 0 16px;">
-                精选英文演讲
-            </h2>
-            <p style="font-size:16px; color:#6b7280; margin:0;">
-                世界名人演讲精选 · 提升听力和口语表达
-            </p>
+        <div style="text-align:center;margin-bottom:36px;">
+            <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 10px;">学员评价</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0;">真实学员反馈，见证每一次进步</p>
         </div>
         <div class="row">
-            <!-- 演讲卡片1 - TED：What makes a good life -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:#f9fafb; border-radius:12px; overflow:hidden; border:1px solid #e5e7eb; transition:all 0.3s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(37,99,235,0.12)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
-                    <div style="position:relative; padding-top:56.25%; background:#000; overflow:hidden;">
-                        <iframe src="//player.bilibili.com/player.html?bvid=BV1GW411Q7FX&page=1&high_quality=1&danmaku=0&autoplay=0"
-                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
-                            scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
-                    </div>
-                    <div style="padding:20px;">
-                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">TED：什么让生活变得美好</h3>
-                        <p style="font-size:13px; color:#6b7280; margin:0 0 15px; line-height:1.6;">
-                            哈佛大学75年研究揭示幸福的秘密，学习地道英语表达
-                        </p>
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9ca3af;">
-                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>12分钟</span>
-                            <a href="{$c.index_url}speech/" style="color:#2563eb; text-decoration:none; font-weight:600;">更多演讲 →</a>
-                        </div>
+            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
+                <div class="epgo-review-card" style="border-left-color:#FDB022;">
+                    <div class="epgo-review-stars">★★★★★</div>
+                    <p class="epgo-review-text">"非常棒的平台！KET课程讲得特别清楚，从基础开始学，现在已经通过考试了。老师非常耐心，课后问题都能及时回答。"</p>
+                    <div class="epgo-review-author">
+                        <strong>李同学</strong>
+                        <span>北京 · KET高分通过</span>
                     </div>
                 </div>
             </div>
-
-            <!-- 演讲卡片2 - 乔布斯斯坦福演讲 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:#f9fafb; border-radius:12px; overflow:hidden; border:1px solid #e5e7eb; transition:all 0.3s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(37,99,235,0.12)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
-                    <div style="position:relative; padding-top:56.25%; background:#000; overflow:hidden;">
-                        <iframe src="//player.bilibili.com/player.html?bvid=BV1Ks411k7Ha&page=1&high_quality=1&danmaku=0&autoplay=0"
-                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
-                            scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
-                    </div>
-                    <div style="padding:20px;">
-                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">乔布斯斯坦福毕业演讲</h3>
-                        <p style="font-size:13px; color:#6b7280; margin:0 0 15px; line-height:1.6;">
-                            经典英文演讲，感受原版英语的力量与魅力
-                        </p>
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9ca3af;">
-                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>15分钟</span>
-                            <a href="{$c.index_url}speech/" style="color:#16a34a; text-decoration:none; font-weight:600;">更多演讲 →</a>
-                        </div>
+            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
+                <div class="epgo-review-card" style="border-left-color:#16A34A;">
+                    <div class="epgo-review-stars">★★★★★</div>
+                    <p class="epgo-review-text">"PET备考课程非常系统，从词汇到写作都有详细讲解。真题解析让我掌握了出题规律，考试时信心十足！"</p>
+                    <div class="epgo-review-author">
+                        <strong>王同学</strong>
+                        <span>上海 · PET高分通过</span>
                     </div>
                 </div>
             </div>
-
-            <!-- 演讲卡片3 - BBC英语 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:#f9fafb; border-radius:12px; overflow:hidden; border:1px solid #e5e7eb; transition:all 0.3s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(37,99,235,0.12)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
-                    <div style="position:relative; padding-top:56.25%; background:#000; overflow:hidden;">
-                        <iframe src="//player.bilibili.com/player.html?bvid=BV1vb411n7nk&page=1&high_quality=1&danmaku=0&autoplay=0"
-                            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
-                            scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
-                    </div>
-                    <div style="padding:20px;">
-                        <h3 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px;">BBC 6 Minute English 合集</h3>
-                        <p style="font-size:13px; color:#6b7280; margin:0 0 15px; line-height:1.6;">
-                            BBC经典英语节目，每集6分钟学一个话题
-                        </p>
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9ca3af;">
-                            <span><i class="icon wb-clock" style="margin-right:4px;"></i>6分钟</span>
-                            <a href="{$c.index_url}speech/" style="color:#ea580c; text-decoration:none; font-weight:600;">更多演讲 →</a>
-                        </div>
+            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
+                <div class="epgo-review-card" style="border-left-color:#2563EB;">
+                    <div class="epgo-review-stars">★★★★★</div>
+                    <p class="epgo-review-text">"物超所值！学到了考试内容，还能学到实用英语技能。现在可以流畅地和外国友人交流，感谢英语陪跑GO！"</p>
+                    <div class="epgo-review-author">
+                        <strong>林同学</strong>
+                        <span>福州 · PET高分+口语提升</span>
                     </div>
                 </div>
             </div>
-        </div>
-        <div style="text-align:center; margin-top:40px;">
-            <a href="{$c.index_url}speech/" class="btn btn-lg" style="background:#ea580c; color:white; font-weight:700; border-radius:8px; padding:14px 32px; text-decoration:none; transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 16px rgba(234,88,12,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                查看全部演讲 →
-            </a>
         </div>
     </div>
 </section>
 
-<!-- 学员评价 - 大幅增加评论 -->
-<section style="padding:60px 0; background:#EFF6FF;">
+<style>
+.epgo-review-card{background:white;padding:28px;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:4px solid #eee;height:100%;}
+.epgo-review-stars{color:#FDB022;font-size:16px;margin-bottom:14px;}
+.epgo-review-text{color:#6B7280;font-style:italic;font-size:14px;line-height:1.8;margin:0 0 18px;}
+.epgo-review-author strong{display:block;color:#111827;font-size:14px;}
+.epgo-review-author span{font-size:12px;color:#9CA3AF;}
+</style>
+
+
+<!-- ════════════ 常见问题 ════════════ -->
+<section style="padding:60px 0;background:white;">
     <div class="container">
-        <h2 style="font-size:36px; font-weight:700; text-align:center; color:#111827; margin:0 0 50px 0;">
-            学员评价与反馈
-        </h2>
-        <div class="row">
-            <!-- 评价1 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:white; padding:30px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05); border-left:4px solid #FDB022;">
-                    <div style="color:#FDB022; margin-bottom:15px; font-size:18px;">★★★★★</div>
-                    <p style="color:#6B7280; font-style:italic; margin-bottom:20px; line-height:1.8; font-size:15px;">
-                        "非常棒的平台！KET课程讲得特别清楚，我从基础开始学，现在已经通过考试了。老师非常耐心，课后有任何问题都能及时回答。"
-                    </p>
-                    <div>
-                        <div style="font-weight:700; color:#111827;">李同学</div>
-                        <div style="font-size:13px; color:#9CA3AF;">北京 · KET高分通过 · 2026年3月</div>
-                    </div>
-                </div>
+        <div style="text-align:center;margin-bottom:36px;">
+            <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 10px;">常见问题</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0;">有疑问？这里有答案</p>
+        </div>
+        <div style="max-width:760px;margin:0 auto;" class="epgo-faq">
+            <div class="epgo-faq-item">
+                <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">KET 和 PET 有什么区别？<span class="epgo-faq-icon">+</span></div>
+                <div class="epgo-faq-a">KET（初级）适合初中到高中学生，难度相对较低。PET（中级）是KET的进阶版本，适合高中到大学学生，我们提供两个级别的完整课程，可根据英语水平选择。</div>
             </div>
-
-            <!-- 评价2 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:white; padding:30px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05); border-left:4px solid #16A34A;">
-                    <div style="color:#FDB022; margin-bottom:15px; font-size:18px;">★★★★★</div>
-                    <p style="color:#6B7280; font-style:italic; margin-bottom:20px; line-height:1.8; font-size:15px;">
-                        "PET备考课程非常系统，从词汇到写作都有详细讲解。真题解析部分让我掌握了出题规律，考试时信心十足！"
-                    </p>
-                    <div>
-                        <div style="font-weight:700; color:#111827;">王同学</div>
-                        <div style="font-size:13px; color:#9CA3AF;">上海 · PET高分通过 · 2026年2月</div>
-                    </div>
-                </div>
+            <div class="epgo-faq-item">
+                <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">课程有效期是多久？<span class="epgo-faq-icon">+</span></div>
+                <div class="epgo-faq-a">课程永久有效，可随时学习和复习。我们会定期更新内容，确保你学到最新的考试信息和技巧。</div>
             </div>
-
-            <!-- 评价3 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:white; padding:30px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05); border-left:4px solid #2563EB;">
-                    <div style="color:#FDB022; margin-bottom:15px; font-size:18px;">★★★★★</div>
-                    <p style="color:#6B7280; font-style:italic; margin-bottom:20px; line-height:1.8; font-size:15px;">
-                        "课程安排特别合理，循序渐进。听力、阅读、写作都学到了实用技巧。比报线下班便宜多了，而且可以随时复习！"
-                    </p>
-                    <div>
-                        <div style="font-weight:700; color:#111827;">陈同学</div>
-                        <div style="font-size:13px; color:#9CA3AF;">广州 · KET通过 · 2026年1月</div>
-                    </div>
-                </div>
+            <div class="epgo-faq-item">
+                <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">如何获得每日备考内容推送？<span class="epgo-faq-icon">+</span></div>
+                <div class="epgo-faq-a">关注我们的微信公众号"英语陪跑GO"，每日推送备考词汇、真题解析和写作技巧，坚持跟读效果显著。可扫描页面底部二维码关注。</div>
             </div>
-
-            <!-- 评价4 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:white; padding:30px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05); border-left:4px solid #EA580C;">
-                    <div style="color:#FDB022; margin-bottom:15px; font-size:18px;">★★★★★</div>
-                    <p style="color:#6B7280; font-style:italic; margin-bottom:20px; line-height:1.8; font-size:15px;">
-                        "最喜欢词汇速记部分，用各种方法帮我们记单词，再也不用死记硬背了。加油！推荐所有备考的同学来学！"
-                    </p>
-                    <div>
-                        <div style="font-weight:700; color:#111827;">张同学</div>
-                        <div style="font-size:13px; color:#9CA3AF;">深圳 · KET词汇高分 · 2026年3月</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 评价5 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:white; padding:30px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05); border-left:4px solid #2563EB;">
-                    <div style="color:#FDB022; margin-bottom:15px; font-size:18px;">★★★★★</div>
-                    <p style="color:#6B7280; font-style:italic; margin-bottom:20px; line-height:1.8; font-size:15px;">
-                        "老师讲课很细致，每个考点都讲到。特别是写作指导部分，让我的作文从及格线冲到了高分。现在正在准备FCE！"
-                    </p>
-                    <div>
-                        <div style="font-weight:700; color:#111827;">刘同学</div>
-                        <div style="font-size:13px; color:#9CA3AF;">杭州 · PET作文95+ · 2026年1月</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 评价6 -->
-            <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:30px;">
-                <div style="background:white; padding:30px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05); border-left:4px solid #16A34A;">
-                    <div style="color:#FDB022; margin-bottom:15px; font-size:18px;">★★★★★</div>
-                    <p style="color:#6B7280; font-style:italic; margin-bottom:20px; line-height:1.8; font-size:15px;">
-                        "物超所值！不仅学到了考试内容，还学到了实用的英语技能。现在我可以流畅地和外国友人交流，感谢陪跑GO！"
-                    </p>
-                    <div>
-                        <div style="font-weight:700; color:#111827;">林同学</div>
-                        <div style="font-size:13px; color:#9CA3AF;">福州 · PET高分+口语提升 · 2026年2月</div>
-                    </div>
-                </div>
+            <div class="epgo-faq-item">
+                <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">如果没通过考试怎么办？<span class="epgo-faq-icon">+</span></div>
+                <div class="epgo-faq-a">我们有完善的反馈机制。如果学习了全部课程还没通过，可以联系我们获得额外指导和支持。帮你成功通过考试是我们的目标！</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 常见问题 -->
-<section style="padding:60px 0; background:white;">
-    <div class="container">
-        <h2 style="font-size:36px; font-weight:700; text-align:center; color:#111827; margin:0 0 50px 0;">
-            常见问题解答
-        </h2>
-        <div style="max-width:800px; margin:0 auto;">
-            <div style="margin-bottom:25px;">
-                <h4 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px 0; cursor:pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
-                    <i class="icon wb-plus" style="margin-right:8px;"></i> KET和PET有什么区别？
-                </h4>
-                <p style="color:#6B7280; line-height:1.8; margin:0; display:none;">
-                    KET（初级）适合初中到高中学生，难度相对较低。PET（中级）适合高中到大学学生，是KET的进阶版本。我们提供两个级别的完整课程，你可以根据自己的英语水平选择。
-                </p>
-            </div>
-            <div style="margin-bottom:25px;">
-                <h4 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px 0; cursor:pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
-                    <i class="icon wb-plus" style="margin-right:8px;"></i> 课程有效期是多久？
-                </h4>
-                <p style="color:#6B7280; line-height:1.8; margin:0; display:none;">
-                    课程为永久有效，你可以随时学习、复习内容。我们会定期更新课程内容，确保你学到最新的考试信息和技巧。
-                </p>
-            </div>
-            <div style="margin-bottom:25px;">
-                <h4 style="font-size:16px; font-weight:700; color:#111827; margin:0 0 12px 0; cursor:pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">
-                    <i class="icon wb-plus" style="margin-right:8px;"></i> 如果没通过考试怎么办？
-                </h4>
-                <p style="color:#6B7280; line-height:1.8; margin:0; display:none;">
-                    我们有完善的反馈机制。如果你学习了我们的全部课程还没通过，可以联系我们获得额外的指导和支持。我们的目标就是帮助你成功通过考试！
-                </p>
-            </div>
+<style>
+.epgo-faq-item{border-bottom:1px solid #E5E7EB;padding:0;}
+.epgo-faq-q{padding:18px 0;font-size:15px;font-weight:600;color:#111827;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
+.epgo-faq-q:hover{color:#2563EB;}
+.epgo-faq-icon{font-size:20px;color:#9CA3AF;transition:transform .25s;flex-shrink:0;margin-left:12px;}
+.epgo-faq-a{display:none;padding:0 0 18px;font-size:14px;color:#6B7280;line-height:1.8;}
+.epgo-faq-item.open .epgo-faq-a{display:block;}
+.epgo-faq-item.open .epgo-faq-icon{transform:rotate(45deg);}
+</style>
+
+<script>
+function epgoToggleFaq(el){
+    var item=el.parentElement;
+    var wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.epgo-faq-item').forEach(function(i){i.classList.remove('open');});
+    if(!wasOpen) item.classList.add('open');
+}
+</script>
+
+
+<!-- ════════════ 关注我们 CTA ════════════ -->
+<section style="padding:56px 0;background:linear-gradient(135deg,#1e3a8a,#2563eb);">
+    <div class="container" style="text-align:center;">
+        <h2 style="font-size:30px;font-weight:800;color:white;margin:0 0 12px;">关注公众号，每天进步一点点</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,.85);margin:0 0 28px;">扫码关注"英语陪跑GO"，每日推送 KET/PET 备考干货、词汇和真题解析</p>
+        <div style="display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;">
+            <a href="{$c.index_url}about/" style="background:white;color:#1e3a8a;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;">了解更多 →</a>
+            <a href="{$c.index_url}news/" style="background:rgba(255,255,255,.15);color:white;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;border:1px solid rgba(255,255,255,.4);">浏览文章</a>
         </div>
     </div>
 </section>
+
 
 <!-- 二维码弹窗 -->
-<div id="epgo-qr-modal">
-    <div class="epgo-modal-box">
-        <button class="epgo-modal-close" onclick="epgoCloseQR()">×</button>
-        <h3>英语陪跑GO</h3>
-        <p class="epgo-modal-sub">扫码关注，每天备考干货</p>
-        <div class="epgo-modal-qr">
+<div id="epgo-qr-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:white;border-radius:16px;padding:36px;text-align:center;max-width:320px;width:90%;position:relative;">
+        <button onclick="epgoCloseQR()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#9CA3AF;">×</button>
+        <h3 style="font-size:18px;font-weight:700;margin:0 0 6px;color:#111827;">英语陪跑GO</h3>
+        <p style="font-size:13px;color:#6B7280;margin:0 0 18px;">扫码关注，每天备考干货</p>
+        <div style="width:160px;height:160px;margin:0 auto 14px;background:#f3f4f6;border-radius:8px;overflow:hidden;">
             <if value="$c['footinfo_wx']">
-                <img src="{$c.footinfo_wx|thumb:170,170}" alt="公众号二维码">
+                <img src="{$c.footinfo_wx|thumb:160,160}" alt="公众号二维码" style="width:100%;height:100%;object-fit:cover;">
             <else/>
-                <div style="width:170px;height:170px;display:flex;align-items:center;justify-content:center;color:#9CA3AF;font-size:13px;">二维码配置中</div>
+                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#9CA3AF;font-size:12px;">二维码配置中</div>
             </if>
         </div>
-        <p class="epgo-modal-hint">长按识别二维码关注</p>
+        <p style="font-size:12px;color:#9CA3AF;margin:0;">长按识别二维码关注</p>
     </div>
 </div>
 
 <script>
 (function(){
-    var scrollY = 0;
-    function show(){
-        scrollY = window.scrollY;
-        document.body.style.overflow = 'hidden';
+    var scrollY=0;
+    window.epgoShowQR=function(){
+        scrollY=window.scrollY;
+        document.body.style.overflow='hidden';
         document.getElementById('epgo-qr-modal').style.display='flex';
-        document.querySelector('header').style.position = 'fixed';
-    }
-    function hide(){
-        document.body.style.overflow = 'auto';
-        window.scrollTo(0, scrollY);
+    };
+    window.epgoCloseQR=function(){
+        document.body.style.overflow='';
+        window.scrollTo(0,scrollY);
         document.getElementById('epgo-qr-modal').style.display='none';
-        document.querySelector('header').style.position = 'relative';
-    }
-    window.epgoShowQR = show;
-    window.epgoCloseQR = hide;
+    };
 })();
 </script>
 
