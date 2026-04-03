@@ -1,5 +1,3 @@
-<if value="$lang['tagshow_2']">
-
 <tag action='category' cid="$data['releclass1']" type='son'>
 <if value="$m['_first']">
 <div class="met-column-nav" m-id='subcolumn_nav' m-type='nocontent'>
@@ -68,4 +66,3 @@
 </div>
 </if>
 </tag>
-</if>
