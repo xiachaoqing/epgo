@@ -1,180 +1,132 @@
-<?php defined('IN_MET') or exit('No permission'); ?><!DOCTYPE html>
-<html lang="{$g.lang}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{$lang.index_title|default:'英语陪跑GO - 专业KET/PET考试培训平台'}">
-    <meta name="keywords" content="{$lang.index_key|default:'KET,PET,英语培训,考试辅导'}">
-    <title>{$data.title|default:$lang.index_title} - {$lang.company_name}</title>
+<met_meta page="$met_page" />
+<header class='met-head' m-id='met_head' m-type="head_nav">
+    <nav class="navbar navbar-default box-shadow-none met-nav" style="background:#1565C0;">
+        <div class="container">
+            <div class="row">
+                <div class='met-nav-btn'>
+                    <if value="$data['classnow'] eq 10001">
+                    <h1 hidden>{$c.met_webname}</h1>
+                    <else/>
+                    <if value="!$data['id'] || $data['module'] eq 1">
+                    <h1 hidden>{$data.name}</h1>
+                    </if>
+                    <h3 hidden>{$c.met_webname}</h3>
+                    </if>
+                    <div class="navbar-header pull-xs-left">
+                        <a href="{$c.index_url}" class="met-logo vertical-align block pull-xs-left" title="{$c.met_webname}">
+                            <div class="vertical-align-middle">
+                                <if value="$c['met_logo']">
+                                    <img src="{$c.met_logo}" alt="{$c.met_webname}" class="pclogo mblogo" style="max-height:48px;" />
+                                <else/>
+                                    <span style="font-size:20px;font-weight:700;color:#fff;">{$c.met_webname}</span>
+                                </if>
+                            </div>
+                        </a>
+                    </div>
+                    <button type="button" class="navbar-toggler hamburger hamburger-close collapsed p-x-5 p-y-0 met-nav-toggler" data-target="#met-nav-collapse" data-toggle="collapse">
+                        <span class="sr-only"></span>
+                        <span class="hamburger-bar"></span>
+                    </button>
+                </div>
 
-    <!-- 预加载关键资源 -->
-    <link rel="preload" as="style" href="{$metui_url3}fonts/iconfont/iconfont.css">
-    <link rel="preload" as="style" href="{$template_url}css/epgo-education.css">
-
-    <!-- 基础样式 -->
-    <link rel="stylesheet" href="{$metui_url2}vendor/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{$metui_url3}fonts/iconfont/iconfont.css">
-    <link rel="stylesheet" href="{$template_url}css/epgo-education.css">
-
-    <!-- favicon -->
-    <link rel="icon" type="image/png" href="{$lang.favicon|default:$metui_url3}images/favicon.png">
-
-    <!-- 其他模板CSS -->
-    <if value="$_M['html']['css']">
-        <list data="$_M['html']['css']" name="$v">
-        <link rel="stylesheet" href="{$v}">
-        </list>
-    </if>
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313"
-         crossorigin="anonymous"></script>
-
-    <!-- 其他head标签 -->
-    {$g.head}
-</head>
-<body>
-<!-- 顶部导航栏 -->
-<nav class="met-head navbar navbar-expand-md navbar-light">
-    <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="{$c.index_url}">
-            <if value="$lang.logo">
-                <img src="{$lang.logo}" alt="{$lang.company_name}" style="max-height: 40px;">
-            <else/>
-                {$lang.company_name|default:'EPGO'}
-            </if>
-        </a>
-
-        <!-- 导航菜单切换按钮 -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- 导航菜单 -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <!-- 首页 -->
-                <li class="nav-item">
-                    <a href="{$c.index_url}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">
-                        {$word.home|default:'首页'}
-                    </a>
-                </li>
-
-                <!-- 动态栏目菜单 -->
-                <tag action='category' type='head'>
-                    <if value="$m['sub']">
+                <div class="navbar-collapse-toolbar pull-md-right p-0 collapse" id="met-nav-collapse">
+                    <ul class="nav navbar-nav navlist">
+                        <li class='nav-item'>
+                            <a href="{$c.index_url}" title="{$word.home}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">{$word.home}</a>
+                        </li>
+                        <tag action='category' type='head' class='active'>
+                        <if value="$m['sub']">
+                        <?php $_cid = (int)$m['id']; ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle <if value="$m['class']">active</if>"
-                               href="{$m.url}"
-                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {$m._name}
-                            </a>
-                            <div class="dropdown-menu">
-                                <tag action='category' cid="$m['id']" type='son'>
-                                    <a class="dropdown-item" href="{$m.url}" title="{$m.name}">
-                                        {$m._name}
-                                    </a>
+                            <a href="{$m.url}" title="{$m.name}" class="nav-link dropdown-toggle {$m.class}" data-toggle="dropdown" data-hover="dropdown">{$m._name}</a>
+                            <div class="dropdown-menu dropdown-menu-right animate animate-reverse">
+                                <tag action='category' cid="$_cid" type='son' class='active'>
+                                    <a href="{$m.url}" {$m.urlnew} title="{$m.name}" class='dropdown-item {$m.class}'>{$m._name}</a>
                                 </tag>
                             </div>
                         </li>
-                    <else/>
-                        <li class="nav-item">
-                            <a class="nav-link <if value="$m['class']">active</if>" href="{$m.url}">
-                                {$m._name}
-                            </a>
+                        <else/>
+                        <li class='nav-item'>
+                            <a href="{$m.url}" {$m.urlnew} title="{$m.name}" class="nav-link {$m.class}">{$m._name}</a>
                         </li>
-                    </if>
-                </tag>
-
-                <!-- 公众号 -->
-                <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link" onclick="epgoEducation.showQRCode()">
-                        <i class="icon wb-share"></i> {$word.wechat|default:'公众号'}
-                    </a>
-                </li>
-            </ul>
+                        </if>
+                        </tag>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>
 
-<!-- 公众号二维码弹窗 -->
-<div id="qrcode-modal" class="qrcode-modal" style="display: none;">
-    <div class="qrcode-modal-content">
-        <span class="qrcode-modal-close" onclick="epgoEducation.closeQRCode()">&times;</span>
-        <div class="qrcode-modal-body">
-            <h3>关注公众号</h3>
-            <p>英语陪跑GO</p>
-            <div class="qrcode-box">
-                <if value="$lang.wechat_qrcode">
-                    <img src="{$lang.wechat_qrcode}" alt="微信公众号二维码" style="width: 240px; height: 240px;">
+<if value="$data['classnow']">
+<tag action="banner.list"></tag>
+<if value="$sub || $data['classnow'] eq 10001">
+<div class="met-banner carousel slide" id="exampleCarouselDefault" data-ride="carousel" m-id='banner' m-type='banner'>
+    <ol class="carousel-indicators carousel-indicators-fall">
+        <tag action="banner.list">
+            <li data-slide-to="{$v._index}" data-target="#exampleCarouselDefault" class="<if value="$v['_first']">active</if>"></li>
+        </tag>
+    </ol>
+    <if value="$sub">
+        <a class="left carousel-control" href="#exampleCarouselDefault" role="button" data-slide="prev">
+            <span class="icon" aria-hidden="true"><</span>
+        </a>
+        <a class="right carousel-control" href="#exampleCarouselDefault" role="button" data-slide="next">
+            <span class="icon" aria-hidden="true">></span>
+        </a>
+    </if>
+    <div class="carousel-inner <if value="$data['classnow'] eq 10001 && $sub eq 0">met-banner-mh</if>" role="listbox">
+        <tag action="banner.list">
+            <div class="carousel-item <if value="$v['_first']">active</if>">
+                <if value="$v['mobile_img_path']">
+                    <img class="w-full mobile_img" src="{$v.mobile_img_path}" alt="{$v.img_title_mobile}" pch="{$v.height}" adh="{$v.height_t}" iph="{$v.height_m}">
+                    <img class="w-full pc_img" src="{$v.img_path}" alt="{$v.img_title}" pch="{$v.height}" adh="{$v.height_t}" iph="{$v.height_m}">
                 <else/>
-                    <div style="width: 240px; height: 240px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-                        <p style="color: #999; text-align: center;">二维码配置中<br>(请在后台上传)</p>
+                    <img class="w-full mobile_img" src="{$v.img_path}" alt="{$v.img_title}" pch="{$v.height}" adh="{$v.height_t}" iph="{$v.height_m}">
+                    <img class="w-full pc_img" src="{$v.img_path}" alt="{$v.img_title}" pch="{$v.height}" adh="{$v.height_t}" iph="{$v.height_m}">
+                </if>
+                <if value="$v['img_title'] || $v['img_des'] || $v['button'] || $v['img_link']">
+                    <div class="met-banner-text pc-content" met-imgmask>
+                        <div class='container'>
+                            <div class='met-banner-text-con p-{$v.img_text_position}'>
+                                <div><div>
+                                <if value="$v['img_link']">
+                                    <a href="{$v.img_link}" title="{$v.img_des}" class="all-imgmask" <if value="$v['target']">target="_blank"</if>></a>
+                                </if>
+                                <if value="$v['img_title']">
+                                    <h3 class="animation-slide-top animation-delay-300 font-weight-500" style="color:{$v.img_title_color};font-size:{$v.img_title_fontsize}px;">{$v.img_title}</h3>
+                                </if>
+                                <if value="$v['img_des']">
+                                    <p class="animation-slide-bottom animation-delay-600" style='color:{$v.img_des_color};font-size:{$v.img_des_fontsize}px;'>{$v.img_des}</p>
+                                </if>
+                                <list data="$v['button']" name="$btn">
+                                    <a href="{$btn.but_url}" title="{$btn.but_text}" <if value="$btn['target']">target="_blank"</if> class="btn slick-btn" infoset="{$btn.but_text_size}|{$btn.but_text_color}|{$btn.but_text_hover_color}|{$btn.but_color}|{$btn.but_hover_color}|{$btn.but_x}|{$btn.but_y}">{$btn.but_text}</a>
+                                </list>
+                                </div></div>
+                            </div>
+                        </div>
                     </div>
                 </if>
             </div>
-            <p style="margin-top: 20px; color: #666; font-size: 14px;">长按识别二维码关注</p>
-        </div>
+        </tag>
     </div>
 </div>
-
-<style>
-.qrcode-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-}
-
-.qrcode-modal-content {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    text-align: center;
-    position: relative;
-    max-width: 400px;
-    animation: slideUp 0.3s ease;
-}
-
-.qrcode-modal-close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
-    color: #999;
-}
-
-.qrcode-modal-close:hover {
-    color: #333;
-}
-
-@keyframes slideUp {
-    from {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@media (max-width: 768px) {
-    .qrcode-modal-content {
-        max-width: 90%;
-        padding: 30px 20px;
-    }
-
-    .qrcode-modal-content h3 {
-        margin-bottom: 10px;
-    }
-}
-</style>
+<else if value="$data['classnow'] neq 10001"/>
+<tag action='category' type="current" cid="$data['classnow']">
+<div class="met-banner-ny vertical-align text-center" m-id="banner">
+    <if value="$m['module'] eq 1">
+        <h2 class="vertical-align-middle">{$m.name}</h2>
+    <else/>
+        <h3 class="vertical-align-middle">{$m.name}</h3>
+    </if>
+</div>
+</tag>
+</if>
+<if value="$data['classnow'] neq 10001">
+    <if value="$data['name']">
+        <include file="subcolumn_nav.php" />
+    <else/>
+        <include file="position.php" />
+    </if>
+</if>
+</if>
