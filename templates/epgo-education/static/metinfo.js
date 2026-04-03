@@ -26,6 +26,17 @@
         }
     });
 
+    // PC端导航 hover 展开下拉菜单（替代 bootstrap-hover-dropdown 插件）
+    if(M.device_type=='d'){
+        $('.met-nav .nav-item.dropdown').on('mouseenter', function(){
+            $(this).addClass('show');
+            $(this).find('> .dropdown-menu').addClass('show');
+        }).on('mouseleave', function(){
+            $(this).removeClass('show');
+            $(this).find('> .dropdown-menu').removeClass('show');
+        });
+    }
+
     // 导航下拉菜单三级栏目展开处理
     $met_navlist=$('.met-nav .navlist');
     if(M['device_type'] =='d'){
@@ -44,7 +55,6 @@
         }
     }
     //#endregion
-
 
 
 
