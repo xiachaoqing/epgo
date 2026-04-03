@@ -388,15 +388,16 @@ def article_exists(cur, title: str) -> bool:
 
 
 def insert_article(cur, title, content, desc, col_id):
-    now_ts = int(time.time())
     # 随机分散到当天不同时间（避免同一秒）
-    now_ts -= random.randint(0, 3600)
+    dt = datetime.now().replace(second=random.randint(0, 59),
+                                 minute=random.randint(0, 59))
+    dt_str = dt.strftime('%Y-%m-%d %H:%M:%S')
     cur.execute('''
         INSERT INTO ep_news
           (title, content, description, keywords, class1, lang, wap_ok, hits, addtime, updatetime)
         VALUES
-          (%s, %s, %s, %s, %s, 1, 1, 0, %s, %s)
-    ''', (title, content, desc, title[:80], col_id, now_ts, now_ts))
+          (%s, %s, %s, %s, %s, %s, 1, 0, %s, %s)
+    ''', (title, content, desc, title[:80], col_id, 'cn', dt_str, dt_str))
 
 
 def main():
