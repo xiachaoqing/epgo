@@ -26,7 +26,7 @@ insert_article() {
 
     mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" 2>/dev/null <<EOF
 INSERT INTO ep_news
-(title, keywords, description, content, class1, class2, wap_ok, img_ok, lang, add_time, hits, display)
+(title, keywords, description, content, class1, class2, wap_ok, img_ok, lang, addtime, hits, display)
 VALUES
 ('$title', '$keywords', '$description', '$content', $class1, $class2, 1, 0, 'cn', NOW(), FLOOR(RAND()*500+50), 1);
 EOF
@@ -151,7 +151,7 @@ main() {
     local total=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -Ne \
         "SELECT COUNT(*) FROM ep_news WHERE lang='cn'" 2>/dev/null)
     local today_count=$(mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -Ne \
-        "SELECT COUNT(*) FROM ep_news WHERE lang='cn' AND DATE(add_time)=CURDATE()" 2>/dev/null)
+        "SELECT COUNT(*) FROM ep_news WHERE lang='cn' AND DATE(addtime)=CURDATE()" 2>/dev/null)
     log "总文章: $total 篇 | 今日新增: $today_count 篇"
     log "===== 完成 ====="
 }
