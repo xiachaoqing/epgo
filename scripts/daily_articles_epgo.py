@@ -393,7 +393,7 @@ def insert_article(cur, title, content, desc, col_id):
     now_ts -= random.randint(0, 3600)
     cur.execute('''
         INSERT INTO ep_news
-          (title, content, description, keywords, class1, lang, ok, hits, addtime, updatetime)
+          (title, content, description, keywords, class1, lang, wap_ok, hits, addtime, updatetime)
         VALUES
           (%s, %s, %s, %s, %s, 1, 1, 0, %s, %s)
     ''', (title, content, desc, title[:80], col_id, now_ts, now_ts))
