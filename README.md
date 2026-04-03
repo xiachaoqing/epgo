@@ -1,102 +1,49 @@
-# English Pacing Go (EPGO)
+# 英语陪跑GO — epgo 项目
 
-## 项目简介
+网站：https://xiachaoqing.com
+服务器：101.42.21.191
+模板：`templates/epgo-education/`
 
-English Pacing Go（英语陪跑GO）是一个面向英语学习者的在线教育平台，主要针对：
-- KET（Key English Test）考试培训
-- PET（Preliminary English Test）考试培训
-- 英语学习资源分享
-- 公众号推广和内容集成
+---
 
-## 技术栈
+## 接手必读
 
-- **框架**: MetInfo CMS（PHP）
-- **数据库**: SQLite（开发）/ MySQL（生产）
-- **前端**: HTML/CSS/JavaScript
-- **部署**: Nginx + PHP-FPM + Baota Panel
+**动任何文件前，先读：[docs/DEV_GUIDE.md](docs/DEV_GUIDE.md)**
 
-## 环境配置
+重点章节：
+- § 二：MetInfo 模板语法（**不是普通 PHP/HTML**）
+- § 三：metinfo.inc.php 配置（**配错整站白屏**）
+- § 四：数据库表结构
+- § 七：部署流程
+- § 八：常见错误排查
+- § 九：哪些文件不能动
 
-### 本地开发
+---
 
-1. Clone 项目
+## 快速上手
+
 ```bash
-git clone git@github.com:xiachaoqing/epgo.git
-cd epgo
+# 修改完模板文件后，三步部署
+git push origin main
+ssh root@101.42.21.191 "cd /www/wwwroot/go.xiachaoqing.com && git pull origin main"
+ssh root@101.42.21.191 "rm -rf /www/wwwroot/go.xiachaoqing.com/cache/templates/"
 ```
 
-2. 配置数据库（在 `config/config_db.php`）
-```php
-con_db_name = "epgo_db"
-tablepre    = "ep_"
-```
+---
 
-3. 启动开发服务器
-```bash
-php -S localhost:8000
-```
-
-### 生产部署
-
-- **服务器**: 101.42.21.191
-- **部署目录**: /www/wwwroot/go.xiachaoqing.com/
-- **域名**: go.xiachaoqing.com
-- **数据库**: MySQL (epgo_db)
-
-## 项目结构
+## 目录结构
 
 ```
 epgo/
-├── admin/          # 后台管理
-├── app/            # 应用模块
-├── config/         # 配置文件
-├── download/       # 下载资源
-├── img/            # 图片资源
-├── member/         # 会员系统
-├── news/           # 新闻/文章
-├── product/        # 产品/课程
-├── upload/         # 用户上传文件
-└── index.php       # 入口文件
+├── templates/epgo-education/   前端模板（主要工作在这里）
+│   ├── head.php                导航
+│   ├── foot.php                页脚
+│   ├── index.php               首页
+│   ├── shownews.php            文章详情
+│   ├── news.php                文章列表
+│   ├── css/epgo-education.css  自定义样式
+│   └── metinfo.inc.php         引擎配置（必须有 template_type=tag）
+├── docs/
+│   └── DEV_GUIDE.md            ← 开发规范（接手必读）
+└── scripts/                    服务器端维护脚本
 ```
-
-## 内容结构（EPGO规划）
-
-- **首页**: 英语学习资源汇总
-- **KET栏目**: KET考试真题、词汇、教程
-- **PET栏目**: PET考试真题、词汇、教程
-- **资源下载**: 学习材料、练习题
-- **新闻资讯**: 英语学习技巧、考试动态
-- **公众号**: 推广 "英语陪跑GO" 微信公众号
-
-## Google AdSense 集成
-
-- 广告位规划：顶部、侧边栏、文章末尾
-- 内容优化：高质量教育内容，吸引评测/教程类流量
-- SEO优化：目标关键词 KET、PET 等
-
-## 部署命令参考
-
-```bash
-# 在101.42.21.191上
-ssh root@101.42.21.191
-
-# 部署步骤
-cd /www/wwwroot
-git clone git@github.com:xiachaoqing/epgo.git go.xiachaoqing.com
-cd go.xiachaoqing.com
-
-# 复制数据库
-cp config/metinfo.db config/metinfo.db.backup
-# 在宝塔中配置新网站和数据库
-```
-
-## 维护
-
-- 定期更新英语学习内容
-- 监控Google Analytics和AdSense数据
-- 优化内容以提高点击率
-- 更新SEO优化
-
-## 许可证
-
-Private Project
