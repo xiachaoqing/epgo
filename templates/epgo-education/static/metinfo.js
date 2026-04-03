@@ -36,6 +36,16 @@
         });
     }
 
+    // 移除空的 dropdown-menu（无子栏目时不出现白色空框）
+    $('.met-nav .nav-item.dropdown > .dropdown-menu').each(function(){
+        if($.trim($(this).text()) === '' && $(this).find('a').length === 0){
+            $(this).closest('.nav-item').removeClass('dropdown')
+                   .find('a.dropdown-toggle').removeClass('dropdown-toggle')
+                                             .removeAttr('data-toggle data-hover');
+            $(this).remove();
+        }
+    });
+
     // 导航下拉菜单三级栏目展开处理
     $met_navlist=$('.met-nav .navlist');
     if(M['device_type'] =='d'){

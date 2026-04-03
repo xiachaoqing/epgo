@@ -81,6 +81,18 @@ a {
   overflow: visible !important;
   position: relative !important;
 }
+
+/* 修复框架注入 display:block 导致空下拉菜单一直显示 */
+.met-nav .nav-item.dropdown > .dropdown-menu {
+  display: none !important;
+}
+.met-nav .nav-item.dropdown.open > .dropdown-menu {
+  display: block !important;
+}
+/* 空的 dropdown-menu 不显示（无子项时彻底隐藏） */
+.met-nav .nav-item.dropdown > .dropdown-menu:empty {
+  display: none !important;
+}
 body.met-navfixed {
   padding-top: 60px;
 }
