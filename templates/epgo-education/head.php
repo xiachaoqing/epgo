@@ -13,7 +13,7 @@
                     <h3 hidden>{$c.met_webname}</h3>
                     </if>
                     <div class="navbar-header pull-xs-left">
-                        <a href="{$c.index_url}" class="met-logo vertical-align block pull-xs-left" title="{$c.met_webname}">
+                        <a href="/" class="met-logo vertical-align block pull-xs-left" title="{$c.met_webname}">
                             <div class="vertical-align-middle">
                                 <if value="$c['met_logo']">
                                     <img src="{$c.met_logo}" alt="{$c.met_webname}" class="pclogo mblogo" style="max-height:48px;" />
@@ -32,7 +32,7 @@
                 <div class="navbar-collapse-toolbar pull-md-right p-0 collapse" id="met-nav-collapse">
                     <ul class="nav navbar-nav navlist">
                         <li class='nav-item'>
-                            <a href="{$c.index_url}" title="{$word.home}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">{$word.home}</a>
+                            <a href="/" title="{$word.home}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">{$word.home}</a>
                         </li>
                         <tag action='category' type='head' class='active'>
                         <if value="$m['sub']">
@@ -57,6 +57,30 @@
         </div>
     </nav>
 </header>
+<style>
+/* 蓝色下拉菜单 */
+.met-nav .dropdown-menu {
+  background: #1565C0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  min-width: 160px;
+  padding: 6px 0 !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18) !important;
+}
+.met-nav .dropdown-menu > li > a,
+.met-nav .dropdown-menu .dropdown-item {
+  color: #fff !important;
+  padding: 10px 18px !important;
+  background: transparent !important;
+  white-space: nowrap;
+}
+.met-nav .dropdown-menu > li > a:hover,
+.met-nav .dropdown-menu .dropdown-item:hover {
+  background: rgba(255,255,255,.15) !important;
+  text-indent: 0 !important;
+  color: #fff !important;
+}
+</style>
 
 <if value="$data['classnow']">
 <tag action="banner.list"></tag>
