@@ -190,58 +190,48 @@
                                 <h3 class="font-size-16 m-0">推荐阅读</h3>
                                 <ul class="list-group list-group-bordered m-t-10 m-b-0">
                                     <?php
-                                    // 查询同栏目的热门文章作为推荐
-                                    try {
-                                        $_rel_class = intval($data['class1']);
-                                        $_raw = file_get_contents(PATH_CONFIG . 'config_db.php');
-                                        preg_match('/con_db_host\s*=\s*"([^"]+)"/', $_raw, $_eh);
-                                        preg_match('/con_db_id\s*=\s*"([^"]+)"/', $_raw, $_eu);
-                                        preg_match('/con_db_pass\s*=\s*"([^"]+)"/', $_raw, $_ep);
-                                        preg_match('/con_db_name\s*=\s*"([^"]+)"/', $_raw, $_en);
-                                        preg_match('/tablepre\s*=\s*"([^"]+)"/', $_raw, $_et);
-                                        $_db = new mysqli($_eh[1]??'localhost', $_eu[1]??'', $_ep[1]??'', $_en[1]??'');
-                                        if (!$_db->connect_error) {
-                                            $_db->set_charset('utf8mb4');
-                                            $_pre = $_et[1] ?? 'ep_';
-                                            $_id = intval($data['id']);
+                                    $_rel_class = intval($data['class1'] ?? 0);
+                                    $_id = intval($data['id'] ?? 0);
+                                    $_recs = array();
 
-                                            // 查询同栏目的其他热门文章（按hits降序）
-                                            $_rec_sql = "SELECT id, title, filename, imgurl, hits
-                                                        FROM `{$_pre}news`
-                                                        WHERE recycle=0 AND id != {$_id} AND class1={$_rel_class}
-                                                        ORDER BY hits DESC LIMIT 5";
-                                            $_rec_res = $_db->query($_rec_sql);
-                                            $_recs = $_rec_res ? $_rec_res->fetch_all(MYSQLI_ASSOC) : [];
-
-                                            // 生成推荐列表
-                                            if (!empty($_recs)) {
-                                                foreach ($_recs as $_rec) {
-                                                    $_rec_title = htmlspecialchars($_rec['title'] ?? '');
-                                                    $_rec_img = htmlspecialchars($_rec['imgurl'] ?? '');
-                                                    if (strpos($_rec_img, '..//') === 0) $_rec_img = '/' . ltrim(substr($_rec_img, 4), '/');
-                                                    if (strpos($_rec_img, '../') === 0) $_rec_img = '/' . ltrim(substr($_rec_img, 3), '/');
-                                                    if ($_rec_img && strpos($_rec_img, 'http') !== 0) $_rec_img = 'https://xiachaoqing.com' . $_rec_img;
-
-                                                    if (empty($_rec['filename'])) {
-                                                        $_folder_map = array(101=>'ket',102=>'pet',103=>'reading',104=>'speech',105=>'daily',106=>'download',107=>'about',111=>'ket-exam',112=>'ket-word',113=>'ket-write',114=>'ket-listen',121=>'pet-exam',122=>'pet-word',123=>'pet-write',124=>'pet-read');
-                                                        $_rec_url = isset($_folder_map[$_rel_class]) ? '/' . $_folder_map[$_rel_class] . '/' . intval($_rec['id']) . '.html' : '/';
-                                                    } else {
-                                                        $_rec_url = '/' . trim($_rec['filename']) . '.html';
-                                                    }
-                                                    echo '<li class="list-group-item">';
-                                                    if ($_rec_img) {
-                                                        echo '<a class="imga" href="' . $_rec_url . '" title="' . $_rec_title . '"><img src="' . $_rec_img . '" alt="' . $_rec_title . '" style="max-width:100%"></a>';
-                                                    }
-                                                    echo '<a href="' . $_rec_url . '" title="' . $_rec_title . '">' . $_rec_title . '</a>';
-                                                    echo '</li>';
-                                                }
-                                            } else {
-                                                echo '<li class="list-group-item"><span style="color:#999;">暂无推荐</span></li>';
+                                    if ($_rel_class > 0 && $_id > 0) {
+                                        $mysqli = new mysqli('127.0.0.1', 'xiachaoqing', '***REMOVED***', 'epgo_db');
+                                        if (!$mysqli->connect_error) {
+                                            $mysqli->set_charset('utf8mb4');
+                                            $sql = "SELECT id, title, filename, imgurl FROM ep_news WHERE recycle=0 AND id != $_id AND class1=$_rel_class ORDER BY hits DESC LIMIT 5";
+                                            if ($result = $mysqli->query($sql)) {
+                                                $_recs = $result->fetch_all(MYSQLI_ASSOC);
                                             }
-                                            $_db->close();
+                                            $mysqli->close();
                                         }
-                                    } catch (Exception $_ex) {
-                                        echo '<li class="list-group-item"><span style="color:#999;">推荐加载失败</span></li>';
+                                    }
+
+                                    $_folder_map = array(101=>'ket',102=>'pet',103=>'reading',104=>'speech',105=>'daily',106=>'download',107=>'about',111=>'ket-exam',112=>'ket-word',113=>'ket-write',114=>'ket-listen',121=>'pet-exam',122=>'pet-word',123=>'pet-write',124=>'pet-read');
+
+                                    if (!empty($_recs)) {
+                                        foreach ($_recs as $_rec) {
+                                            $_rec_title = htmlspecialchars($_rec['title'] ?? '');
+                                            $_rec_img = $_rec['imgurl'] ?? '';
+                                            if ($_rec_img && strpos($_rec_img, '..//') === 0) $_rec_img = '/' . ltrim(substr($_rec_img, 4), '/');
+                                            if ($_rec_img && strpos($_rec_img, '../') === 0) $_rec_img = '/' . ltrim(substr($_rec_img, 3), '/');
+                                            if ($_rec_img && strpos($_rec_img, 'http') !== 0) $_rec_img = 'https://xiachaoqing.com' . $_rec_img;
+
+                                            $_rec_url = '/';
+                                            if (empty($_rec['filename'])) {
+                                                $_rec_url = isset($_folder_map[$_rel_class]) ? '/' . $_folder_map[$_rel_class] . '/' . intval($_rec['id']) . '.html' : '/';
+                                            } else {
+                                                $_rec_url = '/' . trim($_rec['filename']) . '.html';
+                                            }
+
+                                            echo '<li class="list-group-item">';
+                                            if ($_rec_img) {
+                                                echo '<a class="imga" href="' . htmlspecialchars($_rec_url) . '" title="' . $_rec_title . '"><img src="' . htmlspecialchars($_rec_img) . '" alt="' . $_rec_title . '" style="max-width:100%"></a>';
+                                            }
+                                            echo '<a href="' . htmlspecialchars($_rec_url) . '" title="' . $_rec_title . '">' . $_rec_title . '</a>';
+                                            echo '</li>';
+                                        }
+                                    } else {
+                                        echo '<li class="list-group-item"><span style="color:#999;">暂无推荐</span></li>';
                                     }
                                     ?>
                                 </ul>
