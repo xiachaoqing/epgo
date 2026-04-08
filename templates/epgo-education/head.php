@@ -30,19 +30,35 @@
                 </div>
 
                 <div class="navbar-collapse-toolbar pull-md-right p-0 collapse" id="met-nav-collapse">
+                    <?php
+                    $_epgo_children = array(
+                        101 => array(
+                            array('name'=>'KET真题解析','url'=>'/ket-exam/list-111.html'),
+                            array('name'=>'KET词汇速记','url'=>'/ket-word/list-112.html'),
+                            array('name'=>'KET写作指导','url'=>'/ket-write/list-113.html'),
+                            array('name'=>'KET听力技巧','url'=>'/ket-listen/list-114.html'),
+                        ),
+                        102 => array(
+                            array('name'=>'PET真题解析','url'=>'/pet-exam/list-121.html'),
+                            array('name'=>'PET词汇速记','url'=>'/pet-word/list-122.html'),
+                            array('name'=>'PET写作指导','url'=>'/pet-write/list-123.html'),
+                            array('name'=>'PET阅读技巧','url'=>'/pet-read/list-124.html'),
+                        ),
+                    );
+                    ?>
                     <ul class="nav navbar-nav navlist">
                         <li class='nav-item'>
                             <a href="/" title="{$word.home}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">{$word.home}</a>
                         </li>
                         <tag action='category' type='head' class='active'>
-                        <if value="$m['sub']">
-                        <?php $_cid = (int)$m['id']; ?>
+                        <?php $_nsub = isset($_epgo_children[(int)$m['id']]) ? $_epgo_children[(int)$m['id']] : array(); ?>
+                        <if value="$_nsub">
                         <li class="nav-item dropdown">
                             <a href="{$m.url}" title="{$m.name}" class="nav-link dropdown-toggle {$m.class}" data-toggle="dropdown" data-hover="dropdown">{$m._name}</a>
                             <div class="dropdown-menu dropdown-menu-right animate animate-reverse">
-                                <tag action='category' cid="$_cid" type='son' class='active'>
-                                    <a href="{$m.url}" {$m.urlnew} title="{$m.name}" class='dropdown-item {$m.class}'>{$m._name}</a>
-                                </tag>
+                                <?php foreach($_nsub as $_sc){ ?>
+                                <a href="<?php echo htmlspecialchars($_sc['url']); ?>" class="dropdown-item"><?php echo htmlspecialchars($_sc['name']); ?></a>
+                                <?php } ?>
                             </div>
                         </li>
                         <else/>
