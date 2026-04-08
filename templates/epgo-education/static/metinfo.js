@@ -14,14 +14,14 @@
 
     /*导航处理*/
     //#region
-   var aLink=$(".met-nav").find('.dropdown a.nav-link');
-   if(M.device_type!='d') aLink.removeAttr('data-hover');
-    aLink.click(function(){
-        if((M.device_type=='d'||Breakpoints.is('lg')||Breakpoints.is('xlg')) && $(this).attr("data-hover")){
+   var aLink=$(".met-nav").find('.dropdown > a.nav-link[data-hover]');
+    aLink.click(function(e){
+        if(M.device_type=='d'||Breakpoints.is('lg')||Breakpoints.is('xlg')){
+            e.preventDefault();
             if($(this).attr('target')=='_blank'){
                 window.open($(this).attr('href'));
             }else{
-                location=$(this).attr('href');
+                location.href=$(this).attr('href');
             }
         }
     });
