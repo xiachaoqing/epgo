@@ -33,6 +33,43 @@
             <!-- 左侧文章列表 -->
             <div class="col-md-9 met-news-body">
                 <div class="met-news-list met-news" m-id="noset">
+                    <?php
+                    // 修复子栏目列表查询 - 优先使用 class2
+                    $_fix_cid = intval($data['classnow'] ?? 0);
+                    $_fix_page = intval($_REQUEST['page'] ?? 1);
+                    $_fix_pagesize = intval($c['met_news_list'] ?? 10);
+
+                    // 如果 classnow 是二级栏目（111-114, 121-124等），用 class2=classnow 查询
+                    if ($_fix_cid >= 111 && $_fix_cid <= 124) {
+                        $_mysqli = new mysqli('127.0.0.1', 'xiachaoqing', '***REMOVED***', 'epgo_db');
+                        if (!$_mysqli->connect_error) {
+                            $_mysqli->set_charset('utf8mb4');
+                            $_offset = ($_fix_page - 1) * $_fix_pagesize;
+
+                            // 查询总数
+                            $_cnt_res = $_mysqli->query("SELECT COUNT(*) FROM ep_news WHERE recycle=0 AND class2=$_fix_cid");
+                            $result_count = $_cnt_res->fetch_row()[0];
+
+                            // 查询数据
+                            $_sql = "SELECT id, title, filename, imgurl, description, updatetime, hits, issue, class1, class2
+                                    FROM ep_news
+                                    WHERE recycle=0 AND class2=$_fix_cid
+                                    ORDER BY id DESC
+                                    LIMIT $_offset, $_fix_pagesize";
+                            $_res = $_mysqli->query($_sql);
+                            $result = $_res ? $_res->fetch_all(MYSQLI_ASSOC) : [];
+                            $_mysqli->close();
+
+                            // 处理 URL 和其他字段
+                            foreach ($result as &$_item) {
+                                $_item['url'] = '/' . trim($_item['filename'] ?? '') . '.html';
+                                $_item['_title'] = htmlspecialchars($_item['title']);
+                                $_item['_index'] = 0; // placeholder
+                            }
+                            $sub = !empty($result); // 用于判断是否有数据
+                        }
+                    }
+                    ?>
                     <tag action='news.list' num="$c['met_news_list']" cid="$data['classnow']"></tag>
                     <if value="$sub">
                         <div class="ulstyle met-pager-ajax imagesize" data-scale='{$c.met_newsimg_y}x{$c.met_newsimg_x}'>
