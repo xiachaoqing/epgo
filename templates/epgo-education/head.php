@@ -1,4 +1,29 @@
 <met_meta page="$met_page" />
+<?php
+/* 动态查询子栏目，使用 PATH_CONFIG 常量定位配置文件 */
+$_epgo_children = [];
+try {
+    $_epgo_raw  = file_get_contents(PATH_CONFIG . 'config_db.php');
+    preg_match('/con_db_host\s*=\s*"([^"]+)"/', $_epgo_raw, $_eh);
+    preg_match('/con_db_id\s*=\s*"([^"]+)"/',   $_epgo_raw, $_eu);
+    preg_match('/con_db_pass\s*=\s*"([^"]+)"/',  $_epgo_raw, $_ep);
+    preg_match('/con_db_name\s*=\s*"([^"]+)"/',  $_epgo_raw, $_en);
+    preg_match('/tablepre\s*=\s*"([^"]+)"/',     $_epgo_raw, $_et);
+    $_epgo_db = new mysqli($_eh[1]??'localhost', $_eu[1]??'', $_ep[1]??'', $_en[1]??'');
+    if (!$_epgo_db->connect_error) {
+        $_epgo_db->set_charset('utf8mb4');
+        $_epgo_pre = $_et[1] ?? 'ep_';
+        $_epgo_sql = 'SELECT id,name,foldername,bigclass FROM `' . $_epgo_pre . 'column`'
+                   . ' WHERE bigclass>0 AND nav=1 AND isshow=1 ORDER BY no_order ASC';
+        $_epgo_res = $_epgo_db->query($_epgo_sql);
+        while ($_epgo_res && $_r = $_epgo_res->fetch_assoc()) {
+            $_epgo_children[(int)$_r['bigclass']][] = $_r;
+        }
+        $_epgo_db->close();
+    }
+} catch (Exception $_ex) {}
+unset($_epgo_raw,$_eh,$_eu,$_ep,$_en,$_et,$_epgo_db,$_epgo_pre,$_epgo_sql,$_epgo_res,$_r,$_ex);
+?>
 <header class='met-head' m-id='met_head' m-type="head_nav">
     <nav class="navbar navbar-default box-shadow-none met-nav" style="background:#1565C0;">
         <div class="container">
@@ -30,42 +55,36 @@
                 </div>
 
                 <div class="navbar-collapse-toolbar pull-md-right p-0 collapse" id="met-nav-collapse">
-                    <?php
-                    $_epgo_children = array(
-                        101 => array(
-                            array('name'=>'KET真题解析','url'=>'/ket-exam/list-111.html'),
-                            array('name'=>'KET词汇速记','url'=>'/ket-word/list-112.html'),
-                            array('name'=>'KET写作指导','url'=>'/ket-write/list-113.html'),
-                            array('name'=>'KET听力技巧','url'=>'/ket-listen/list-114.html'),
-                        ),
-                        102 => array(
-                            array('name'=>'PET真题解析','url'=>'/pet-exam/list-121.html'),
-                            array('name'=>'PET词汇速记','url'=>'/pet-word/list-122.html'),
-                            array('name'=>'PET写作指导','url'=>'/pet-write/list-123.html'),
-                            array('name'=>'PET阅读技巧','url'=>'/pet-read/list-124.html'),
-                        ),
-                    );
-                    ?>
                     <ul class="nav navbar-nav navlist">
                         <li class='nav-item'>
                             <a href="/" title="{$word.home}" class="nav-link <if value="$data['classnow'] eq 10001">active</if>">{$word.home}</a>
                         </li>
                         <tag action='category' type='head' class='active'>
-                        <?php $_nsub = isset($_epgo_children[(int)$m['id']]) ? $_epgo_children[(int)$m['id']] : array(); ?>
-                        <if value="$_nsub">
+                        <?php
+                            $_mid  = (int)$m['id'];
+                            $_murl = trim($m['url']);
+                            // 确保 URL 是绝对路径
+                            if ($_murl && $_murl[0] !== '/' && strpos($_murl, 'http') !== 0) {
+                                $_murl = '/' . ltrim($_murl, './');
+                            }
+                            $_nsub = isset($_epgo_children[$_mid]) ? $_epgo_children[$_mid] : [];
+                        ?>
+                        <?php if (!empty($_nsub)): ?>
                         <li class="nav-item dropdown">
-                            <a href="{$m.url}" title="{$m.name}" class="nav-link dropdown-toggle {$m.class}" data-toggle="dropdown" data-hover="dropdown">{$m._name}</a>
+                            <a href="<?php echo htmlspecialchars($_murl); ?>" title="{$m.name}" class="nav-link dropdown-toggle {$m.class}" data-toggle="dropdown" data-hover="dropdown">{$m._name}</a>
                             <div class="dropdown-menu dropdown-menu-right animate animate-reverse">
-                                <?php foreach($_nsub as $_sc){ ?>
-                                <a href="<?php echo htmlspecialchars($_sc['url']); ?>" class="dropdown-item"><?php echo htmlspecialchars($_sc['name']); ?></a>
-                                <?php } ?>
+                                <?php foreach ($_nsub as $_sc):
+                                    $_scurl = '/' . ltrim(trim($_sc['foldername']), '/') . '/list-' . $_sc['id'] . '.html';
+                                ?>
+                                <a href="<?php echo htmlspecialchars($_scurl); ?>" class="dropdown-item"><?php echo htmlspecialchars($_sc['name']); ?></a>
+                                <?php endforeach; ?>
                             </div>
                         </li>
-                        <else/>
+                        <?php else: ?>
                         <li class='nav-item'>
-                            <a href="{$m.url}" {$m.urlnew} title="{$m.name}" class="nav-link {$m.class}">{$m._name}</a>
+                            <a href="<?php echo htmlspecialchars($_murl); ?>" {$m.urlnew} title="{$m.name}" class="nav-link {$m.class}">{$m._name}</a>
                         </li>
-                        </if>
+                        <?php endif; ?>
                         </tag>
                     </ul>
                 </div>
@@ -79,22 +98,30 @@
   background: #1565C0 !important;
   border: none !important;
   border-radius: 0 !important;
-  min-width: 160px;
+  min-width: 140px;
   padding: 6px 0 !important;
   box-shadow: 0 8px 24px rgba(0,0,0,.18) !important;
 }
-.met-nav .dropdown-menu > li > a,
 .met-nav .dropdown-menu .dropdown-item {
   color: #fff !important;
   padding: 10px 18px !important;
   background: transparent !important;
   white-space: nowrap;
+  display: block;
 }
-.met-nav .dropdown-menu > li > a:hover,
 .met-nav .dropdown-menu .dropdown-item:hover {
-  background: rgba(255,255,255,.15) !important;
-  text-indent: 0 !important;
+  background: rgba(255,255,255,.18) !important;
   color: #fff !important;
+}
+/* 隐藏 banner 轮播黄色指示点 */
+.met-banner .carousel-indicators {
+  display: none !important;
+}
+/* 选中导航项无黄色下划线 */
+.met-nav .nav li > a.active::after,
+.met-nav .nav-item > a.active::after {
+  display: none !important;
+  background: transparent !important;
 }
 </style>
 
