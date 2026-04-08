@@ -6,15 +6,33 @@
             <div class="col-lg-6 col-md-12 col-xs-12 left_lanmu">
                 <tag action='category' type='foot'>
                 <if value="$m['_index'] lt 4">
+                <?php
+                    $_foot_name = trim($m['name']);
+                    $_foot_url = trim($m['url']);
+                    if ($_foot_name == '网站地图') $_foot_url = '/sitemap/';
+                    if ($_foot_name == '聚合标签') $_foot_url = '/tags/';
+                    if ($_foot_name == '站内搜索') $_foot_url = '/search/';
+                    if ($_foot_name == '特色功能' && (!$_foot_url || $_foot_url == 'about1/' || $_foot_url == '    about1/')) $_foot_url = '/about1/';
+                    if ($_foot_url && $_foot_url[0] != '/' && strpos($_foot_url, 'http') !== 0) $_foot_url = '/' . ltrim($_foot_url);
+                ?>
                 <div class="col-lg-3 col-md-3 col-xs-6 list masonry-item foot-nav">
                     <h4 class='font-size-20 m-t-0'>
-                        <a href="{$m.url}" {$m.urlnew} title="{$m.name}">{$m.name}</a>
+                        <a href="<?php echo $_foot_url; ?>" {$m.urlnew} title="{$m.name}">{$m.name}</a>
                     </h4>
                     <if value="$m['sub']">
                     <ul class='ulstyle m-b-0'>
                         <tag action='category' cid="$m['id']" type='son' num={$lang.num}>
+                        <?php
+                            $_foot_sub_name = trim($m['name']);
+                            $_foot_sub_url = trim($m['url']);
+                            if ($_foot_sub_name == '网站地图') $_foot_sub_url = '/sitemap/';
+                            if ($_foot_sub_name == '聚合标签') $_foot_sub_url = '/tags/';
+                            if ($_foot_sub_name == '站内搜索') $_foot_sub_url = '/search/';
+                            if ($_foot_sub_name == '特色功能' && (!$_foot_sub_url || $_foot_sub_url == 'about1/' || $_foot_sub_url == '    about1/')) $_foot_sub_url = '/about1/';
+                            if ($_foot_sub_url && $_foot_sub_url[0] != '/' && strpos($_foot_sub_url, 'http') !== 0) $_foot_sub_url = '/' . ltrim($_foot_sub_url);
+                        ?>
                         <li>
-                            <a href="{$m.url}" {$m.urlnew} title="{$m.name}">{$m.name}</a>
+                            <a href="<?php echo $_foot_sub_url; ?>" {$m.urlnew} title="{$m.name}">{$m.name}</a>
                         </li>
                         </tag>
                     </ul>
@@ -22,8 +40,7 @@
                 </div>
                 </if>
                 </tag>
-            </div>           
-            <!-- 栏目调用 -->
+            </div>
 
             <!-- 关注我们二维码 -->
             <div class="col-lg-3 col-md-3 col-xs-12 info masonry-item" m-type="nocontent">
@@ -49,8 +66,9 @@
                     <p class='font-size-20'>{$lang.footinfo_tel}</p>
                 </if>
                 <if value="$lang['footinfo_dsc']">
+                    <?php $_phone = preg_replace('/[^0-9+\-]/', '', $lang['footinfo_dsc']); ?>
                     <p class="font-size-24">
-                        <a href="tel:{$lang.footinfo_dsc}" title="{$lang.footinfo_dsc}">{$lang.footinfo_dsc}</a>
+                        <a href="tel:<?php echo $_phone; ?>" title="{$lang.footinfo_dsc}" rel="nofollow">{$lang.footinfo_dsc}</a>
                     </p>
                 </if>
                 <if value="$lang['wooktime_text']">
@@ -104,7 +122,7 @@
             </div>
             <!-- 联系我们 -->
 
-            
+
         </div>
     </div>
 </div>
@@ -130,7 +148,7 @@
             </ul>
         </div>
     </div>
-    </if>  
+    </if>
     <!--友情链接-->
 
     <div class="copy p-y-10 border-top1">
@@ -202,13 +220,18 @@
         </div>
     </div>
 
-    
+
 </footer>
 <div class="met-menu-list text-xs-center <if value="$_M['form']['pageset']">iskeshi</if>" m-id="noset" m-type="menu">
     <div class="main">
         <tag action="menu.list">
+            <?php
+                $_menu_url = trim($v['url']);
+                if ($_menu_url == '' || $_menu_url == '../' || $_menu_url == '..//' || $_menu_url == './') $_menu_url = '/';
+                if ($_menu_url && $_menu_url[0] != '/' && strpos($_menu_url, 'http') !== 0 && strpos($_menu_url, 'tel:') !== 0) $_menu_url = '/' . ltrim($_menu_url, './');
+            ?>
             <div style="background-color: {$v.but_color};">
-                <a href="{$v.url}" class="item" <if value="$v['target']">target="_blank"</if> style="color: {$v.text_color};">
+                <a href="<?php echo $_menu_url; ?>" class="item" <if value="$v['target']">target="_blank"</if> style="color: {$v.text_color};">
                     <i class="{$v.icon}"></i>
                     <span>{$v.name}</span>
                 </a>

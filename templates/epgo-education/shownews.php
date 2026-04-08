@@ -26,6 +26,26 @@
                             </div>
                         </section>
 
+                        <?php
+                            $_detail_cover = trim($data['imgurl']);
+                            $_detail_class = intval($data['class1']);
+                            if (!$_detail_cover) {
+                                if (in_array($_detail_class, array(111,112,113,114))) $_detail_cover = '/upload/epgo-covers/ket.png';
+                                if (in_array($_detail_class, array(121,122,123,124))) $_detail_cover = '/upload/epgo-covers/pet.png';
+                                if ($_detail_class == 103) $_detail_cover = '/upload/epgo-covers/reading.png';
+                                if ($_detail_class == 104) $_detail_cover = '/upload/epgo-covers/speech.png';
+                                if ($_detail_class == 105) $_detail_cover = '/upload/epgo-covers/daily.png';
+                            }
+                            if (strpos($_detail_cover, '..//') === 0) $_detail_cover = '/' . ltrim(substr($_detail_cover, 4), '/');
+                            if (strpos($_detail_cover, '../') === 0) $_detail_cover = '/' . ltrim(substr($_detail_cover, 3), '/');
+                            if ($_detail_cover && strpos($_detail_cover, 'http') !== 0) $_detail_cover = 'https://xiachaoqing.com' . $_detail_cover;
+                        ?>
+                        <?php if($_detail_cover){ ?>
+                        <section class="epgo-detail-cover">
+                            <img src="<?php echo htmlspecialchars($_detail_cover); ?>" alt="<?php echo htmlspecialchars($data['title']); ?>">
+                        </section>
+                        <?php } ?>
+
                         <!-- 正文（视频由MetInfo富文本自动渲染） -->
                         <section class="met-editor clearfix">
                             {$data.content}
@@ -132,4 +152,8 @@
         </div>
     </div>
 </main>
+<style>
+.epgo-detail-cover{margin:22px 0 28px;border-radius:16px;overflow:hidden;background:#F3F4F6;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+.epgo-detail-cover img{display:block;width:100%;height:auto;min-height:220px;object-fit:cover;}
+</style>
 <include file="foot.php" />

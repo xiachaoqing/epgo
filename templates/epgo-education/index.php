@@ -42,8 +42,8 @@ try {
     <div class="epgo-slide" style="display:block;background:linear-gradient(135deg,#1e3a8a,#2563eb);padding:90px 0;text-align:center;">
         <h1 style="font-size:46px;font-weight:800;color:white;margin:0 0 14px;">英语陪跑GO</h1>
         <p style="font-size:19px;color:rgba(255,255,255,.9);margin:0 0 28px;">专业 KET / PET 备考平台，每天进步一点点</p>
-        <a href="{$c.index_url}ket/" style="display:inline-block;background:white;color:#1e3a8a;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;margin:0 8px;">KET备考 →</a>
-        <a href="{$c.index_url}pet/" style="display:inline-block;background:rgba(255,255,255,.18);color:white;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;border:2px solid white;margin:0 8px;">PET备考</a>
+        <a href="/ket/" style="display:inline-block;background:white;color:#1e3a8a;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;margin:0 8px;">KET备考 →</a>
+        <a href="/pet/" style="display:inline-block;background:rgba(255,255,255,.18);color:white;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;border:2px solid white;margin:0 8px;">PET备考</a>
     </div>
 <?php endif; ?>
 
@@ -149,7 +149,7 @@ try {
                     "The secret of getting ahead is getting started."
                 </blockquote>
                 <p style="font-size:14px;opacity:.85;margin:0 0 20px;">万事开头难，迈出第一步才是关键。— Mark Twain</p>
-                <a href="{$c.index_url}news/" style="display:inline-block;background:rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.4);">查看更多金句 →</a>
+                <a href="/daily/" style="display:inline-block;background:rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.4);">查看更多金句 →</a>
                 <div style="position:absolute;right:-20px;bottom:-20px;font-size:120px;opacity:.06;line-height:1;">❝</div>
             </div>
 
@@ -157,22 +157,22 @@ try {
             <div style="background:white;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);">
                 <div style="font-size:13px;font-weight:700;color:#16A34A;margin-bottom:16px;">学习路径指南</div>
                 <div class="epgo-path-list">
-                    <a href="{$c.index_url}ket/" class="epgo-path-item" style="--c:#2563EB;">
+                    <a href="/ket/" class="epgo-path-item" style="--c:#2563EB;">
                         <span class="epgo-path-badge" style="background:#EFF6FF;color:#2563EB;">KET</span>
                         <span>初级认证 · 适合初高中生</span>
                         <span class="epgo-path-arrow">→</span>
                     </a>
-                    <a href="{$c.index_url}pet/" class="epgo-path-item" style="--c:#16A34A;">
+                    <a href="/pet/" class="epgo-path-item" style="--c:#16A34A;">
                         <span class="epgo-path-badge" style="background:#F0FDF4;color:#16A34A;">PET</span>
                         <span>中级认证 · 适合高中大学</span>
                         <span class="epgo-path-arrow">→</span>
                     </a>
-                    <a href="{$c.index_url}reading/" class="epgo-path-item" style="--c:#EA580C;">
+                    <a href="/reading/" class="epgo-path-item" style="--c:#EA580C;">
                         <span class="epgo-path-badge" style="background:#FFF7ED;color:#EA580C;">阅读</span>
                         <span>英语阅读 · 精读泛读技巧</span>
                         <span class="epgo-path-arrow">→</span>
                     </a>
-                    <a href="{$c.index_url}download/" class="epgo-path-item" style="--c:#7C3AED;">
+                    <a href="/download/" class="epgo-path-item" style="--c:#7C3AED;">
                         <span class="epgo-path-badge" style="background:#F5F3FF;color:#7C3AED;">资料</span>
                         <span>免费下载 · 历年真题资料</span>
                         <span class="epgo-path-arrow">→</span>
@@ -191,7 +191,7 @@ try {
                     </if>
                 </div>
                 <p style="font-size:13px;color:#6B7280;margin:0 0 14px;line-height:1.6;">每日备考干货<br>词汇 / 真题 / 写作技巧</p>
-                <a href="{$c.index_url}about/" style="display:inline-block;background:#07C160;color:white;padding:9px 22px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;">微信扫码关注</a>
+                <a href="/about/" style="display:inline-block;background:#07C160;color:white;padding:9px 22px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;">微信扫码关注</a>
             </div>
         </div>
     </div>
@@ -229,10 +229,10 @@ try {
                     <h3 class="epgo-course-title">KET 备考</h3>
                     <p class="epgo-course-desc">剑桥英语初级认证，适合初中到高中学生，全面覆盖听说读写，从零基础到高分通过。</p>
                     <div class="epgo-course-links">
-                        <a href="{$c.index_url}ket-exam/list-111.html">真题解析</a>
-                        <a href="{$c.index_url}ket-word/list-112.html">词汇速记</a>
-                        <a href="{$c.index_url}ket-write/list-113.html">写作指导</a>
-                        <a href="{$c.index_url}ket-listen/list-114.html">听力技巧</a>
+                        <a href="/ket-exam/list-111.html">真题解析</a>
+                        <a href="/ket-word/list-112.html">词汇速记</a>
+                        <a href="/ket-write/list-113.html">写作指导</a>
+                        <a href="/ket-listen/list-114.html">听力技巧</a>
                     </div>
                 </div>
             </div>
@@ -242,10 +242,10 @@ try {
                     <h3 class="epgo-course-title">PET 备考</h3>
                     <p class="epgo-course-desc">剑桥英语中级认证，适合高中到大学学生，国际认可资格证书，提升竞争力必备选择。</p>
                     <div class="epgo-course-links">
-                        <a href="{$c.index_url}pet-exam/list-121.html">真题解析</a>
-                        <a href="{$c.index_url}pet-word/list-122.html">词汇速记</a>
-                        <a href="{$c.index_url}pet-write/list-123.html">写作指导</a>
-                        <a href="{$c.index_url}pet-read/list-124.html">阅读技巧</a>
+                        <a href="/pet-exam/list-121.html">真题解析</a>
+                        <a href="/pet-word/list-122.html">词汇速记</a>
+                        <a href="/pet-write/list-123.html">写作指导</a>
+                        <a href="/pet-read/list-124.html">阅读技巧</a>
                     </div>
                 </div>
             </div>
@@ -255,10 +255,10 @@ try {
                     <h3 class="epgo-course-title">通用英语</h3>
                     <p class="epgo-course-desc">日常英语综合学习，涵盖阅读、写作和演讲等，提升综合语言能力，适合各个年龄段。</p>
                     <div class="epgo-course-links">
-                        <a href="{$c.index_url}reading/">英语阅读</a>
-                        <a href="{$c.index_url}daily/">每日英语</a>
-                        <a href="{$c.index_url}download/">资料下载</a>
-                        <a href="{$c.index_url}news/">学习资讯</a>
+                        <a href="/reading/">英语阅读</a>
+                        <a href="/daily/">每日英语</a>
+                        <a href="/download/">资料下载</a>
+                        <a href="/reading/">学习资讯</a>
                     </div>
                 </div>
             </div>
@@ -286,37 +286,103 @@ try {
                 <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">最新学习资源</h2>
                 <p style="font-size:14px;color:#6B7280;margin:0;">精选英语学习内容，每日更新</p>
             </div>
-            <a href="{$c.index_url}news/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
+            <a href="/reading/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
         </div>
         <div class="row">
-            <tag action='list' type='news' num='9'>
+            <?php
+            $_epgo_home_articles = array();
+            try {
+                $_epgo_article_pdo = new PDO(
+                    'mysql:host=127.0.0.1;dbname=epgo_db;charset=utf8',
+                    'xiachaoqing',
+                    '***REMOVED***',
+                    array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
+                );
+                $_epgo_article_sql = "
+                    SELECT id,title,description,imgurl,updatetime,hits,class1,class2,class3
+                    FROM ep_news
+                    WHERE recycle=0 AND lang='cn' AND class1 IN (103,104,105,111,112,113,114,121,122,123,124)
+                    ORDER BY id DESC
+                    LIMIT 9
+                ";
+                $_epgo_article_stmt = $_epgo_article_pdo->query($_epgo_article_sql);
+                if ($_epgo_article_stmt) {
+                    $_epgo_home_articles = $_epgo_article_stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+            } catch(Exception $_e) {}
+
+            $_epgo_issue_map = array(
+                103 => '英语阅读',
+                104 => '英语演讲',
+                105 => '每日英语',
+                111 => 'KET真题解析',
+                112 => 'KET词汇速记',
+                113 => 'KET写作指导',
+                114 => 'KET听力技巧',
+                121 => 'PET真题解析',
+                122 => 'PET词汇速记',
+                123 => 'PET写作指导',
+                124 => 'PET阅读技巧'
+            );
+
+            $_epgo_url_map = array(
+                103 => '/reading/',
+                104 => '/speech/',
+                105 => '/daily/',
+                111 => '/ket-exam/',
+                112 => '/ket-word/',
+                113 => '/ket-write/',
+                114 => '/ket-listen/',
+                121 => '/pet-exam/',
+                122 => '/pet-word/',
+                123 => '/pet-write/',
+                124 => '/pet-read/'
+            );
+            ?>
+            <?php foreach($_epgo_home_articles as $_v): ?>
+            <?php
+                $_classid = intval($_v['class1']);
+                $_issue = isset($_epgo_issue_map[$_classid]) ? $_epgo_issue_map[$_classid] : '学习资源';
+                $_base = isset($_epgo_url_map[$_classid]) ? $_epgo_url_map[$_classid] : '/reading/';
+                $_url = rtrim($_base, '/') . '/' . intval($_v['id']) . '.html';
+                $_img = trim($_v['imgurl']);
+                if (!$_img) {
+                    if (in_array($_classid, array(101,111,112,113,114))) $_img = '../upload/epgo-defaults/ket.png';
+                    if (in_array($_classid, array(102,121,122,123,124))) $_img = '../upload/epgo-defaults/pet.png';
+                    if (in_array($_classid, array(103,104))) $_img = '../upload/epgo-defaults/reading.png';
+                    if (in_array($_classid, array(105))) $_img = '../upload/epgo-defaults/daily.png';
+                }
+                $_desc = trim(strip_tags($_v['description']));
+                if (!$_desc) $_desc = '精选英语学习内容，帮助你更高效地完成日常学习与考试备考。';
+                $_time = $_v['updatetime'] ? date('Y-m-d', strtotime($_v['updatetime'])) : '';
+            ?>
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
                 <div class="epgo-article-card">
-                    <if value="$v['imgurl']">
+                    <?php if($_img): ?>
                     <div class="epgo-article-img">
-                        <a href="{$v.url}" title="{$v.title}" {$g.urlnew}>
-                            <img src="{$v.imgurl|thumb:400,200}" alt="{$v.title}">
+                        <a href="<?php echo $_url; ?>" title="<?php echo htmlspecialchars($_v['title']); ?>">
+                            <img src="<?php echo htmlspecialchars($_img); ?>" alt="<?php echo htmlspecialchars($_v['title']); ?>">
                         </a>
                     </div>
-                    <else/>
+                    <?php else: ?>
                     <div class="epgo-article-img epgo-article-img-fallback">
-                        <span>{$v.issue}</span>
+                        <span><?php echo htmlspecialchars($_issue); ?></span>
                     </div>
-                    </if>
+                    <?php endif; ?>
                     <div class="epgo-article-body">
-                        <div class="epgo-article-cat">{$v.issue}</div>
+                        <div class="epgo-article-cat"><?php echo htmlspecialchars($_issue); ?></div>
                         <h3 class="epgo-article-title">
-                            <a href="{$v.url}" title="{$v.title}" {$g.urlnew}>{$v.title}</a>
+                            <a href="<?php echo $_url; ?>" title="<?php echo htmlspecialchars($_v['title']); ?>"><?php echo htmlspecialchars($_v['title']); ?></a>
                         </h3>
-                        <p class="epgo-article-desc">{$v.description}</p>
+                        <p class="epgo-article-desc"><?php echo htmlspecialchars(mb_substr($_desc, 0, 90)); ?></p>
                         <div class="epgo-article-meta">
-                            <span>{$v.updatetime}</span>
-                            <span>{$v.hits} 阅读</span>
+                            <span><?php echo $_time; ?></span>
+                            <span><?php echo intval($_v['hits']); ?> 阅读</span>
                         </div>
                     </div>
                 </div>
             </div>
-            </tag>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -445,8 +511,8 @@ function epgoToggleFaq(el){
         <h2 style="font-size:30px;font-weight:800;color:white;margin:0 0 12px;">关注公众号，每天进步一点点</h2>
         <p style="font-size:15px;color:rgba(255,255,255,.85);margin:0 0 28px;">扫码关注"英语陪跑GO"，每日推送 KET/PET 备考干货、词汇和真题解析</p>
         <div style="display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;">
-            <a href="{$c.index_url}about/" style="background:white;color:#1e3a8a;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;">了解更多 →</a>
-            <a href="{$c.index_url}news/" style="background:rgba(255,255,255,.15);color:white;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;border:1px solid rgba(255,255,255,.4);">浏览文章</a>
+            <a href="/about/" style="background:white;color:#1e3a8a;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;">了解更多 →</a>
+            <a href="/reading/" style="background:rgba(255,255,255,.15);color:white;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;border:1px solid rgba(255,255,255,.4);">浏览文章</a>
         </div>
     </div>
 </section>
