@@ -7,7 +7,7 @@
     <div style="position:absolute; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,0.05); bottom:-50px; left:-50px; pointer-events:none; animation:float-reverse 15s infinite ease-in-out;"></div>
     <div class="container" style="position:relative; z-index:1;">
         <div style="margin-bottom:20px; font-size:14px; color:rgba(255,255,255,0.9);">
-            <a href="{$c.index_url}" style="color:rgba(255,255,255,0.9); text-decoration:none; transition:color 0.2s;">首页</a> <span style="margin:0 8px;">›</span> <span>{$data['name']}</span>
+            {$data['name']}
         </div>
         <h1 style="font-size:48px; font-weight:800; margin:0 0 20px 0; color:white; line-height:1.1; text-shadow:0 2px 8px rgba(0,0,0,0.2);">{$data['name']}</h1>
         <if value="$data['description']">
