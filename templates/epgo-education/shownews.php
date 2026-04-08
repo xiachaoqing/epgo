@@ -68,18 +68,12 @@
                                     $_pre = $_et[1] ?? 'ep_';
                                     $_id  = intval($data['id']);
                                     $_class1 = intval($data['class1']);
-                                    $_cur = $_db->query("SELECT id,title,filename,class1,addtime,updatetime FROM `".$_pre."news` WHERE id={$_id} LIMIT 1");
-                                    $_currow = $_cur ? $_cur->fetch_assoc() : null;
-                                    if ($_currow) {
-                                        $_ts = $_currow['updatetime'] ? $_currow['updatetime'] : $_currow['addtime'];
-                                        $_safe_ts = $_db->real_escape_string($_ts);
-                                        $_prev_sql = "SELECT id,title,filename,class1 FROM `".$_pre."news` WHERE recycle=0 AND class1={$_class1} AND ((updatetime IS NOT NULL AND updatetime > '".$_safe_ts."') OR (updatetime IS NULL AND addtime > '".$_safe_ts."')) ORDER BY COALESCE(updatetime,addtime) ASC LIMIT 1";
-                                        $_next_sql = "SELECT id,title,filename,class1 FROM `".$_pre."news` WHERE recycle=0 AND class1={$_class1} AND ((updatetime IS NOT NULL AND updatetime < '".$_safe_ts."') OR (updatetime IS NULL AND addtime < '".$_safe_ts."')) ORDER BY COALESCE(updatetime,addtime) DESC LIMIT 1";
-                                        $_prev_res = $_db->query($_prev_sql);
-                                        $_next_res = $_db->query($_next_sql);
-                                        $_prev = $_prev_res ? $_prev_res->fetch_assoc() : null;
-                                        $_next = $_next_res ? $_next_res->fetch_assoc() : null;
-                                    }
+                                    $_prev_sql = 'SELECT id,title,filename,class1 FROM `'.$_pre.'news` WHERE recycle=0 AND class1=' . $_class1 . ' AND id>' . $_id . ' ORDER BY id ASC LIMIT 1';
+                                    $_next_sql = 'SELECT id,title,filename,class1 FROM `'.$_pre.'news` WHERE recycle=0 AND class1=' . $_class1 . ' AND id<' . $_id . ' ORDER BY id DESC LIMIT 1';
+                                    $_prev_res = $_db->query($_prev_sql);
+                                    $_next_res = $_db->query($_next_sql);
+                                    $_prev = $_prev_res ? $_prev_res->fetch_assoc() : null;
+                                    $_next = $_next_res ? $_next_res->fetch_assoc() : null;
                                     $_db->close();
                                 }
                             } catch (Exception $_ex) {}

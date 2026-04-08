@@ -35,7 +35,7 @@ insert_article() {
 }
 
 main() {
-    local day=$(date +%d)
+    local day=$((10#$(date +%d)))
     local group=$(( day % 7 ))
     local today=$(date +%Y-%m-%d)
     log "===== epgo 每日文章生成 [$today group=$group] ====="
