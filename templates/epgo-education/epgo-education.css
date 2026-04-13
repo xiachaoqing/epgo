@@ -73,6 +73,22 @@ a:hover { color: var(--color-primary-dark); }
 
 .met-head.scrolled { box-shadow: var(--shadow-md); }
 
+.met-head .met-logo {
+  display: inline-flex !important;
+  align-items: center;
+  height: var(--nav-height);
+  text-decoration: none;
+}
+.met-head .met-logo .vertical-align-middle {
+  display: flex;
+  align-items: center;
+}
+.met-head .met-logo img.pclogo {
+  display: block;
+  max-height: 48px;
+  width: auto;
+}
+
 .met-head .navbar-brand {
   font-size: 20px;
   font-weight: 700;
