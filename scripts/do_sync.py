@@ -3,7 +3,7 @@ import pymysql, json, re
 from datetime import datetime
 
 dst = pymysql.connect(host="localhost", port=3306, user="xiachaoqing",
-    password="***REMOVED***", db="epgo_db", charset="utf8")
+    password="Xia@07090218", db="epgo_db", charset="utf8")
 cur = dst.cursor()
 cur.execute("SET NAMES utf8")
 

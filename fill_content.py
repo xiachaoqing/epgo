@@ -33,7 +33,7 @@ DB_CONFIG = {
     'host': 'localhost',        # 如果在服务器上运行，改为 'localhost'
     'port': 3306,
     'user': 'xiachaoqing',
-    'password': '***REMOVED***',
+    'password': 'Xia@07090218',
     'database': 'epgo_db',
     'charset': 'utf8mb4'
 }
@@ -43,7 +43,7 @@ DB_CONFIG = {
 #     'host': '101.42.21.191',    # 改为服务器IP
 #     'port': 3306,
 #     'user': 'xiachaoqing',
-#     'password': '***REMOVED***',
+#     'password': 'Xia@07090218',
 #     'database': 'epgo_db',
 #     'charset': 'utf8mb4'
 # }

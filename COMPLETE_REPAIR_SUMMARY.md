@@ -196,7 +196,7 @@ ssh epgo 'curl -ks https://go.xiachaoqing.com | grep epgo-photo-covers | head -1
 # 输出：src="/upload/epgo-photo-covers/ket/cover_v1_1775645515.jpg"
 
 # 检查文章内容（已扩充）
-ssh epgo 'mysql -uxiachaoqing -p***REMOVED*** epgo_db -e "SELECT AVG(LENGTH(content)) FROM ep_news WHERE recycle=0;"'
+ssh epgo 'mysql -uxiachaoqing -p07090218 epgo_db -e "SELECT AVG(LENGTH(content)) FROM ep_news WHERE recycle=0;"'
 # 输出：应该 > 1000
 ```
 

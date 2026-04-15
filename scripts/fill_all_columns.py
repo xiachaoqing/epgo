@@ -15,7 +15,7 @@ except ImportError:
     import pymysql
 
 DB = dict(host='127.0.0.1', user='xiachaoqing',
-          password='***REMOVED***', db='epgo_db', charset='utf8mb4')
+          password='Xia@07090218', db='epgo_db', charset='utf8mb4')
 
 # 栏目ID
 COL = {

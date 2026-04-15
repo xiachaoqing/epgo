@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 DB = dict(
     host="127.0.0.1",
     user="xiachaoqing",
-    password="***REMOVED***",
+    password="Xia@07090218",
     database="epgo_db",
     charset="utf8mb4"
 )

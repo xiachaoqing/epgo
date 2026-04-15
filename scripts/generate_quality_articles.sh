@@ -6,7 +6,7 @@ set -e
 
 DB_HOST="127.0.0.1"
 DB_USER="hanhong"
-DB_PASS="***REMOVED***"
+DB_PASS="Xia@07090218"
 DB_NAME="hanhong"
 PUBLISHER="秦皇岛麦润电子科技发展有限公司"
 

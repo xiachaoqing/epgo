@@ -36,7 +36,7 @@ except ImportError:
 DB = dict(
     host='localhost',
     user='xiachaoqing',
-    password='***REMOVED***',
+    password='Xia@07090218',
     db='epgo_db',
     charset='utf8mb4',
     port=3306

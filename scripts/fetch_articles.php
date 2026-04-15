@@ -12,7 +12,7 @@ ini_set('display_errors', 1);
 $config = [
     'db_host' => '127.0.0.1',
     'db_user' => 'xiachaoqing',
-    'db_pass' => '***REMOVED***',
+    'db_pass' => 'Xia@07090218',
     'db_name' => 'epgo_db',
     'upload_path' => '/www/wwwroot/go.xiachaoqing.com/upload/',
     'site_url' => 'https://xiachaoqing.com/'

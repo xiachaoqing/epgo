@@ -1,7 +1,7 @@
 # 🚨 安全应急：暴露的数据库密码修复指南
 
 **问题：** GitGuardian检测到Basic Auth String已暴露
-**被暴露的内容：** 数据库密码 `***REMOVED***`
+**被暴露的内容：** 数据库密码 `07090218`
 **仓库：** xiachaoqing/epgo
 **推送日期：** 2026-04-15
 **严重性：** 🔴 高风险
@@ -17,7 +17,7 @@
 ```bash
 # 1. 更改MySQL数据库用户密码
 mysql -u xiachaoqing -p
-# 输入旧密码 ***REMOVED***
+# 输入旧密码 07090218
 mysql> ALTER USER 'xiachaoqing'@'localhost' IDENTIFIED BY 'NewSecure@Pass2026!';
 mysql> FLUSH PRIVILEGES;
 mysql> EXIT;
@@ -40,7 +40,7 @@ git clone --mirror https://github.com/xiachaoqing/epgo.git epgo.git
 # 3. 移除所有密码字符串
 java -jar bfg-1.14.0.jar --replace-text passwords.txt epgo.git
 # 其中passwords.txt包含：
-# ***REMOVED***
+# 07090218
 
 # 4. 清理和推送
 cd epgo.git
@@ -63,9 +63,9 @@ git branch backup-before-cleanup
 
 # 2. 使用filter-branch移除密码
 git filter-branch -f --tree-filter '
-  find . -name "*.py" -type f -exec sed -i "s/password=\"***REMOVED***\"/password=\"REDACTED\"/g" {} \;
-  find . -name "*.py" -type f -exec sed -i "s/password=.***REMOVED***./password=REDACTED/g" {} \;
-  find . -name "*.py" -type f -exec sed -i "s/***REMOVED***/REDACTED/g" {} \;
+  find . -name "*.py" -type f -exec sed -i "s/password=\"07090218\"/password=\"REDACTED\"/g" {} \;
+  find . -name "*.py" -type f -exec sed -i "s/password=.07090218./password=REDACTED/g" {} \;
+  find . -name "*.py" -type f -exec sed -i "s/07090218/REDACTED/g" {} \;
 ' -- --all
 
 # 3. 删除原始备份
@@ -153,7 +153,7 @@ __pycache__/
 DB = dict(
     host="127.0.0.1",
     user="xiachaoqing",
-    password="***REMOVED***"  # 暴露！
+    password="07090218"  # 暴露！
 )
 ```
 

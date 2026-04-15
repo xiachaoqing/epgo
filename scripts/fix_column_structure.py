@@ -11,7 +11,7 @@ db = pymysql.connect(
     host="localhost",
     port=3306,
     user="xiachaoqing",
-    password="***REMOVED***",
+    password="Xia@07090218",
     db="epgo_db",
     charset="utf8"
 )

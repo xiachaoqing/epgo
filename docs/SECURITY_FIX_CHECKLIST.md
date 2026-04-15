@@ -1,7 +1,7 @@
 # 🚨 安全事件：GitHub密码泄露修复指南
 
 **事件：** GitGuardian 检测到暴露的Basic Auth String
-**被暴露内容：** MySQL数据库密码 `***REMOVED***`
+**被暴露内容：** MySQL数据库密码 `07090218`
 **仓库：** xiachaoqing/epgo
 **推送日期：** 2026-04-15 10:49:47 UTC
 **风险等级：** 🔴 严重
@@ -13,9 +13,9 @@
 
 ### 暴露的密码出现在：
 ```
-scripts/emergency_restore.py:13    password="***REMOVED***"
-scripts/multi_source_crawler.py:26 password="***REMOVED***"
-scripts/quality_article_system.py:23 password="***REMOVED***"
+scripts/emergency_restore.py:13    password="07090218"
+scripts/multi_source_crawler.py:26 password="07090218"
+scripts/quality_article_system.py:23 password="07090218"
 ... (多个Python文件)
 ```
 
@@ -36,7 +36,7 @@ ssh root@101.42.21.191
 
 # 登录MySQL
 mysql -u xiachaoqing -p
-# 输入旧密码: ***REMOVED***
+# 输入旧密码: 07090218
 
 # 执行以下SQL
 ALTER USER 'xiachaoqing'@'localhost' IDENTIFIED BY 'NewSecurePass@2026#xyz';
@@ -100,7 +100,7 @@ git reset --hard origin/main
 # ❌ 旧做法（危险）
 DB = dict(
     user="xiachaoqing",
-    password="***REMOVED***"  # 不要这样！
+    password="07090218"  # 不要这样！
 )
 
 # ✅ 新做法（安全）

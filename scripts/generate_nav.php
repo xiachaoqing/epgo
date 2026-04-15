@@ -9,7 +9,7 @@ ini_set('display_errors', 1);
 // 数据库配置
 $db_host = '127.0.0.1';
 $db_user = 'xiachaoqing';
-$db_pass = '***REMOVED***';
+$db_pass = 'Xia@07090218';
 $db_name = 'epgo_db';
 
 try {

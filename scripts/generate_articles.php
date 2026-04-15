@@ -7,7 +7,7 @@
 // 数据库配置
 $db_host = '127.0.0.1';
 $db_user = 'hanhong';
-$db_pass = '***REMOVED***';
+$db_pass = 'Xia@07090218';
 $db_name = 'hanhong';
 
 // 连接数据库

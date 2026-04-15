@@ -16,7 +16,7 @@ from datetime import datetime
 DB = dict(
     host='127.0.0.1',
     user='xiachaoqing',
-    password='***REMOVED***',
+    password='Xia@07090218',
     db='epgo_db',
     charset='utf8mb4',
     port=3306

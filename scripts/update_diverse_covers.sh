@@ -4,7 +4,7 @@
 UPLOAD_DIR="/www/wwwroot/go.xiachaoqing.com/upload/epgo-photo-covers"
 DB_HOST="127.0.0.1"
 DB_USER="xiachaoqing"
-DB_PASS="***REMOVED***"
+DB_PASS="Xia@07090218"
 DB_NAME="epgo_db"
 
 # 栏目配置: category_id|folder_name|urls_array (以;分隔多个URL)

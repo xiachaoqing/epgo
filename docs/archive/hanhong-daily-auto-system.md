@@ -73,13 +73,13 @@ ssh root@101.42.21.191 "/usr/local/bin/daily_generate_articles.sh"
 
 ### 查看最新生成的文章
 ```bash
-ssh root@101.42.21.191 "mysql -uhanhong -p***REMOVED*** hanhong -e \
+ssh root@101.42.21.191 "mysql -uhanhong -p07090218 hanhong -e \
   \"SELECT id, title, DATE(addtime) FROM hh_news WHERE lang='cn' ORDER BY id DESC LIMIT 10;\" 2>/dev/null"
 ```
 
 ### 查看文章统计
 ```bash
-ssh root@101.42.21.191 "mysql -uhanhong -p***REMOVED*** hanhong -e \
+ssh root@101.42.21.191 "mysql -uhanhong -p07090218 hanhong -e \
   \"SELECT COUNT(*) as 总数 FROM hh_news WHERE lang='cn';
    SELECT COUNT(*) as 今日新增 FROM hh_news WHERE lang='cn' AND DATE(addtime)=CURDATE();\" 2>/dev/null"
 ```

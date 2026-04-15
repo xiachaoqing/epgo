@@ -16,7 +16,7 @@ import random
 DB_CONFIG = {
     'host': '101.42.21.191',
     'user': 'hanhong',
-    'password': '***REMOVED***',
+    'password': 'Xia@07090218',
     'database': 'hanhong'
 }
 

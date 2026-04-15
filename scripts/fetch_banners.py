@@ -49,7 +49,7 @@ BANNERS = [
 ]
 
 UPLOAD_DIR  = "/www/wwwroot/go.xiachaoqing.com/upload/banner"
-DB_CMD      = "mysql -h 127.0.0.1 -u xiachaoqing -p***REMOVED*** epgo_db"
+DB_CMD      = "mysql -h 127.0.0.1 -u xiachaoqing -pXia@07090218 epgo_db"
 SERVER      = "epgo"
 YEAR_MONTH  = time.strftime("%Y%m")
 

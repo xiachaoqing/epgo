@@ -2,7 +2,7 @@
 
 **警告来源：** GitGuardian
 **问题：** Basic Auth String已暴露在GitHub公开仓库
-**暴露的内容：** MySQL数据库密码 `***REMOVED***`
+**暴露的内容：** MySQL数据库密码 `07090218`
 **严重性：** 🔴 高风险
 
 ---
@@ -17,7 +17,7 @@
 # 第一步：在服务器上改密码
 ssh root@101.42.21.191
 mysql -u xiachaoqing -p
-# 输入旧密码: ***REMOVED***
+# 输入旧密码: 07090218
 mysql> ALTER USER 'xiachaoqing'@'localhost' IDENTIFIED BY 'NewSecurePass@2026#strong';
 mysql> FLUSH PRIVILEGES;
 
@@ -112,7 +112,7 @@ secrets.py        # 密钥文件
 DB = dict(
     host="127.0.0.1",
     user="xiachaoqing",
-    password="***REMOVED***"  # 明文密码！！！
+    password="07090218"  # 明文密码！！！
 )
 ```
 
@@ -237,11 +237,11 @@ git clone https://github.com/xiachaoqing/epgo.git epgo-new
 
 ```bash
 # 1. 检查最新commit中没有密码
-git log -p -1 | grep "***REMOVED***"
+git log -p -1 | grep "07090218"
 # 应该返回空（没有结果）
 
 # 2. 搜索整个历史
-git log -p --all | grep "***REMOVED***"
+git log -p --all | grep "07090218"
 # 也应该返回空
 
 # 3. 检查GitHub上的历史

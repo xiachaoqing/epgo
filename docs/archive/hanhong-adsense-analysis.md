@@ -4,7 +4,7 @@
 
 ### 网站基本信息
 - **域名**: xia.shanghaihanhongbio.com
-- **数据库**: hanhong (用户:hanhong, 密码:***REMOVED***)
+- **数据库**: hanhong (用户:hanhong, 密码:07090218)
 - **公司**: 秦皇岛麦润电子科技发展有限公司
 
 ### 内容统计

@@ -85,7 +85,7 @@ templates/epgo-education/
 Host:   127.0.0.1
 DB:     epgo_db
 User:   xiachaoqing
-Pass:   ***REMOVED***
+Pass:   07090218
 表前缀: ep_
 ```
 

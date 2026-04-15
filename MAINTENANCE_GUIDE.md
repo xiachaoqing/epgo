@@ -216,19 +216,19 @@ python3 /www/wwwroot/go.xiachaoqing.com/scripts/daily_maintain_epgo.py
 tail -f /www/wwwroot/go.xiachaoqing.com/logs/daily_maintain.log
 
 # 检查数据库连接
-mysql -h 127.0.0.1 -u xiachaoqing -p***REMOVED*** epgo_db -e "SELECT COUNT(*) FROM ep_news;"
+mysql -h 127.0.0.1 -u xiachaoqing -p07090218 epgo_db -e "SELECT COUNT(*) FROM ep_news;"
 ```
 
 ### 问题3：重复数据
 
 ```bash
 # 查看重复文章
-mysql -h 127.0.0.1 -u xiachaoqing -p***REMOVED*** epgo_db -e "
+mysql -h 127.0.0.1 -u xiachaoqing -p07090218 epgo_db -e "
 SELECT title, COUNT(*) cnt FROM ep_news GROUP BY title HAVING cnt > 1;
 "
 
 # 删除重复数据（保留最新）
-mysql -h 127.0.0.1 -u xiachaoqing -p***REMOVED*** epgo_db -e "
+mysql -h 127.0.0.1 -u xiachaoqing -p07090218 epgo_db -e "
 DELETE FROM ep_news
 WHERE id NOT IN (
   SELECT MAX(id) FROM ep_news GROUP BY title, class1, class2
@@ -271,6 +271,6 @@ rm /var/log/epgo_article_gen.log
 cp daily_maintain_epgo.py daily_maintain_epgo_backup_$(date +%Y%m%d).py
 
 # 备份数据库
-mysqldump -h 127.0.0.1 -u xiachaoqing -p***REMOVED*** epgo_db > epgo_db_backup_$(date +%Y%m%d).sql
+mysqldump -h 127.0.0.1 -u xiachaoqing -p07090218 epgo_db > epgo_db_backup_$(date +%Y%m%d).sql
 ```
 

@@ -1,7 +1,7 @@
 import pymysql
 from datetime import datetime
 
-DB = dict(host='localhost', user='xiachaoqing', password='***REMOVED***', db='epgo_db', charset='utf8mb4')
+DB = dict(host='localhost', user='xiachaoqing', password='Xia@07090218', db='epgo_db', charset='utf8mb4')
 
 TOPICS = {
     103: [

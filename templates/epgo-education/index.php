@@ -7,7 +7,7 @@ $_epgo_banners = array();
 try {
     $_epgo_pdo = new PDO(
         'mysql:host=127.0.0.1;dbname=epgo_db;charset=utf8',
-        'xiachaoqing', '***REMOVED***',
+        'xiachaoqing', 'Xia@07090218',
         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
     );
     $_epgo_stmt = $_epgo_pdo->query(
@@ -295,7 +295,7 @@ try {
                 $_epgo_article_pdo = new PDO(
                     'mysql:host=127.0.0.1;dbname=epgo_db;charset=utf8',
                     'xiachaoqing',
-                    '***REMOVED***',
+                    'Xia@07090218',
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
                 );
                 $_epgo_article_sql = "

@@ -5,7 +5,7 @@
                    con_db_host = "localhost"
                    con_db_port = "3306"
                    con_db_id   = "xiachaoqing"
-                   con_db_pass	= "***REMOVED***"
+                   con_db_pass	= "Xia@07090218"
                    con_db_name = "epgo_db"
                    tablepre    =  "ep_"
                    db_charset  =  "utf8"

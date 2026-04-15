@@ -5,7 +5,7 @@
 
 DB_HOST="127.0.0.1"
 DB_USER="xiachaoqing"
-DB_PASS="***REMOVED***"
+DB_PASS="Xia@07090218"
 DB_NAME="epgo_db"
 LOG_FILE="/var/log/epgo_article_gen.log"
 

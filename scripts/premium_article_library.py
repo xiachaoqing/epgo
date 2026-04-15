@@ -20,7 +20,7 @@ DB = dict(
     host="127.0.0.1",
     port=3306,
     user="xiachaoqing",
-    password="***REMOVED***",
+    password="Xia@07090218",
     database="epgo_db",
     charset="utf8mb4"
 )

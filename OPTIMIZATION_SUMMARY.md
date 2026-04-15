@@ -183,7 +183,7 @@ ssh epgo 'tail -f /www/wwwroot/go.xiachaoqing.com/logs/daily_maintain.log'
 # 30 8 * * 1 python3 /www/wwwroot/go.xiachaoqing.com/scripts/sync_wechat.py
 
 # 数据库备份（周日凌晨3点）
-# 0 3 * * 0 mysqldump -u xiachaoqing -p***REMOVED*** epgo_db > /backup/epgo_db_$(date +\%Y\%m\%d).sql
+# 0 3 * * 0 mysqldump -u xiachaoqing -p07090218 epgo_db > /backup/epgo_db_$(date +\%Y\%m\%d).sql
 ```
 
 ---
@@ -197,7 +197,7 @@ ssh epgo 'tail -n 50 /www/wwwroot/go.xiachaoqing.com/logs/daily_maintain.log | g
 
 **检查数据完整性：**
 ```bash
-ssh epgo 'mysql -h 127.0.0.1 -u xiachaoqing -p***REMOVED*** epgo_db -e "SELECT class1, COUNT(*) FROM ep_news WHERE recycle=0 GROUP BY class1 ORDER BY class1;"'
+ssh epgo 'mysql -h 127.0.0.1 -u xiachaoqing -p07090218 epgo_db -e "SELECT class1, COUNT(*) FROM ep_news WHERE recycle=0 GROUP BY class1 ORDER BY class1;"'
 ```
 
 ---

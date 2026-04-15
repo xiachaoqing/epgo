@@ -1,7 +1,7 @@
 import pymysql, random
 from datetime import datetime, timedelta
 
-DB = dict(host='localhost', user='xiachaoqing', password='***REMOVED***', db='epgo_db', charset='utf8mb4')
+DB = dict(host='localhost', user='xiachaoqing', password='Xia@07090218', db='epgo_db', charset='utf8mb4')
 TARGET = 30
 COLUMN_IDS = [103,104,105,111,112,113,114,121,122,123,124]
 

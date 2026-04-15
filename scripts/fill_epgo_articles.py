@@ -1,7 +1,7 @@
 import pymysql, random
 from datetime import datetime, timedelta
 
-conn = pymysql.connect(host='localhost', user='xiachaoqing', password='***REMOVED***', db='epgo_db', charset='utf8mb4')
+conn = pymysql.connect(host='localhost', user='xiachaoqing', password='Xia@07090218', db='epgo_db', charset='utf8mb4')
 cur = conn.cursor()
 cur.execute("SELECT id,class1,title,description,content FROM ep_news WHERE recycle=0 ORDER BY id DESC")
 rows = cur.fetchall()

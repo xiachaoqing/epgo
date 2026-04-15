@@ -34,7 +34,7 @@ echo ""
 
 # 扫描git历史
 PASSWORD_COUNT=$(git rev-list --all | wc -l)
-COMMITS_WITH_PASSWORD=$(git log -p --all | grep -c "password=\"***REMOVED***\"" || echo "0")
+COMMITS_WITH_PASSWORD=$(git log -p --all | grep -c "password=\"Xia@07090218\"" || echo "0")
 
 if [ "$COMMITS_WITH_PASSWORD" -gt 0 ]; then
   echo "  ⚠️  检测到 $COMMITS_WITH_PASSWORD 处暴露密码"
@@ -49,20 +49,20 @@ echo "  ✓ 已创建: backup-before-password-cleanup"
 
 echo ""
 echo "【第三步】开始过滤（这需要一些时间）..."
-echo "  移除目标: password=\"***REMOVED***\" 和相关变体"
+echo "  移除目标: password=\"Xia@07090218\" 和相关变体"
 echo ""
 
 # 使用git filter-branch
 git filter-branch -f --tree-filter '
   # 对所有文件进行替换
   for file in $(find . -type f \( -name "*.py" -o -name "*.sh" -o -name "*.yml" -o -name "*.yaml" \) 2>/dev/null); do
-    if [ -f "$file" ] && grep -q "***REMOVED***" "$file" 2>/dev/null; then
+    if [ -f "$file" ] && grep -q "Xia@07090218" "$file" 2>/dev/null; then
       # 替换所有可能的密码格式
-      sed -i.bak "s/password=\"***REMOVED***\"/password=\"REDACTED_FOR_SECURITY\"/g" "$file" 2>/dev/null || true
-      sed -i.bak "s/password=.***REMOVED***./password=REDACTED_FOR_SECURITY/g" "$file" 2>/dev/null || true
-      sed -i.bak "s/password=***REMOVED***/password=REDACTED_FOR_SECURITY/g" "$file" 2>/dev/null || true
-      sed -i.bak "s/\"***REMOVED***\"/\"REDACTED_FOR_SECURITY\"/g" "$file" 2>/dev/null || true
-      sed -i.bak "s/***REMOVED***/REDACTED_FOR_SECURITY/g" "$file" 2>/dev/null || true
+      sed -i.bak "s/password=\"Xia@07090218\"/password=\"REDACTED_FOR_SECURITY\"/g" "$file" 2>/dev/null || true
+      sed -i.bak "s/password=.Xia@07090218./password=REDACTED_FOR_SECURITY/g" "$file" 2>/dev/null || true
+      sed -i.bak "s/password=Xia@07090218/password=REDACTED_FOR_SECURITY/g" "$file" 2>/dev/null || true
+      sed -i.bak "s/\"Xia@07090218\"/\"REDACTED_FOR_SECURITY\"/g" "$file" 2>/dev/null || true
+      sed -i.bak "s/Xia@07090218/REDACTED_FOR_SECURITY/g" "$file" 2>/dev/null || true
 
       # 删除备份文件
       rm -f "$file.bak"

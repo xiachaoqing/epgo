@@ -90,14 +90,14 @@
 
 ### 快速查询当前文章数
 ```bash
-ssh root@101.42.21.191 "mysql -uhanhong -p***REMOVED*** hanhong -e \"SELECT COUNT(*) FROM hh_news WHERE lang='cn';\" 2>/dev/null"
+ssh root@101.42.21.191 "mysql -uhanhong -p07090218 hanhong -e \"SELECT COUNT(*) FROM hh_news WHERE lang='cn';\" 2>/dev/null"
 ```
 
 ### 继续生成更多文章
 如需继续生成更多文章，运行以下命令即可：
 
 ```bash
-ssh root@101.42.21.191 "mysql -uhanhong -p***REMOVED*** hanhong << 'SQL'
+ssh root@101.42.21.191 "mysql -uhanhong -p07090218 hanhong << 'SQL'
 INSERT INTO hh_news (title, keywords, description, content, class1, wap_ok, img_ok, lang, addtime) VALUES
 ('新文章标题', '关键词1,关键词2', '描述文字', '完整内容...', 10, 1, 0, 'cn', NOW());
 SELECT COUNT(*) as 文章总数 FROM hh_news WHERE lang='cn';
@@ -108,7 +108,7 @@ SQL
 ### 数据库位置
 - **数据库名**: hanhong
 - **用户名**: hanhong
-- **密码**: ***REMOVED***
+- **密码**: 07090218
 - **主机**: 127.0.0.1
 - **表名**: hh_news (对应 class1_id=10 的栏目)
 

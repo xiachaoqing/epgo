@@ -50,7 +50,7 @@ content = """<div>
 </p>
 </div>"""
 
-conn = pymysql.connect(host='localhost', user='xiachaoqing', password='***REMOVED***', db='epgo_db', charset='utf8mb4')
+conn = pymysql.connect(host='localhost', user='xiachaoqing', password='Xia@07090218', db='epgo_db', charset='utf8mb4')
 cur = conn.cursor()
 cur.execute("UPDATE ep_column SET content=%s WHERE id=107", (content,))
 conn.commit()

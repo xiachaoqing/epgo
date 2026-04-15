@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import pymysql
 
-DB = dict(host="127.0.0.1", port=3306, user="xiachaoqing", password="***REMOVED***", database="epgo_db", charset="utf8mb4")
+DB = dict(host="127.0.0.1", port=3306, user="xiachaoqing", password="Xia@07090218", database="epgo_db", charset="utf8mb4")
 
 conn = pymysql.connect(**DB)
 cur = conn.cursor()

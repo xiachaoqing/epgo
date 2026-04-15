@@ -7,7 +7,7 @@
 // 数据库配置
 $db_host = 'localhost';
 $db_user = 'xiachaoqing';
-$db_pass = '***REMOVED***';
+$db_pass = 'Xia@07090218';
 $db_name = 'epgo_db';
 $db_prefix = 'ep_';
 

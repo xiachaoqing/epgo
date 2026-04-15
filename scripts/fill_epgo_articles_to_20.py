@@ -1,7 +1,7 @@
 import pymysql, random
 from datetime import datetime, timedelta
 
-DB = dict(host='localhost', user='xiachaoqing', password='***REMOVED***', db='epgo_db', charset='utf8mb4')
+DB = dict(host='localhost', user='xiachaoqing', password='Xia@07090218', db='epgo_db', charset='utf8mb4')
 
 TOPICS = {
     103: ['学校生活', '科技生活', '环境保护', '文化艺术', '旅行出行', '健康饮食', '体育运动', '职业规划', '购物消费', '社会热点'],

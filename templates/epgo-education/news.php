@@ -41,7 +41,7 @@
 
                     // 如果 classnow 是二级栏目（111-114, 121-124等），用 class2=classnow 查询
                     if ($_fix_cid >= 111 && $_fix_cid <= 124) {
-                        $_mysqli = new mysqli('127.0.0.1', 'xiachaoqing', '***REMOVED***', 'epgo_db');
+                        $_mysqli = new mysqli('127.0.0.1', 'xiachaoqing', 'Xia@07090218', 'epgo_db');
                         if (!$_mysqli->connect_error) {
                             $_mysqli->set_charset('utf8mb4');
                             $_offset = ($_fix_page - 1) * $_fix_pagesize;

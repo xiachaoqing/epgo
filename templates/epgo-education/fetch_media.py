@@ -33,7 +33,7 @@ except ImportError:
 
 # ─── 配置 ───────────────────────────────────────────────
 DB = dict(host="127.0.0.1", port=3306,
-          user="xiachaoqing", password="***REMOVED***",
+          user="xiachaoqing", password="Xia@07090218",
           database="epgo_db", charset="utf8mb4")
 
 # 本地保存路径（相对于网站根目录）
