@@ -235,20 +235,54 @@ def get_unused_topics(conn, class1, class2, topics):
     cur.close()
     return unused
 
+def get_cover_for_article(class2, class1=None):
+    """为文章获取对应分类的随机封面"""
+    # 图片目录映射
+    COVER_DIRS = {
+        101: "ket", 102: "pet", 103: "reading", 104: "speech",
+        105: "daily", 106: "download", 107: "about",
+        111: "ket", 112: "ket", 113: "ket", 114: "ket",
+        121: "pet", 122: "pet", 123: "pet", 124: "pet",
+    }
+
+    # 如果class2=0，使用class1作为备选
+    cover_class = class2 if class2 > 0 else class1
+
+    if cover_class not in COVER_DIRS:
+        return ""
+
+    dir_name = COVER_DIRS[cover_class]
+    upload_dir = f"/www/wwwroot/go.xiachaoqing.com/upload/epgo-photo-covers/{dir_name}"
+
+    try:
+        # 扫描该分类的所有图片
+        import os
+        if os.path.exists(upload_dir):
+            files = [f for f in os.listdir(upload_dir) if f.endswith('.jpg')]
+            if files:
+                # 随机选择一个
+                chosen = random.choice(files)
+                return f"/upload/epgo-photo-covers/{dir_name}/{chosen}"
+    except Exception as e:
+        logger.warning(f"获取封面失败 [{cover_class}]: {e}")
+
+    return ""
+
 def insert_article(conn, class1, class2, title, description):
     """插入新文章"""
     content = generate_article_content(title, description)
     timestamp = get_random_timestamp()
     hits = random.randint(10000, 50000)
+    imgurl = get_cover_for_article(class2, class1)
 
     cur = conn.cursor()
     try:
         sql = """
             INSERT INTO ep_news
             (title, description, content, class1, class2, class3, imgurl, hits, issue, updatetime, addtime, lang, recycle)
-            VALUES (%s, %s, %s, %s, %s, 0, '', %s, 'system', %s, %s, 'cn', 0)
+            VALUES (%s, %s, %s, %s, %s, 0, %s, %s, 'system', %s, %s, 'cn', 0)
         """
-        cur.execute(sql, (title, description, content, class1, class2, hits, timestamp, timestamp))
+        cur.execute(sql, (title, description, content, class1, class2, imgurl, hits, timestamp, timestamp))
         conn.commit()
         cur.close()
         return True
