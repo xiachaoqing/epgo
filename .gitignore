@@ -1,3 +1,19 @@
+# 🔐 敏感信息 - 永远不要提交！
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.ppk
+id_rsa
+id_rsa.pub
+secrets.py
+credentials.json
+db_config.py
+config_secrets.py
+api_keys.txt
+tokens.txt
+
 # 运行时生成，不纳入git
 cache/*
 !cache/.gitkeep
@@ -12,11 +28,58 @@ upload/*
 config/metinfo.db
 config/metinfo.txt
 config/config_safe.php
+config/secrets.php
 
-# 编辑器
+# 编辑器和IDE
 .DS_Store
 *.swp
 *.swo
 *~
 .vscode/
+.vscode/settings.json
 .idea/
+*.sublime-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+venv/
+ENV/
+env/
+
+# IDE项目文件
+.project
+.pydevproject
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 其他临时文件
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+.DS_Store
