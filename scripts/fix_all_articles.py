@@ -1,147 +1,236 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-一次性全面修复脚本
-1. 移除255篇文章的重复模板尾巴（高频考点总结...）
-2. 修复63篇 description = title 的文章（从content提取真正摘要）
-3. 修复7篇 hits=0/1 的文章（设合理阅读数）
+fix_all_articles.py - 一次性改写所有低质量文章
+类型: 一次性脚本（跑完即弃）
+作用: 将364篇低质量文章逐篇用AI改写
+安全: 保留id/title/url/hits/addtime，只改content和description
+断点续传: 自动记录进度，中断后重新运行会跳过已完成的
 """
 
 import pymysql
+import requests
+import json
+import os
 import re
-import random
+import time
+import logging
+from datetime import datetime
 
-DB = dict(
-    host="127.0.0.1",
-    port=3306,
-    user="xiachaoqing",
-    password="Xia@07090218",
-    database="epgo_db",
-    charset="utf8mb4"
-)
+DB = dict(host='127.0.0.1', port=3306, user='xiachaoqing',
+          password='Xia@07090218', database='epgo_db', charset='utf8mb4')
 
-# 标准化脚本注入的重复模板内容（需要移除的部分）
-TEMPLATE_MARKERS = [
-    '<h2>高频考点总结</h2>',
-    '<h2>学习路线图</h2>',
-    '<h2>权威资源推荐</h2>',
-    '<h2>常见问题解答</h2>',
-    '<h2>备考资源清单</h2>',
-    '<h2>最后的建议</h2>',
-]
+API_KEY = 'sk-63851b428d4b43cb939ab1334a8d8ed8'
+API_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions'
+MODEL = 'qwen-plus'
 
-def strip_tags(html):
-    """简单去除HTML标签"""
-    return re.sub(r'<[^>]+>', '', html).strip()
+CATEGORY = {
+    103: '英语阅读', 104: '英语演讲', 105: '每日英语', 106: '资料下载', 107: '关于我们',
+    111: 'KET真题解析', 112: 'KET词汇速记', 113: 'KET写作指导', 114: 'KET听力技巧',
+    121: 'PET真题解析', 122: 'PET词汇速记', 123: 'PET写作指导', 124: 'PET阅读技巧',
+    101: 'KET备考', 102: 'PET备考',
+}
 
-def extract_description(content, title):
-    """从content中提取有意义的摘要（不等于title）"""
-    text = strip_tags(content)
-    # 移除标题本身
-    text = text.replace(title, '').strip()
-    # 取前150字作为摘要
-    # 跳过开头的空白和换行
-    lines = [l.strip() for l in text.split('\n') if l.strip() and len(l.strip()) > 10]
-    if lines:
-        desc = lines[0][:150]
-        if len(desc) < 20 and len(lines) > 1:
-            desc = lines[1][:150]
-        return desc
-    return title[:100]
+SITE_ROOT = '/www/wwwroot/go.xiachaoqing.com'
+LOG_FILE = f'{SITE_ROOT}/logs/fix_all_articles.log'
+STATE_FILE = f'{SITE_ROOT}/logs/fix_state.json'
 
-def main():
+os.makedirs(f'{SITE_ROOT}/logs', exist_ok=True)
+
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s] %(message)s',
+                    handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler()])
+log = logging.getLogger()
+
+
+def load_state():
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE) as f:
+            return json.load(f)
+    return {'done_ids': [], 'failed_ids': []}
+
+
+def save_state(state):
+    with open(STATE_FILE, 'w') as f:
+        json.dump(state, f)
+
+
+def get_articles_to_fix(done_ids):
+    """查询所有需要改写的低质量文章"""
     conn = pymysql.connect(**DB)
     cur = conn.cursor()
-
-    print("=" * 60)
-    print("一次性全面修复脚本")
-    print("=" * 60)
-
-    # ===== 修复1: 移除重复模板尾巴 =====
-    print("\n【1】移除重复模板尾巴（255篇）...")
-
-    cur.execute("SELECT id, title, content FROM ep_news WHERE recycle=0 AND content LIKE '%高频考点总结%'")
-    rows = cur.fetchall()
-    fixed_template = 0
-
-    for article_id, title, content in rows:
-        # 找到第一个模板标记的位置
-        earliest_pos = len(content)
-        for marker in TEMPLATE_MARKERS:
-            pos = content.find(marker)
-            if pos != -1 and pos < earliest_pos:
-                earliest_pos = pos
-
-        if earliest_pos < len(content):
-            # 截取模板标记之前的内容
-            new_content = content[:earliest_pos].rstrip()
-
-            # 确保内容不为空且有意义
-            if len(strip_tags(new_content)) < 100:
-                # 内容太短，说明原始内容本身就是模板
-                # 保留当前内容不动
-                continue
-
-            cur.execute("UPDATE ep_news SET content=%s WHERE id=%s", (new_content, article_id))
-            fixed_template += 1
-
-    conn.commit()
-    print(f"  已修复 {fixed_template} 篇")
-
-    # ===== 修复2: 修复 description =====
-    print("\n【2】修复 description = title 的文章（63篇）...")
-
-    cur.execute("SELECT id, title, content, description FROM ep_news WHERE recycle=0 AND (description = title OR description = '' OR description IS NULL)")
-    rows = cur.fetchall()
-    fixed_desc = 0
-
-    for article_id, title, content, desc in rows:
-        new_desc = extract_description(content, title)
-        if new_desc and new_desc != title:
-            cur.execute("UPDATE ep_news SET description=%s WHERE id=%s", (new_desc, article_id))
-            fixed_desc += 1
-
-    conn.commit()
-    print(f"  已修复 {fixed_desc} 篇")
-
-    # ===== 修复3: 修复阅读数 =====
-    print("\n【3】修复阅读数为0/1的文章（7篇）...")
-
-    cur.execute("SELECT id, title FROM ep_news WHERE recycle=0 AND hits <= 1")
-    rows = cur.fetchall()
-    fixed_hits = 0
-
-    for article_id, title in rows:
-        new_hits = random.randint(18000, 42000)
-        cur.execute("UPDATE ep_news SET hits=%s WHERE id=%s", (new_hits, article_id))
-        fixed_hits += 1
-        print(f"  id={article_id} '{title[:30]}' → {new_hits}")
-
-    conn.commit()
-    print(f"  已修复 {fixed_hits} 篇")
-
-    # ===== 验证 =====
-    print("\n【验证】")
     cur.execute("""
-        SELECT
-            COUNT(*) as total,
-            SUM(CASE WHEN hits <= 1 THEN 1 ELSE 0 END) as zero_hits,
-            SUM(CASE WHEN description = title OR description = '' OR description IS NULL THEN 1 ELSE 0 END) as bad_desc,
-            SUM(CASE WHEN content LIKE '%%高频考点总结%%' THEN 1 ELSE 0 END) as has_template
-        FROM ep_news WHERE recycle=0
+        SELECT id, title, class1, class2, content
+        FROM ep_news
+        WHERE recycle=0
+          AND issue NOT IN ('ai-gen', 'rewrite-v1')
+          AND (
+            LENGTH(content) < 4000
+            OR content LIKE '%%学习重点%%理解%%主题中的核心表达%%'
+            OR content LIKE '%%关键要点%%理解本主题的核心概念%%'
+            OR content LIKE '%%本篇重点%%'
+          )
+        ORDER BY LENGTH(content) ASC
     """)
-    total, zero_hits, bad_desc, has_template = cur.fetchone()
-    print(f"  总文章: {total}")
-    print(f"  阅读数=0: {zero_hits}")
-    print(f"  description=title: {bad_desc}")
-    print(f"  含重复模板: {has_template}")
+    articles = []
+    for row in cur.fetchall():
+        if row[0] not in done_ids:
+            articles.append({
+                'id': row[0], 'title': row[1],
+                'class1': row[2], 'class2': row[3],
+                'content': row[4]
+            })
+    cur.close()
+    conn.close()
+    return articles
 
+
+def rewrite(title, class1, old_content):
+    """调用通义千问改写一篇文章"""
+    cat = CATEGORY.get(class1, '英语学习')
+
+    prompt = f"""你是"英语陪跑GO"网站的资深英语教育编辑。请根据标题改写一篇高质量文章。
+
+## 标题（不可修改）
+{title}
+
+## 栏目
+{cat}
+
+## 原文参考（质量差，需要完全重写）
+{old_content[:800]}
+
+## 改写要求
+1. 围绕标题写一篇全新的、有实际教学价值的文章
+2. 正文1200-2000字，必须包含：
+   - 开头段：2-3句直接说清本文要解决什么问题
+   - 3-5个h2小标题，每节有2-3段内容
+   - 至少5个具体英语例句（中英对照，用blockquote包裹）
+   - 实用的学习方法、做题步骤或记忆技巧
+   - 结尾段：总结要点+鼓励语
+3. 生成一个50-80字的摘要，不能和标题一样
+4. 使用HTML标签：h2/p/ul/li/strong/em/blockquote
+5. 不要用markdown，不要用h1
+
+## 输出（严格JSON，不要其他文字）
+{{"description":"摘要","content":"HTML正文"}}"""
+
+    try:
+        resp = requests.post(API_URL,
+            headers={'Authorization': f'Bearer {API_KEY}', 'Content-Type': 'application/json'},
+            json={
+                'model': MODEL,
+                'messages': [{'role': 'user', 'content': prompt}],
+                'temperature': 0.75,
+                'max_tokens': 4000
+            },
+            timeout=120)
+
+        if resp.status_code != 200:
+            log.error(f'API返回 {resp.status_code}: {resp.text[:200]}')
+            return None
+
+        text = resp.json()['choices'][0]['message']['content'].strip()
+
+        # 去掉markdown代码块包裹
+        if text.startswith('```'):
+            text = re.sub(r'^```\w*\n?', '', text)
+            text = re.sub(r'\n?```$', '', text)
+
+        data = json.loads(text)
+        content = data.get('content', '').strip()
+        desc = data.get('description', '').strip()
+
+        # 质量验证
+        plain = re.sub(r'<[^>]+>', '', content)
+        if len(plain) < 500:
+            log.warning(f'内容太短 {len(plain)}字，丢弃')
+            return None
+
+        if not desc or desc == title:
+            desc = plain[:80]
+
+        return {'description': desc[:200], 'content': content}
+
+    except json.JSONDecodeError as e:
+        log.error(f'JSON解析失败: {e}')
+        return None
+    except Exception as e:
+        log.error(f'改写异常: {e}')
+        return None
+
+
+def update_db(article_id, desc, content):
+    """更新数据库"""
+    conn = pymysql.connect(**DB)
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE ep_news SET content=%s, description=%s, issue='rewrite-v1', updatetime=NOW()
+        WHERE id=%s
+    """, (content, desc, article_id))
+    conn.commit()
     cur.close()
     conn.close()
 
-    print("\n" + "=" * 60)
-    print("修复完成！")
-    print("=" * 60)
 
-if __name__ == "__main__":
+def main():
+    state = load_state()
+    done_ids = set(state['done_ids'])
+
+    articles = get_articles_to_fix(done_ids)
+    total = len(articles)
+
+    log.info('=' * 60)
+    log.info(f'文章改写启动 | 待改写: {total} 篇 | 已完成: {len(done_ids)} 篇')
+    log.info('=' * 60)
+
+    if total == 0:
+        log.info('没有需要改写的文章，全部完成！')
+        return
+
+    success = 0
+    failed = 0
+
+    for i, art in enumerate(articles):
+        aid = art['id']
+        title = art['title']
+        log.info(f'[{i+1}/{total}] ID={aid} {title[:40]}')
+
+        # 最多重试2次
+        result = None
+        for attempt in range(2):
+            result = rewrite(title, art['class1'], art['content'])
+            if result:
+                break
+            if attempt == 0:
+                log.info('  重试...')
+                time.sleep(3)
+
+        if result:
+            update_db(aid, result['description'], result['content'])
+            log.info(f'  ✓ 完成 ({len(result["content"])}字节)')
+            state['done_ids'].append(aid)
+            success += 1
+        else:
+            log.warning(f'  ✗ 失败（2次重试后放弃）')
+            state['failed_ids'].append(aid)
+            failed += 1
+
+        # 保存进度（断点续传）
+        save_state(state)
+
+        # API间隔
+        time.sleep(1.5)
+
+        # 每50篇输出进度
+        if (i + 1) % 50 == 0:
+            log.info(f'--- 进度: {i+1}/{total} | 成功:{success} | 失败:{failed} ---')
+
+    # 清缓存
+    os.system(f'rm -rf {SITE_ROOT}/cache/*')
+
+    log.info('=' * 60)
+    log.info(f'全部完成! 成功: {success} | 失败: {failed} | 总计: {total}')
+    log.info('=' * 60)
+
+
+if __name__ == '__main__':
     main()
