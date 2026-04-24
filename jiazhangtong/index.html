@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="description" content="英语陪跑GO — AI驱动英语学习APP，AI对话、真人外教、阅读闯关、同步教材。下载完全免费，激活账号即享全部功能。">
+<!-- 微信分享 Open Graph -->
+<meta property="og:title" content="英语陪跑GO | AI英语学习，让孩子爱上英语">
+<meta property="og:description" content="AI口语测评、真人外教、海量绘本、同步教材。下载免费，7天体验仅¥4.9">
+<meta property="og:image" content="https://go.xiachaoqing.com/jiazhangtong/share.jpg">
+<meta property="og:url" content="https://go.xiachaoqing.com/jiazhangtong/">
+<meta property="og:type" content="website">
+<title>英语陪跑GO | AI英语学习，让孩子爱上英语</title>
+<!-- 微信JS-SDK -->
+<script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;color:#333;background:#f5f7fa;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+:root{
+  --blue:#298dff;
+  --blue-dark:#1565C0;
+  --blue-light:#e8f4ff;
+  --orange:#ff6b35;
+  --green:#34C759;
+  --dark:#1a1a2e;
+  --shadow:0 2px 16px rgba(0,0,0,.08);
+  --radius:10px;
+}
+
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.sec-title{font-size:1.7rem;font-weight:700;color:var(--dark);text-align:center;margin-bottom:8px}
+.sec-sub{font-size:.92rem;color:#999;text-align:center;margin-bottom:36px}
+.divider{width:40px;height:3px;background:var(--blue);margin:0 auto 36px;border-radius:2px}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,.97);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1rem;color:var(--dark)}
+.nav-logo img{height:32px;width:32px;border-radius:6px;object-fit:contain}
+.nav-logo .brand{font-size:1rem;font-weight:700}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:.88rem;color:#666;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-actions{display:flex;gap:8px}
+.btn-nav-primary{background:var(--blue);color:#fff;padding:8px 20px;border-radius:5px;font-size:.85rem;font-weight:600;transition:background .2s;white-space:nowrap}
+.btn-nav-primary:hover{background:var(--blue-dark)}
+.btn-nav-ghost{border:1.5px solid var(--blue);color:var(--blue);padding:7px 16px;border-radius:5px;font-size:.85rem;font-weight:600;background:transparent;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-nav-ghost:hover{background:var(--blue);color:#fff}
+
+/* ── HERO ── */
+.hero{padding:96px 0 64px;background:linear-gradient(150deg,#e8f4ff 0%,#f0f6ff 50%,#f5f7fa 100%)}
+.hero-inner{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);color:var(--blue);padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:18px;border:1px solid rgba(41,141,255,.2)}
+.hero h1{font-size:2.2rem;font-weight:800;line-height:1.3;color:var(--dark);margin-bottom:14px}
+.hero h1 span{color:var(--blue)}
+.hero-desc{font-size:.93rem;color:#666;line-height:1.9;margin-bottom:24px;max-width:480px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn-primary{background:var(--blue);color:#fff;padding:13px 32px;border-radius:5px;font-size:.97rem;font-weight:700;display:inline-flex;align-items:center;gap:7px;transition:all .2s}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(41,141,255,.3)}
+.btn-ghost{border:2px solid var(--blue);color:var(--blue);padding:11px 24px;border-radius:5px;font-size:.95rem;font-weight:600;background:transparent;cursor:pointer;transition:all .2s}
+.btn-ghost:hover{background:var(--blue);color:#fff}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap}
+.hero-tag{background:#fff;border:1px solid #d8e8ff;color:#555;font-size:.77rem;padding:4px 12px;border-radius:20px;font-weight:500}
+
+/* Hero右侧：两张手机竖图，原比例 */
+.hero-phones{display:flex;gap:14px;align-items:flex-start;flex-shrink:0}
+.phone-card{
+  width:150px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 32px rgba(41,141,255,.2);
+  background:#fff;
+  border:3px solid #fff;
+}
+.phone-card img{
+  width:100%;
+  height:auto;       /* 保持原比例，绝不拉伸 */
+  display:block;
+  max-height:320px;
+  object-fit:cover;
+  object-position:top;
+}
+.phone-card.down{margin-top:36px}
+
+/* ── PLATFORM ── */
+.platform-bar{background:#fff;border-top:1px solid #eee;border-bottom:1px solid #eee;padding:14px 0}
+.platform-inner{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.plat-item{display:flex;align-items:center;gap:6px;color:#666;font-size:.83rem;font-weight:500}
+.plat-icon{font-size:1.15rem}
+.plat-sep{width:1px;height:16px;background:#e0e0e0}
+
+/* ── VIDEO ── */
+.video-sec{background:#1a1a2e;padding:60px 0}
+.video-sec .sec-title{color:#fff}
+.video-sec .sec-sub{color:#bbb}
+.video-sec .divider{background:var(--blue)}
+.vtabs{display:flex;justify-content:center;gap:10px;margin-bottom:24px}
+.vtab{padding:9px 26px;border-radius:5px;font-size:.88rem;font-weight:600;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);color:#bbb;background:transparent;transition:all .2s}
+.vtab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.vwrap{max-width:820px;margin:0 auto;border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.4);background:#000}
+.vwrap video{width:100%;display:block;max-height:480px;object-fit:contain;background:#000}
+
+/* ── FEATURES ── */
+.features-sec{padding:64px 0;background:#f5f7fa}
+.feat-list{display:flex;flex-direction:column;gap:24px}
+/* 左文右图，图片原比例不裁剪 */
+.feat-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  align-items:stretch;
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  transition:box-shadow .2s,transform .2s;
+}
+.feat-row:hover{box-shadow:0 8px 32px rgba(41,141,255,.12);transform:translateY(-2px)}
+.feat-row.rev .feat-text{order:2}
+.feat-row.rev .feat-img{order:1}
+.feat-text{padding:36px 40px;display:flex;flex-direction:column;justify-content:center}
+.feat-tag{display:inline-block;background:var(--blue-light);color:var(--blue);padding:3px 12px;border-radius:4px;font-size:.74rem;font-weight:700;margin-bottom:10px;width:fit-content}
+.feat-text h3{font-size:1.15rem;font-weight:700;color:var(--dark);margin-bottom:10px}
+.feat-text p{font-size:.88rem;color:#666;line-height:1.85}
+.feat-img{
+  background:#f0f5fa;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  min-height:200px;
+}
+/* 图片撑满左侧，保持原比例，不拉伸 */
+.feat-img img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+}
+
+/* ── STATS ── */
+.stats-sec{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%);padding:40px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{text-align:center;padding:12px 8px;border-right:1px solid rgba(255,255,255,.15)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-size:2rem;font-weight:900;color:#fff;line-height:1}
+.stat-num sub{font-size:1rem;font-weight:700}
+.stat-label{font-size:.82rem;color:rgba(255,255,255,.8);margin-top:4px}
+
+/* ── PRICING ── */
+.pricing-sec{padding:64px 0;background:#fff}
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.price-card{background:#f7f9fc;border-radius:var(--radius);padding:28px 18px;text-align:center;border:1.5px solid #eaeaea;transition:all .2s;position:relative}
+.price-card:hover{border-color:var(--blue);box-shadow:0 6px 24px rgba(41,141,255,.12);transform:translateY(-2px)}
+.price-card.hot{border-color:var(--blue);background:#fff;box-shadow:0 4px 20px rgba(41,141,255,.1)}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;padding:3px 14px;border-radius:12px;font-size:.7rem;font-weight:700;white-space:nowrap}
+.price-badge.bb{background:var(--blue)}
+.price-name{font-size:.9rem;font-weight:700;color:var(--dark);margin-bottom:8px}
+.price-ori{font-size:.74rem;color:#ccc;text-decoration:line-through;min-height:18px;margin-bottom:2px}
+.price-val{font-size:2.2rem;font-weight:900;color:var(--blue);line-height:1}
+.price-val sup{font-size:.9rem;vertical-align:top;margin-top:5px}
+.price-period{font-size:.77rem;color:#aaa;margin:6px 0 16px}
+.price-feats{list-style:none;text-align:left;margin-bottom:20px;min-height:96px}
+.price-feats li{font-size:.81rem;color:#555;padding:4px 0 4px 16px;position:relative}
+.price-feats li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+.btn-price{width:100%;padding:11px;border-radius:6px;font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-price-main{background:var(--blue);color:#fff}
+.btn-price-main:hover{background:var(--blue-dark)}
+.btn-price-out{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+.btn-price-out:hover{background:var(--blue);color:#fff}
+.price-note{text-align:center;color:#bbb;font-size:.77rem;margin-top:14px}
+
+/* ── ORDER QUERY ── */
+.oq-sec{background:var(--blue-light);border-top:1px solid #cde4ff;padding:40px 0}
+.oq-box{max-width:520px;margin:0 auto;background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.oq-box h3{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:6px}
+.oq-row{display:flex;gap:8px;margin-top:12px}
+.oq-input{flex:1;padding:10px 13px;border:1.5px solid #ddd;border-radius:6px;font-size:.88rem;outline:none;transition:border .2s;min-width:0}
+.oq-input:focus{border-color:var(--blue)}
+.oq-btn{background:var(--blue);color:#fff;padding:10px 18px;border:none;border-radius:6px;font-size:.88rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s}
+.oq-btn:hover{background:var(--blue-dark)}
+.oq-result{margin-top:12px;font-size:.83rem;color:#555;line-height:1.9;background:#f7f9fc;border-radius:6px;padding:12px;display:none;border-left:3px solid var(--blue)}
+
+/* ── DOWNLOAD ── */
+.dl-sec{background:#1a1a2e;padding:60px 0}
+.dl-sec .sec-title{color:#fff}
+.dl-sec .sec-sub{color:#bbb}
+.dl-sec .divider{background:var(--blue)}
+.dl-inner{display:grid;grid-template-columns:1fr auto;gap:56px;align-items:start;max-width:900px;margin:0 auto}
+.dl-btns{display:flex;flex-direction:column;gap:10px}
+.dl-btn{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:13px 16px;color:#fff;transition:all .2s}
+.dl-btn:hover{background:rgba(41,141,255,.2);border-color:var(--blue)}
+.dl-btn-main{background:rgba(41,141,255,.18);border:1.5px solid rgba(41,141,255,.5);}
+.dl-btn-main:hover{background:rgba(41,141,255,.38);border-color:var(--blue);transform:translateX(3px)}
+.dl-icon{font-size:1.6rem;flex-shrink:0}
+.dl-btn strong{display:block;font-size:.92rem;font-weight:700;color:#fff}
+.dl-btn span{font-size:.74rem;color:#aaa}
+.dl-arrow{margin-left:auto;font-size:1.1rem;color:var(--blue);flex-shrink:0;opacity:.8}
+/* 右侧：客服+公众号二维码 */
+.dl-qrs{display:flex;flex-direction:column;gap:16px;align-items:center}
+.qr-card{background:#fff;border-radius:var(--radius);padding:16px;text-align:center;width:156px}
+.qr-card img{width:124px;height:124px;display:block;margin:0 auto 8px;border-radius:4px;object-fit:contain}
+.qr-card .qr-title{font-size:.82rem;font-weight:700;color:var(--dark);margin-bottom:2px}
+.qr-card .qr-sub{font-size:.72rem;color:#aaa}
+
+/* ── FAQ ── */
+.faq-sec{padding:64px 0;background:#fff}
+.faq-wrap{max-width:760px;margin:0 auto}
+.faq-item{border-bottom:1px solid #eee;padding:15px 0}
+.faq-q{font-size:.92rem;font-weight:600;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none}
+.faq-q::after{content:"＋";font-size:1.05rem;color:var(--blue);flex-shrink:0}
+.faq-item.open .faq-q::after{content:"－"}
+.faq-a{font-size:.85rem;color:#666;line-height:1.85;padding-top:10px;display:none}
+.faq-item.open .faq-a{display:block}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:12px;padding:30px 26px;width:94%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-x{position:absolute;top:12px;right:14px;font-size:1.3rem;cursor:pointer;color:#aaa;background:none;border:none;line-height:1;padding:4px}
+.modal h2{font-size:1.15rem;font-weight:700;color:var(--dark);margin-bottom:4px}
+.modal-plan-name{color:var(--blue);font-size:.85rem;font-weight:600;margin-bottom:18px}
+.form-g{margin-bottom:14px}
+.form-g label{display:block;font-size:.84rem;font-weight:600;color:#444;margin-bottom:5px}
+.form-g input,.form-g select{width:100%;padding:11px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:.9rem;outline:none;transition:border .2s}
+.form-g input:focus,.form-g select:focus{border-color:var(--blue)}
+.form-g .hint{font-size:.72rem;color:#aaa;margin-top:3px}
+.modal-total{background:#f7f9fc;border-radius:8px;padding:11px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.modal-total .t-label{font-size:.85rem;color:#666}
+.modal-total .t-val{font-size:1.4rem;font-weight:900;color:var(--blue)}
+.btn-pay{width:100%;padding:13px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:.97rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s}
+.btn-pay:hover:not(:disabled){background:#28b047}
+.btn-pay:disabled{opacity:.6;cursor:not-allowed}
+.modal-safe{text-align:center;font-size:.72rem;color:#ccc;margin-top:8px}
+.modal-flow{background:#f0f7ff;border-radius:7px;padding:10px 13px;margin-top:12px;font-size:.79rem;color:#555;line-height:1.9;border-left:3px solid var(--blue)}
+
+/* ── FOOTER ── */
+footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:10px;flex-wrap:wrap}
+.footer-links a{font-size:.8rem;color:#666;transition:color .2s}
+.footer-links a:hover{color:#fff}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;gap:28px}
+  .hero-phones{justify-content:center}
+  .feat-row{grid-template-columns:1fr}
+  .feat-row.rev .feat-text{order:unset}
+  .feat-row.rev .feat-img{order:unset}
+  .price-grid{grid-template-columns:repeat(2,1fr)}
+  .dl-inner{grid-template-columns:1fr;gap:28px}
+  .dl-qrs{flex-direction:row;justify-content:center}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
+  .nav-links{display:none}
+}
+@media(max-width:600px){
+  .hero{padding:72px 0 36px}
+  .sec-title{font-size:1.35rem}
+  .price-grid{grid-template-columns:1fr 1fr}
+  .phone-card{width:128px}
+  .btn-nav-ghost{display:none}
+  .feat-text{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/logo.png" alt="英语陪跑GO">
+        <span class="brand">英语陪跑GO</span>
+      </div>
+      <div class="nav-links">
+        <a href="#features">功能介绍</a>
+        <a href="#pricing">激活套餐</a>
+        <a href="#download">下载APP</a>
+        <a href="#order-query">查询订单</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-nav-ghost" id="followBtn" onclick="showFollowModal()">关注公众号</button>
+        <button class="btn-nav-ghost" onclick="openModal('trial')">激活账号</button>
+        <a class="btn-nav-primary" href="https://app.lingshi.com/bjxxsy" target="_blank">免费下载</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">🏆 宝藏APP · AI英语智能学习</div>
+        <h1>为孩子打造<span>有温度</span>的<br>英语智能学习乐园</h1>
+        <p class="hero-desc">AI口语测评、AI真人对话、在线真人外教、海量阅读绘本、同步教材……让英语学习更科学有序、生动有趣。<strong>下载完全免费</strong>，激活账号即享全部功能。</p>
+        <div class="hero-btns">
+          <a class="btn-primary" href="https://app.lingshi.com/bjxxsy" target="_blank">📥 立即免费下载</a>
+          <button class="btn-ghost" onclick="openModal('trial')">⚡ 7天体验 ¥9.9</button>
+        </div>
+        <div class="hero-tags">
+          <span class="hero-tag">✅ 全平台支持</span>
+          <span class="hero-tag">✅ AI智能测评</span>
+          <span class="hero-tag">✅ 真人外教</span>
+          <span class="hero-tag">✅ 同步教材</span>
+          <span class="hero-tag">✅ 下载免费</span>
+        </div>
+      </div>
+      <!-- 右侧：两张竖向手机截图，原比例，不裁不拉 -->
+      <div class="hero-phones">
+        <div class="phone-card">
+          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD.png"
+               alt="阅读功能" loading="lazy">
+        </div>
+        <div class="phone-card down">
+          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/ai%E5%AF%B9%E8%AF%9D.png"
+               alt="AI对话" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<div class="platform-bar">
+  <div class="container">
+    <div class="platform-inner">
+      <div class="plat-item"><span class="plat-icon">🪟</span>Windows</div>
+      <div class="plat-sep"></div>
+      <div class="plat-item"><span class="plat-icon">🍎</span>macOS</div>
+      <div class="plat-sep"></div>
+      <div class="plat-item"><span class="plat-icon">📱</span>iOS 手机/平板</div>
+      <div class="plat-sep"></div>
+      <div class="plat-item"><span class="plat-icon">🤖</span>Android 手机/平板</div>
+      <div class="plat-sep"></div>
+      <div class="plat-item"><span class="plat-icon">🖥️</span>一体机/TV</div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section class="video-sec">
+  <div class="container">
+    <h2 class="sec-title">看视频，2分钟了解英语陪跑GO</h2>
+    <p class="sec-sub">真实演示 · 看完即会用</p>
+    <div class="divider"></div>
+    <div class="vtabs">
+      <button class="vtab on" onclick="switchV('main',this)">🎬 产品介绍</button>
+      <button class="vtab" onclick="switchV('guide',this)">📖 快速上手教程</button>
+    </div>
+    <div class="vwrap">
+      <video id="vMain" controls preload="metadata" playsinline
+        poster="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/cover_product.jpg">
+        <source src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E8%8B%B1%E8%AF%AD%E9%99%AA%E8%B7%91go.mp4" type="video/mp4">
+      </video>
+      <video id="vGuide" controls preload="metadata" playsinline style="display:none"
+        poster="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/cover_guide.jpg">
+        <source src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E8%8B%B1%E8%AF%AD%E9%99%AA%E8%B7%91go%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-sec" id="features">
+  <div class="container">
+    <h2 class="sec-title">四大核心功能，覆盖英语学习全场景</h2>
+    <p class="sec-sub">从听说读写到AI测评，每个功能都解决真实痛点</p>
+    <div class="divider"></div>
+    <div class="feat-list">
+
+      <!-- 行1：功能全览，横图 925×784 -->
+      <div class="feat-row">
+        <div class="feat-text">
+          <span class="feat-tag">功能全览</span>
+          <h3>🏆 五大模块 · 全场景覆盖</h3>
+          <p>AI自习室、真人外教、海量资源、趣味互动、AI测评——五大功能模块覆盖英语学习全场景。一个APP解决孩子英语学习的所有需求。</p>
+        </div>
+        <div class="feat-img">
+          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D.png"
+               alt="功能介绍" loading="lazy">
+        </div>
+      </div>
+
+      <!-- 行2：听说读练闭环，横图 1228×750 -->
+      <div class="feat-row rev">
+        <div class="feat-text">
+          <span class="feat-tag">AI智能</span>
+          <h3>🤖 AI对话 · 真人外教</h3>
+          <p>AI口语实时测评，即时反馈发音和语法问题。1V1精品外教直播课，听说读练形成完整闭环，在真实语境中突破口语，告别哑巴英语。</p>
+        </div>
+        <div class="feat-img">
+          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E5%90%AC%E8%AF%B4%E8%AF%BB%E7%BB%83%E9%97%AD%E7%8E%AF.png"
+               alt="听说读练闭环" loading="lazy">
+        </div>
+      </div>
+
+      <!-- 行3：海量学习资料，横图 933×705 -->
+      <div class="feat-row">
+        <div class="feat-text">
+          <span class="feat-tag">海量资源</span>
+          <h3>📚 阅读功能 · 10万+绘本</h3>
+          <p>内置清北名师同步绘本、热门分级读物，覆盖KET/PET/FCE各级别。海量学习资料，满足不同年龄段的阅读需求，在阅读中轻松扩词汇。</p>
+        </div>
+        <div class="feat-img">
+          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E6%B5%B7%E9%87%8F%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99.png"
+               alt="海量学习资料" loading="lazy">
+        </div>
+      </div>
+
+      <!-- 行4：为孩子打造全面英语学习工具，横图 925×697 -->
+      <div class="feat-row rev">
+        <div class="feat-text">
+          <span class="feat-tag">同步教材</span>
+          <h3>📖 同步天天练 · 跟教材走</h3>
+          <p>深度同步学校教材，背单词、视频配音、快乐听、练口语。在生活场景中全面提升听说读写综合能力，让课堂所学在家高效巩固延伸。</p>
+        </div>
+        <div class="feat-img">
+          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E4%B8%BA%E5%AD%A9%E5%AD%90%E6%89%93%E9%80%A0%E5%85%A8%E9%9D%A2%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7.png"
+               alt="同步天天练" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-sec">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">500<sub>万+</sub></div>
+        <div class="stat-label">在读学生</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">10<sub>万+</sub></div>
+        <div class="stat-label">精品绘本</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5<sub>大平台</sub></div>
+        <div class="stat-label">全端覆盖</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">AI<sub>驱动</sub></div>
+        <div class="stat-label">智能口语测评</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-sec" id="pricing">
+  <div class="container">
+    <h2 class="sec-title">下载免费 · 激活即用</h2>
+    <p class="sec-sub">选择套餐，一次激活，全部功能立即解锁</p>
+    <div class="divider"></div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-name">🌟 7天体验卡</div>
+        <div class="price-ori">&nbsp;</div>
+        <div class="price-val"><sup>¥</sup>9.9</div>
+        <div class="price-period">有效期 7 天</div>
+        <ul class="price-feats">
+          <li>全功能解锁</li><li>AI对话体验</li><li>海量阅读资源</li><li>单词闯关</li>
+        </ul>
+        <button class="btn-price btn-price-out" onclick="openModal('trial')">立即体验</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">📅 月卡</div>
+        <div class="price-ori">&nbsp;</div>
+        <div class="price-val"><sup>¥</sup>39</div>
+        <div class="price-period">有效期 1 个月</div>
+        <ul class="price-feats">
+          <li>全功能解锁</li><li>AI对话不限次</li><li>同步天天练</li><li>学情周报</li>
+        </ul>
+        <button class="btn-price btn-price-out" onclick="openModal('month')">购买月卡</button>
+      </div>
+      <div class="price-card hot">
+        <span class="price-badge">🔥 最受欢迎</span>
+        <div class="price-name">🗓️ 季卡</div>
+        <div class="price-ori">原价 ¥117</div>
+        <div class="price-val"><sup>¥</sup>99</div>
+        <div class="price-period">有效期 3 个月 · 省¥18</div>
+        <ul class="price-feats">
+          <li>全功能解锁</li><li>AI对话不限次</li><li>真人外教优先</li><li>学情周报+月报</li><li>优先客服响应</li>
+        </ul>
+        <button class="btn-price btn-price-main" onclick="openModal('quarter')">购买季卡</button>
+      </div>
+      <div class="price-card">
+        <span class="price-badge bb">💎 最划算</span>
+        <div class="price-name">📆 年卡</div>
+        <div class="price-ori">原价 ¥468</div>
+        <div class="price-val"><sup>¥</sup>399</div>
+        <div class="price-period">有效期 12 个月 · 省¥69</div>
+        <ul class="price-feats">
+          <li>全功能解锁</li><li>AI对话不限次</li><li>真人外教优先</li><li>全维度学情报告</li><li>专属客服通道</li><li>新功能优先体验</li>
+        </ul>
+        <button class="btn-price btn-price-out" onclick="openModal('year')">购买年卡</button>
+      </div>
+    </div>
+        <p class="price-note">💳 微信支付 · 🔒 安全加密 · 支付成功账号短信发至手机</p>
+  </div>
+</section>
+
+<!-- ORDER QUERY -->
+<section class="oq-sec" id="order-query">
+  <div class="container">
+    <div class="oq-box">
+      <h3>📋 查询我的订单</h3>
+      <p style="font-size:.82rem;color:#999">输入下单手机号或订单号，查看激活状态和账号信息</p>
+      <div class="oq-row">
+        <input class="oq-input" id="oqInput" placeholder="手机号 或 订单号" maxlength="40">
+        <button class="oq-btn" onclick="queryOrder()">查询</button>
+      </div>
+      <div class="oq-result" id="oqResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="dl-sec" id="download">
+  <div class="container">
+    <h2 class="sec-title">立即下载 · 全平台支持</h2>
+    <p class="sec-sub">下载完全免费，激活账号即享全部功能</p>
+    <div class="divider"></div>
+    <div class="dl-inner">
+      <div class="dl-btns">
+        <a class="dl-btn dl-btn-main" href="https://app.lingshi.com/bjxxsy" target="_blank">
+          <span class="dl-icon">🪟</span>
+          <div><strong>点击下载 Windows 版</strong><span>64位，Win7及以上，点击跳转下载页</span></div>
+          <span class="dl-arrow">→</span>
+        </a>
+        <a class="dl-btn dl-btn-main" href="https://app.lingshi.com/bjxxsy" target="_blank">
+          <span class="dl-icon">🍎</span>
+          <div><strong>点击下载 macOS 版</strong><span>M芯片 / Intel，10.15及以上</span></div>
+          <span class="dl-arrow">→</span>
+        </a>
+        <a class="dl-btn dl-btn-main" href="https://app.lingshi.com/bjxxsy" target="_blank">
+          <span class="dl-icon">📱</span>
+          <div><strong>点击下载 iOS 版</strong><span>iPhone / iPad，iOS 12+</span></div>
+          <span class="dl-arrow">→</span>
+        </a>
+        <a class="dl-btn dl-btn-main" href="https://app.lingshi.com/bjxxsy" target="_blank">
+          <span class="dl-icon">🤖</span>
+          <div><strong>点击下载 Android 版</strong><span>手机 / 平板 / 一体机</span></div>
+          <span class="dl-arrow">→</span>
+        </a>
+      </div>
+      <!-- 右侧：仅公众号二维码 -->
+      <div class="dl-qrs">
+        <div class="qr-card">
+          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E5%AE%A2%E6%9C%8D.png"
+               alt="关注公众号">
+          <div class="qr-title">📱 关注公众号</div>
+          <div class="qr-sub">获取最新资讯</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec" id="faq">
+  <div class="container">
+    <h2 class="sec-title">常见问题</h2>
+    <p class="sec-sub">有疑问？这里找答案</p>
+    <div class="divider"></div>
+    <div class="faq-wrap">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">下载免费，为什么还要激活账号？</div>
+        <div class="faq-a">APP本体下载完全免费，但AI对话、海量阅读资源、真人外教等核心功能需要激活账号。7天体验卡仅需¥4.9，试用后再决定是否续费，完全无压力。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">购买后如何收到账号？</div>
+        <div class="faq-a">微信支付成功后，系统会将账号和密码以短信发送到您填写的手机号。如5分钟内未收到，请在本页"查询订单"处输入手机号查询，或添加客服处理。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">一个账号可以在几台设备上使用？</div>
+        <div class="faq-a">支持Windows、macOS、iOS、Android全平台，一个账号可多台设备登录，学习进度云端同步，换设备不丢失。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">支持退款吗？</div>
+        <div class="faq-a">7天体验卡开通后24小时内未使用可申请退款。月卡/季卡/年卡开通后不支持退款，有效期内随时可用。特殊情况请联系客服协商。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">在哪里看使用教程？</div>
+        <div class="faq-a">可在本页视频区观看"快速上手教程"，也可在APP内查看内置帮助，或添加客服获取1对1指导。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="/">返回首页</a>
+      <a href="#features">功能介绍</a>
+      <a href="#pricing">激活套餐</a>
+      <a href="https://app.lingshi.com/bjxxsy" target="_blank">免费下载</a>
+      <a href="#order-query">查询订单</a>
+      <a href="#faq">常见问题</a>
+    </div>
+    <p style="font-size:.76rem">© 2026 英语陪跑GO · 授权推广页 · <a href="/" style="color:#666">xiachaoqing.com</a></p>
+  </div>
+</footer>
+
+<!-- 关注公众号弹窗 -->
+<div class="modal-overlay" id="followModal">
+  <div class="modal" style="text-align:center;max-width:320px">
+    <button class="modal-x" onclick="closeFollowModal()">×</button>
+    <h2>关注公众号</h2>
+    <p style="color:#666;font-size:.9rem;margin:8px 0 20px">关注后可查询账号、接收开通通知和续费提醒</p>
+    <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/客服.png"
+         style="width:200px;height:200px;object-fit:contain;border-radius:12px;border:1px solid #eee"
+         alt="公众号二维码">
+    <p style="margin-top:12px;font-weight:700;color:#298dff">英语陪跑go</p>
+    <p style="font-size:.82rem;color:#999;margin-top:4px">长按识别二维码关注</p>
+    <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3NTM5MDQ3MA=="
+       target="_blank"
+       style="display:block;margin-top:16px;background:#07c160;color:#fff;padding:12px;border-radius:8px;font-weight:600;text-decoration:none">
+      点此关注公众号
+    </a>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="buyModal">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal()">×</button>
+    <h2>激活英语陪跑GO账号</h2>
+    <p class="modal-plan-name" id="mPlanName">7天体验卡 · ¥9.9</p>
+    <div class="form-g">
+      <label>手机号（用于接收账号信息）</label>
+      <input type="tel" id="mPhone" placeholder="请输入11位手机号" maxlength="11">
+      <div class="hint">账号密码将短信发至此号码，请务必填写正确</div>
+    </div>
+    <div class="form-g">
+      <label>孩子年级（可选）</label>
+      <select id="mGrade">
+        <option value="">请选择（可跳过）</option>
+        <option value="1">小学1年级</option><option value="2">小学2年级</option>
+        <option value="3">小学3年级</option><option value="4">小学4年级</option>
+        <option value="5">小学5年级</option><option value="6">小学6年级</option>
+        <option value="7">初一</option><option value="8">初二</option><option value="9">初三</option>
+      </select>
+    </div>
+    <div class="modal-total">
+      <span class="t-label">实付金额</span>
+      <span class="t-val" id="mAmount">¥9.9</span>
+    </div>
+    <button class="btn-pay" id="payBtn" onclick="submitOrder()">
+      <span>💚</span><span>微信支付</span>
+    </button>
+    <p class="modal-safe">🔒 微信支付保障 · 支付后账号自动短信发送至手机</p>
+    <div class="modal-flow">
+      📌 <strong>支付流程：</strong>填写手机号 → 微信支付 → 账号短信到手机<br>
+      如未收到，在页面"查询订单"处查看，或联系客服
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://wechat.xiachaoqing.com';
+const COS = 'https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao';
+const PAGE_URL  = 'https://go.xiachaoqing.com/jiazhangtong/';
+const SHARE_IMG = 'https://go.xiachaoqing.com/jiazhangtong/share.jpg';
+const APPID     = 'wx10b4ccec486e7961';
+
+// ── 微信JS-SDK 分享配置 ──────────────────────────────────
+(function initWxShare() {
+  if (!/MicroMessenger/i.test(navigator.userAgent)) return;
+
+  const signUrl = location.href.split('#')[0];
+  const shareData = {
+    title:  '英语陪跑GO | AI英语学习，让孩子爱上英语',
+    desc:   'AI口语测评、真人外教、海量绘本。7天体验¥9.9，月卡¥39，年卡¥399',
+    link:   PAGE_URL,
+    imgUrl: SHARE_IMG
+  };
+
+  fetch(API + '/api/jzt/wx/jsconfig?url=' + encodeURIComponent(signUrl))
+    .then(r => r.json())
+    .then(cfg => {
+      if (!cfg || !cfg.signature) {
+        console.warn('jsconfig返回无效:', cfg);
+        return;
+      }
+      wx.config({
+        debug: false,
+        appId:     cfg.appId,
+        timestamp: Number(cfg.timestamp),  // 确保是number类型
+        nonceStr:  cfg.nonceStr,
+        signature: cfg.signature,
+        jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData', 'chooseWXPay']
+      });
+      wx.ready(function() {
+        // 分享给好友
+        wx.updateAppMessageShareData({
+          title:  shareData.title,
+          desc:   shareData.desc,
+          link:   shareData.link,
+          imgUrl: shareData.imgUrl,
+          success: function() { console.log('updateAppMessage设置成功'); },
+          fail:    function(e) { console.warn('updateAppMessage失败:', JSON.stringify(e)); }
+        });
+        // 分享到朋友圈
+        wx.updateTimelineShareData({
+          title:  shareData.title,
+          link:   shareData.link,
+          imgUrl: shareData.imgUrl,
+          success: function() { console.log('updateTimeline设置成功'); },
+          fail:    function(e) { console.warn('updateTimeline失败:', JSON.stringify(e)); }
+        });
+      });
+      wx.error(function(res) {
+        console.warn('wx.config error:', res.errMsg);
+      });
+    })
+    .catch(err => console.warn('jsconfig请求失败:', err));
+})();
+
+// ── 套餐 ──────────────────────────────────────────────────
+const PLANS = {
+  trial:   {name:'7天体验卡', amount:'¥9.9'  },
+  month:   {name:'月卡',      amount:'¥39'   },
+  quarter: {name:'季卡',      amount:'¥99'   },
+  year:    {name:'年卡',      amount:'¥399'  },
+};
+let curPlan = 'trial';
+
+// ── 视频切换 ──────────────────────────────────────────────
+function switchV(type, btn) {
+  document.querySelectorAll('.vtab').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+  const vM = document.getElementById('vMain');
+  const vG = document.getElementById('vGuide');
+  if (type === 'main') { vG.pause(); vG.style.display='none'; vM.style.display='block'; }
+  else { vM.pause(); vM.style.display='none'; vG.style.display='block'; }
+}
+
+// ── FAQ ───────────────────────────────────────────────────
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const was  = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!was) item.classList.add('open');
+}
+
+// ── 购买弹窗 ──────────────────────────────────────────────
+function openModal(plan) {
+  curPlan = plan;
+  const p = PLANS[plan];
+  document.getElementById('mPlanName').textContent = p.name + ' · ' + p.amount;
+  document.getElementById('mAmount').textContent   = p.amount;
+  document.getElementById('buyModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('buyModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.getElementById('buyModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('buyModal')) closeModal();
+});
+
+// ── 关注公众号弹窗 ────────────────────────────────────────
+function showFollowModal() {
+  document.getElementById('followModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeFollowModal() {
+  document.getElementById('followModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.getElementById('followModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('followModal')) closeFollowModal();
+});
+
+// 微信内：检测关注状态，未关注时顶部显示提示条
+(function checkFollow() {
+  if (!/MicroMessenger/i.test(navigator.userAgent)) return;
+  const openid = sessionStorage.getItem('jzt_openid');
+  if (!openid) return; // openid还没拿到，等prefetch完成
+  fetch(API + '/api/jzt/user/follow?openid=' + openid)
+    .then(r => r.json())
+    .then(d => {
+      if (d.followed === false) {
+        // 顶部显示关注提示条
+        const bar = document.createElement('div');
+        bar.id = 'follow-bar';
+        bar.style.cssText = 'position:fixed;top:56px;left:0;right:0;z-index:998;background:#07c160;color:#fff;text-align:center;padding:10px 16px;font-size:.88rem;cursor:pointer;';
+        bar.innerHTML = '💚 关注「英语陪跑go」公众号，支付后即时收到账号通知 <strong>→ 点击关注</strong>';
+        bar.onclick = showFollowModal;
+        document.body.appendChild(bar);
+      }
+    })
+    .catch(() => {});
+})();
+
+// ── 工具：读URL参数 ───────────────────────────────────────
+function getUrlParam(name) {
+  const s = new URLSearchParams(location.search);
+  return s.get(name) || '';
+}
+
+// ── 页面加载时静默获取openid（提前拿，支付不再跳转）──
+(function prefetchOpenid() {
+  if (!/MicroMessenger/i.test(navigator.userAgent)) return;
+  // 已有openid不重复获取
+  if (sessionStorage.getItem('jzt_openid')) return;
+
+  const code  = getUrlParam('code');
+  const state = getUrlParam('state');
+
+  if (code) {
+    // 有code，换openid
+    fetch(API + '/api/jzt/auth/openid?code=' + code)
+      .then(r => r.json())
+      .then(d => {
+        if (d.openid) {
+          sessionStorage.setItem('jzt_openid', d.openid);
+          // 清理URL里的code/state参数，避免重复使用
+          const clean = location.pathname + location.hash;
+          history.replaceState({}, '', clean);
+        }
+      })
+      .catch(() => {});
+  } else {
+    // 没有code，发起静默授权（用户无感知）
+    const cb = encodeURIComponent(PAGE_URL);
+    location.replace(
+      `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}` +
+      `&redirect_uri=${cb}&response_type=code&scope=snsapi_base&state=jztinit#wechat_redirect`
+    );
+  }
+})();
+
+// ── 提交订单（JSAPI支付）────────────────────────────────
+async function submitOrder() {
+  const phone = document.getElementById('mPhone').value.trim();
+  if (!/^1[3-9]\d{9}$/.test(phone)) { alert('请输入正确的11位手机号'); return; }
+  const grade = document.getElementById('mGrade').value;
+  const btn = document.getElementById('payBtn');
+
+  if (!/MicroMessenger/i.test(navigator.userAgent)) {
+    alert('请在微信中打开此页面以完成支付');
+    return;
+  }
+
+  const openid = sessionStorage.getItem('jzt_openid') || '';
+  if (!openid) {
+    alert('授权中，请稍后再试');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span><span>创建订单中...</span>';
+
+  try {
+
+    // 2. 创建订单
+    const r = await fetch(API + '/api/jzt/order/create', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({plan_id: curPlan, phone, grade, openid, trade_type: 'JSAPI'})
+    });
+    const d = await r.json();
+    if (d.code !== 0) {
+      alert('创建订单失败：' + (d.detail || '请重试'));
+      return;
+    }
+
+    sessionStorage.setItem('jzt_order', d.order_no);
+    sessionStorage.setItem('jzt_phone', phone);
+
+    // 3. 调起微信支付
+    btn.innerHTML = '<span>⏳</span><span>唤起支付...</span>';
+    const p = d.pay_params;
+    wx.chooseWXPay({
+      appId:     p.appId,
+      timestamp: p.timeStamp,
+      nonceStr:  p.nonceStr,
+      package:   p.package,
+      signType:  p.signType,
+      paySign:   p.paySign,
+      success: function() {
+        // 支付成功，跳转结果页
+        location.href = '/jiazhangtong/result.html?order=' + d.order_no;
+      },
+      cancel: function() {
+        alert('已取消支付');
+      },
+      fail: function(err) {
+        alert('支付失败：' + JSON.stringify(err));
+      }
+    });
+
+  } catch(e) {
+    alert('网络错误，请稍后重试');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span>💚</span><span>微信支付</span>';
+  }
+}
+
+// ── 查询订单 ──────────────────────────────────────────────
+async function queryOrder() {
+  const val = document.getElementById('oqInput').value.trim();
+  const box = document.getElementById('oqResult');
+  if (!val) { alert('请输入手机号或订单号'); return; }
+  box.style.display = 'block';
+  box.innerHTML = '查询中...';
+  try {
+    const param = /^\d{11}$/.test(val) ? 'phone='+val : 'order_no='+val;
+    const r = await fetch(API + '/api/jzt/order/status?' + param);
+    const d = await r.json();
+    if (d.status === 'paid' && d.account) {
+      box.innerHTML = `✅ <strong>账号已开通</strong><br>套餐：${d.plan||''}<br>账号：<strong>${d.account}</strong><br>密码：<strong>${d.password}</strong><br>有效期至：${(d.expire_at||'').slice(0,10)}<br><small style="color:#bbb">请妥善保存，勿泄露他人</small>`;
+    } else if (d.status === 'activating') {
+      box.innerHTML = '⚙️ 支付成功，账号开通中，请5分钟后再查询。如仍未到账请联系客服。';
+    } else if (d.status === 'pending') {
+      box.innerHTML = '⏳ 订单待支付，请完成微信支付后再查询。';
+    } else {
+      box.innerHTML = '❌ 未查到记录，请确认手机号或订单号是否正确。';
+    }
+  } catch(e) { box.innerHTML = '❌ 查询失败，请稍后重试。'; }
+}
+document.getElementById('oqInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') queryOrder();
+});
+</script>
+</body>
+</html>
