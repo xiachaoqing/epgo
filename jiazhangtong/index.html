@@ -6,9 +6,9 @@
 <meta name="description" content="英语陪跑GO — AI驱动英语学习APP，AI对话、真人外教、阅读闯关、同步教材。下载完全免费，激活账号即享全部功能。">
 <!-- 微信分享 Open Graph -->
 <meta property="og:title" content="英语陪跑GO | AI英语学习，让孩子爱上英语">
-<meta property="og:description" content="AI口语测评、真人外教、海量绘本、同步教材。下载免费，7天体验仅¥4.9">
-<meta property="og:image" content="https://go.xiachaoqing.com/jiazhangtong/share.jpg">
-<meta property="og:url" content="https://go.xiachaoqing.com/jiazhangtong/">
+<meta property="og:description" content="AI口语测评、真人外教、海量绘本、同步教材。下载免费，7天体验仅¥9.9">
+<meta property="og:image" content="https://go.xiachaoqing.com/epgo/share.jpg">
+<meta property="og:url" content="https://go.xiachaoqing.com/epgo/">
 <meta property="og:type" content="website">
 <title>英语陪跑GO | AI英语学习，让孩子爱上英语</title>
 <!-- 微信JS-SDK -->
@@ -576,7 +576,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <div class="faq-wrap">
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">下载免费，为什么还要激活账号？</div>
-        <div class="faq-a">APP本体下载完全免费，但AI对话、海量阅读资源、真人外教等核心功能需要激活账号。7天体验卡仅需¥4.9，试用后再决定是否续费，完全无压力。</div>
+        <div class="faq-a">APP本体下载完全免费，但AI对话、海量阅读资源、真人外教等核心功能需要激活账号。7天体验卡仅需¥9.9，试用后再决定是否续费，完全无压力。</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">购买后如何收到账号？</div>
@@ -618,7 +618,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <button class="modal-x" onclick="closeFollowModal()">×</button>
     <h2>关注公众号</h2>
     <p style="color:#666;font-size:.9rem;margin:8px 0 20px">关注后可查询账号、接收开通通知和续费提醒</p>
-    <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/客服.png"
+    <img src="https://go.xiachaoqing.com/epgo/qrcode.png"
          style="width:200px;height:200px;object-fit:contain;border-radius:12px;border:1px solid #eee"
          alt="公众号二维码">
     <p style="margin-top:12px;font-weight:700;color:#298dff">英语陪跑go</p>
@@ -670,15 +670,17 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
 <script>
 const API = 'https://wechat.xiachaoqing.com';
 const COS = 'https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao';
-const PAGE_URL  = 'https://go.xiachaoqing.com/jiazhangtong/';
-const SHARE_IMG = 'https://go.xiachaoqing.com/jiazhangtong/share.jpg';
+const PAGE_URL  = 'https://go.xiachaoqing.com/epgo/';
+const SHARE_IMG = 'https://go.xiachaoqing.com/epgo/share.jpg';
 const APPID     = 'wx10b4ccec486e7961';
 
 // ── 微信JS-SDK 分享配置 ──────────────────────────────────
-(function initWxShare() {
+function initWxShare() {
   if (!/MicroMessenger/i.test(navigator.userAgent)) return;
 
-  const signUrl = location.href.split('#')[0];
+  // 签名URL固定使用PAGE_URL，绝不用location.href（避免OAuth的code/state干扰签名）
+  const signUrl = PAGE_URL;
+
   const shareData = {
     title:  '英语陪跑GO | AI英语学习，让孩子爱上英语',
     desc:   'AI口语测评、真人外教、海量绘本。7天体验¥9.9，月卡¥39，年卡¥399',
@@ -725,7 +727,7 @@ const APPID     = 'wx10b4ccec486e7961';
       });
     })
     .catch(err => console.warn('jsconfig请求失败:', err));
-})();
+}
 
 // ── 套餐 ──────────────────────────────────────────────────
 const PLANS = {
@@ -831,8 +833,10 @@ function getUrlParam(name) {
           const clean = location.pathname + location.hash;
           history.replaceState({}, '', clean);
         }
+        // OAuth完成后初始化分享（此时URL已干净）
+        initWxShare();
       })
-      .catch(() => {});
+      .catch(() => { initWxShare(); });
   } else {
     // 没有code，发起静默授权（用户无感知）
     const cb = encodeURIComponent(PAGE_URL);
@@ -893,7 +897,7 @@ async function submitOrder() {
       paySign:   p.paySign,
       success: function() {
         // 支付成功，跳转结果页
-        location.href = '/jiazhangtong/result.html?order=' + d.order_no;
+        location.href = '/epgo/result.html?order=' + d.order_no;
       },
       cancel: function() {
         alert('已取消支付');

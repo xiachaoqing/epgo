@@ -107,8 +107,9 @@ function showSuccess(data) {
     </div>
   `;
   document.getElementById('actions').innerHTML = `
-    <a class="btn-home" href="/jiazhangtong/">返回家长通介绍页</a>
-    <p style="margin-top:14px;font-size:.8rem;color:#aaa">账号信息已发送至您的手机，请查收短信</p>
+    <a class="btn-home" href="/jiazhangtong/#qr" style="background:#07c160">关注公众号 · 随时查询账号</a>
+    <a class="btn-home" href="/jiazhangtong/" style="margin-top:10px;background:#4E97D9">返回首页</a>
+    <p style="margin-top:14px;font-size:.8rem;color:#aaa">账号信息已推送至公众号，请在「夏超青」公众号查看</p>
   `;
 }
 
@@ -117,7 +118,8 @@ function showActivating() {
   document.getElementById('title').textContent = '支付成功！';
   document.getElementById('desc').innerHTML = `
     账号正在人工开通，<strong>预计10分钟内</strong>完成。<br>
-    开通后将通过<strong>公众号消息</strong>通知您，请关注「夏超青」公众号。
+    开通后将通过<strong>公众号消息</strong>通知您账号和密码。<br>
+    <span style="color:#ff9500;font-weight:600">⚠️ 请务必关注「夏超青」公众号，否则收不到账号！</span>
   `;
   document.getElementById('actions').innerHTML = `
     <a class="btn-home" href="/jiazhangtong/#qr" style="background:#07c160">关注公众号 · 接收账号通知</a>

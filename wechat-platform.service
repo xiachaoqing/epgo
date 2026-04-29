@@ -1,0 +1,19 @@
+[Unit]
+Description=WeChat Platform FastAPI Service
+After=network.target mysqld.service
+Wants=mysqld.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/www/wwwroot/wechat_platform
+Environment="JZT_ADMIN_TOKEN=jzt_ed4c157ddce3a8f192bee255"
+ExecStart=/www/wwwroot/wechat_platform/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2 --log-level info
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=wechat-platform
+
+[Install]
+WantedBy=multi-user.target

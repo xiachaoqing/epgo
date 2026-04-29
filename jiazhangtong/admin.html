@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>英语陪跑GO · 管理后台</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;background:#f0f2f5;color:#333}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1565C0,#298dff)}
+.login-box{background:#fff;border-radius:16px;padding:40px 36px;width:360px;box-shadow:0 8px 40px rgba(0,0,0,.15)}
+.login-box h1{font-size:1.3rem;font-weight:700;margin-bottom:6px;color:#1a1a2e}
+.login-box p{color:#999;font-size:.85rem;margin-bottom:24px}
+.form-item{margin-bottom:16px}
+.form-item input{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:11px 14px;font-size:.95rem;outline:none;transition:border .2s}
+.form-item input:focus{border-color:#298dff}
+.btn-login{width:100%;background:#298dff;color:#fff;border:none;border-radius:8px;padding:13px;font-size:1rem;font-weight:600;cursor:pointer;transition:background .2s}
+.btn-login:hover{background:#1565C0}
+.err{color:#f44;font-size:.83rem;margin-top:8px;display:none}
+
+/* ── MAIN ── */
+.main{display:none;min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:#1a1a2e;color:#fff;padding:24px 0}
+.sidebar .logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,.1);font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.sidebar .logo img{width:28px;height:28px;border-radius:6px}
+.sidebar nav{padding:16px 0}
+.sidebar nav a{display:flex;align-items:center;gap:10px;padding:11px 24px;color:rgba(255,255,255,.7);font-size:.9rem;cursor:pointer;transition:all .2s;text-decoration:none}
+.sidebar nav a:hover,.sidebar nav a.active{background:rgba(41,141,255,.2);color:#fff}
+.sidebar nav a .icon{font-size:1.1rem;width:20px;text-align:center}
+.content{margin-left:220px;padding:24px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.topbar h2{font-size:1.2rem;font-weight:700;color:#1a1a2e}
+.topbar .user{display:flex;align-items:center;gap:8px;color:#666;font-size:.88rem}
+.btn-logout{background:none;border:1px solid #ddd;border-radius:6px;padding:5px 14px;cursor:pointer;font-size:.83rem;color:#666}
+.btn-logout:hover{border-color:#f44;color:#f44}
+
+/* ── STAT CARDS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.stat-card .label{font-size:.82rem;color:#999;margin-bottom:8px}
+.stat-card .val{font-size:1.8rem;font-weight:700;color:#1a1a2e}
+.stat-card .sub{font-size:.78rem;color:#aaa;margin-top:4px}
+.stat-card.blue .val{color:#298dff}
+.stat-card.green .val{color:#34C759}
+.stat-card.orange .val{color:#ff9500}
+.stat-card.red .val{color:#f44}
+
+/* ── TABLE ── */
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 8px rgba(0,0,0,.06);margin-bottom:20px}
+.card-head{padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.card-head h3{font-size:1rem;font-weight:700;color:#1a1a2e}
+.card-head .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-input{border:1px solid #e0e0e0;border-radius:6px;padding:7px 12px;font-size:.85rem;outline:none;width:180px}
+.filter-input:focus{border-color:#298dff}
+.btn{border:none;border-radius:6px;padding:8px 16px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px}
+.btn-primary{background:#298dff;color:#fff}.btn-primary:hover{background:#1565C0}
+.btn-success{background:#34C759;color:#fff}.btn-success:hover{background:#28a046}
+.btn-warning{background:#ff9500;color:#fff}.btn-warning:hover{background:#e08600}
+.btn-danger{background:#f44336;color:#fff}.btn-danger:hover{background:#d32f2f}
+.btn-ghost{background:#f5f5f5;color:#666;border:1px solid #e0e0e0}.btn-ghost:hover{background:#eee}
+.btn-sm{padding:5px 10px;font-size:.78rem}
+table{width:100%;border-collapse:collapse}
+th,td{padding:11px 16px;text-align:left;font-size:.85rem;border-bottom:1px solid #f5f5f5}
+th{background:#fafafa;font-weight:600;color:#666;white-space:nowrap}
+tr:hover td{background:#f9fbff}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge-pending{background:#fff3cd;color:#856404}
+.badge-paid{background:#d1ecf1;color:#0c5460}
+.badge-done{background:#d4edda;color:#155724}
+.badge-expired{background:#f8d7da;color:#721c24}
+.empty{text-align:center;padding:40px;color:#aaa;font-size:.9rem}
+
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:32px;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto}
+.modal-box h3{font-size:1.1rem;font-weight:700;margin-bottom:20px;color:#1a1a2e}
+.mform-item{margin-bottom:16px}
+.mform-item label{display:block;font-size:.85rem;color:#666;margin-bottom:6px;font-weight:500}
+.mform-item input,.mform-item select,.mform-item textarea{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:10px 12px;font-size:.9rem;outline:none}
+.mform-item input:focus,.mform-item select:focus{border-color:#298dff}
+.mform-item .hint{font-size:.78rem;color:#aaa;margin-top:4px}
+.mform-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid #f0f0f0}
+.info-row{display:flex;gap:8px;margin-bottom:8px;font-size:.88rem}
+.info-row .lbl{color:#888;width:80px;flex-shrink:0}
+.info-row .val{color:#1a1a2e;font-weight:500}
+
+/* ── TOAST ── */
+.toast{position:fixed;top:20px;right:20px;z-index:9999;background:#1a1a2e;color:#fff;padding:12px 20px;border-radius:10px;font-size:.88rem;opacity:0;transition:opacity .3s;pointer-events:none;max-width:320px}
+.toast.show{opacity:1}
+.toast.success{background:#34C759}
+.toast.error{background:#f44336}
+
+/* ── PAGE SECTIONS ── */
+.section{display:none}
+.section.active{display:block}
+
+@media(max-width:768px){
+  .sidebar{width:100%;position:relative;height:auto}
+  .content{margin-left:0}
+  .stat-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginPage">
+  <div class="login-box">
+    <h1>🎯 英语陪跑GO</h1>
+    <p>管理员后台 · 请登录</p>
+    <div class="form-item">
+      <input type="password" id="loginToken" placeholder="请输入管理员Token" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">登 录</button>
+    <div class="err" id="loginErr">Token错误，请重试</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="mainPage">
+  <div class="sidebar">
+    <div class="logo">
+      <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/logo.png" alt="">
+      英语陪跑GO
+    </div>
+    <nav>
+      <a class="active" onclick="showSection('dashboard')"><span class="icon">📊</span>数据概览</a>
+      <a onclick="showSection('pending')"><span class="icon">⏳</span>待处理订单</a>
+      <a onclick="showSection('orders')"><span class="icon">📋</span>全部订单</a>
+      <a onclick="showSection('accounts')"><span class="icon">👤</span>账号管理</a>
+      <a onclick="showSection('import')"><span class="icon">📥</span>批量导入老学员</a>
+    </nav>
+  </div>
+
+  <div class="content">
+    <div class="topbar">
+      <h2 id="pageTitle">数据概览</h2>
+      <div class="user">
+        <span>管理员</span>
+        <button class="btn-logout" onclick="doLogout()">退出</button>
+      </div>
+    </div>
+
+    <!-- 数据概览 -->
+    <div class="section active" id="sec-dashboard">
+      <div class="stat-grid" id="statGrid">
+        <div class="stat-card blue"><div class="label">今日订单</div><div class="val" id="st-today">-</div><div class="sub">笔</div></div>
+        <div class="stat-card green"><div class="label">待激活</div><div class="val" id="st-pending">-</div><div class="sub">需处理</div></div>
+        <div class="stat-card orange"><div class="label">本月收入</div><div class="val" id="st-month">-</div><div class="sub">元</div></div>
+        <div class="stat-card"><div class="label">总订单</div><div class="val" id="st-total">-</div><div class="sub">笔</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>⚠️ 待处理订单（已付款未激活）</h3><button class="btn btn-primary btn-sm" onclick="showSection('pending')">查看全部</button></div>
+        <div id="dashPendingList"></div>
+      </div>
+    </div>
+
+    <!-- 待处理订单 -->
+    <div class="section" id="sec-pending">
+      <div class="card">
+        <div class="card-head">
+          <h3>待处理订单</h3>
+          <div class="tools">
+            <button class="btn btn-ghost btn-sm" onclick="loadPending()">🔄 刷新</button>
+            <button class="btn btn-success btn-sm" onclick="exportPendingExcel()">📥 导出Excel</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr>
+              <th>订单号</th><th>手机号</th><th>套餐</th><th>金额</th><th>付款时间</th><th>操作</th>
+            </tr></thead>
+            <tbody id="pendingTbody"><tr><td colspan="6" class="empty">加载中...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 全部订单 -->
+    <div class="section" id="sec-orders">
+      <div class="card">
+        <div class="card-head">
+          <h3>全部订单</h3>
+          <div class="tools">
+            <input class="filter-input" id="orderSearch" placeholder="手机号/订单号搜索" onkeydown="if(event.key==='Enter')loadOrders()">
+            <button class="btn btn-primary btn-sm" onclick="loadOrders()">搜索</button>
+            <button class="btn btn-ghost btn-sm" onclick="loadOrders()">🔄 刷新</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr>
+              <th>订单号</th><th>手机号</th><th>套餐</th><th>金额</th><th>状态</th><th>下单时间</th><th>操作</th>
+            </tr></thead>
+            <tbody id="ordersTbody"><tr><td colspan="7" class="empty">加载中...</td></tr></tbody>
+          </table>
+        </div>
+        <div style="padding:16px;display:flex;gap:8px;align-items:center" id="orderPager"></div>
+      </div>
+    </div>
+
+    <!-- 账号管理 -->
+    <div class="section" id="sec-accounts">
+      <div class="card">
+        <div class="card-head">
+          <h3>全部账号（含老学员）</h3>
+          <div class="tools">
+            <input class="filter-input" id="accSearch" placeholder="手机号/账号搜索" onkeydown="if(event.key==='Enter')loadAccounts()">
+            <button class="btn btn-primary btn-sm" onclick="loadAccounts()">搜索</button>
+            <button class="btn btn-ghost btn-sm" onclick="loadAccounts()">🔄 刷新</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>手机号</th><th>账号</th><th>密码</th><th>套餐</th><th>有效期至</th><th>状态</th><th>备注</th></tr></thead>
+            <tbody id="accountsTbody"><tr><td colspan="7" class="empty">加载中...</td></tr></tbody>
+          </table>
+        </div>
+        <div style="padding:16px;display:flex;gap:8px" id="accPager"></div>
+      </div>
+    </div>
+
+    <!-- 批量导入老学员 -->
+    <div class="section" id="sec-import">
+      <div class="card">
+        <div class="card-head"><h3>📥 批量导入老学员</h3></div>
+        <div style="padding:20px">
+          <p style="color:#666;font-size:.88rem;margin-bottom:16px">
+            每行一个学员，格式：<code style="background:#f5f5f5;padding:2px 6px;border-radius:4px">手机号,到期日期,姓名,备注</code>（到期日格式：2026-08-31，姓名/备注可选）
+          </p>
+          <textarea id="importText" rows="12" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:12px;font-size:.88rem;font-family:monospace;outline:none"
+            placeholder="示例：&#10;13812345678,2026-08-31,张三,线下老学员&#10;13987654321,2026-08-31,李四&#10;13600000001,2026-05-31"></textarea>
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="doImport()">📥 导入学员</button>
+            <span style="font-size:.82rem;color:#999">默认到期：2026-05-31 | 默认密码：手机号后6位 | 默认账号：手机号</span>
+          </div>
+          <div id="importResult" style="margin-top:16px"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="card-head"><h3>💬 5月1日收费通知群发</h3></div>
+        <div style="padding:20px">
+          <div style="background:#fff3cd;border-radius:8px;padding:14px;font-size:.85rem;color:#856404;margin-bottom:16px">
+            ⚠️ 群发消息需要用户已关注公众号，每月只能群发4次，请谨慎使用。
+          </div>
+          <textarea id="broadcastText" rows="6" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:12px;font-size:.88rem;outline:none">亲爱的同学们，英语陪跑GO将于5月1日起正式收费。感谢一直以来的支持！老学员专属优惠：月卡¥39 | 季卡¥99 | 年卡¥399。点击链接提前锁定优惠：https://go.xiachaoqing.com/jiazhangtong/</textarea>
+          <div style="margin-top:12px">
+            <button class="btn btn-warning" onclick="doBroadcast()">📢 发送群发消息</button>
+          </div>
+          <div id="broadcastResult" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- 录入账号弹窗 -->
+<div class="modal-bg" id="fillModal">
+  <div class="modal-box">
+    <h3>📝 录入账号信息</h3>
+    <div id="fillOrderInfo" style="background:#f9fbff;border-radius:8px;padding:14px;margin-bottom:16px"></div>
+    <div class="mform-row">
+      <div class="mform-item">
+        <label>英语陪跑GO账号 *</label>
+        <input type="text" id="fillAccount" placeholder="手机号或分配账号">
+        <div class="hint">账号填手机号即可</div>
+      </div>
+      <div class="mform-item">
+        <label>密码 *</label>
+        <input type="text" id="fillPassword" placeholder="初始密码">
+      </div>
+    </div>
+    <div class="mform-item">
+      <label>截止日期</label>
+      <input type="date" id="fillExpire">
+      <div class="hint">留空则按套餐天数自动计算</div>
+    </div>
+    <div class="mform-item">
+      <label>备注</label>
+      <input type="text" id="fillRemark" placeholder="可选备注">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeFillModal()">取消</button>
+      <button class="btn btn-success" onclick="doFillAccount()">✅ 确认激活</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://wechat.xiachaoqing.com';
+let TOKEN = '';
+let curOrderNo = '';
+let ordersPage = 1;
+
+// ── 登录 ─────────────────────────────────────────────────
+function doLogin() {
+  const t = document.getElementById('loginToken').value.trim();
+  if (!t) return;
+  TOKEN = t;
+  // 验证token
+  fetch(API + '/api/jzt/admin/pending', {
+    headers: {'X-Admin-Token': TOKEN}
+  }).then(r => {
+    if (r.status === 403) {
+      document.getElementById('loginErr').style.display = 'block';
+      TOKEN = '';
+    } else {
+      sessionStorage.setItem('jzt_admin_token', TOKEN);
+      showMain();
+    }
+  }).catch(() => {
+    document.getElementById('loginErr').style.display = 'block';
+  });
+}
+
+function doLogout() {
+  sessionStorage.removeItem('jzt_admin_token');
+  TOKEN = '';
+  document.getElementById('mainPage').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+}
+
+function showMain() {
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('mainPage').style.display = 'block';
+  loadDashboard();
+}
+
+// 自动恢复登录
+window.onload = function() {
+  const saved = sessionStorage.getItem('jzt_admin_token');
+  if (saved) { TOKEN = saved; showMain(); }
+};
+
+// ── 导航 ─────────────────────────────────────────────────
+const titles = {dashboard:'数据概览', pending:'待处理订单', orders:'全部订单', accounts:'账号管理', import:'批量导入老学员'};
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  document.querySelectorAll('.sidebar nav a')[Object.keys(titles).indexOf(name)].classList.add('active');
+  document.getElementById('pageTitle').textContent = titles[name];
+  if (name === 'pending') loadPending();
+  else if (name === 'orders') loadOrders();
+  else if (name === 'accounts') loadAccounts();
+  else if (name === 'import') {}
+  else loadDashboard();
+}
+
+// ── 数据概览 ──────────────────────────────────────────────
+async function loadDashboard() {
+  const [p, o] = await Promise.all([
+    fetch(API+'/api/jzt/admin/pending', {headers:{'X-Admin-Token':TOKEN}}).then(r=>r.json()),
+    fetch(API+'/api/jzt/admin/orders?page=1&size=100', {headers:{'X-Admin-Token':TOKEN}}).then(r=>r.json()),
+  ]);
+  const pending = p.orders || [];
+  const orders  = o.orders || [];
+  const today = new Date().toISOString().slice(0,10);
+  const todayOrders = orders.filter(x => (x.created_at||'').slice(0,10) === today && x.pay_status == 1);
+  const monthIncome = orders.filter(x => (x.created_at||'').slice(0,7) === today.slice(0,7) && x.pay_status == 1)
+                             .reduce((s,x) => s + (x.price_fen||0), 0);
+  document.getElementById('st-today').textContent = todayOrders.length;
+  document.getElementById('st-pending').textContent = pending.length;
+  document.getElementById('st-month').textContent = (monthIncome/100).toFixed(0);
+  document.getElementById('st-total').textContent = orders.filter(x=>x.pay_status==1).length;
+  renderPendingTable('dashPendingList', pending.slice(0,5));
+}
+
+// ── 待处理订单 ────────────────────────────────────────────
+async function loadPending() {
+  const d = await fetch(API+'/api/jzt/admin/pending', {headers:{'X-Admin-Token':TOKEN}}).then(r=>r.json());
+  renderPendingTable('pendingTbody', d.orders || [], true);
+}
+
+function renderPendingTable(id, list, full=false) {
+  const tbody = document.getElementById(id);
+  if (!list.length) { tbody.innerHTML = `<tr><td colspan="6" class="empty">暂无待处理订单 🎉</td></tr>`; return; }
+  tbody.innerHTML = list.map(o => `
+    <tr>
+      <td><code style="font-size:.75rem">${o.order_no}</code></td>
+      <td><strong>${o.phone}</strong></td>
+      <td>${o.plan_name}</td>
+      <td style="color:#298dff;font-weight:600">¥${(o.price_fen/100).toFixed(2)}</td>
+      <td>${(o.paid_at||o.created_at||'').replace('T',' ').slice(0,16)}</td>
+      <td>
+        <button class="btn btn-success btn-sm" onclick="openFillModal('${o.order_no}','${o.phone}','${o.plan_name}',${o.price_fen},${o.days})">录入账号</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ── 全部订单 ──────────────────────────────────────────────
+async function loadOrders(page=1) {
+  ordersPage = page;
+  const kw = document.getElementById('orderSearch')?.value.trim() || '';
+  let url = `${API}/api/jzt/admin/orders?page=${page}&size=20`;
+  if (kw) url += `&keyword=${encodeURIComponent(kw)}`;
+  const d = await fetch(url, {headers:{'X-Admin-Token':TOKEN}}).then(r=>r.json());
+  const list = d.orders || [];
+  const tbody = document.getElementById('ordersTbody');
+  if (!list.length) { tbody.innerHTML = `<tr><td colspan="7" class="empty">暂无订单</td></tr>`; return; }
+  const statusMap = {0:'<span class="badge badge-pending">待付款</span>', 1:'<span class="badge badge-paid">已付款</span>', 2:'<span class="badge badge-done">已激活</span>', 9:'<span class="badge badge-expired">已退款</span>'};
+  tbody.innerHTML = list.map(o => `
+    <tr>
+      <td><code style="font-size:.75rem">${o.order_no}</code></td>
+      <td>${o.phone}</td>
+      <td>${o.plan_name}</td>
+      <td>¥${(o.price_fen/100).toFixed(2)}</td>
+      <td>${statusMap[o.pay_status]||o.pay_status}</td>
+      <td>${(o.created_at||'').replace('T',' ').slice(0,16)}</td>
+      <td>
+        ${o.pay_status==1 ? `<button class="btn btn-success btn-sm" onclick="openFillModal('${o.order_no}','${o.phone}','${o.plan_name}',${o.price_fen},${o.days})">录入</button>` : ''}
+      </td>
+    </tr>
+  `).join('');
+  const pager = document.getElementById('orderPager');
+  pager.innerHTML = `
+    <button class="btn btn-ghost btn-sm" onclick="loadOrders(${page-1})" ${page<=1?'disabled':''}>上一页</button>
+    <span style="font-size:.85rem;color:#666">第 ${page} 页</span>
+    <button class="btn btn-ghost btn-sm" onclick="loadOrders(${page+1})" ${list.length<20?'disabled':''}>下一页</button>
+  `;
+}
+
+// ── 账号管理 ──────────────────────────────────────────────
+let accPage = 1;
+async function loadAccounts(page=1) {
+  accPage = page;
+  const kw = document.getElementById('accSearch')?.value.trim() || '';
+  let url = `${API}/api/jzt/admin/accounts?page=${page}&size=20`;
+  if (kw) url += `&keyword=${encodeURIComponent(kw)}`;
+  const d = await fetch(url, {headers:{'X-Admin-Token':TOKEN}}).then(r=>r.json());
+  const list = d.accounts || [];
+  const tbody = document.getElementById('accountsTbody');
+  if (!list.length) { tbody.innerHTML = `<tr><td colspan="7" class="empty">暂无账号</td></tr>`; return; }
+  tbody.innerHTML = list.map(a => {
+    const isExp = a.expire_at && new Date(a.expire_at) < new Date();
+    const st = a.status==1 && !isExp ? '<span class="badge badge-done">有效</span>' :
+               isExp ? '<span class="badge badge-expired">已过期</span>' :
+               '<span class="badge badge-pending">禁用</span>';
+    return `<tr>
+      <td>${a.phone}</td>
+      <td><strong>${a.jzt_account||'-'}</strong></td>
+      <td><code style="font-size:.78rem">${a.jzt_password||'-'}</code></td>
+      <td>${a.plan_name||'-'}</td>
+      <td>${(a.expire_at||'').slice(0,10)}</td>
+      <td>${st}</td>
+      <td style="color:#999;font-size:.78rem">${a.remark||''}</td>
+    </tr>`;
+  }).join('');
+  const pager = document.getElementById('accPager');
+  pager.innerHTML = `
+    <button class="btn btn-ghost btn-sm" onclick="loadAccounts(${page-1})" ${page<=1?'disabled':''}>上一页</button>
+    <span style="font-size:.85rem;color:#666">第 ${page} 页 / 共 ${d.total} 条</span>
+    <button class="btn btn-ghost btn-sm" onclick="loadAccounts(${page+1})" ${list.length<20?'disabled':''}>下一页</button>
+  `;
+}
+
+// ── 批量导入老学员 ────────────────────────────────────────
+async function doImport() {
+  const text = document.getElementById('importText').value.trim();
+  if (!text) { showToast('请填写学员信息', 'error'); return; }
+  const lines = text.split('\n').filter(l => l.trim());
+  const students = [];
+  for (const line of lines) {
+    const parts = line.trim().split(',');
+    const phone = parts[0]?.trim();
+    if (!phone || phone.length !== 11) continue;
+    students.push({
+      phone,
+      expire_at: parts[1]?.trim() || '2026-05-31',
+      nickname:  parts[2]?.trim() || '',
+      remark:    parts[3]?.trim() || '线下老学员',
+      plan_name: '线下老学员',
+    });
+  }
+  if (!students.length) { showToast('没有有效的手机号', 'error'); return; }
+  try {
+    const r = await fetch(API+'/api/jzt/admin/import_students', {
+      method:'POST', headers:{'Content-Type':'application/json','X-Admin-Token':TOKEN},
+      body: JSON.stringify(students)
+    });
+    const d = await r.json();
+    const el = document.getElementById('importResult');
+    if (d.code === 0) {
+      el.innerHTML = `<div style="background:#d4edda;border-radius:8px;padding:14px;font-size:.88rem">
+        ✅ 导入完成：新增 <strong>${d.added}</strong> 人，更新 <strong>${d.updated}</strong> 人，跳过 <strong>${d.skipped}</strong> 人
+      </div>`;
+      showToast(`导入成功：${d.added}新增 ${d.updated}更新`, 'success');
+    } else {
+      el.innerHTML = `<div style="background:#f8d7da;border-radius:8px;padding:14px">${d.detail||'导入失败'}</div>`;
+    }
+  } catch(e) { showToast('网络错误', 'error'); }
+}
+
+// ── 群发消息 ──────────────────────────────────────────────
+async function doBroadcast() {
+  const content = document.getElementById('broadcastText').value.trim();
+  if (!content) { showToast('请填写群发内容', 'error'); return; }
+  if (!confirm('确认群发？此操作不可撤回，每月限4次。')) return;
+  try {
+    const r = await fetch(API+'/api/jzt/admin/broadcast', {
+      method:'POST', headers:{'Content-Type':'application/json','X-Admin-Token':TOKEN},
+      body: JSON.stringify({content})
+    });
+    const d = await r.json();
+    document.getElementById('broadcastResult').innerHTML =
+      `<div style="background:${d.code===0?'#d4edda':'#f8d7da'};border-radius:8px;padding:12px;font-size:.88rem">
+        ${d.code===0 ? '✅ 群发已提交，微信审核后发送' : '❌ 群发失败：'+(d.detail||'')}
+      </div>`;
+  } catch(e) { showToast('网络错误', 'error'); }
+}
+
+// ── 录入账号 ──────────────────────────────────────────────
+let fillCtx = {};
+function openFillModal(orderNo, phone, planName, priceFen, days) {
+  fillCtx = {orderNo, phone, planName, priceFen, days};
+  document.getElementById('fillOrderInfo').innerHTML = `
+    <div class="info-row"><span class="lbl">订单号</span><span class="val">${orderNo}</span></div>
+    <div class="info-row"><span class="lbl">手机号</span><span class="val">${phone}</span></div>
+    <div class="info-row"><span class="lbl">套餐</span><span class="val">${planName} · ¥${(priceFen/100).toFixed(2)}</span></div>
+    <div class="info-row"><span class="lbl">有效天数</span><span class="val">${days} 天</span></div>
+  `;
+  // 默认账号填手机号，密码填随机6位
+  document.getElementById('fillAccount').value = phone;
+  document.getElementById('fillPassword').value = Math.random().toString(36).slice(-6).toUpperCase();
+  // 默认到期日
+  const exp = new Date(); exp.setDate(exp.getDate() + days);
+  document.getElementById('fillExpire').value = exp.toISOString().slice(0,10);
+  document.getElementById('fillRemark').value = '';
+  document.getElementById('fillModal').classList.add('show');
+}
+function closeFillModal() {
+  document.getElementById('fillModal').classList.remove('show');
+}
+
+async function doFillAccount() {
+  const account  = document.getElementById('fillAccount').value.trim();
+  const password = document.getElementById('fillPassword').value.trim();
+  const expire   = document.getElementById('fillExpire').value;
+  const remark   = document.getElementById('fillRemark').value.trim();
+  if (!account || !password) { showToast('账号和密码不能为空', 'error'); return; }
+  const body = {order_no: fillCtx.orderNo, jzt_account: account, jzt_password: password};
+  if (expire) body.expire_at = expire;
+  if (remark) body.remark = remark;
+  try {
+    const r = await fetch(API+'/api/jzt/admin/fill_account', {
+      method:'POST', headers:{'Content-Type':'application/json','X-Admin-Token':TOKEN},
+      body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (d.code === 0) {
+      showToast('✅ 账号录入成功！', 'success');
+      closeFillModal();
+      loadPending();
+      loadDashboard();
+    } else {
+      showToast('录入失败：' + (d.detail||'未知错误'), 'error');
+    }
+  } catch(e) {
+    showToast('网络错误', 'error');
+  }
+}
+
+// ── 导出Excel（待处理订单）────────────────────────────────
+async function exportPendingExcel() {
+  const d = await fetch(API+'/api/jzt/admin/pending', {headers:{'X-Admin-Token':TOKEN}}).then(r=>r.json());
+  const list = d.orders || [];
+  if (!list.length) { showToast('暂无待处理订单', 'error'); return; }
+  // 生成CSV（兼容Excel）
+  const header = ['姓名','手机号 (11位数字)','账号','性别','班级名称','备注昵称','截止日期'];
+  const rows = list.map(o => {
+    const exp = new Date(); exp.setDate(exp.getDate() + (o.days||30));
+    return [o.phone, o.phone, '', '', '', o.plan_name, exp.toISOString().slice(0,10)];
+  });
+  const csv = [header, ...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const bom = '\uFEFF'; // UTF-8 BOM for Excel
+  const blob = new Blob([bom + csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `英语陪跑GO待激活_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  showToast('导出成功', 'success');
+}
+
+// ── Toast ─────────────────────────────────────────────────
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// 关闭弹窗点背景
+document.getElementById('fillModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('fillModal')) closeFillModal();
+});
+</script>
+</body>
+</html>

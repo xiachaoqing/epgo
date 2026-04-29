@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>账号查询 - 英语陪跑GO</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Helvetica Neue",Arial,sans-serif;background:linear-gradient(150deg,#e8f4ff 0%,#f0f6ff 50%,#f5f7fa 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+:root{--blue:#298dff;--blue-dark:#1565C0;--green:#34C759;--dark:#1a1a2e}
+
+.wrap{width:100%;max-width:440px}
+
+/* 顶部logo */
+.logo{text-align:center;margin-bottom:28px}
+.logo img{width:54px;height:54px;border-radius:14px;box-shadow:0 4px 16px rgba(41,141,255,.25)}
+.logo h1{font-size:1.1rem;font-weight:700;color:var(--dark);margin-top:10px}
+.logo p{font-size:.82rem;color:#999;margin-top:4px}
+
+/* 查询卡片 */
+.card{background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.card h2{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:20px;text-align:center}
+
+.input-wrap{position:relative;margin-bottom:14px}
+.input-wrap input{
+  width:100%;border:1.5px solid #e0e0e0;border-radius:10px;
+  padding:13px 16px;font-size:1rem;outline:none;
+  transition:border .2s;color:var(--dark)
+}
+.input-wrap input:focus{border-color:var(--blue)}
+.input-wrap .hint{font-size:.75rem;color:#aaa;margin-top:5px;padding-left:4px}
+
+.btn-query{
+  width:100%;background:var(--blue);color:#fff;border:none;
+  border-radius:10px;padding:14px;font-size:1rem;font-weight:700;
+  cursor:pointer;transition:background .2s;margin-top:4px
+}
+.btn-query:hover{background:var(--blue-dark)}
+.btn-query:disabled{background:#aaa;cursor:not-allowed}
+
+/* 结果区 */
+.result{margin-top:18px;display:none}
+.result-box{border-radius:12px;padding:18px;border:1.5px solid #e8f4ff;background:#f8fbff}
+.result-box.expired{border-color:#ffe0e0;background:#fff8f8}
+.result-box.activating{border-color:#fff3cd;background:#fffdf0}
+.result-box.not-found{border-color:#eee;background:#fafafa}
+
+.result-status{font-size:1rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:.88rem}
+.result-row:last-child{border:none}
+.result-row .label{color:#888}
+.result-row .value{font-weight:600;color:var(--dark)}
+.copy-btn{background:#e8f4fd;color:var(--blue);border:none;padding:3px 10px;border-radius:6px;font-size:.75rem;cursor:pointer}
+.copy-btn:active{background:var(--blue);color:#fff}
+
+.expire-warn{background:#fff3cd;color:#856404;border-radius:8px;padding:10px 12px;font-size:.82rem;margin-top:12px;line-height:1.6}
+
+/* 底部提示 */
+.footer-tip{text-align:center;margin-top:18px;font-size:.78rem;color:#aaa;line-height:1.8}
+.footer-tip a{color:var(--blue);text-decoration:none}
+
+/* 限流提示 */
+.rate-tip{display:none;text-align:center;color:#f44;font-size:.82rem;margin-top:8px}
+
+/* 关注公众号引导 */
+.follow-box{background:linear-gradient(135deg,#07c160,#04a24f);border-radius:12px;padding:16px;margin-top:14px;text-align:center;color:#fff}
+.follow-box p{font-size:.85rem;opacity:.9;margin-bottom:10px}
+.follow-box a{display:inline-block;background:#fff;color:#07c160;font-weight:700;font-size:.88rem;padding:8px 20px;border-radius:20px;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">
+    <img src="https://go.xiachaoqing.com/epgo/logo.png" onerror="this.style.display='none'" alt="">
+    <h1>英语陪跑GO</h1>
+    <p>账号查询</p>
+  </div>
+
+  <div class="card">
+    <h2>输入手机号查询账号</h2>
+    <div class="input-wrap">
+      <input type="tel" id="phoneInput" placeholder="请输入购买时填写的手机号"
+             maxlength="11" inputmode="numeric"
+             oninput="this.value=this.value.replace(/\D/g,'')"
+             onkeydown="if(event.key==='Enter')doQuery()">
+      <div class="hint">请输入购买时填写的11位手机号</div>
+    </div>
+    <div class="rate-tip" id="rateTip"></div>
+    <button class="btn-query" id="queryBtn" onclick="doQuery()">查询账号</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <div class="footer-tip">
+    密码忘记了？<a href="javascript:void(0)" onclick="showPwdTip()">点此查看</a>
+    &nbsp;·&nbsp;
+    客服微信：<strong>EPGO_Support</strong>
+    <br>
+    <a href="https://go.xiachaoqing.com/epgo/">← 返回首页</a>
+  </div>
+</div>
+
+<script>
+const API = 'https://wechat.xiachaoqing.com';
+let lastQueryTime = 0;
+let queryCount = 0;
+let countResetTime = Date.now();
+
+function showPwdTip() {
+  alert('初始密码为手机号后6位。\n如您已在App内修改过密码，初始密码将失效。\n如忘记密码请在公众号回复「查账号」或联系客服微信：EPGO_Support');
+}
+
+async function doQuery() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  const btn   = document.getElementById('queryBtn');
+  const rateTip = document.getElementById('rateTip');
+
+  // 前端限流：60秒内最多5次
+  if (Date.now() - countResetTime > 60000) {
+    queryCount = 0; countResetTime = Date.now();
+  }
+  if (queryCount >= 5) {
+    rateTip.style.display = 'block';
+    rateTip.textContent = '⚠️ 查询太频繁，请1分钟后再试';
+    return;
+  }
+  rateTip.style.display = 'none';
+
+  if (!/^\d{11}$/.test(phone)) {
+    showResult({type:'error', msg:'请输入正确的11位手机号'});
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '查询中...';
+  queryCount++;
+
+  try {
+    const r = await fetch(`${API}/api/jzt/account/query?phone=${phone}`);
+    if (r.status === 429) {
+      rateTip.style.display = 'block';
+      rateTip.textContent = '⚠️ 查询太频繁，请1分钟后再试';
+      return;
+    }
+    const d = await r.json();
+    renderResult(d, phone);
+  } catch(e) {
+    showResult({type:'error', msg:'网络错误，请稍后重试'});
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '查询账号';
+  }
+}
+
+function renderResult(d, phone) {
+  const wrap = document.getElementById('result');
+  wrap.style.display = 'block';
+
+  if (d.status === 'active') {
+    wrap.innerHTML = `
+      <div class="result-box">
+        <div class="result-status">✅ 账号正常使用中</div>
+        <div class="result-row">
+          <span class="label">家长通账号</span>
+          <span class="value">${d.account}<button class="copy-btn" onclick="copyText('${d.account}')">复制</button></span>
+        </div>
+        <div class="result-row">
+          <span class="label">套餐</span>
+          <span class="value">${d.plan}</span>
+        </div>
+        <div class="result-row">
+          <span class="label">有效期至</span>
+          <span class="value">${d.expire_at}</span>
+        </div>
+        <div class="result-row">
+          <span class="label">密码</span>
+          <span class="value" style="color:#aaa;font-size:.82rem">初始为手机号后6位，可在App内修改</span>
+        </div>
+      </div>
+      <div class="follow-box">
+        <p>关注公众号，随时查账号、接收续费提醒</p>
+        <a href="https://go.xiachaoqing.com/epgo/#follow">关注英语陪跑GO →</a>
+      </div>
+    `;
+  } else if (d.status === 'expired') {
+    wrap.innerHTML = `
+      <div class="result-box expired">
+        <div class="result-status">⚠️ 账号已过期</div>
+        <div class="result-row">
+          <span class="label">家长通账号</span>
+          <span class="value">${d.account}</span>
+        </div>
+        <div class="result-row">
+          <span class="label">到期时间</span>
+          <span class="value">${d.expire_at}</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;text-align:center">
+        <a href="https://go.xiachaoqing.com/epgo/" style="display:inline-block;background:var(--blue);color:#fff;padding:12px 32px;border-radius:10px;font-weight:700;text-decoration:none;font-size:.95rem">立即续费 →</a>
+      </div>
+    `;
+  } else if (d.status === 'activating') {
+    wrap.innerHTML = `
+      <div class="result-box activating">
+        <div class="result-status">⏳ 账号开通中</div>
+        <p style="font-size:.85rem;color:#666;line-height:1.7">${d.message}<br>如超过30分钟未开通，请联系客服微信：<strong>EPGO_Support</strong></p>
+      </div>
+    `;
+  } else {
+    wrap.innerHTML = `
+      <div class="result-box not-found">
+        <div class="result-status" style="color:#999">❌ 未查到账号</div>
+        <p style="font-size:.84rem;color:#888;line-height:1.8">
+          未查到手机号 <strong>${phone}</strong> 对应的账号。<br>
+          · 确认是否已购买，或是否用了其他手机号<br>
+          · 联系客服：微信 <strong>EPGO_Support</strong>
+        </p>
+      </div>
+      <div style="margin-top:12px;text-align:center">
+        <a href="https://go.xiachaoqing.com/epgo/" style="display:inline-block;background:var(--blue);color:#fff;padding:12px 32px;border-radius:10px;font-weight:700;text-decoration:none;font-size:.95rem">去购买 →</a>
+      </div>
+    `;
+  }
+}
+
+function copyText(t) {
+  navigator.clipboard?.writeText(t).then(() => {
+    const tip = document.createElement('div');
+    tip.textContent = '✅ 已复制';
+    tip.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:8px 18px;border-radius:8px;font-size:.85rem;z-index:9999';
+    document.body.appendChild(tip);
+    setTimeout(() => tip.remove(), 1800);
+  });
+}
+</script>
+</body>
+</html>
