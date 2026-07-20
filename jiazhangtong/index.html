@@ -174,6 +174,20 @@ img{max-width:100%;display:block}
 .btn-price-out:hover{background:var(--blue);color:#fff}
 .price-note{text-align:center;color:#bbb;font-size:.77rem;margin-top:14px}
 
+/* ── 购买滚动条 ── */
+.buy-ticker-wrap{margin-bottom:28px;overflow:hidden;border-radius:10px;background:linear-gradient(90deg,#fff8f0,#fff5eb);border:1px solid #ffe8d0;position:relative;height:38px}
+.buy-ticker-wrap::before,.buy-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
+.buy-ticker-wrap::before{left:0;background:linear-gradient(90deg,#fff8f0,transparent)}
+.buy-ticker-wrap::after{right:0;background:linear-gradient(270deg,#fff5eb,transparent)}
+.buy-ticker-inner{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 18s linear infinite}
+.buy-ticker-inner:hover{animation-play-state:paused}
+.buy-ticker-item{display:inline-flex;align-items:center;gap:5px;padding:0 24px;font-size:.8rem;color:#666;flex-shrink:0}
+.buy-ticker-item .phone{color:var(--orange);font-weight:600}
+.buy-ticker-item .plan{color:var(--blue);font-weight:600}
+.buy-ticker-item .sep{color:#ddd;margin:0 4px}
+.buy-ticker-title{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;padding:0 14px;background:var(--orange);color:#fff;font-size:.76rem;font-weight:700;z-index:3;border-radius:10px 0 0 10px;white-space:nowrap}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
 /* ── ORDER QUERY ── */
 .oq-sec{background:var(--blue-light);border-top:1px solid #cde4ff;padding:40px 0}
 .oq-box{max-width:520px;margin:0 auto;background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
@@ -462,6 +476,11 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <h2 class="sec-title">下载免费 · 激活即用</h2>
     <p class="sec-sub">选择套餐，一次激活，全部功能立即解锁</p>
     <div class="divider"></div>
+    <!-- 购买滚动条 -->
+    <div class="buy-ticker-wrap">
+      <div class="buy-ticker-title">🔥 最近购买</div>
+      <div class="buy-ticker-inner" id="buyTicker" style="padding-left:90px"></div>
+    </div>
     <div class="price-grid">
       <div class="price-card">
         <div class="price-name">🌟 7天体验卡</div>
@@ -494,19 +513,19 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
         </ul>
         <button class="btn-price btn-price-main" onclick="openModal('quarter')">购买季卡</button>
       </div>
-      <div class="price-card">
-        <span class="price-badge bb">💎 最划算</span>
+      <div class="price-card hot">
+        <span class="price-badge">☀️ 暑假特惠</span>
         <div class="price-name">📆 年卡</div>
-        <div class="price-ori">原价 ¥468</div>
-        <div class="price-val"><sup>¥</sup>399</div>
-        <div class="price-period">有效期 12 个月 · 省¥69</div>
+        <div class="price-ori">原价 ¥399</div>
+        <div class="price-val"><sup>¥</sup>298</div>
+        <div class="price-period">有效期 12 个月 · 暑假限时省¥101</div>
         <ul class="price-feats">
           <li>全功能解锁</li><li>AI对话不限次</li><li>真人外教优先</li><li>全维度学情报告</li><li>专属客服通道</li><li>新功能优先体验</li>
         </ul>
         <button class="btn-price btn-price-out" onclick="openModal('year')">购买年卡</button>
       </div>
     </div>
-        <p class="price-note">💳 微信支付 · 🔒 安全加密 · 支付成功账号短信发至手机</p>
+        <p class="price-note">💳 微信支付 · 🔒 安全加密 · 支付后关注公众号查看账号</p>
   </div>
 </section>
 
@@ -557,8 +576,8 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
       <!-- 右侧：仅公众号二维码 -->
       <div class="dl-qrs">
         <div class="qr-card">
-          <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E5%AE%A2%E6%9C%8D.png"
-               alt="关注公众号">
+          <img src="https://go.xiachaoqing.com/epgo/qrcode_hd.png"
+               alt="关注公众号" style="image-rendering:auto">
           <div class="qr-title">📱 关注公众号</div>
           <div class="qr-sub">获取最新资讯</div>
         </div>
@@ -580,7 +599,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">购买后如何收到账号？</div>
-        <div class="faq-a">微信支付成功后，系统会将账号和密码以短信发送到您填写的手机号。如5分钟内未收到，请在本页"查询订单"处输入手机号查询，或添加客服处理。</div>
+        <div class="faq-a">微信支付成功后，系统会将账号信息通过公众号消息发送给您。请关注「英语陪跑go」公众号，或在公众号回复「查账号」查询。</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">一个账号可以在几台设备上使用？</div>
@@ -588,7 +607,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">支持退款吗？</div>
-        <div class="faq-a">7天体验卡开通后24小时内未使用可申请退款。月卡/季卡/年卡开通后不支持退款，有效期内随时可用。特殊情况请联系客服协商。</div>
+        <div class="faq-a">7天体验卡开通后24小时内未使用可申请退款。月卡/季卡/年卡开通后不支持退款，有效期内随时可用。特殊情况请联系客服微信 EPGO_Support 协商。</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">在哪里看使用教程？</div>
@@ -618,8 +637,8 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <button class="modal-x" onclick="closeFollowModal()">×</button>
     <h2>关注公众号</h2>
     <p style="color:#666;font-size:.9rem;margin:8px 0 20px">关注后可查询账号、接收开通通知和续费提醒</p>
-    <img src="https://go.xiachaoqing.com/epgo/qrcode.png"
-         style="width:200px;height:200px;object-fit:contain;border-radius:12px;border:1px solid #eee"
+    <img src="https://go.xiachaoqing.com/epgo/qrcode_hd.png"
+         style="width:200px;height:200px;object-fit:contain;border-radius:12px;border:1px solid #eee;display:block;margin:0 auto"
          alt="公众号二维码">
     <p style="margin-top:12px;font-weight:700;color:#298dff">英语陪跑go</p>
     <p style="font-size:.82rem;color:#999;margin-top:4px">长按识别二维码关注</p>
@@ -638,9 +657,9 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <h2>激活英语陪跑GO账号</h2>
     <p class="modal-plan-name" id="mPlanName">7天体验卡 · ¥9.9</p>
     <div class="form-g">
-      <label>手机号（用于接收账号信息）</label>
+      <label>手机号（用于注册和查询账号）</label>
       <input type="tel" id="mPhone" placeholder="请输入11位手机号" maxlength="11">
-      <div class="hint">账号密码将短信发至此号码，请务必填写正确</div>
+      <div class="hint">手机号即为登录账号，初始密码为手机号后6位</div>
     </div>
     <div class="form-g">
       <label>孩子年级（可选）</label>
@@ -659,10 +678,10 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <button class="btn-pay" id="payBtn" onclick="submitOrder()">
       <span>💚</span><span>微信支付</span>
     </button>
-    <p class="modal-safe">🔒 微信支付保障 · 支付后账号自动短信发送至手机</p>
+    <p class="modal-safe">🔒 微信支付保障 · 支付成功后关注公众号查看账号</p>
     <div class="modal-flow">
-      📌 <strong>支付流程：</strong>填写手机号 → 微信支付 → 账号短信到手机<br>
-      如未收到，在页面"查询订单"处查看，或联系客服
+      📌 <strong>支付流程：</strong>填写手机号 → 微信支付 → 关注公众号回复「查账号」获取<br>
+      也可在页面「查询订单」处查看，或<a href="https://go.xiachaoqing.com/epgo/query.html" style="color:#298dff">独立查询页面</a>查询
     </div>
   </div>
 </div>
@@ -670,9 +689,46 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
 <script>
 const API = 'https://wechat.xiachaoqing.com';
 const COS = 'https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao';
-const PAGE_URL  = 'https://go.xiachaoqing.com/epgo/';
+const PAGE_URL  = location.origin + location.pathname; // 动态取，兼容/epgo/和/jiazhangtong/
 const SHARE_IMG = 'https://go.xiachaoqing.com/epgo/share.jpg';
 const APPID     = 'wx10b4ccec486e7961';
+
+// ── 购买滚动条（模拟数据，手机号脱敏）──────────────────
+(function initBuyTicker(){
+  const plans = [
+    '7天体验卡','月卡','季卡','年卡','季卡','月卡','年卡','7天体验卡',
+    '季卡','年卡','月卡','季卡','7天体验卡','月卡','年卡','季卡',
+    '月卡','年卡','7天体验卡','季卡','月卡','年卡','季卡','月卡'
+  ];
+  const cities = [
+    '北京','上海','广州','深圳','杭州','成都','南京','武汉',
+    '西安','重庆','长沙','郑州','苏州','天津','青岛','厦门',
+    '合肥','济南','大连','昆明','石家庄','太原','沈阳','哈尔滨'
+  ];
+  const mins = [1,2,3,5,6,8,10,12,15,18,20,22,25,28,32,35,38,42,45,48,52,55,58,60];
+  function maskPhone(){
+    const p2 = '1' + [3,5,7,8,9][Math.random()*5|0];
+    const mid = String(Math.random()).slice(2,6);
+    const tail = String(Math.random()).slice(2,6);
+    return p2 + mid.slice(0,2) + '****' + tail.slice(0,2);
+  }
+  const items = [];
+  for(let i=0;i<plans.length;i++){
+    const city = cities[i % cities.length];
+    const m = mins[i % mins.length];
+    items.push(
+      `<span class="buy-ticker-item">`+
+      `<span class="phone">${maskPhone()}</span>`+
+      `<span class="sep">·</span>`+
+      `${city}家长`+
+      `<span class="sep">·</span>`+
+      `${m}分钟前购买了<span class="plan">${plans[i]}</span>`+
+      `</span>`
+    );
+  }
+  const el = document.getElementById('buyTicker');
+  if(el){ el.innerHTML = items.join('') + items.join(''); }
+})();
 
 // ── 微信JS-SDK 分享配置 ──────────────────────────────────
 function initWxShare() {
@@ -683,7 +739,7 @@ function initWxShare() {
 
   const shareData = {
     title:  '英语陪跑GO | AI英语学习，让孩子爱上英语',
-    desc:   'AI口语测评、真人外教、海量绘本。7天体验¥9.9，月卡¥39，年卡¥399',
+    desc:   'AI口语测评、真人外教、海量绘本，KET/PET备考神器，下载免费体验！',
     link:   PAGE_URL,
     imgUrl: SHARE_IMG
   };
@@ -698,28 +754,43 @@ function initWxShare() {
       wx.config({
         debug: false,
         appId:     cfg.appId,
-        timestamp: Number(cfg.timestamp),  // 确保是number类型
+        timestamp: Number(cfg.timestamp),
         nonceStr:  cfg.nonceStr,
         signature: cfg.signature,
-        jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData', 'chooseWXPay']
+        jsApiList: [
+          'updateAppMessageShareData', 'updateTimelineShareData',
+          'onMenuShareAppMessage', 'onMenuShareTimeline',
+          'chooseWXPay'
+        ]
       });
       wx.ready(function() {
-        // 分享给好友
-        wx.updateAppMessageShareData({
-          title:  shareData.title,
-          desc:   shareData.desc,
-          link:   shareData.link,
-          imgUrl: shareData.imgUrl,
-          success: function() { console.log('updateAppMessage设置成功'); },
-          fail:    function(e) { console.warn('updateAppMessage失败:', JSON.stringify(e)); }
+        console.log('wx.ready 触发，开始设置分享');
+        // 新版API（1.4.0+）
+        if (wx.updateAppMessageShareData) {
+          wx.updateAppMessageShareData({
+            title: shareData.title, desc: shareData.desc,
+            link: shareData.link, imgUrl: shareData.imgUrl,
+            success: function() { console.log('updateAppMessage OK'); },
+            fail: function(e) { console.warn('updateAppMessage fail:', JSON.stringify(e)); }
+          });
+        }
+        if (wx.updateTimelineShareData) {
+          wx.updateTimelineShareData({
+            title: shareData.title, link: shareData.link, imgUrl: shareData.imgUrl,
+            success: function() { console.log('updateTimeline OK'); },
+            fail: function(e) { console.warn('updateTimeline fail:', JSON.stringify(e)); }
+          });
+        }
+        // 旧版API兼容（部分微信版本只支持这个）
+        wx.onMenuShareAppMessage({
+          title: shareData.title, desc: shareData.desc,
+          link: shareData.link, imgUrl: shareData.imgUrl,
+          success: function() { console.log('onMenuShareAppMessage OK'); }
         });
-        // 分享到朋友圈
-        wx.updateTimelineShareData({
-          title:  shareData.title,
-          link:   shareData.link,
-          imgUrl: shareData.imgUrl,
-          success: function() { console.log('updateTimeline设置成功'); },
-          fail:    function(e) { console.warn('updateTimeline失败:', JSON.stringify(e)); }
+        wx.onMenuShareTimeline({
+          title: shareData.title,
+          link: shareData.link, imgUrl: shareData.imgUrl,
+          success: function() { console.log('onMenuShareTimeline OK'); }
         });
       });
       wx.error(function(res) {
@@ -734,7 +805,7 @@ const PLANS = {
   trial:   {name:'7天体验卡', amount:'¥9.9'  },
   month:   {name:'月卡',      amount:'¥39'   },
   quarter: {name:'季卡',      amount:'¥99'   },
-  year:    {name:'年卡',      amount:'¥399'  },
+  year:    {name:'年卡',      amount:'¥298'  },
 };
 let curPlan = 'trial';
 
@@ -813,38 +884,35 @@ function getUrlParam(name) {
   return s.get(name) || '';
 }
 
-// ── 页面加载时静默获取openid（提前拿，支付不再跳转）──
+// ── 页面加载时静默获取openid ─────────────────────────────
 (function prefetchOpenid() {
-  if (!/MicroMessenger/i.test(navigator.userAgent)) return;
-  // 已有openid不重复获取
-  if (sessionStorage.getItem('jzt_openid')) return;
-
-  const code  = getUrlParam('code');
-  const state = getUrlParam('state');
-
-  if (code) {
-    // 有code，换openid
-    fetch(API + '/api/jzt/auth/openid?code=' + code)
-      .then(r => r.json())
-      .then(d => {
-        if (d.openid) {
-          sessionStorage.setItem('jzt_openid', d.openid);
-          // 清理URL里的code/state参数，避免重复使用
-          const clean = location.pathname + location.hash;
-          history.replaceState({}, '', clean);
-        }
-        // OAuth完成后初始化分享（此时URL已干净）
-        initWxShare();
-      })
-      .catch(() => { initWxShare(); });
-  } else {
-    // 没有code，发起静默授权（用户无感知）
-    const cb = encodeURIComponent(PAGE_URL);
-    location.replace(
-      `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}` +
-      `&redirect_uri=${cb}&response_type=code&scope=snsapi_base&state=jztinit#wechat_redirect`
-    );
+  if (!/MicroMessenger/i.test(navigator.userAgent)) {
+    initWxShare(); // 非微信环境也初始化分享（兼容测试）
+    return;
   }
+  if (sessionStorage.getItem('jzt_openid')) {
+    initWxShare(); // 已有openid，直接初始化分享
+    return;
+  }
+
+  // 从hash里取openid（后端callback重定向过来的）
+  const hashParams = new URLSearchParams(location.hash.replace('#', ''));
+  const oidFromHash = hashParams.get('oid');
+  if (oidFromHash) {
+    sessionStorage.setItem('jzt_openid', oidFromHash);
+    // 清掉hash，保持URL干净
+    history.replaceState({}, '', location.pathname);
+    initWxShare();
+    return;
+  }
+
+  // 没有openid，跳到后端callback接口做OAuth（redirect_uri是后端，回来后URL干净）
+  const CALLBACK_URL = encodeURIComponent(API + '/api/jzt/auth/callback');
+  const returnPath   = encodeURIComponent(location.origin + location.pathname);
+  location.replace(
+    `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}` +
+    `&redirect_uri=${CALLBACK_URL}&response_type=code&scope=snsapi_base&state=${returnPath}#wechat_redirect`
+  );
 })();
 
 // ── 提交订单（JSAPI支付）────────────────────────────────
@@ -923,15 +991,29 @@ async function queryOrder() {
   box.style.display = 'block';
   box.innerHTML = '查询中...';
   try {
-    const param = /^\d{11}$/.test(val) ? 'phone='+val : 'order_no='+val;
+    // 手机号查询必须带openid校验（防止任意查他人账号），订单号查询不限
+    const isPhone = /^\d{11}$/.test(val);
+    let param;
+    if (isPhone) {
+      const oid = sessionStorage.getItem('jzt_openid') || '';
+      if (!oid) {
+        box.innerHTML = '⚠️ 手机号查询需要先完成微信授权，请刷新页面重试。';
+        return;
+      }
+      param = 'phone='+val+'&openid='+encodeURIComponent(oid);
+    } else {
+      param = 'order_no='+val;
+    }
     const r = await fetch(API + '/api/jzt/order/status?' + param);
     const d = await r.json();
     if (d.status === 'paid' && d.account) {
-      box.innerHTML = `✅ <strong>账号已开通</strong><br>套餐：${d.plan||''}<br>账号：<strong>${d.account}</strong><br>密码：<strong>${d.password}</strong><br>有效期至：${(d.expire_at||'').slice(0,10)}<br><small style="color:#bbb">请妥善保存，勿泄露他人</small>`;
+      box.innerHTML = `✅ <strong>账号已开通</strong><br>套餐：${d.plan||''}<br>账号：<strong>${d.account}</strong><br>密码：<span style="color:#aaa;font-size:.85rem">请在公众号回复「查账号」获取</span><br>有效期至：${(d.expire_at||'').slice(0,10)}`;
     } else if (d.status === 'activating') {
-      box.innerHTML = '⚙️ 支付成功，账号开通中，请5分钟后再查询。如仍未到账请联系客服。';
+      box.innerHTML = '⚙️ 支付成功，账号开通中，请5分钟后再查询。如仍未到账请<a href="https://go.xiachaoqing.com/epgo/query.html" style="color:var(--blue)">查询账号</a>或联系客服微信 EPGO_Support';
     } else if (d.status === 'pending') {
       box.innerHTML = '⏳ 订单待支付，请完成微信支付后再查询。';
+    } else if (d.status === 'forbidden') {
+      box.innerHTML = '⚠️ 该手机号不属于您的微信，如有疑问请<a href="https://go.xiachaoqing.com/epgo/query.html" style="color:var(--blue)">查询账号</a>或联系客服微信 EPGO_Support。';
     } else {
       box.innerHTML = '❌ 未查到记录，请确认手机号或订单号是否正确。';
     }
