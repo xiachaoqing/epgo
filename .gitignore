@@ -84,3 +84,17 @@ Thumbs.db
 *.orig
 .DS_Store
 ..bfg-report
+
+# 含密钥的运维脚本（不提交）
+scripts/gen_cover.py
+scripts/gen_cover_guide.py
+scripts/gen_thumbs.py
+scripts/ssh_deploy.py
+scripts/ssh_deploy2.py
+scripts/ssh_deploy3.py
+scripts/ssh_diagnose.py
+scripts/ssh_inspect.py
+scripts/ssh_restart.py
+scripts/upload_cropped_to_cos.py
+scripts/upload_doc_to_cos.py
+scripts/upload_tongbu.py

@@ -1,0 +1,51 @@
+[
+  {
+    "title": "PET阅读最容易丢分的长篇匹配题，到底在考什么？",
+    "file": "/Users/xiachaoqing/projects/openclaw_file/scripts/wechat/inputs/article_pet_matching_from_trainer.html",
+    "class1": 102,
+    "class2": 124,
+    "description": "很多孩子不是文章看不懂，而是不会做 PET 的长篇匹配题。这篇文章从信息核、同义替换、原词陷阱、角度匹配、复盘方式五个层面，把这类题真正讲透。"
+  },
+  {
+    "title": "今天芒种：英语里怎么说那种“忙着长大”的感觉？",
+    "file": "/Users/xiachaoqing/projects/openclaw_file/scripts/wechat/inputs/article_mangzhong_20260605.html",
+    "class1": 105,
+    "class2": 0,
+    "description": "芒种不只是 Grain in Ear，它更像一种很多事情都在同时发生，而你也在其中慢慢长大的时刻。这篇文章把节气、成长和英语表达串在一起。"
+  },
+  {
+    "title": "主谓一致不是基础题，是隐藏丢分点：KET/PET最常错的12个坑",
+    "file": "/Users/xiachaoqing/projects/openclaw_file/scripts/wechat/inputs/article_subject_verb.html",
+    "class1": 102,
+    "class2": 123,
+    "description": "主谓一致看起来简单，却是 KET/PET 里最容易悄悄丢分的知识点之一。each、one of、there be、a number of 等12个高频坑一次讲透。"
+  },
+  {
+    "title": "孩子英语学了很久，为什么还是写不出像样的句子？",
+    "file": "/Users/xiachaoqing/projects/openclaw_file/scripts/wechat/inputs/article_today_deep.html",
+    "class1": 102,
+    "class2": 123,
+    "description": "很多孩子不是不会词、不会语法，而是没有真正建立句子意识。这篇文章从主干、信息主次、连接关系、修饰位置和扩句路径五个底层问题讲清写作卡点。"
+  },
+  {
+    "title": "阅读总在两个选项间纠结？KET/PET最阴险的5种干扰选项一次拆穿",
+    "file": "/Users/xiachaoqing/projects/openclaw_file/scripts/wechat/inputs/article_3.html",
+    "class1": 103,
+    "class2": 0,
+    "description": "孩子总说两个选项都对？其实是掉进了命题人的干扰陷阱。偷换范围、偷换主语、无中生有、反义替换、过度推断五种干扰一次拆穿。"
+  },
+  {
+    "title": "学了三年时态还是一做题就错？KET/PET最易混淆的4组时态一次分清",
+    "file": "/Users/xiachaoqing/projects/openclaw_file/scripts/wechat/inputs/article_2.html",
+    "class1": 102,
+    "class2": 123,
+    "description": "一般过去、现在完成、过去进行、be going to……4组最常混淆的时态对比，用最直白的方法一次讲清。"
+  },
+  {
+    "title": "六一儿童节的英语，不止Happy Childrens Day",
+    "file": "/Users/xiachaoqing/projects/openclaw_file/scripts/wechat/inputs/article_61.html",
+    "class1": 105,
+    "class2": 0,
+    "description": "儿童节不只是一个祝福语。这篇文章围绕童年、成长、childhood、childlike、kid at heart 等表达，带孩子说出更有温度的英语。"
+  }
+]

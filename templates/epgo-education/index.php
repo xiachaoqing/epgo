@@ -299,11 +299,10 @@ try {
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
                 );
                 $_epgo_article_sql = "
-                    SELECT id,title,description,imgurl,updatetime,hits,class1,class2,class3
+                    SELECT id,title,description,imgurl,updatetime,hits,class1,class2,class3,issue
                     FROM ep_news
-                    WHERE recycle=0 AND lang='cn' AND class1 IN (103,104,105,111,112,113,114,121,122,123,124)
-                    ORDER BY id DESC
-                    LIMIT 9
+                    WHERE recycle=0 AND id IN (593,592,591,590,588,597,596,595,300)
+                    ORDER BY FIELD(id,593,592,591,590,588,597,596,595,300)
                 ";
                 $_epgo_article_stmt = $_epgo_article_pdo->query($_epgo_article_sql);
                 if ($_epgo_article_stmt) {
