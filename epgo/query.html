@@ -104,12 +104,13 @@ body{font-family:"PingFang SC","Helvetica Neue",Arial,sans-serif;background:line
 
 <script>
 const API = 'https://wechat.xiachaoqing.com';
+const OPENID = sessionStorage.getItem('jzt_openid') || '';
 let lastQueryTime = 0;
 let queryCount = 0;
 let countResetTime = Date.now();
 
 function showPwdTip() {
-  alert('初始密码为手机号后6位。\n如您已在App内修改过密码，初始密码将失效。\n如忘记密码请在公众号回复「查账号」或联系客服微信：EPGO_Support');
+  alert('密码以公众号通知为准。\n请在公众号回复「查账号」查看已绑定的真实密码。\n如仍有问题请联系客服微信：EPGO_Support');
 }
 
 async function doQuery() {

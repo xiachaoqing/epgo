@@ -202,7 +202,7 @@ tr:hover td{background:#f9fbff}
       </div>
       <!-- 待处理订单速览 -->
       <div class="dash-pending-wrap">
-        <h3>待处理订单（已付款未激活）
+        <h3>待开通（已付款未激活）
           <button class="btn btn-primary btn-sm" onclick="showSection('pending')">查看全部</button>
         </h3>
         <div id="dashPendingList"></div>
@@ -213,7 +213,7 @@ tr:hover td{background:#f9fbff}
     <div class="section" id="sec-pending">
       <div class="card">
         <div class="card-head">
-          <h3>待处理订单</h3>
+          <h3>待开通</h3>
           <div class="tools">
             <button class="btn btn-ghost btn-sm" onclick="loadPending()">🔄 刷新</button>
             <button class="btn btn-success btn-sm" onclick="exportPendingExcel()">📥 导出Excel</button>
@@ -244,7 +244,7 @@ tr:hover td{background:#f9fbff}
         <!-- 状态Tab -->
         <div style="padding:0 20px;border-bottom:1px solid #f0f0f0;display:flex;gap:0">
           <button class="order-tab active" data-status="" onclick="setOrderTab(this,'')">全部</button>
-          <button class="order-tab" data-status="1" onclick="setOrderTab(this,'1')">已付款 <span class="tab-badge" id="tab-badge-paid"></span></button>
+          <button class="order-tab" data-status="1" onclick="setOrderTab(this,'1')">待开通 <span class="tab-badge" id="tab-badge-paid"></span></button>
           <button class="order-tab" data-status="2" onclick="setOrderTab(this,'2')">已激活</button>
           <button class="order-tab" data-status="9" onclick="setOrderTab(this,'9')">已退款</button>
           <button class="order-tab" data-status="0" onclick="setOrderTab(this,'0')">待付款</button>
@@ -294,7 +294,7 @@ tr:hover td{background:#f9fbff}
             placeholder="示例：&#10;13812345678,2026-08-31,张三,线下老学员&#10;13987654321,2026-08-31,李四&#10;13600000001,2026-05-31"></textarea>
           <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
             <button class="btn btn-primary" onclick="doImport()">📥 导入学员</button>
-            <span style="font-size:.82rem;color:#999">默认到期：2026-05-31 | 默认密码：手机号后6位 | 默认账号：手机号</span>
+            <span style="font-size:.82rem;color:#999">账号和密码以实际开通结果为准，请以公众号通知为准</span>
           </div>
           <div id="importResult" style="margin-top:16px"></div>
         </div>
@@ -305,7 +305,7 @@ tr:hover td{background:#f9fbff}
           <div style="background:#fff3cd;border-radius:8px;padding:14px;font-size:.85rem;color:#856404;margin-bottom:16px">
             ⚠️ 群发消息需要用户已关注公众号，每月只能群发4次，请谨慎使用。
           </div>
-          <textarea id="broadcastText" rows="6" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:12px;font-size:.88rem;outline:none">亲爱的同学们，英语陪跑GO将于5月1日起正式收费。感谢一直以来的支持！老学员专属优惠：月卡¥39 | 季卡¥99 | 年卡暑假特惠¥298。点击链接提前锁定优惠：https://go.xiachaoqing.com/epgo/</textarea>
+          <textarea id="broadcastText" rows="6" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:12px;font-size:.88rem;outline:none">亲爱的同学们，英语陪跑GO将于5月1日起正式收费。感谢一直以来的支持！老学员专属优惠：月卡¥39 | 季卡¥99 | 年卡限时特惠¥298。点击链接提前锁定优惠：https://go.xiachaoqing.com/epgo/</textarea>
           <div style="margin-top:12px">
             <button class="btn btn-warning" onclick="doBroadcast()">📢 发送群发消息</button>
           </div>
@@ -365,17 +365,20 @@ tr:hover td{background:#f9fbff}
 <!-- 录入账号弹窗 -->
 <div class="modal-bg" id="fillModal">
   <div class="modal-box">
-    <h3>📝 录入账号信息</h3>
+    <h3>📝 确认账号已开通</h3>
+    <div style="background:#fff8e6;color:#8a6500;border-radius:8px;padding:12px;margin-bottom:16px;font-size:.86rem;line-height:1.7">
+      操作顺序：在 App 管理后台创建学生账号 → 把真实登录信息填入下面 → 勾选确认并提交。
+    </div>
     <div id="fillOrderInfo" style="background:#f9fbff;border-radius:8px;padding:14px;margin-bottom:16px"></div>
     <div class="mform-row">
       <div class="mform-item">
-        <label>英语陪跑GO账号 *</label>
-        <input type="text" id="fillAccount" placeholder="手机号或分配账号">
-        <div class="hint">账号填手机号即可</div>
+        <label>英语陪跑GO 账号 *</label>
+        <input type="text" id="fillAccount" placeholder="请输入账号">
+        <div class="hint">请填写实际开通的账号信息</div>
       </div>
       <div class="mform-item">
-        <label>密码 *</label>
-        <input type="text" id="fillPassword" placeholder="初始密码">
+        <label>英语陪跑GO 密码 *</label>
+        <input type="text" id="fillPassword" placeholder="请输入密码">
       </div>
     </div>
     <div class="mform-item">
@@ -389,7 +392,8 @@ tr:hover td{background:#f9fbff}
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeFillModal()">取消</button>
-      <button class="btn btn-success" onclick="doFillAccount()">✅ 确认激活</button>
+      <label style="display:flex;gap:8px;align-items:center;font-size:.86rem;margin-right:auto"><input type="checkbox" id="vendorConfirmed"> 我确认账号已开通</label>
+      <button class="btn btn-success" onclick="doFillAccount()">✅ 保存并发送公众号通知</button>
     </div>
   </div>
 </div>
@@ -601,7 +605,7 @@ async function loadOrders(page=1) {
   if (!list.length) { tbody.innerHTML = `<tr><td colspan="7" class="empty">暂无订单</td></tr>`; return; }
   const statusMap = {
     0: '<span class="badge badge-pending">待付款</span>',
-    1: '<span class="badge badge-paid">已付款</span>',
+    1: '<span class="badge badge-paid">待开通</span>',
     2: '<span class="badge badge-done">已激活</span>',
     9: '<span class="badge badge-expired">已退款</span>'
   };
@@ -614,7 +618,7 @@ async function loadOrders(page=1) {
       <td>${statusMap[o.pay_status]||o.pay_status}</td>
       <td style="color:#888;font-size:.82rem">${(o.created_at||'').replace('T',' ').slice(0,16)}</td>
       <td>
-        ${o.pay_status==1 ? `<button class="btn btn-success btn-sm" onclick="openFillModal('${o.order_no}','${o.phone}','${o.plan_name}',${o.price_fen},${o.days||7})">录入</button>` : ''}
+        ${o.pay_status==1 && !o.jzt_account ? `<button class="btn btn-success btn-sm" onclick="openFillModal('${o.order_no}','${o.phone}','${o.plan_name}',${o.price_fen},${o.days||7})">录入账号</button>` : ''}
       </td>
     </tr>
   `).join('');
@@ -785,13 +789,14 @@ function openFillModal(orderNo, phone, planName, priceFen, days) {
     <div class="info-row"><span class="lbl">套餐</span><span class="val">${planName} · ¥${(priceFen/100).toFixed(2)}</span></div>
     <div class="info-row"><span class="lbl">有效天数</span><span class="val">${days} 天</span></div>
   `;
-  // 默认账号填手机号，密码填随机6位
-  document.getElementById('fillAccount').value = phone;
-  document.getElementById('fillPassword').value = Math.random().toString(36).slice(-6).toUpperCase();
+  // 账号和密码请从 App 管理后台复制填写，本站不再自动生成。
+  document.getElementById('fillAccount').value = '';
+  document.getElementById('fillPassword').value = '';
   // 默认到期日
   const exp = new Date(); exp.setDate(exp.getDate() + days);
   document.getElementById('fillExpire').value = exp.toISOString().slice(0,10);
   document.getElementById('fillRemark').value = '';
+  document.getElementById('vendorConfirmed').checked = false;
   document.getElementById('fillModal').classList.add('show');
 }
 function closeFillModal() {
@@ -803,8 +808,10 @@ async function doFillAccount() {
   const password = document.getElementById('fillPassword').value.trim();
   const expire   = document.getElementById('fillExpire').value;
   const remark   = document.getElementById('fillRemark').value.trim();
+  const vendorConfirmed = document.getElementById('vendorConfirmed').checked;
   if (!account || !password) { showToast('账号和密码不能为空', 'error'); return; }
-  const body = {order_no: fillCtx.orderNo, jzt_account: account, jzt_password: password};
+  if (!vendorConfirmed) { showToast('请先确认账号已开通', 'error'); return; }
+  const body = {order_no: fillCtx.orderNo, jzt_account: account, jzt_password: password, vendor_confirmed: true};
   if (expire) body.expire_at = expire;
   if (remark) body.remark = remark;
   try {
@@ -824,6 +831,10 @@ async function doFillAccount() {
   } catch(e) {
     showToast('网络错误', 'error');
   }
+}
+
+async function resendNotify(orderNo) {
+  // 后端暂无此接口，已停用
 }
 
 // ── 导出Excel（待处理订单）────────────────────────────────

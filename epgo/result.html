@@ -39,7 +39,8 @@ p{color:#666;font-size:.95rem;line-height:1.7;margin-bottom:6px}
 <script>
 const API_BASE = 'https://wechat.xiachaoqing.com';
 const urlParams = new URLSearchParams(window.location.search);
-const orderNo   = urlParams.get('order') || sessionStorage.getItem('jzt_order_no');
+const orderNo   = urlParams.get('order') || sessionStorage.getItem('jzt_order_no') || sessionStorage.getItem('jzt_order');
+const openid    = sessionStorage.getItem('jzt_openid') || '';
 
 let pollCount = 0;
 
@@ -49,10 +50,12 @@ async function queryStatus() {
     return;
   }
   try {
-    const resp = await fetch(`${API_BASE}/api/jzt/order/status?order_no=${orderNo}`);
+    const resp = await fetch(`${API_BASE}/api/jzt/order/status?order_no=${encodeURIComponent(orderNo)}&openid=${encodeURIComponent(openid)}`);
     const data = await resp.json();
 
-    if (data.status === 'paid') {
+    if (data.status === 'forbidden') {
+      showError('请在微信中完成授权后查看订单；如仍无法查看，请从公众号回复“查账号”');
+    } else if (data.status === 'paid') {
       showSuccess(data);
     } else if (data.status === 'activating' || data.status === 'paid') {
       showActivating();
@@ -79,10 +82,10 @@ async function queryStatus() {
 
 function showSuccess(data) {
   document.getElementById('icon').textContent = '🎉';
-  document.getElementById('title').textContent = '开通成功！';
+  document.getElementById('title').textContent = '账号已开通！';
   document.getElementById('desc').innerHTML = `
-    <span style="color:#34C759;font-weight:600">¥ 支付成功</span>，家长通账号已为您开通！<br>
-    请妥善保存以下账号信息。
+    <span style="color:#34C759;font-weight:600">¥ 支付成功</span>，英语陪跑GO 账号已开通。<br>
+    请点击下方按钮查看完整登录信息。
   `;
   const box = document.getElementById('accountBox');
   box.style.display = 'block';
@@ -97,19 +100,14 @@ function showSuccess(data) {
       <button class="copy-btn" onclick="copyText('${data.account}')">复制</button>
     </div>
     <div class="row">
-      <span class="label">密码</span>
-      <span class="value">${data.password}</span>
-      <button class="copy-btn" onclick="copyText('${data.password}')">复制</button>
-    </div>
-    <div class="row">
       <span class="label">有效期至</span>
       <span class="value">${data.expire_at ? data.expire_at.substring(0,10) : ''}</span>
     </div>
   `;
   document.getElementById('actions').innerHTML = `
-    <a class="btn-home" href="/jiazhangtong/#qr" style="background:#07c160">关注公众号 · 随时查询账号</a>
-    <a class="btn-home" href="/jiazhangtong/" style="margin-top:10px;background:#4E97D9">返回首页</a>
-    <p style="margin-top:14px;font-size:.8rem;color:#aaa">账号信息已推送至公众号，请在「夏超青」公众号查看</p>
+    <a class="btn-home" href="/epgo/account.html?order=${encodeURIComponent(orderNo)}" style="background:#4E97D9">查看账号和密码</a>
+    <a class="btn-home" href="/epgo/#follow" style="margin-top:10px;background:#07c160">关注公众号 · 接收后续通知</a>
+    <p style="margin-top:14px;font-size:.8rem;color:#aaa">也可以在公众号回复“查账号”，随时查看登录信息</p>
   `;
 }
 
@@ -117,14 +115,14 @@ function showActivating() {
   document.getElementById('icon').textContent = '✅';
   document.getElementById('title').textContent = '支付成功！';
   document.getElementById('desc').innerHTML = `
-    账号正在人工开通，<strong>预计10分钟内</strong>完成。<br>
-    开通后将通过<strong>公众号消息</strong>通知您账号和密码。<br>
-    <span style="color:#ff9500;font-weight:600">⚠️ 请务必关注「夏超青」公众号，否则收不到账号！</span>
+    付款已确认，我们正在为您开通账号。<br>
+    创建完成后会通过<strong>公众号消息</strong>通知您。<br>
+    <span style="color:#ff9500;font-weight:600">⚠️ 请关注公众号，并回复“查账号”获取结果。</span>
   `;
   document.getElementById('actions').innerHTML = `
-    <a class="btn-home" href="/jiazhangtong/#qr" style="background:#07c160">关注公众号 · 接收账号通知</a>
+    <a class="btn-home" href="/epgo/#follow" style="background:#07c160">关注公众号 · 接收账号通知</a>
     <button class="btn-retry" onclick="queryStatus()" style="margin-top:12px">刷新查询</button>
-    <a class="btn-home" href="/jiazhangtong/" style="margin-top:12px;background:#4E97D9">返回首页</a>
+    <a class="btn-home" href="/epgo/" style="margin-top:12px;background:#4E97D9">返回首页</a>
   `;
 }
 
@@ -136,7 +134,7 @@ function showTimeout() {
     我们会尽快处理，<strong>请添加客服微信</strong>，发送您的手机号获取账号。
   `;
   document.getElementById('actions').innerHTML = `
-    <a class="btn-home" href="/jiazhangtong/#qr">联系客服获取账号</a>
+    <a class="btn-home" href="/epgo/#follow">关注公众号查看处理进度</a>
     <button class="btn-retry" onclick="location.reload()">刷新查询</button>
   `;
 }
@@ -150,7 +148,7 @@ function showPending() {
   `;
   document.getElementById('actions').innerHTML = `
     <button class="btn-retry" onclick="queryStatus()">重新查询</button>
-    <a class="btn-home" href="/jiazhangtong/" style="margin-top:12px">返回首页</a>
+    <a class="btn-home" href="/epgo/" style="margin-top:12px">返回首页</a>
   `;
 }
 
@@ -160,7 +158,7 @@ function showError(msg) {
   document.getElementById('desc').textContent = msg;
   document.getElementById('actions').innerHTML = `
     <button class="btn-retry" onclick="location.reload()">刷新重试</button>
-    <a class="btn-home" href="/jiazhangtong/" style="margin-top:12px">返回首页</a>
+    <a class="btn-home" href="/epgo/" style="margin-top:12px">返回首页</a>
   `;
 }
 

@@ -514,11 +514,11 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
         <button class="btn-price btn-price-main" onclick="openModal('quarter')">购买季卡</button>
       </div>
       <div class="price-card hot">
-        <span class="price-badge">☀️ 暑假特惠</span>
+        <span class="price-badge">🎁 限时特惠</span>
         <div class="price-name">📆 年卡</div>
         <div class="price-ori">原价 ¥399</div>
         <div class="price-val"><sup>¥</sup>298</div>
-        <div class="price-period">有效期 12 个月 · 暑假限时省¥101</div>
+        <div class="price-period">有效期 12 个月 · 限时省¥101</div>
         <ul class="price-feats">
           <li>全功能解锁</li><li>AI对话不限次</li><li>真人外教优先</li><li>全维度学情报告</li><li>专属客服通道</li><li>新功能优先体验</li>
         </ul>
@@ -660,7 +660,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <div class="form-g">
       <label>手机号（用于注册和查询账号）</label>
       <input type="tel" id="mPhone" placeholder="请输入11位手机号" maxlength="11">
-      <div class="hint">手机号即为登录账号，初始密码为手机号后6位</div>
+      <div class="hint">付款后由我们为您开通账号，账号和密码以公众号通知为准</div>
     </div>
     <div class="form-g">
       <label>孩子年级（可选）</label>
@@ -992,7 +992,7 @@ async function queryOrder() {
   box.style.display = 'block';
   box.innerHTML = '查询中...';
   try {
-    // 手机号查询必须带openid校验（防止任意查他人账号），订单号查询不限
+    // 手机号查询必须带openid校验（后端强制，防任意查他人账号）；订单号查询不带
     const isPhone = /^\d{11}$/.test(val);
     let param;
     if (isPhone) {
@@ -1003,7 +1003,7 @@ async function queryOrder() {
       }
       param = 'phone='+val+'&openid='+encodeURIComponent(oid);
     } else {
-      param = 'order_no='+val;
+      param = 'order_no='+encodeURIComponent(val);
     }
     const r = await fetch(API + '/api/jzt/order/status?' + param);
     const d = await r.json();
