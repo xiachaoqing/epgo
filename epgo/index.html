@@ -294,6 +294,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
       </div>
       <div class="nav-links">
         <a href="#features">功能介绍</a>
+        <a href="/epgo/assessment.html">入学测评</a>
         <a href="#pricing">激活套餐</a>
         <a href="#download">下载APP</a>
         <a href="#order-query">查询订单</a>
@@ -317,6 +318,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
         <p class="hero-desc">AI口语测评、AI真人对话、在线真人外教、海量阅读绘本、同步教材……让英语学习更科学有序、生动有趣。<strong>下载完全免费</strong>，激活账号即享全部功能。</p>
         <div class="hero-btns">
           <a class="btn-primary" href="https://app.lingshi.com/bjxxsy" target="_blank">📥 立即免费下载</a>
+          <a class="btn-ghost" href="/epgo/assessment.html">📝 先做入学测评</a>
           <button class="btn-ghost" onclick="openModal('trial')">⚡ 7天体验 ¥9.9</button>
         </div>
         <div class="hero-tags">
@@ -378,6 +380,24 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
         poster="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/cover_guide.jpg">
         <source src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E8%8B%B1%E8%AF%AD%E9%99%AA%E8%B7%91go%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.mp4" type="video/mp4">
       </video>
+    </div>
+    <!-- 安装视频教程 -->
+    <div class="install-videos">
+      <h3 class="sec-title" style="font-size:20px;margin-top:40px">📺 安装教程</h3>
+      <p class="sec-sub">不会安装？跟着视频一步步来</p>
+      <div class="divider"></div>
+      <div class="vtabs">
+        <button class="vtab on" onclick="switchInstallV('androidInstall',this)">🤖 安卓安装</button>
+        <button class="vtab" onclick="switchInstallV('iosInstall',this)">🍎 苹果安装</button>
+      </div>
+      <div class="vwrap">
+        <video id="vAndroidInstall" controls preload="metadata" playsinline poster="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E5%AE%89%E5%8D%93.png" style="max-height:480px;margin:0 auto;display:block;border-radius:12px;background:#000">
+          <source src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E8%8B%B1%E8%AF%AD%E9%99%AA%E8%B7%91go%E5%AE%89%E5%8D%93%E5%AE%89%E8%A3%85%E8%A7%86%E9%A2%91.mp4" type="video/mp4">
+        </video>
+        <video id="vIosInstall" controls preload="metadata" playsinline style="display:none;max-height:480px;margin:0 auto;border-radius:12px;background:#000" poster="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/ios.png">
+          <source src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/%E8%8B%B1%E8%AF%AD%E9%99%AA%E8%B7%91go%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B.mp4" type="video/mp4">
+        </video>
+      </div>
     </div>
   </div>
 </section>
@@ -818,6 +838,20 @@ function switchV(type, btn) {
   const vG = document.getElementById('vGuide');
   if (type === 'main') { vG.pause(); vG.style.display='none'; vM.style.display='block'; }
   else { vM.pause(); vM.style.display='none'; vG.style.display='block'; }
+}
+
+// ── 安装视频切换 ───────────────────────────────────────────
+function switchInstallV(type, btn) {
+  var parent = btn.parentElement;
+  var tabs = parent.querySelectorAll('.vtab');
+  tabs.forEach(function(t){ t.classList.remove('on'); });
+  btn.classList.add('on');
+  var vA = document.getElementById('vAndroidInstall');
+  var vI = document.getElementById('vIosInstall');
+  if(vA){ vA.pause(); vA.style.display='none'; }
+  if(vI){ vI.pause(); vI.style.display='none'; }
+  if(type==='androidInstall' && vA) vA.style.display='block';
+  else if(type==='iosInstall' && vI) vI.style.display='block';
 }
 
 // ── FAQ ───────────────────────────────────────────────────
