@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="description" content="英语陪跑GO — 免费入学水平测试，测出你的KET/PET/FCE级别，精准推荐课程">
+<meta property="og:title" content="英语陪跑GO | 免费入学水平测试">
+<meta property="og:description" content="5分钟测出你的英语水平，精准推荐KET/PET/FCE级别">
+<meta property="og:image" content="https://go.xiachaoqing.com/epgo/share.jpg">
+<title>英语陪跑GO | 免费入学水平测试</title>
+<link rel="icon" type="image/x-icon" href="/epgo/favicon.ico">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;color:#333;background:#f5f7fa;line-height:1.6}
+a{text-decoration:none;color:inherit}
+:root{--blue:#298dff;--blue-dark:#1565C0;--blue-light:#e8f4ff;--orange:#ff6b35;--green:#34C759;--dark:#1a1a2e;--shadow:0 2px 16px rgba(0,0,0,.08);--radius:10px}
+.container{max-width:760px;margin:0 auto;padding:0 20px}
+
+/* 顶部导航 */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,.97);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:52px;max-width:1100px;margin:0 auto;padding:0 20px}
+.nav-logo{font-weight:700;font-size:1rem;color:var(--dark);display:flex;align-items:center;gap:8px}
+.nav-logo span{color:var(--blue)}
+.nav a{font-size:.85rem;color:#666}
+
+/* 步骤页 */
+.step{padding:80px 0 40px}
+.step-title{font-size:1.6rem;font-weight:800;color:var(--dark);text-align:center;margin-bottom:8px}
+.step-sub{font-size:.9rem;color:#999;text-align:center;margin-bottom:32px}
+
+/* 级别卡片 */
+.level-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:16px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.level-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.level-card.active{border-color:var(--blue)}
+.level-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.level-info{flex:1}
+.level-name{font-weight:700;font-size:1.05rem;color:var(--dark)}
+.level-desc{font-size:.8rem;color:#999;margin-top:2px}
+.level-badge{font-size:.72rem;padding:3px 10px;border-radius:12px;font-weight:600}
+.badge-ready{background:var(--blue-light);color:var(--blue)}
+.badge-soon{background:#f0f0f0;color:#bbb}
+
+/* 答题卡 */
+.quiz-header{position:sticky;top:52px;z-index:100;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06);border-radius:0 0 12px 12px;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.progress-bar{flex:1;height:8px;background:#eee;border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),#5bb0ff);border-radius:4px;transition:width .3s}
+.progress-text{font-size:.8rem;color:#666;white-space:nowrap}
+.timer{font-size:.8rem;color:#999;white-space:nowrap}
+
+.part-block{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:20px}
+.part-title{font-weight:700;font-size:1.05rem;color:var(--blue);margin-bottom:6px}
+.part-instr{font-size:.85rem;color:#999;margin-bottom:16px;line-height:1.6}
+.story-box{background:#fafbff;border:1px solid #eef2f9;border-radius:8px;padding:14px 16px;font-size:.88rem;color:#555;line-height:1.9;margin-bottom:16px}
+.story-box b{color:var(--dark)}
+
+.q-item{margin-bottom:20px;padding-bottom:18px;border-bottom:1px dashed #eee}
+.q-item:last-child{border-bottom:none;margin-bottom:0}
+.q-text{font-size:.92rem;color:var(--dark);margin-bottom:10px;line-height:1.7}
+.q-text .num{display:inline-block;background:var(--blue);color:#fff;width:20px;height:20px;line-height:20px;text-align:center;border-radius:5px;font-size:.72rem;margin-right:6px;vertical-align:1px}
+
+.q-opts{display:grid;gap:8px}
+.q-opt{display:flex;align-items:center;gap:10px;border:1.5px solid #e5e9f2;border-radius:8px;padding:10px 14px;cursor:pointer;transition:all .15s;font-size:.88rem;color:#444}
+.q-opt:hover{border-color:var(--blue);background:var(--blue-light)}
+.q-opt.sel{border-color:var(--blue);background:var(--blue-light);font-weight:600}
+.q-opt input{display:none}
+.q-opt .dot{width:16px;height:16px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff}
+.q-opt.sel .dot{background:var(--blue);border-color:var(--blue)}
+
+.q-input{border:1.5px solid #e5e9f2;border-radius:8px;padding:10px 14px;font-size:.9rem;width:100%;outline:none;transition:border-color .15s;font-family:inherit}
+.q-input:focus{border-color:var(--blue)}
+
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:var(--radius);font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
+.btn-primary{background:linear-gradient(90deg,var(--blue),#4da3ff);color:#fff;box-shadow:0 4px 14px rgba(41,141,255,.35)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(41,141,255,.45)}
+.btn-ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* 结果页 */
+.result-hero{text-align:center;padding:30px 0 10px}
+.result-score{font-size:3.4rem;font-weight:800;color:var(--blue);line-height:1}
+.result-total{font-size:.85rem;color:#999;margin-top:6px}
+.result-level{display:inline-block;margin-top:14px;padding:8px 22px;border-radius:24px;font-weight:700;font-size:1rem}
+.lv-a{background:#e8fbe9;color:#1f9d3c}
+.lv-b{background:var(--blue-light);color:var(--blue)}
+.lv-c{background:#fff4e6;color:#e68a00}
+.part-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:24px 0}
+.ps-item{background:#fff;border-radius:8px;padding:12px 6px;text-align:center;box-shadow:var(--shadow)}
+.ps-name{font-size:.72rem;color:#999}
+.ps-val{font-size:1.1rem;font-weight:700;color:var(--dark);margin-top:2px}
+.result-advice{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
+.result-advice h4{color:var(--dark);margin-bottom:10px;font-size:1rem}
+.result-advice p{font-size:.88rem;color:#666;line-height:1.8}
+
+.back-link{display:block;text-align:center;color:#999;font-size:.82rem;margin:20px 0 30px}
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/epgo/" class="nav-logo">🏃 <span>英语陪跑GO</span></a>
+    <a href="/epgo/">← 返回首页</a>
+  </div>
+</nav>
+
+<!-- STEP 1: 选级别 -->
+<div class="container step" id="stepLevel">
+  <div class="step-title">📝 免费入学水平测试</div>
+  <div class="step-sub">测出你的真实英语水平，精准推荐学习级别</div>
+
+  <div class="level-card active" onclick="startTest('ket')">
+    <div class="level-icon" style="background:var(--blue-light)">📘</div>
+    <div class="level-info">
+      <div class="level-name">KET 入学测试</div>
+      <div class="level-desc">剑桥 Movers 阅读写作卷 · 29道客观题 · 约15分钟</div>
+    </div>
+    <span class="level-badge badge-ready">可测试</span>
+  </div>
+
+  <div class="level-card" style="cursor:not-allowed">
+    <div class="level-icon" style="background:#f5f5f5">📗</div>
+    <div class="level-info">
+      <div class="level-name">PET 入学测试</div>
+      <div class="level-desc">剑桥 KET 阅读写作卷 · 32题 · 约40分钟</div>
+    </div>
+    <span class="level-badge badge-soon">即将上线</span>
+  </div>
+
+  <div class="level-card" style="cursor:not-allowed">
+    <div class="level-icon" style="background:#f5f5f5">📙</div>
+    <div class="level-info">
+      <div class="level-name">FCE 入学测试</div>
+      <div class="level-desc">剑桥 PET 阅读写作卷 · 34题 · 约50分钟</div>
+    </div>
+    <span class="level-badge badge-soon">即将上线</span>
+  </div>
+
+  <div style="text-align:center;font-size:.78rem;color:#bbb;margin-top:20px">
+    测试题目源自剑桥英语官方样卷 · 全程免费
+  </div>
+</div>
+
+<!-- STEP 2: 答题 -->
+<div class="container step" id="stepQuiz" style="display:none">
+  <div class="quiz-header">
+    <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+    <span class="progress-text" id="progText">0/29</span>
+    <span class="timer" id="timer">⏱ 00:00</span>
+  </div>
+  <div id="quizBody"></div>
+  <div style="padding:10px 0 40px">
+    <button class="btn btn-primary" id="btnSubmit" onclick="submitQuiz()">提交试卷</button>
+  </div>
+</div>
+
+<!-- STEP 3: 结果 -->
+<div class="container step" id="stepResult" style="display:none">
+  <div class="result-hero">
+    <div class="result-score" id="rScore">0</div>
+    <div class="result-total">满分 29 分（不含写作部分）</div>
+    <div class="result-level" id="rLevel">—</div>
+  </div>
+  <div class="part-scores" id="rParts"></div>
+  <div class="result-advice" id="rAdvice"></div>
+  <a class="btn btn-primary" href="/epgo/">🎁 查看适合你的课程套餐</a>
+  <a class="back-link" href="javascript:location.reload()">再测一次</a>
+</div>
+
+<script>
+// ==================== 题库数据 ====================
+const QUIZ = {
+  parts: [
+    {
+      title: 'Part 1 · 看图选词（5题）',
+      instr: '读句子，从下面 8 个词中选择最合适的。',
+      words: ['a balcony','a kangaroo','a helmet','a swimsuit','a panda','lifts','a dolphin','stairs'],
+      type: 'choose',
+      questions: [
+        {q:'You can put chairs and tables on this and sit outside.', a:'a balcony'},
+        {q:'This is black and white and lives in the mountains.', a:'a panda'},
+        {q:'You put this on your head and then ride your bike.', a:'a helmet'},
+        {q:'You can walk up and down these inside a house.', a:'stairs'},
+        {q:'This animal swims and sometimes jumps above the waves.', a:'a dolphin'}
+      ]
+    },
+    {
+      title: 'Part 2 · 选择最佳回答（6题）',
+      instr: '读对话，选择最恰当的回答。',
+      type: 'mc',
+      questions: [
+        {q:'Julia: What do you need to buy today, Fred?', opts:['I went to get it.','There were lots of presents.','Something for my sister\'s birthday.'], a:2},
+        {q:'Julia: Which is your favourite shop?', opts:['That\'s my favourite sport.','How about doing some sport?','I like the sports shop.'], a:2},
+        {q:'Julia: Does your sister like sport?', opts:['I don\'t know!','What\'s the matter?','So do I!'], a:0},
+        {q:'Julia: What are your sister\'s hobbies?', opts:['She is drawing.','She loves drawing.','She has got my drawings.'], a:1},
+        {q:'Julia: How about buying your sister a book about drawing?', opts:['I don\'t want it.','You buy them every day.','That\'s a good idea.'], a:2},
+        {q:'Julia: Look! There\'s a bookshop. You can get a book there.', opts:['I choose this bookshop.','Brilliant! Let\'s go inside.','Yes, we can see it.'], a:1}
+      ]
+    },
+    {
+      title: 'Part 3 · 故事选词填空（6题）',
+      instr: '读故事，从词库中选择正确的单词填空。',
+      words: ['phoned','hungry','hospital','vegetables','cry','afraid','cups','cook','bowl'],
+      type: 'cloze',
+      story: '<b>Lucy and Matt\'s mum</b> is a doctor. The children and their dad were at home last Monday evening when Mum <u>phoned</u>. She said, "I have to do some more work here at the (1) ______. Ask Dad to make your dinner."<br>"Oh no!" said Matt. "Dad can\'t (2) ______!" The family looked for some food in the kitchen cupboards. They found some onions, potatoes and carrots.<br>"What can we make with these?" asked Matt. "I\'m very (3) ______!" Then Lucy said, "I know! We can make soup." Matt was not happy. He said, "I don\'t like soup. I want pasta and meatballs!"<br>"Sorry, Matt," Dad said. "We haven\'t got any pasta or meatballs. We only have these (4) ______ to eat for dinner."<br>Lucy and Dad made the soup. Then the three of them sat down and started eating. Lucy asked Matt, "So, what do you think?"<br>"It\'s fantastic! I love it!" Matt answered. "Can I have another (5) ______ of soup, please?" And they all laughed.',
+      questions: [
+        {q:'(1) I have to do some more work here at the ______.', a:'hospital'},
+        {q:'(2) Dad can\'t ______ !', a:'cook'},
+        {q:'(3) I\'m very ______ !', a:'hungry'},
+        {q:'(4) We only have these ______ to eat for dinner.', a:'vegetables'},
+        {q:'(5) Can I have another ______ of soup, please?', a:'bowl'}
+      ],
+      titleQ: {q:'为故事选择一个最合适的标题：', opts:['Two children make meatballs','Matt has some nice soup','The family is very thirsty'], a:1}
+    },
+    {
+      title: 'Part 4 · 短文语法选词（5题）',
+      instr: '读短文，选择正确的单词填空。',
+      type: 'mc',
+      story: 'There <u>are</u> 350 kinds of parrot in the world. They are clever animals. A lot of parrots are green, but you can find parrots (1) ______ are red, yellow and blue. They live in trees and rocks in hot places. They have big heads and short necks. They are very good (2) ______ climbing trees. (3) ______ parrots do not eat meat. They eat fruit and plants. Parrots fly to many places every day to look for food. When they are (4) ______, they hold their food in one foot. (5) ______ birds make a lot of noise when they are with their families.',
+      questions: [
+        {q:'(1) parrots ______ are red, yellow and blue.', opts:['what','which','where'], a:1},
+        {q:'(2) very good ______ climbing trees.', opts:['at','on','of'], a:0},
+        {q:'(3) ______ parrots do not eat meat.', opts:['Every','Both','Most'], a:2},
+        {q:'(4) When they are ______, they hold their food.', opts:['eating','ate','eat'], a:0},
+        {q:'(5) ______ birds make a lot of noise.', opts:['That','These','This'], a:1}
+      ]
+    },
+    {
+      title: 'Part 5 · 看图读故事补全句子（7题）',
+      instr: '读故事，用 1-3 个单词补全句子。（大小写不限）',
+      type: 'fill',
+      story: '<b>The rain in the jungle</b><br>Last weekend, Vicky and Tom said to their friend Daisy, "Would you like to go for a walk in the jungle?" Daisy said, "I need to take some photos for homework. I can do that there."<br>Vicky\'s mum said, "Take coats with you." The children laughed and said, "It\'s hot and sunny. We don\'t need coats!" When the children got to the jungle, they saw lots of monkeys in the trees.<br>Tom took pictures of some beautiful plants which had red flowers on them. Then Daisy pointed and said, "Look at those black clouds!" Then it started raining.<br>"The camera! Put it in your bag!" said Vicky to Tom. "OK," said Tom. Tom got some very big leaves and they held them above their heads. The monkeys came and sat with them. It rained and rained, but the leaves were really big and the children and monkeys didn\'t get wet. Daisy took more photos.<br>The children waited for the rain to stop and they ate their sandwiches. When it was sunny again, the children ran back home. Mum looked at their clothes and was surprised. "Didn\'t it rain in the jungle?" she asked. "Yes," they said. "But we found some leaves and we didn\'t need coats." And they showed Mum their photos.',
+      questions: [
+        {q:'1. Mum wanted Tom, Vicky and Daisy to ______ with them.', key:['coat']},
+        {q:'2. The weather was ______ before the walk in the jungle.', key:['hot','sunny']},
+        {q:'3. Daisy pointed at some ______ in the sky.', key:['cloud']},
+        {q:'4. Tom put ______ in his bag because it started raining.', key:['camera']},
+        {q:'5. The children and the monkeys sat under some ______ and they didn\'t get wet.', key:['leav']},
+        {q:'6. The children had their lunch and then went ______ when it stopped raining.', key:['home']},
+        {q:'7. Vicky and Tom\'s mother was ______ because their clothes weren\'t wet.', key:['surpris']}
+      ]
+    }
+  ]
+};
+
+// ==================== 状态 ====================
+let answers = {};   // 'pI_qJ' -> 答案
+let sec = 0, timerInt = null;
+let currentLevel = 'ket';
+
+function startTest(level) {
+  currentLevel = level;
+  document.getElementById('stepLevel').style.display = 'none';
+  document.getElementById('stepQuiz').style.display = 'block';
+  window.scrollTo(0,0);
+  renderQuiz();
+  sec = 0;
+  timerInt = setInterval(() => {
+    sec++;
+    const m = String(Math.floor(sec/60)).padStart(2,'0');
+    const s = String(sec%60).padStart(2,'0');
+    document.getElementById('timer').textContent = '⏱ '+m+':'+s;
+  }, 1000);
+}
+
+function renderQuiz() {
+  const body = document.getElementById('quizBody');
+  let html = '', total = 0;
+  QUIZ.parts.forEach((part, pi) => {
+    html += `<div class="part-block"><div class="part-title">${part.title}</div><div class="part-instr">${part.instr}</div>`;
+    if (part.story) html += `<div class="story-box">${part.story}</div>`;
+    if (part.words) {
+      html += `<div class="story-box" style="margin-bottom:16px">词库：${part.words.map(w=>`<b>${w}</b>`).join(' · ')}</div>`;
+    }
+    part.questions.forEach((q, qi) => {
+      const id = `p${pi}_q${qi}`;
+      total++;
+      html += `<div class="q-item"><div class="q-text"><span class="num">${total}</span>${q.q}</div>`;
+      if (part.type === 'choose') {
+        html += `<div class="q-opts">${part.words.map(w=>`<label class="q-opt" data-id="${id}" data-val="${w}"><input type="radio" name="${id}"><span class="dot">✓</span>${w}</label>`).join('')}</div>`;
+      } else if (part.type === 'mc') {
+        html += `<div class="q-opts">${q.opts.map((o,oi)=>`<label class="q-opt" data-id="${id}" data-val="${oi}"><input type="radio" name="${id}"><span class="dot">✓</span>${o}</label>`).join('')}</div>`;
+      } else {
+        html += `<input class="q-input" data-id="${id}" placeholder="在此输入答案（1-3个单词）" autocomplete="off">`;
+      }
+      html += `</div>`;
+    });
+    if (part.titleQ) {
+      total++;
+      const id = `p${pi}_title`;
+      html += `<div class="q-item"><div class="q-text"><span class="num">${total}</span>${part.titleQ.q}</div>`;
+      html += `<div class="q-opts">${part.titleQ.opts.map((o,oi)=>`<label class="q-opt" data-id="${id}" data-val="${oi}"><input type="radio" name="${id}"><span class="dot">✓</span>${o}</label>`).join('')}</div></div>`;
+    }
+    html += `</div>`;
+  });
+  body.innerHTML = html;
+
+  // 选项点击
+  body.querySelectorAll('.q-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const id = opt.dataset.id;
+      const siblings = opt.parentElement.querySelectorAll('.q-opt');
+      siblings.forEach(s => s.classList.remove('sel'));
+      opt.classList.add('sel');
+      answers[id] = opt.dataset.val;
+      updateProgress();
+    });
+  });
+  // 填空
+  body.querySelectorAll('.q-input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      answers[inp.dataset.id] = inp.value.trim();
+      updateProgress();
+    });
+  });
+}
+
+function updateProgress() {
+  const done = Object.keys(answers).length;
+  document.getElementById('progFill').style.width = (done/29*100) + '%';
+  document.getElementById('progText').textContent = done + '/29';
+}
+
+function submitQuiz() {
+  const done = Object.keys(answers).length;
+  if (done < 29) {
+    if (!confirm(`还有 ${29-done} 题未作答，确定提交吗？`)) return;
+  }
+  clearInterval(timerInt);
+  // 判分
+  let score = 0;
+  const partScores = [];
+  QUIZ.parts.forEach((part, pi) => {
+    let ps = 0, cnt = 0;
+    part.questions.forEach((q, qi) => {
+      cnt++;
+      const id = `p${pi}_q${qi}`;
+      const ans = answers[id];
+      if (part.type === 'choose' || part.type === 'mc') {
+        if (String(ans) === String(q.a)) { score++; ps++; }
+      } else {
+        // 填空：匹配关键词（忽略大小写）
+        if (ans && q.key.some(k => ans.toLowerCase().includes(k.toLowerCase()))) { score++; ps++; }
+      }
+    });
+    if (part.titleQ) {
+      cnt++;
+      const id = `p${pi}_title`;
+      if (String(answers[id]) === String(part.titleQ.a)) { score++; ps++; }
+    }
+    partScores.push({name: part.title.split(' ')[2] || 'P'+pi, score: ps, total: cnt});
+  });
+
+  showResult(score, partScores);
+}
+
+function showResult(score, partScores) {
+  document.getElementById('stepQuiz').style.display = 'none';
+  document.getElementById('stepResult').style.display = 'block';
+  window.scrollTo(0,0);
+
+  document.getElementById('rScore').textContent = score;
+  const lv = document.getElementById('rLevel');
+  const adv = document.getElementById('rAdvice');
+
+  // 北外壹佳标准（35分制28分≈80%，换算29分制）
+  if (score >= 23) {
+    lv.textContent = '建议学习：KET 精品班（对接 KB4）';
+    lv.className = 'result-level lv-a';
+    adv.innerHTML = `<h4>🎯 测试结果分析</h4>
+      <p>你的英语基础非常扎实！已具备进入 <b>KET 精品班（对接 Kids Box 4 教材）</b>的水平。<br>
+      建议课程：KET 精品课程，系统学习剑桥 KET 考试内容，为备考打下坚实基础。<br>
+      点击下方按钮查看对应课程套餐，或下载 APP 开始体验。</p>`;
+  } else if (score >= 20) {
+    lv.textContent = '建议学习：KET 精品班（对接 KB5/新生）';
+    lv.className = 'result-level lv-b';
+    adv.innerHTML = `<h4>🎯 测试结果分析</h4>
+      <p>你的英语基础良好，适合进入 <b>KET 精品班（对接 Kids Box 5 教材或新生班）</b>。<br>
+      建议从基础巩固开始，稳步提升词汇和阅读能力。<br>
+      点击下方按钮查看课程套餐，或下载 APP 开始体验。</p>`;
+  } else {
+    lv.textContent = '建议：先巩固基础再测试';
+    lv.className = 'result-level lv-c';
+    adv.innerHTML = `<h4>🎯 测试结果分析</h4>
+      <p>本次得分偏低，说明英语基础还需要进一步巩固。<br>
+      建议：先通过 APP 的「单词闯关」和「分级阅读」打好词汇基础，1-2个月后再来测试。<br>
+      APP 下载完全免费，现在就扫码下载开始学习吧。</p>`;
+  }
+
+  // 分项得分
+  const partsBox = document.getElementById('rParts');
+  partsBox.innerHTML = partScores.map(p =>
+    `<div class="ps-item"><div class="ps-name">${p.name}</div><div class="ps-val">${p.score}/${p.total}</div></div>`
+  ).join('');
+
+  // 备注
+  adv.innerHTML += `<p style="margin-top:10px;font-size:.75rem;color:#aaa">注：本测试为剑桥英语官方样卷（A1 Movers 阅读写作卷），满分29分不含写作部分。完整评估含写作测试，可联系客服预约人工测评。</p>`;
+}
+</script>
+</body>
+</html>
