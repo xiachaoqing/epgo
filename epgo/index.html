@@ -11,6 +11,8 @@
 <meta property="og:url" content="https://go.xiachaoqing.com/epgo/">
 <meta property="og:type" content="website">
 <title>英语陪跑GO | AI英语学习，让孩子爱上英语</title>
+  <link rel="icon" type="image/x-icon" href="/epgo/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/epgo/favicon.ico">
 <!-- 微信JS-SDK -->
 <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <style>
@@ -891,6 +893,11 @@ function closeFollowModal() {
 document.getElementById('followModal').addEventListener('click', e => {
   if (e.target === document.getElementById('followModal')) closeFollowModal();
 });
+
+// 允许入学测评结果页通过 /epgo/#follow 拉起现有的公众号联系弹窗。
+if (location.hash === '#follow') {
+  setTimeout(showFollowModal, 0);
+}
 
 // 微信内：检测关注状态，未关注时顶部显示提示条
 (function checkFollow() {
