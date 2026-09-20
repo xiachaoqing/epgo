@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="description" content="英语陪跑GO — AI驱动英语学习APP，AI对话、真人外教、阅读闯关、同步教材。下载完全免费，激活账号即享全部功能。">
 <!-- 微信分享 Open Graph -->
 <meta property="og:title" content="英语陪跑GO | AI英语学习，让孩子爱上英语">
@@ -44,7 +44,7 @@ img{max-width:100%;display:block}
 .nav-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1rem;color:var(--dark)}
 .nav-logo img{height:32px;width:32px;border-radius:6px;object-fit:contain}
 .nav-logo .brand{font-size:1rem;font-weight:700}
-.nav-links{display:flex;gap:28px}
+.nav-links{display:flex;gap:14px}
 .nav-links a{font-size:.88rem;color:#666;transition:color .2s}
 .nav-links a:hover{color:var(--blue)}
 .nav-actions{display:flex;gap:8px}
@@ -143,6 +143,18 @@ img{max-width:100%;display:block}
   display:block;
   object-fit:contain;
 }
+
+/* ── 学习工具扩展位 ── */
+.tools-sec{padding:56px 0;background:#eef6ff;border-top:1px solid #dcecff;border-bottom:1px solid #dcecff}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:920px;margin:0 auto}
+.tool-card{background:#fff;border:1px solid #dcecff;border-radius:var(--radius);padding:22px 20px;min-height:142px;box-shadow:0 3px 16px rgba(41,141,255,.06);display:flex;flex-direction:column;justify-content:space-between}
+.tool-card-main{display:flex;align-items:flex-start;gap:12px}
+.tool-icon{width:42px;height:42px;border-radius:10px;background:var(--blue-light);border:1px solid #cfe5ff;color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tool-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tool-card h3{font-size:1rem;color:var(--dark);margin-bottom:4px}
+.tool-card p{font-size:.8rem;color:#77808e;line-height:1.7}
+.tool-status{font-size:.74rem;color:var(--blue);font-weight:700;margin-top:16px}
+.tool-card.ready{border-color:#bcdcff}
 
 /* ── STATS ── */
 .stats-sec{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%);padding:40px 0}
@@ -261,6 +273,12 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
 .footer-links a:hover{color:#fff}
 
 /* ── RESPONSIVE ── */
+.nav-logo,.nav-actions{flex-shrink:0}.nav-inner{gap:16px}
+.hero-inner>*,.feat-row>*,.dl-inner>*,.tools-grid>*,.tool-card-main>*,.price-grid>*{min-width:0}
+section[id]{scroll-margin-top:76px}
+.modal{max-height:90dvh;overscroll-behavior:contain}
+.tool-status{display:inline-block;min-height:30px}
+@media(max-width:1150px){.nav-links{display:none}}
 @media(max-width:960px){
   .hero-inner{grid-template-columns:1fr;gap:28px}
   .hero-phones{justify-content:center}
@@ -271,17 +289,33 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
   .dl-inner{grid-template-columns:1fr;gap:28px}
   .dl-qrs{flex-direction:row;justify-content:center}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
   .nav-links{display:none}
 }
 @media(max-width:600px){
   .hero{padding:72px 0 36px}
+  .hero h1{font-size:1.7rem}
   .sec-title{font-size:1.35rem}
-  .price-grid{grid-template-columns:1fr 1fr}
+  .container{padding-left:16px;padding-right:16px}
+  .price-grid{grid-template-columns:1fr}
   .phone-card{width:128px}
   .btn-nav-ghost{display:none}
   .feat-text{padding:24px 20px}
+  .tools-grid{grid-template-columns:1fr}
+  .oq-row{flex-direction:column}
+  .oq-btn{width:100%}
+  .dl-qrs{width:100%;gap:10px}
+  .qr-card{width:calc(50% - 5px);max-width:156px}
+  .platform-inner{gap:14px}
+  .hero-btns>*{justify-content:center;text-align:center;width:100%}
+  .form-g input,.form-g select,.oq-input{font-size:16px}
+  .modal{width:calc(100% - 24px);padding:26px 18px}
+  .vtabs{flex-wrap:wrap}.vtab{padding:10px 16px}
+  .nav-inner{gap:8px}.btn-nav-primary{padding:8px 12px}
+  .qr-card{padding:10px}.qr-card img{width:100%;height:auto;aspect-ratio:1}
 }
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.buy-ticker-inner{animation:none}*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -291,12 +325,13 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
   <div class="container">
     <div class="nav-inner">
       <div class="nav-logo">
-        <img src="https://art-nine-1252921383.cos.ap-beijing.myqcloud.com/yingyupeipao/logo.png" alt="英语陪跑GO">
+        <img src="/epgo/logo.png" alt="英语陪跑GO">
         <span class="brand">英语陪跑GO</span>
       </div>
       <div class="nav-links">
         <a href="#features">功能介绍</a>
         <a href="/epgo/assessment.html">入学测评</a>
+        <a href="#tools">学习工具</a>
         <a href="#pricing">激活套餐</a>
         <a href="#download">下载APP</a>
         <a href="#order-query">查询订单</a>
@@ -468,6 +503,33 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
   </div>
 </section>
 
+<!-- TOOLS -->
+<section class="tools-sec" id="tools">
+  <div class="container">
+    <h2 class="sec-title">学习工具集合</h2>
+    <p class="sec-sub">课程之外，把家庭学习安排、错题记录和复习节奏集中到一个入口</p>
+    <div class="divider"></div>
+    <div class="tools-grid">
+      <div class="tool-card ready">
+        <div class="tool-card-main"><div class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg></div><div><h3>每日学习任务</h3><p>使用英语陪跑GO App完成单词、阅读、听力和老师布置的每日任务。</p></div></div>
+        <a class="tool-status" href="#download">立即下载 App →</a>
+      </div>
+      <div class="tool-card" data-tool="calendar">
+        <div class="tool-card-main"><div class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"></rect><path d="M16 2.5v4M8 2.5v4M3 9h18M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01"></path></svg></div><div><h3>家庭学习日历</h3><p>安排课程、阅读、单词和复习时间，完成后随手打卡。</p></div></div>
+        <a class="tool-status" href="/epgo/tools.html#calendar">打开学习日历 →</a>
+      </div>
+      <div class="tool-card" data-tool="memo">
+        <div class="tool-card-main"><div class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h9l3 3v14H6z"></path><path d="M15 3.5v4h3M9 12h6M9 16h5"></path></svg></div><div><h3>英语学习备忘录</h3><p>记录生词、错题、老师点评和下一次复习计划。</p></div></div>
+        <a class="tool-status" href="/epgo/tools.html#memo">打开英语备忘录 →</a>
+      </div>
+      <div class="tool-card" data-tool="media">
+        <div class="tool-card-main"><div class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 9 5 3-5 3z"></path></svg></div><div><h3>图片与视频工具</h3><p>一寸证件照裁剪、图片压缩和视频画面提取，均在浏览器本地完成。</p></div></div>
+        <a class="tool-status" href="/epgo/tools.html#idphoto">打开媒体工具 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- STATS -->
 <section class="stats-sec">
   <div class="container">
@@ -497,6 +559,7 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
   <div class="container">
     <h2 class="sec-title">下载免费 · 激活即用</h2>
     <p class="sec-sub">选择套餐，一次激活，全部功能立即解锁</p>
+    <p class="price-note" style="margin:0 0 20px;color:#68758a">电脑和手机均可查看套餐；支付请在微信中打开本页完成。</p>
     <div class="divider"></div>
     <!-- 购买滚动条 -->
     <div class="buy-ticker-wrap">
@@ -644,12 +707,13 @@ footer{background:#1a1a2e;color:#666;padding:28px 0;text-align:center}
     <div class="footer-links">
       <a href="/">返回首页</a>
       <a href="#features">功能介绍</a>
+      <a href="#tools">学习工具</a>
       <a href="#pricing">激活套餐</a>
       <a href="https://app.lingshi.com/bjxxsy" target="_blank">免费下载</a>
       <a href="#order-query">查询订单</a>
       <a href="#faq">常见问题</a>
     </div>
-    <p style="font-size:.76rem">© 2026 英语陪跑GO · 授权推广页 · <a href="/" style="color:#666">xiachaoqing.com</a></p>
+    <p style="font-size:.76rem">© 2026 英语陪跑GO</p>
     <p style="font-size:.72rem;margin-top:4px"><a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow" style="color:#666">京ICP备2020039465号-1</a></p>
   </div>
 </footer>
