@@ -45,7 +45,7 @@ async function setup(width=390,wx=false) {
    if(route.request().resourceType()==='image') {
      const name=decodeURIComponent(path.basename(url.pathname));
      if(name==='logo.png') return route.fulfill({path:path.join(root,'epgo/favicon.ico')});
-     const local=['epgo/'+name,'epgo/thumbs/thumb_'+name.replace(/\.png$/,'.jpg'),'epgo/cropped/'+name.replace(/\.png$/,'_crop.png')].map(f=>path.join(root,f)).find(f=>fs.existsSync(f));
+     const local=[url.pathname.replace(/^\//,''), 'epgo/'+name,'epgo/thumbs/thumb_'+name.replace(/\.png$/,'.jpg'),'epgo/cropped/'+name.replace(/\.png$/,'_crop.png')].map(f=>path.join(root,f)).find(f=>fs.existsSync(f));
      return route.fulfill({path:local||path.join(root,'epgo/share.jpg')});
    }
    return route.fulfill({status:200,body:'',contentType:'text/plain'});
@@ -94,6 +94,10 @@ async function noOverflow(page,label) {
  assert.match(await page.locator('#profileError').innerText(),/11位/);
  await page.locator('#studentPhone').fill('');
  await page.getByRole('button',{name:'开始答题',exact:true}).click();
+ assert.equal(await page.locator('#printQuiz').isVisible(),true);
+ await page.locator('[data-part-target="0"]').click();
+ assert.equal(await page.locator('.question-figure img').count(),1);
+ assert.match(await page.locator('.question-figure img').first().getAttribute('src'),/assessment-assets\/ket-part1-wordbank\.jpg$/);
  await fill(page);
  await page.locator('[data-id="p4_q0"]').fill('');
  assert.equal(await page.locator('#progText').innerText(),'28/29');
@@ -105,6 +109,9 @@ async function noOverflow(page,label) {
  await page.locator('#btnSubmit').click();
  assert.equal(await page.locator('#rScore').innerText(),'29/29');
  assert.equal(await page.locator('#rParts .ps-item').count(),5);
+ const pdfBuffer=Buffer.from('%PDF-1.4\n% test answer sheet');
+ await page.locator('#answerFile').setInputFiles({name:'answer-sheet.pdf',mimeType:'application/pdf',buffer:pdfBuffer});
+ assert.match(await page.locator('#answerFileStatus').innerText(),/answer-sheet\.pdf/);
  await page.screenshot({path:path.join(output,'result-mobile.png'),fullPage:true});
  await page.reload(); await page.locator('#viewSaved').click();
  assert.equal(await page.locator('#rScore').innerText(),'29/29');

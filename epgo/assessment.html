@@ -126,9 +126,17 @@ button:disabled{cursor:default;opacity:.55;transform:none}
 .app-plan h3{margin-bottom:8px}.app-plan p{font-size:14px;color:#53657c;margin-bottom:14px}
 .report-tools{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
 .report-tools .btn{flex:1;min-width:140px}
+.question-figure{margin:14px 0 18px;padding:10px;border:1px solid #e4ebf4;border-radius:10px;background:#fbfdff;text-align:center}
+.question-figure img{display:block;width:100%;max-width:680px;height:auto;margin:0 auto;border-radius:6px}
+.question-figure figcaption{font-size:.75rem;color:#7b8798;margin-top:8px;line-height:1.6}
+.offline-review{background:#fff;border:1px solid #dce8f6;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0}
+.offline-review h3{font-size:1rem;color:var(--dark);margin-bottom:6px}
+.offline-review p{font-size:.82rem;color:#667085;line-height:1.7;margin-bottom:12px}
+.offline-review input[type=file]{width:100%;padding:10px;border:1px dashed #b8cce5;border-radius:8px;background:#f8fbff;font:inherit;font-size:.82rem}
+.file-review-status{font-size:.78rem;color:#667085;line-height:1.7;margin-top:10px;min-height:1.4em}
 @media(min-width:1000px){#stepQuiz{max-width:1080px}.reading-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}.reading-layout>.reading-material{position:sticky;top:130px;max-height:70vh;overflow:auto}}
 @media(max-width:650px){.container.step{padding-left:16px;padding-right:16px}.level-card{flex-wrap:wrap;gap:10px}.level-info{flex-basis:calc(100% - 70px)}.level-badge{margin-left:62px}.step-title{font-size:1.4rem}.part-block,.profile-card{padding:18px}.profile-field input,.profile-field select,.q-input{font-size:16px}.part-scores{grid-template-columns:repeat(2,minmax(0,1fr))}.quiz-header{padding:12px;gap:8px}}
-@media print{.nav,.result-actions,.report-tools,.back-link,.app-plan a,#storageStatus{display:none!important}body{background:white}#stepResult{padding:0}.part-scores{grid-template-columns:repeat(5,1fr)}}
+@media print{.nav,.result-actions,.report-tools,.back-link,.app-plan a,#storageStatus,.quiz-header,.part-nav,.part-actions,#btnSubmit,.profile-card{display:none!important}body{background:white}.step{padding-top:20px}.quiz-panel{display:block!important}.quiz-panel .part-block[hidden]{display:block!important}.part-scores{grid-template-columns:repeat(5,1fr)}}
 </style>
 </head>
 <body>
@@ -206,7 +214,7 @@ button:disabled{cursor:default;opacity:.55;transform:none}
     </div>
     <nav class="part-nav" id="partNav" aria-label="测评部分"></nav>
     <div id="quizBody"></div>
-    <div class="part-actions"><button class="btn btn-secondary" id="prevPart" onclick="changePart(-1)">上一部分</button><button class="btn btn-secondary" id="nextPart" onclick="changePart(1)">下一部分</button></div>
+    <div class="part-actions"><button class="btn btn-secondary" id="prevPart" onclick="changePart(-1)">上一部分</button><button class="btn btn-secondary" id="nextPart" onclick="changePart(1)">下一部分</button><button class="btn btn-secondary" id="printQuiz" onclick="printQuizPaper()">打印 / 保存题本 PDF</button></div>
     <div style="padding:10px 0 40px">
       <button class="btn btn-primary" id="btnSubmit" onclick="submitQuiz()">提交测评</button>
     </div>
@@ -224,6 +232,12 @@ button:disabled{cursor:default;opacity:.55;transform:none}
   <div class="part-scores" id="rParts"></div>
   <div class="result-advice" id="rAdvice"></div>
   <div class="report-tools"><button class="btn btn-secondary" onclick="copyReport()">复制报告发给老师</button><button class="btn btn-secondary" onclick="window.print()">打印 / 保存 PDF</button></div>
+  <div class="offline-review">
+    <h3>线下答题卡：上传给老师复核</h3>
+    <p>如果孩子先下载题本、手写完成，可以在这里选择答题卡照片或 PDF 做本机预览。当前不会把文件上传服务器，也不会自动判分；请复制报告后通过公众号发给老师。</p>
+    <input id="answerFile" type="file" accept="image/*,.pdf,application/pdf">
+    <div class="file-review-status" id="answerFileStatus" role="status"></div>
+  </div>
   <p class="storage-status" id="storageStatus" role="status"></p>
   <div class="app-plan"><h3>把测评发现，变成每天的小练习</h3><p>用 App 做分级阅读、听原音、跟读和单词练习。需要老师布置任务、点评或课程辅导时，请先咨询具体服务安排。</p><a class="btn btn-primary" id="buyLink" href="/epgo/#pricing">查看英语陪跑GO App 套餐 →</a></div>
   <div class="result-actions">
@@ -242,7 +256,7 @@ ket: {
   name: 'KET 方向入学初筛',
   totalLabel: '客观题满分 29 分',
   parts: [
-    { title:'Part 1 · 词汇选词', instr:'读句子，从下面 8 个词中选择最合适的。', words:['a balcony','a kangaroo','a helmet','a swimsuit','a panda','lifts','a dolphin','stairs'], type:'choose',
+    { title:'Part 1 · 词汇选词', instr:'看图和词库，读句子，从下面 8 个词中选择最合适的。', image:'/epgo/assessment-assets/ket-part1-wordbank.jpg', imageAlt:'Part 1 词汇图片词库', words:['a balcony','a kangaroo','a helmet','a swimsuit','a panda','lifts','a dolphin','stairs'], type:'choose',
       questions:[
         {q:'You can put chairs and tables on this and sit outside.', a:'a balcony'},
         {q:'This is black and white and lives in the mountains.', a:'a panda'},
@@ -274,7 +288,7 @@ ket: {
         {q:'(3) ______ parrots do not eat meat.', opts:['Every','Both','Most'], a:2},
         {q:'(4) When they are ______, they hold their food.', opts:['eating','ate','eat'], a:0},
         {q:'(5) ______ birds make a lot of noise.', opts:['That','These','This'], a:1}]},
-    { title:'Part 5 · 读故事补全句子', instr:'读故事，用 1-3 个单词补全句子。（大小写不限）', type:'fill',
+    { title:'Part 5 · 读故事补全句子', instr:'看图读故事，用 1-3 个单词补全句子。（大小写不限）', image:'/epgo/assessment-assets/ket-part5-scene.jpg', imageAlt:'Part 5 丛林故事图片', type:'fill',
       story:'<b>The rain in the jungle</b><br>Last weekend, Vicky and Tom said to their friend Daisy, "Would you like to go for a walk in the jungle?" Daisy said, "I need to take some photos for homework. I can do that there."<br>Vicky\'s mum said, "Take coats with you." The children laughed and said, "It\'s hot and sunny. We don\'t need coats!" When the children got to the jungle, they saw lots of monkeys in the trees.<br>Tom took pictures of some beautiful plants which had red flowers on them. Then Daisy pointed and said, "Look at those black clouds!" Then it started raining.<br>"The camera! Put it in your bag!" said Vicky to Tom. "OK," said Tom. Tom got some very big leaves and they held them above their heads. The monkeys came and sat with them. It rained and rained, but the leaves were really big and the children and monkeys didn\'t get wet. Daisy took more photos.<br>The children waited for the rain to stop and they ate their sandwiches. When it was sunny again, the children ran back home. Mum looked at their clothes and was surprised. "Didn\'t it rain in the jungle?" she asked. "Yes," they said. "But we found some leaves and we didn\'t need coats." And they showed Mum their photos.',
       questions:[
         {q:'1. Mum wanted Tom, Vicky and Daisy to ______ with them.', key:['take a coat','take their coats']},
@@ -494,7 +508,8 @@ function restoreResult() {
 function renderQuiz() {
   let num = 0;
   el('quizBody').innerHTML = getQuiz().parts.map((part, pi) => {
-    const material = (part.story ? `<div class="story-box">${part.story}</div>` : '') +
+    const figure = part.image ? `<figure class="question-figure"><img src="${escapeHtml(part.image)}" alt="${escapeHtml(part.imageAlt || '题目图片')}" loading="lazy"><figcaption>题图仅用于辅助理解，答案仍以题目文字和孩子作答为准。</figcaption></figure>` : '';
+    const material = figure + (part.story ? `<div class="story-box">${part.story}</div>` : '') +
       (part.words ? `<div class="story-box">词库：${part.words.map(escapeHtml).join(' · ')}</div>` : '') +
       (part.opts_pool ? `<div class="story-box">${part.opts_pool.join('<br>')}</div>` : '');
     const questions = [...part.questions.map((q, qi) => ({q,id:`p${pi}_q${qi}`,type:part.type})),
@@ -526,6 +541,10 @@ function updatePart() {
 function changePart(delta) {
   currentPart = Math.max(0,Math.min(currentPart+delta,getQuiz().parts.length-1));
   updatePart(); saveDraft(); window.scrollTo(0,0);
+}
+function printQuizPaper() {
+  if (!getQuiz() || !el('quizBody').children.length) return;
+  window.print();
 }
 el('partNav').addEventListener('click', e => {
   const button = e.target.closest('[data-part-target]');
@@ -590,6 +609,20 @@ async function copyReport() {
   try {await navigator.clipboard.writeText(report);el('storageStatus').textContent='报告已复制，请在微信中粘贴发送给老师。';}
   catch {el('storageStatus').textContent='此浏览器暂不支持复制，请截图或点击“打印 / 保存 PDF”。';}
 }
+let answerFileUrl = '';
+el('answerFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 20 * 1024 * 1024) {
+    e.target.value = '';
+    el('answerFileStatus').textContent = '文件不能超过 20MB，请压缩后再选择。';
+    return;
+  }
+  if (answerFileUrl) URL.revokeObjectURL(answerFileUrl);
+  answerFileUrl = URL.createObjectURL(file);
+  const open = `<a href="${answerFileUrl}" target="_blank" rel="noopener">打开本机文件</a>`;
+  el('answerFileStatus').innerHTML = `已选择：${escapeHtml(file.name)} · ${(file.size / 1024 / 1024).toFixed(2)}MB · ${open}。请把文件和测评报告一起发给老师。`;
+});
 el('resumeDraft').hidden = !readStored(DRAFT_KEY);
 el('viewSaved').hidden = !readStored(RESULT_KEY);
 if (location.hash === '#result' && readStored(RESULT_KEY)) restoreResult();
