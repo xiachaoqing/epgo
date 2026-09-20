@@ -447,6 +447,12 @@ let ordersPage = 1;
 let ordersStatus = '';  // 当前订单Tab过滤状态
 let tokenVisible = false;
 
+// 统一按浏览器本地日期计算，避免北京时间凌晨仍落在 UTC 前一天。
+function localDateString(date = new Date()) {
+  const offset = date.getTimezoneOffset() * 60000;
+  return new Date(date.getTime() - offset).toISOString().slice(0, 10);
+}
+
 // ── Token显示切换 ─────────────────────────────────────────
 function toggleToken() {
   tokenVisible = !tokenVisible;
@@ -535,7 +541,7 @@ async function loadDashboard() {
   const pending   = p.orders   || [];
   const orders    = o.orders   || [];
   const accounts  = a.accounts || [];
-  const today = new Date().toISOString().slice(0,10);
+  const today = localDateString();
   const todayOrders = orders.filter(x => (x.created_at||'').slice(0,10) === today && x.pay_status == 1);
   const monthIncome = orders.filter(x => (x.created_at||'').slice(0,7) === today.slice(0,7) && x.pay_status == 1)
                              .reduce((s,x) => s + (x.price_fen||0), 0);
@@ -731,13 +737,16 @@ async function doImport() {
   if (!text) { showToast('请填写学员信息', 'error'); return; }
   const lines = text.split('\n').filter(l => l.trim());
   const students = [];
+  const defaultExpireDate = new Date();
+  defaultExpireDate.setDate(defaultExpireDate.getDate() + 30);
+  const defaultExpire = localDateString(defaultExpireDate);
   for (const line of lines) {
     const parts = line.trim().split(',');
     const phone = parts[0]?.trim();
     if (!phone || phone.length !== 11) continue;
     students.push({
       phone,
-      expire_at: parts[1]?.trim() || '2026-05-31',
+      expire_at: parts[1]?.trim() || defaultExpire,
       nickname:  parts[2]?.trim() || '',
       remark:    parts[3]?.trim() || '线下老学员',
       plan_name: '线下老学员',
