@@ -14,6 +14,10 @@ async function setup(width){
   const calls=[];
   await context.route('**/*',async route=>{
     const url=new URL(route.request().url());
+    if(url.pathname.endsWith('/epgo/media-api.php')){
+      calls.push({url:url.pathname,method:route.request().method()});
+      return route.fulfill({status:503,json:{status:'error',message:'媒体服务测试占位'}});
+    }
     if(url.hostname==='epgo.test'&&url.pathname.startsWith('/epgo/')){
       const rel=decodeURIComponent(url.pathname)+(url.pathname.endsWith('/')?'index.html':'');
       const file=path.resolve(root,'.'+rel);
@@ -98,6 +102,17 @@ async function noOverflow(page,label){const s=await page.evaluate(()=>({width:in
   await page.waitForFunction(()=>!document.querySelector('#compress-canvas').hidden);
   assert.equal(await page.locator('#compress-download').isEnabled(),true);
   assert.match(await page.locator('#compress-meta').innerText(),/压缩后/);
+  await page.locator('[data-panel="platform"]').click();
+  await page.locator('#platform-url').fill('https://example.com/video/1');
+  assert.match(await page.locator('#platform-result').innerText(),/无法识别/);
+  await page.locator('#platform-url').fill('https://v.douyin.com/test');
+  assert.match(await page.locator('#platform-result').innerText(),/待适配/);
+  await page.locator('#platform-url').fill('https://www.bilibili.com/video/BV1test');
+  await page.locator('#platform-consent').check();
+  await page.locator('#platform-form button[type="submit"]').click();
+  await page.waitForFunction(()=>document.querySelector('#platform-result').classList.contains('error'));
+  assert.match(await page.locator('#platform-result').innerText(),/媒体服务测试占位/);
+  assert.equal(s.calls.filter(x=>x.url.endsWith('/epgo/media-api.php')).length,1);
   await page.goto('http://epgo.test/epgo/');
   assert.equal(await page.locator('footer').innerText().then(t=>t.includes('授权推广页')),false);
   await page.context().close();

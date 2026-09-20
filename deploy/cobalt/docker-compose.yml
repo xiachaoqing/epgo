@@ -1,0 +1,23 @@
+services:
+  cobalt:
+    image: ghcr.io/imputnet/cobalt:11
+    init: true
+    restart: unless-stopped
+    container_name: epgo-cobalt
+    ports:
+      - "127.0.0.1:9000:9000"
+    environment:
+      API_URL: "https://go.xiachaoqing.com/epgo/cobalt/"
+      API_PORT: "9000"
+      API_LISTEN_ADDRESS: "0.0.0.0"
+      API_AUTH_REQUIRED: "1"
+      API_KEY_URL: "file:///keys.json"
+      CORS_WILDCARD: "0"
+      CORS_URL: "https://go.xiachaoqing.com"
+      RATELIMIT_WINDOW: "60"
+      RATELIMIT_MAX: "6"
+      DURATION_LIMIT: "900"
+      TUNNEL_LIFESPAN: "90"
+      API_NAME: "epgo-media"
+    volumes:
+      - ./keys.json:/keys.json:ro
