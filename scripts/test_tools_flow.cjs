@@ -76,6 +76,18 @@ async function noOverflow(page,label){const s=await page.evaluate(()=>({width:in
   await page.locator('[data-vocab-delete]').click();
   assert.equal(await page.locator('#vocab-list .item').count(),0);
 
+  await page.locator('[data-panel="plan"]').click();
+  await page.locator('#plan-minutes').selectOption('30');
+  await page.locator('#plan-form button[type="submit"]').click();
+  assert.equal(await page.locator('#plan-list .item').count(),7);
+  await page.evaluate(()=>localStorage.setItem('epgo_tool_vocab_v1',JSON.stringify([{id:'test-word',word:'improve',meaning:'提高',example:'I improve every day.',mastered:false,createdAt:Date.now()}])));
+  await page.reload();
+  await page.locator('[data-panel="wordcards"]').click();
+  assert.equal(await page.locator('#wordcard').isVisible(),true);
+  assert.equal(await page.locator('#wordcard-word').innerText(),'improve');
+  await page.locator('#wordcard-show').click();
+  assert.match(await page.locator('#wordcard-answer').innerText(),/提高/);
+
   await page.locator('[data-panel="timer"]').click();
   await page.locator('[data-min="15"]').click();
   assert.equal(await page.locator('#clock').innerText(),'15:00');
