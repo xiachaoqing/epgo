@@ -166,7 +166,7 @@ curl -i https://go.xiachaoqing.com/epgo/media-api.php
 
 ### 后台当前已知事项
 
-- `epgo/admin.html` 的 `resendNotify()` 目前是空函数，因为后端还没有通知补发接口；当前页面没有可用的“补发通知”操作。后续必须先确认后端接口、幂等规则和发送结果，再实现按钮。
+- `epgo/admin.html` 的订单列表在已付款且已有第三方账号时显示“补发通知”。按钮调用公众号后端 `POST /api/jzt/admin/resend_activate_notify`，后端会再次读取该订单绑定的公众号 openid 和账号信息并发送模板消息；无 openid、订单未付款或账号未激活时会明确返回失败。该接口已在生产 `wechat_platform` 路由中上线，未改动支付下单、支付回调或订单状态机。
 - 批量导入老学员的默认到期日已改为“导入当天 + 30 天”，不再使用已经过期的固定日期。
 - 数据概览的“今日”统计已改为浏览器本地日期，避免北京时间凌晨被 UTC 日期偏移。
 

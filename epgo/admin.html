@@ -626,6 +626,7 @@ async function loadOrders(page=1) {
       <td style="color:#888;font-size:.82rem">${(o.created_at||'').replace('T',' ').slice(0,16)}</td>
       <td>
         ${o.pay_status==1 && !o.jzt_account ? `<button class="btn btn-success btn-sm" onclick="openFillModal('${o.order_no}','${o.phone}','${o.plan_name}',${o.price_fen},${o.days||7})">录入账号</button>` : ''}
+        ${o.pay_status==1 && o.jzt_account ? `<button class="btn btn-ghost btn-sm" onclick="resendNotify('${o.order_no}')">补发通知</button>` : ''}
       </td>
     </tr>
   `).join('');
@@ -844,7 +845,23 @@ async function doFillAccount() {
 }
 
 async function resendNotify(orderNo) {
-  // 后端暂无此接口，已停用
+  if (!orderNo) return;
+  if (!confirm('确认向该订单绑定的公众号补发账号通知吗？')) return;
+  try {
+    const r = await fetch(API+'/api/jzt/admin/resend_activate_notify', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Admin-Token':TOKEN},
+      body:JSON.stringify({order_no:orderNo})
+    });
+    const d = await r.json();
+    if (r.ok && d.code === 0 && d.sent) {
+      showToast('✅ 公众号通知已补发', 'success');
+    } else {
+      showToast('补发失败：' + (d.detail || d.message || '请检查关注状态和模板配置'), 'error');
+    }
+  } catch(e) {
+    showToast('网络错误，通知未确认发送', 'error');
+  }
 }
 
 // ── 导出Excel（待处理订单）────────────────────────────────
