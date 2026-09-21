@@ -54,7 +54,7 @@
 
 ### 3. 平台视频解析
 
-前端入口仍在 `epgo/tools.html` 的“平台视频提取”卡片。
+媒体代理前端入口已从 `epgo/tools.html` 移除；当前工具页只保留英语学习工具。`media-api.php` 和 Cobalt 配置暂时保留，待确认没有外部调用后再单独下线。
 
 调用链：
 
@@ -109,7 +109,7 @@
 | --- | --- |
 | `epgo/index.html` | 现有购买页；支付逻辑属于敏感边界 |
 | `epgo/assessment.html` | KET 测评、评分、报告和购买 CTA |
-| `epgo/tools.html` | 工具集合和平台视频解析前端 |
+| `epgo/tools.html` | 英语学习工具集合：今日任务、日历、备忘录、单词本、7 日计划、抽背卡、专注计时和测评报告 |
 | `epgo/media-api.php` | PHP 7.2 同源媒体代理 |
 | `epgo/logo.png` / `epgo/favicon.ico` | 统一品牌图标 |
 | `epgo/share.jpg` | 微信/Open Graph 分享图 |
@@ -134,7 +134,7 @@ node scripts/test_assessment_flow.cjs /path/to/node_modules/playwright
 node scripts/test_tools_flow.cjs /path/to/node_modules/playwright
 ```
 
-工具回归覆盖日历、备忘录、单词本、计时器、测评报告、证件照、图片压缩、平台链接识别、待适配平台提示和媒体接口错误展示。当前交接时没有在本机重新跑完整 Chromium 回归，因为项目环境没有可用的 `playwright` npm 模块；不要把语法检查当成浏览器回归。
+工具回归覆盖日历、备忘录、单词本、计时器、测评报告、7 日计划和抽背卡。当前交接时没有在本机重新跑完整 Chromium 回归，因为项目环境没有可用的 `playwright` npm 模块；不要把语法检查当成浏览器回归。
 
 线上只做只读健康检查时可使用：
 
@@ -167,6 +167,7 @@ curl -i https://go.xiachaoqing.com/epgo/media-api.php
 ### 后台当前已知事项
 
 - `epgo/admin.html` 的订单列表在已付款且已有第三方账号时显示“补发通知”。按钮调用公众号后端 `POST /api/jzt/admin/resend_activate_notify`，后端会再次读取该订单绑定的公众号 openid 和账号信息并发送模板消息；无 openid、订单未付款或账号未激活时会明确返回失败。该接口已在生产 `wechat_platform` 路由中上线，未改动支付下单、支付回调或订单状态机。
+- 工具页已移除一寸证件照、图片压缩、平台视频提取和视频截帧入口。这些功能与英语学习主线无关，且会带来隐私、版权、服务器和维护成本；媒体代理文件暂保留在仓库，未再从工具页调用，后续确认无流量后再单独下线。
 - 批量导入老学员的默认到期日已改为“导入当天 + 30 天”，不再使用已经过期的固定日期。
 - 数据概览的“今日”统计已改为浏览器本地日期，避免北京时间凌晨被 UTC 日期偏移。
 

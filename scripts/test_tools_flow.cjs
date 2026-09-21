@@ -14,10 +14,6 @@ async function setup(width){
   const calls=[];
   await context.route('**/*',async route=>{
     const url=new URL(route.request().url());
-    if(url.pathname.endsWith('/epgo/media-api.php')){
-      calls.push({url:url.pathname,method:route.request().method()});
-      return route.fulfill({status:503,json:{status:'error',message:'媒体服务测试占位'}});
-    }
     if(url.hostname==='epgo.test'&&url.pathname.startsWith('/epgo/')){
       const rel=decodeURIComponent(url.pathname)+(url.pathname.endsWith('/')?'index.html':'');
       const file=path.resolve(root,'.'+rel);
@@ -102,34 +98,11 @@ async function noOverflow(page,label){const s=await page.evaluate(()=>({width:in
   assert.match(await page.locator('#report-content').innerText(),/24/);
   assert.equal(await page.locator('#report-content .part-score').count(),3);
 
-  const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=','base64');
-  await page.locator('[data-panel="idphoto"]').click();
-  await page.locator('#photo-file').setInputFiles({name:'sample.png',mimeType:'image/png',buffer:png});
-  await page.waitForFunction(()=>!document.querySelector('#photo-canvas').hidden);
-  assert.equal(await page.locator('#photo-canvas').getAttribute('width'),'295');
-  assert.equal(await page.locator('#photo-download').isEnabled(),true);
-  await page.locator('#photo-scale').fill('1.25');
-  await page.locator('[data-panel="imagecompress"]').click();
-  await page.locator('#compress-file').setInputFiles({name:'sample.png',mimeType:'image/png',buffer:png});
-  await page.waitForFunction(()=>!document.querySelector('#compress-canvas').hidden);
-  assert.equal(await page.locator('#compress-download').isEnabled(),true);
-  assert.match(await page.locator('#compress-meta').innerText(),/压缩后/);
-  await page.locator('[data-panel="platform"]').click();
-  await page.locator('#platform-url').fill('https://example.com/video/1');
-  assert.match(await page.locator('#platform-result').innerText(),/无法识别/);
-  await page.locator('#platform-url').fill('https://v.douyin.com/test');
-  assert.match(await page.locator('#platform-result').innerText(),/待适配/);
-  await page.locator('#platform-url').fill('https://www.bilibili.com/video/BV1test');
-  await page.locator('#platform-consent').check();
-  await page.locator('#platform-form button[type="submit"]').click();
-  await page.waitForFunction(()=>document.querySelector('#platform-result').classList.contains('error'));
-  assert.match(await page.locator('#platform-result').innerText(),/媒体服务测试占位/);
-  assert.equal(s.calls.filter(x=>x.url.endsWith('/epgo/media-api.php')).length,1);
   await page.goto('http://epgo.test/epgo/');
   assert.equal(await page.locator('footer').innerText().then(t=>t.includes('授权推广页')),false);
   await page.context().close();
 
   for(const width of [320,390,768,1024,1440]){const x=await setup(width);await x.page.goto('http://epgo.test/epgo/tools.html');await noOverflow(x.page,`tools ${width}`);await x.context.close()}
   assert.deepEqual(errors,[],'no browser runtime errors');
-  console.log(JSON.stringify({status:'PASS',screenshots:output,viewports:[320,390,768,1024,1440],features:['calendar add/complete/delete/persist','memo add/search/delete','vocabulary add/master/delete','timer start/pause/reset','assessment report read-only','id photo crop','image compression','footer label removed'],network:'no payment/API calls'},null,2));
+  console.log(JSON.stringify({status:'PASS',screenshots:output,viewports:[320,390,768,1024,1440],features:['calendar add/complete/delete/persist','memo add/search/delete','vocabulary add/master/delete','timer start/pause/reset','7-day plan generation','flashcard reveal','assessment report read-only','footer label removed'],network:'no payment/API calls'},null,2));
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{if(browser)await browser.close()});
