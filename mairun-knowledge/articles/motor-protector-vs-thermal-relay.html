@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="比较电机保护器和热继电器的保护范围、动作方式与选型条件，帮助维修和采购人员先确认工况再选设备。"><link rel="canonical" href="https://tech.mairunkeji.com/articles/motor-protector-vs-thermal-relay.html"><link rel="stylesheet" href="../assets/site.css"><title>电机保护器和热继电器有什么区别｜麦润知识库</title></head>
+<body class="article-page"><header class="header"><div class="wrap"><a class="brand" href="../"><span class="brand-mark">MR</span><span><span class="brand-title">麦润工业电气知识库</span><span class="brand-subtitle">电机保护 · 低压配电 · 现场维护</span></span></a><nav class="nav"><a href="../#topics">知识栏目</a><a href="../#articles">最新文章</a><a href="../about.html">关于本站</a></nav></div></header>
+<main><div class="breadcrumbs"><a href="../">首页</a> / <a href="../category/motor-protection.html">电机保护</a> / 选型基础</div><h1>电机保护器和热继电器有什么区别，什么时候分别使用</h1><div class="article-meta">作者：麦润工程内容组 · 审核：现场电气工程师 · 更新：2026-09-21</div><div class="article-body">
+<p>现场更换电机保护元件时，最常见的误区是只看额定电流。热继电器和电机保护器都能参与过载保护，但保护对象、可识别的故障类型和调试方式不同。选择前应先确认电机功率、额定电流、启动方式、负载特性和现场环境。</p>
+<div class="callout"><strong>先给结论：</strong>只需要基础过载保护、控制柜结构简单且已有接触器时，热继电器往往够用；需要缺相、堵转、反时限、相不平衡或更细的故障记录时，应评估专用电机保护器。</div>
+<h2>一、两种设备主要保护什么</h2><table><thead><tr><th>比较项</th><th>热继电器</th><th>电机保护器</th></tr></thead><tbody><tr><td>核心作用</td><td>以热效应判断长期过载</td><td>通过电流、电压或算法识别多种异常</td></tr><tr><td>常见保护</td><td>过载、部分断相</td><td>过载、缺相、堵转、相不平衡等，具体看型号</td></tr><tr><td>适配方式</td><td>通常与接触器配合</td><td>按型号可直接接入控制回路或与接触器配合</td></tr><tr><td>调试重点</td><td>整定电流和复位方式</td><td>整定电流、动作时间、启动屏蔽和故障策略</td></tr></tbody></table>
+<h2>二、选型前先收集五项现场信息</h2><ol><li>电机铭牌上的额定电流、电压、功率和频率。</li><li>启动方式：直接启动、星三角、软启动或变频。</li><li>负载特性：风机、水泵、输送机和压缩机的启动电流与持续时间不同。</li><li>故障记录：是长期过载，还是启动瞬间跳闸、缺相或堵转。</li><li>柜内空间、接线方式、环境温度和维护人员的复位习惯。</li></ol>
+<h2>三、为什么“按电机功率套一个型号”容易出错</h2><p>同样是 15kW 电机，额定电流可能因电压、效率、功率因数和厂家设计不同而变化。保护元件的可调范围如果过大，整定分辨率可能不够；范围过小，又可能在启动或满载时误动作。正确做法是先以铭牌额定电流为基准，再结合启动电流和负载持续时间调整。</p>
+<h2>四、现场整定后的验证</h2><p>完成接线和整定后，应在断电检查、绝缘确认和安全许可满足后进行试运行。记录空载、正常负载和启动阶段的电流，核对保护器显示的相别和故障代码。不要为了消除跳闸而直接把整定值大幅上调；如果根因是轴承卡滞、泵体堵塞、端子松动或电源缺相，调大保护只会延后故障。</p>
+<h2>五、什么时候需要进一步咨询</h2><p>出现反复跳闸、保护器与上级断路器选择性不明确、变频器输出侧保护或大惯量负载启动困难时，应把铭牌、接线图、故障代码和现场电流记录一并提供给设备厂家或专业工程师。产品选型可以帮助缩小范围，但不能替代现场测量。</p>
+</div></main><footer class="footer"><div class="wrap"><span>© 麦润工业电气知识库</span><span><a href="../privacy.html">隐私政策</a> · <a href="../contact.html">技术咨询</a></span></div></footer></body></html>
