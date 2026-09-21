@@ -70,6 +70,8 @@ EPGO 的核心客户是有 KET/PET 学习需求的孩子和家长，付费产品
 6. 站点先保持稳定访问和清晰导航，再放置少量广告；购买页、测评答题页和登录页不放广告。
 7. 隐私政策说明 Google 广告 Cookie、个性化广告关闭方式和联系方式。
 
+当前资料下载栏目公开展示“KET/PET 词汇表、模板、阅读素材和 PDF 下载”。这些文件必须逐项确认是自己原创或有明确授权；没有授权的 Cambridge 真题、教材扫描件、RAZ 等内容应立即下线或改为付费/授权范围内交付，不能为了流量公开。即使文章本身原创，下载页的版权风险也会影响整站审核。
+
 Google 的官方要求是原创、相关、有实际价值的内容和清晰导航；抓取内容、版权内容、薄内容和仅有模板的页面会影响审核。参考：[让网站准备好接受 AdSense](https://support.google.com/adsense/answer/7299563?hl=zh-CN)、[AdSense 未获批准的处理方式](https://support.google.com/adsense/answer/81904?hl=zh-CN)、[必需内容](https://support.google.com/adsense/answer/1348695?hl=zh-CN)。
 
 ## 90 天执行顺序
