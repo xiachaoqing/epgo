@@ -1,5 +1,16 @@
 <?php defined('IN_MET') or exit('No permission'); ?>
 <include file="head.php" />
+<?php
+$_epgo_home_schema = array(
+    '@context' => 'https://schema.org',
+    '@type' => 'EducationalOrganization',
+    'name' => '英语陪跑GO',
+    'url' => 'https://xiachaoqing.com/',
+    'description' => '面向孩子和家长的 KET、PET 英语学习内容、入学测评和学习工具。'
+);
+echo '<script type="application/ld+json">' . json_encode($_epgo_home_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+unset($_epgo_home_schema);
+?>
 
 <?php
 /* ── Banner：从数据库读取，否则显示静态 fallback ── */
