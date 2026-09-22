@@ -15,6 +15,9 @@ try {
     );
     if ($_epgo_stmt) $_epgo_banners = $_epgo_stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(Exception $_e) {}
+
+/* AdSense 内容治理阶段只展示可核验的静态学习入口；后台旧 banner 可能含有无法证明的规模或通过率文案。 */
+$_epgo_banners = array();
 ?>
 
 <!-- ════════════ BANNER ════════════ -->
