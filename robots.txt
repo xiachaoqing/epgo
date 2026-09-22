@@ -2,4 +2,4 @@ User-agent: *
 Disallow:
 User-agent: Baiduspider
 Disallow:
-Sitemap: https://mairunkeji.com/sitemap.xml
+Sitemap: https://xiachaoqing.com/sitemap.xml

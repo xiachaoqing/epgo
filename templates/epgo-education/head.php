@@ -1,4 +1,18 @@
 <met_meta page="$met_page" />
+<!-- AdSense 站点连接代码；正式投放前不放未知广告位编号。 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313" crossorigin="anonymous"></script>
+<?php
+/* 统一主域 canonical；忽略筛选、分页和追踪参数，避免同一文章多地址收录。 */
+$_epgo_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+$_epgo_path = '/' . ltrim($_epgo_path, '/');
+$_epgo_canonical = 'https://xiachaoqing.com' . $_epgo_path;
+echo '<link rel="canonical" href="' . htmlspecialchars($_epgo_canonical, ENT_QUOTES, 'UTF-8') . '">' . "\n";
+/* 搜索、标签、会员和互动页不作为搜索落地页。 */
+if (preg_match('#^/(search|tags|member|message|feedback)(/|$)#', $_epgo_path)) {
+    echo '<meta name="robots" content="noindex,follow">' . "\n";
+}
+unset($_epgo_path, $_epgo_canonical);
+?>
 <?php
 /* 动态查询子栏目，使用 PATH_CONFIG 常量定位配置文件 */
 $_epgo_children = [];

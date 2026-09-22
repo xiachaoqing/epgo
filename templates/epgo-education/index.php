@@ -99,25 +99,25 @@ try {
 </script>
 
 
-<!-- ════════════ 数据统计 ════════════ -->
+<!-- ════════════ 学习支持 ════════════ -->
 <section style="background:#fff;padding:40px 0;border-bottom:1px solid #E5E7EB;">
     <div class="container">
         <div class="epgo-stat-grid">
             <div class="epgo-stat-item">
-                <div class="epgo-stat-num" style="color:#2563EB;">10000+</div>
-                <div class="epgo-stat-label">学员已学</div>
+                <div class="epgo-stat-num" style="color:#2563EB;">KET</div>
+                <div class="epgo-stat-label">入学测评与备考</div>
             </div>
             <div class="epgo-stat-item">
-                <div class="epgo-stat-num" style="color:#16A34A;">1000+</div>
-                <div class="epgo-stat-label">精品课程</div>
+                <div class="epgo-stat-num" style="color:#16A34A;">4项</div>
+                <div class="epgo-stat-label">听说读写学习方向</div>
             </div>
             <div class="epgo-stat-item">
-                <div class="epgo-stat-num" style="color:#EA580C;">98%</div>
-                <div class="epgo-stat-label">考试通过率</div>
+                <div class="epgo-stat-num" style="color:#EA580C;">7天</div>
+                <div class="epgo-stat-label">可执行学习计划</div>
             </div>
             <div class="epgo-stat-item">
-                <div class="epgo-stat-num" style="color:#FDB022;">24H</div>
-                <div class="epgo-stat-label">快速答疑</div>
+                <div class="epgo-stat-num" style="color:#FDB022;">1对1</div>
+                <div class="epgo-stat-label">老师人工建议</div>
             </div>
         </div>
     </div>
@@ -174,7 +174,7 @@ try {
                     </a>
                     <a href="/download/" class="epgo-path-item" style="--c:#7C3AED;">
                         <span class="epgo-path-badge" style="background:#F5F3FF;color:#7C3AED;">资料</span>
-                        <span>免费下载 · 历年真题资料</span>
+                        <span>原创学习表格与资料</span>
                         <span class="epgo-path-arrow">→</span>
                     </a>
                 </div>
@@ -284,7 +284,7 @@ try {
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:12px;">
             <div>
                 <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">最新学习资源</h2>
-                <p style="font-size:14px;color:#6B7280;margin:0;">精选英语学习内容，每日更新</p>
+            <p style="font-size:14px;color:#6B7280;margin:0;">围绕真实学习问题持续更新</p>
             </div>
             <a href="/reading/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
         </div>
@@ -405,41 +405,41 @@ try {
 </style>
 
 
-<!-- ════════════ 学员评价 ════════════ -->
+<!-- ════════════ 学习成果说明 ════════════ -->
 <section style="padding:60px 0;background:#EFF6FF;">
     <div class="container">
         <div style="text-align:center;margin-bottom:36px;">
-            <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 10px;">学员评价</h2>
-            <p style="font-size:15px;color:#6B7280;margin:0;">真实学员反馈，见证每一次进步</p>
+            <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 10px;">学习成果怎么判断</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0;">先看过程记录，再决定下一阶段的学习安排</p>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
                 <div class="epgo-review-card" style="border-left-color:#FDB022;">
-                    <div class="epgo-review-stars">★★★★★</div>
-                    <p class="epgo-review-text">"非常棒的平台！KET课程讲得特别清楚，从基础开始学，现在已经通过考试了。老师非常耐心，课后问题都能及时回答。"</p>
+                    <div class="epgo-review-stars">阅读</div>
+                    <p class="epgo-review-text">记录做题时的定位词、错误选项和复盘原因，比只记录分数更容易发现孩子卡在哪里。</p>
                     <div class="epgo-review-author">
-                        <strong>李同学</strong>
-                        <span>北京 · KET高分通过</span>
+                        <strong>看得懂</strong>
+                        <span>从定位信息到理解段落关系</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
                 <div class="epgo-review-card" style="border-left-color:#16A34A;">
-                    <div class="epgo-review-stars">★★★★★</div>
-                    <p class="epgo-review-text">"PET备考课程非常系统，从词汇到写作都有详细讲解。真题解析让我掌握了出题规律，考试时信心十足！"</p>
+                    <div class="epgo-review-stars">听说</div>
+                    <p class="epgo-review-text">保留录音、跟读和老师点评，观察表达是否更完整，而不是只追求一次口语分数。</p>
                     <div class="epgo-review-author">
-                        <strong>王同学</strong>
-                        <span>上海 · PET高分通过</span>
+                        <strong>说得出</strong>
+                        <span>从模仿短句到连贯表达</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
                 <div class="epgo-review-card" style="border-left-color:#2563EB;">
-                    <div class="epgo-review-stars">★★★★★</div>
-                    <p class="epgo-review-text">"物超所值！学到了考试内容，还能学到实用英语技能。现在可以流畅地和外国友人交流，感谢英语陪跑GO！"</p>
+                    <div class="epgo-review-stars">写作</div>
+                    <p class="epgo-review-text">把作文修改前后的句子并排保存，关注主干、连接关系和信息完整度，进步才有迹可循。</p>
                     <div class="epgo-review-author">
-                        <strong>林同学</strong>
-                        <span>福州 · PET高分+口语提升</span>
+                        <strong>写得清楚</strong>
+                        <span>从句子正确到内容完整</span>
                     </div>
                 </div>
             </div>
@@ -470,7 +470,7 @@ try {
             </div>
             <div class="epgo-faq-item">
                 <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">课程有效期是多久？<span class="epgo-faq-icon">+</span></div>
-                <div class="epgo-faq-a">课程永久有效，可随时学习和复习。我们会定期更新内容，确保你学到最新的考试信息和技巧。</div>
+                <div class="epgo-faq-a">课程有效期、可学习内容和服务范围以购买页面及订单说明为准。购买前可以先完成入学测评，再和老师确认适合的学习安排。</div>
             </div>
             <div class="epgo-faq-item">
                 <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">如何获得每日备考内容推送？<span class="epgo-faq-icon">+</span></div>
@@ -478,7 +478,7 @@ try {
             </div>
             <div class="epgo-faq-item">
                 <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">如果没通过考试怎么办？<span class="epgo-faq-icon">+</span></div>
-                <div class="epgo-faq-a">我们有完善的反馈机制。如果学习了全部课程还没通过，可以联系我们获得额外指导和支持。帮你成功通过考试是我们的目标！</div>
+                <div class="epgo-faq-a">考试结果会受到基础、备考时间和考试状态影响。可以把测评结果、错题和学习记录交给老师，一起判断下一阶段应该补词汇、阅读、听力还是口语。</div>
             </div>
         </div>
     </div>
@@ -508,7 +508,7 @@ function epgoToggleFaq(el){
 <section style="padding:56px 0;background:linear-gradient(135deg,#1e3a8a,#2563eb);">
     <div class="container" style="text-align:center;">
         <h2 style="font-size:30px;font-weight:800;color:white;margin:0 0 12px;">关注公众号，每天进步一点点</h2>
-        <p style="font-size:15px;color:rgba(255,255,255,.85);margin:0 0 28px;">扫码关注"英语陪跑GO"，每日推送 KET/PET 备考干货、词汇和真题解析</p>
+        <p style="font-size:15px;color:rgba(255,255,255,.85);margin:0 0 28px;">扫码关注“英语陪跑GO”，领取学习计划和测评解读提醒</p>
         <div style="display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;">
             <a href="/about/" style="background:white;color:#1e3a8a;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;">了解更多 →</a>
             <a href="/reading/" style="background:rgba(255,255,255,.15);color:white;padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;font-size:14px;border:1px solid rgba(255,255,255,.4);">浏览文章</a>

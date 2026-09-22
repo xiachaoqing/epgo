@@ -153,6 +153,15 @@
 
     <div class="copy p-y-10 border-top1">
         <div class="container text-xs-center">
+            <div class="epgo-legal-links" style="margin-bottom:8px;font-size:13px;">
+                <a href="/privacy.html" rel="nofollow">隐私政策</a>
+                <span style="margin:0 8px;opacity:.45;">|</span>
+                <a href="/terms.html" rel="nofollow">服务条款</a>
+                <span style="margin:0 8px;opacity:.45;">|</span>
+                <a href="/about/">关于我们</a>
+                <span style="margin:0 8px;opacity:.45;">|</span>
+                <a href="/feedback/">联系我们</a>
+            </div>
             <if value="$c['met_footright'] || $c['met_footstat']">
                 <div class="met_footright">
                     <span>{$c.met_footright}</span>&nbsp;

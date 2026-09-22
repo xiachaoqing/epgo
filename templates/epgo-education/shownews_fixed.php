@@ -189,20 +189,7 @@
                         </div>
                     </div>
 
-                    <!-- Google AdSense广告 -->
-                    <div class="card" style="margin-bottom: 30px;">
-                        <div class="card-body" style="padding: 0; overflow: hidden;">
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-client="ca-pub-2043497135383313"
-                                 data-ad-slot="2043497135383313"
-                                 data-ad-format="rectangle"
-                                 data-full-width-responsive="true"></ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                        </div>
-                    </div>
+                    <!-- 审核阶段只保留站点连接代码；广告位编号经 AdSense 后台生成后再单独加入。 -->
 
                     <!-- 公众号推广卡片 -->
                     <div class="card">
