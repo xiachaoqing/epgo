@@ -35,9 +35,6 @@
                         <div style="font-size: 13px; color: #999;">
                             <i class="icon wb-time"></i> {$data.inputtime|date_format:'%Y-%m-%d %H:%M'}
                         </div>
-                        <div style="font-size: 13px; color: #999;">
-                            <i class="icon wb-eye"></i> 浏览: {$data.hits}
-                        </div>
                     </div>
 
                     <!-- 文章图片 -->
@@ -178,7 +175,7 @@
                         <div class="card-body">
                             <h5 style="margin-bottom: 20px;">热门文章</h5>
                             <ul style="list-style: none; padding: 0; margin: 0;">
-                                <tag action='list' cid="$data['classid']" num='5' type='news' orderby='hits DESC'>
+                                <tag action='list' cid="$data['classid']" num='5' type='news' orderby='updatetime DESC'>
                                 <li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #EEEEEE;">
                                     <a href="{$v.url}" title="{$v.title}" style="color: #1E88E5; text-decoration: none; font-size: 13px; line-height: 1.6; display: block;">
                                         {$v.title|truncate:35}

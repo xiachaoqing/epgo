@@ -41,10 +41,6 @@
                     <i class="icon wb-calendar"></i>
                     {$v.updatetime}
                 </span>
-                <span style="display:flex; align-items:center; gap:4px;">
-                    <i class="icon wb-eye"></i>
-                    {$v.hits}次
-                </span>
             </div>
             <a href="{$v.url}" title="{$v.title}" {$g.urlnew} class="epgo-list-readmore" style="color:#2563EB; font-size:13px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:6px; transition:all 0.3s;">
                 继续阅读

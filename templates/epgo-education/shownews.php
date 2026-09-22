@@ -17,12 +17,6 @@
                                 <if value="1">
                                     <span>{$data.issue}</span>
                                 </if>
-                                <if value="1">
-                                    <span>
-                                        <i class="icon wb-eye m-r-5" aria-hidden="true"></i>
-                                        {$data.hits}
-                                    </span>
-                                </if>
                             </div>
                         </section>
 

@@ -379,7 +379,7 @@ $_epgo_banners = array();
                         <p class="epgo-article-desc"><?php echo htmlspecialchars(mb_substr($_desc, 0, 90)); ?></p>
                         <div class="epgo-article-meta">
                             <span><?php echo $_time; ?></span>
-                            <span><?php echo intval($_v['hits']); ?> 阅读</span>
+                            <span>按主题持续整理</span>
                         </div>
                     </div>
                 </div>
