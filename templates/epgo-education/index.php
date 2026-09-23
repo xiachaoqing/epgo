@@ -13,7 +13,7 @@ unset($_epgo_home_schema);
 ?>
 
 <?php
-/* ── Banner：从数据库读取，否则显示静态 fallback ── */
+/* ── Banner：保留可核验素材，过滤旧宣传口径，并补足统一的学习入口 ── */
 $_epgo_banners = array();
 try {
     $_epgo_pdo = new PDO(
@@ -27,8 +27,48 @@ try {
     if ($_epgo_stmt) $_epgo_banners = $_epgo_stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(Exception $_e) {}
 
-/* AdSense 内容治理阶段只展示可核验的静态学习入口；后台旧 banner 可能含有无法证明的规模或通过率文案。 */
+/* 旧 banner 中可能有无法证明的规模、通过率或“保过”承诺，只过滤这些口径，不关闭整个轮播。 */
+$_epgo_raw_banners = $_epgo_banners;
 $_epgo_banners = array();
+foreach ($_epgo_raw_banners as $_b) {
+    $_promo_text = trim((string)($_b['img_title'] ?? '') . ' ' . (string)($_b['img_des'] ?? ''));
+    if (preg_match('/10000|1000\\+|1万|98%|通过率|成功率|保过|永久有效|学员已学|高分通过|全国.*(学员|机构)/u', $_promo_text)) {
+        continue;
+    }
+    if (!empty($_b['img_path'])) {
+        $_epgo_banners[] = $_b;
+    }
+}
+
+/* 没有可用图片，或旧数据不足三张时，用同一视觉语言的内容卡片补足轮播。 */
+$_epgo_fallback_banners = array(
+    array(
+        'img_title' => '先做入学测评，再安排学习路径',
+        'img_des'   => '用一套基础测评了解词汇、阅读、听力和语法情况，再决定下一步怎么学。',
+        'img_link'  => '/epgo/assessment.html',
+        'img_path'  => '',
+        'img_bg'    => 'linear-gradient(135deg,#15356f 0%,#2563eb 58%,#60a5fa 100%)',
+    ),
+    array(
+        'img_title' => 'KET / PET 题型解析',
+        'img_des'   => '按阅读、写作、听力和口语拆解学习方法，帮助孩子把每天的练习做得更具体。',
+        'img_link'  => '/ket/',
+        'img_path'  => '',
+        'img_bg'    => 'linear-gradient(135deg,#14532d 0%,#16a34a 58%,#86efac 100%)',
+    ),
+    array(
+        'img_title' => '英语陪跑GO App',
+        'img_des'   => '配合老师作业、跟读录音和日常学习记录，把课堂练习延伸到家里。',
+        'img_link'  => 'https://go.xiachaoqing.com/epgo/',
+        'img_path'  => '',
+        'img_bg'    => 'linear-gradient(135deg,#7c2d12 0%,#ea580c 58%,#fdba74 100%)',
+    ),
+);
+foreach ($_epgo_fallback_banners as $_fallback) {
+    if (count($_epgo_banners) >= 3) break;
+    $_epgo_banners[] = $_fallback;
+}
+unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
 ?>
 
 <!-- ════════════ BANNER ════════════ -->
@@ -36,29 +76,26 @@ $_epgo_banners = array();
 <?php if (!empty($_epgo_banners)): ?>
     <?php foreach($_epgo_banners as $_bi => $_b): ?>
     <div class="epgo-slide" style="display:<?php echo $_bi===0?'block':'none'; ?>;position:relative;">
-        <a href="<?php echo htmlspecialchars($_b['img_link']); ?>" title="<?php echo htmlspecialchars($_b['img_title']); ?>">
+        <?php if (!empty($_b['img_path'])): ?>
+        <a href="<?php echo htmlspecialchars($_b['img_link'] ?? '#', ENT_QUOTES, 'UTF-8'); ?>" title="<?php echo htmlspecialchars($_b['img_title'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             <img src="<?php echo htmlspecialchars($_b['img_path']); ?>"
-                 alt="<?php echo htmlspecialchars($_b['img_title']); ?>"
+                 alt="<?php echo htmlspecialchars($_b['img_title'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                  style="width:100%;height:480px;object-fit:cover;display:block;">
         </a>
-        <?php if($_b['img_title']): ?>
+        <?php else: ?>
+        <div class="epgo-slide-fallback-bg" style="height:480px;background:<?php echo htmlspecialchars($_b['img_bg'] ?? 'linear-gradient(135deg,#1e3a8a,#2563eb)', ENT_QUOTES, 'UTF-8'); ?>;"></div>
+        <?php endif; ?>
+        <?php if(!empty($_b['img_title'])): ?>
         <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.6));padding:40px 60px 32px;line-height:1.4;">
-            <h2 style="font-size:36px;font-weight:700;color:white;margin:0 0 10px;"><?php echo htmlspecialchars($_b['img_title']); ?></h2>
-            <?php if($_b['img_des']): ?>
-            <p style="font-size:17px;color:rgba(255,255,255,.9);margin:0 0 18px;"><?php echo htmlspecialchars($_b['img_des']); ?></p>
+            <h2 style="font-size:36px;font-weight:700;color:white;margin:0 0 10px;"><?php echo htmlspecialchars($_b['img_title'], ENT_QUOTES, 'UTF-8'); ?></h2>
+            <?php if(!empty($_b['img_des'])): ?>
+            <p style="font-size:17px;color:rgba(255,255,255,.9);margin:0 0 18px;"><?php echo htmlspecialchars($_b['img_des'], ENT_QUOTES, 'UTF-8'); ?></p>
             <?php endif; ?>
-            <a href="<?php echo htmlspecialchars($_b['img_link']); ?>" style="display:inline-block;background:white;color:#1e3a8a;font-weight:700;padding:11px 26px;border-radius:6px;text-decoration:none;font-size:15px;">立即查看 →</a>
+            <a href="<?php echo htmlspecialchars($_b['img_link'] ?? '#', ENT_QUOTES, 'UTF-8'); ?>" style="display:inline-block;background:white;color:#1e3a8a;font-weight:700;padding:11px 26px;border-radius:6px;text-decoration:none;font-size:15px;">立即查看 →</a>
         </div>
         <?php endif; ?>
     </div>
     <?php endforeach; ?>
-<?php else: ?>
-    <div class="epgo-slide" style="display:block;background:linear-gradient(135deg,#1e3a8a,#2563eb);padding:90px 0;text-align:center;">
-        <h1 style="font-size:46px;font-weight:800;color:white;margin:0 0 14px;">英语陪跑GO</h1>
-        <p style="font-size:19px;color:rgba(255,255,255,.9);margin:0 0 28px;">专业 KET / PET 备考平台，每天进步一点点</p>
-        <a href="/ket/" style="display:inline-block;background:white;color:#1e3a8a;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;margin:0 8px;">KET备考 →</a>
-        <a href="/pet/" style="display:inline-block;background:rgba(255,255,255,.18);color:white;font-weight:700;padding:13px 30px;border-radius:8px;text-decoration:none;border:2px solid white;margin:0 8px;">PET备考</a>
-    </div>
 <?php endif; ?>
 
     <div id="epgo-dots" style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;"></div>
@@ -69,6 +106,7 @@ $_epgo_banners = array();
 <style>
 @media(max-width:768px){
   .epgo-banner-wrap img{height:220px !important;}
+  .epgo-banner-wrap .epgo-slide-fallback-bg{height:220px !important;}
   .epgo-banner-wrap [style*="font-size:36px"]{font-size:20px !important;}
   .epgo-banner-wrap [style*="padding:40px"]{padding:16px 16px 14px !important;}
   .epgo-banner-wrap p{display:none !important;}
