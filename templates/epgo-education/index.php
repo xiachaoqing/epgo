@@ -243,7 +243,7 @@ $_epgo_banners = array();
                     <h3 class="epgo-course-title">KET 备考</h3>
                     <p class="epgo-course-desc">剑桥英语初级认证，适合初中到高中学生，全面覆盖听说读写，从零基础到高分通过。</p>
                     <div class="epgo-course-links">
-                        <a href="/ket-exam/list-111.html">真题解析</a>
+                        <a href="/ket-exam/list-111.html">题型解析</a>
                         <a href="/ket-word/list-112.html">词汇速记</a>
                         <a href="/ket-write/list-113.html">写作指导</a>
                         <a href="/ket-listen/list-114.html">听力技巧</a>
@@ -256,7 +256,7 @@ $_epgo_banners = array();
                     <h3 class="epgo-course-title">PET 备考</h3>
                     <p class="epgo-course-desc">剑桥英语中级认证，适合高中到大学学生，国际认可资格证书，提升竞争力必备选择。</p>
                     <div class="epgo-course-links">
-                        <a href="/pet-exam/list-121.html">真题解析</a>
+                        <a href="/pet-exam/list-121.html">题型解析</a>
                         <a href="/pet-word/list-122.html">词汇速记</a>
                         <a href="/pet-write/list-123.html">写作指导</a>
                         <a href="/pet-read/list-124.html">阅读技巧</a>
@@ -488,7 +488,7 @@ $_epgo_banners = array();
             </div>
             <div class="epgo-faq-item">
                 <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">如何获得每日备考内容推送？<span class="epgo-faq-icon">+</span></div>
-                <div class="epgo-faq-a">关注我们的微信公众号"英语陪跑GO"，每日推送备考词汇、真题解析和写作技巧，坚持跟读效果显著。可扫描页面底部二维码关注。</div>
+                <div class="epgo-faq-a">关注我们的微信公众号"英语陪跑GO"，每日推送备考词汇、题型解析和写作技巧，坚持跟读效果显著。可扫描页面底部二维码关注。</div>
             </div>
             <div class="epgo-faq-item">
                 <div class="epgo-faq-q" onclick="epgoToggleFaq(this)">如果没通过考试怎么办？<span class="epgo-faq-icon">+</span></div>
