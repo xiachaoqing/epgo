@@ -113,12 +113,17 @@
     <style>
     .epgo-footer-grid{display:flex;align-items:stretch;}
     .epgo-footer-grid > [class*="col-"]{float:none;display:flex;flex-direction:column;align-items:center;text-align:center;}
+    .epgo-footer-grid > [class*="col-"] > h4{line-height:1.35;margin-bottom:18px;}
     .epgo-footer-about-text{max-width:300px;margin:0 auto 16px;color:rgba(255,255,255,.62);font-size:13px;line-height:1.8;}
     .epgo-footer-quicklinks{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;font-size:13px;}
     .epgo-footer-quicklinks a{color:rgba(255,255,255,.82);}
     .epgo-footer-quicklinks a:hover{color:#fff;}
     .epgo-footer-center{text-align:center;}
-    .epgo-footer-center .erweima{display:flex;justify-content:center;}
+    .epgo-footer-center .erweima{width:100%;max-width:220px;margin:0 auto;display:flex;justify-content:center;}
+    .epgo-footer-center .imgbox1{float:none;width:auto;padding:0;text-align:center;}
+    .epgo-footer-center .imgbox1 img{display:block;width:112px;height:112px;margin:0 auto 10px;padding:6px;background:#fff;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.16);}
+    .epgo-footer-center .weixintext{margin:0;color:rgba(255,255,255,.62);font-size:13px;line-height:1.4;white-space:nowrap;}
+    .epgo-footer-center .imgbox2{display:none;}
     .epgo-friend-link{border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);}
     .epgo-friend-label{color:rgba(255,255,255,.55);font-size:13px;margin-right:10px;}
     .epgo-friend-card{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;}
@@ -130,6 +135,7 @@
     @media(max-width:767px){
       .epgo-footer-grid{display:block;}
       .epgo-footer-grid > [class*="col-"]{display:block;margin-bottom:24px;}
+      .epgo-footer-grid > [class*="col-"] > h4{margin-bottom:12px;}
       .epgo-friend-card{display:flex;flex-direction:column;gap:3px;margin:6px auto 0;}
       .epgo-friend-label{display:block;margin:0;}
     }
