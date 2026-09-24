@@ -7,7 +7,7 @@ $_epgo_article_schema = array(
     'headline' => trim(strip_tags($data['title'] ?? '英语学习文章')),
     'description' => trim(strip_tags($data['description'] ?? '英语学习与 KET/PET 备考内容')),
     'dateModified' => !empty($data['updatetime']) ? date('c', strtotime($data['updatetime'])) : date('c'),
-    'author' => array('@type' => 'Organization', 'name' => '英语陪跑GO内容团队'),
+    'author' => array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/about/'),
     'publisher' => array('@type' => 'Organization', 'name' => '英语陪跑GO', 'logo' => array('@type' => 'ImageObject', 'url' => 'https://xiachaoqing.com/epgo/logo.png')),
     'mainEntityOfPage' => array('@type' => 'WebPage', '@id' => 'https://xiachaoqing.com' . (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'))
 );
@@ -27,6 +27,7 @@ unset($_epgo_article_schema);
                         <section class="details-title border-bottom1">
                             <h1 class="m-0">{$data.title}</h1>
                             <div class="info font-weight-300">
+                                <span class="epgo-article-author">作者：Cathy｜英语陪跑GO</span>
                                 <span>{$data.updatetime}</span>
                                 <if value="1">
                                     <span>{$data.issue}</span>
@@ -163,5 +164,6 @@ unset($_epgo_article_schema);
 <style>
 .epgo-detail-cover{margin:22px 0 28px;border-radius:16px;overflow:hidden;background:#F3F4F6;box-shadow:0 4px 18px rgba(0,0,0,.08);}
 .epgo-detail-cover img{display:block;width:100%;height:auto;min-height:220px;object-fit:cover;}
+.epgo-article-author{color:#1565C0;font-weight:500;}
 </style>
 <include file="foot.php" />

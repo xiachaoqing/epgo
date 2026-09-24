@@ -7,7 +7,7 @@ $_epgo_article_schema = array(
     'headline' => trim(strip_tags($data['title'] ?? '英语学习文章')),
     'description' => trim(strip_tags($data['description'] ?? '英语学习与 KET/PET 备考内容')),
     'dateModified' => !empty($data['updatetime']) ? date('c', strtotime($data['updatetime'])) : date('c'),
-    'author' => array('@type' => 'Organization', 'name' => '英语陪跑GO内容团队'),
+    'author' => array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/about/'),
     'publisher' => array('@type' => 'Organization', 'name' => '英语陪跑GO', 'logo' => array('@type' => 'ImageObject', 'url' => 'https://xiachaoqing.com/epgo/logo.png')),
     'mainEntityOfPage' => array('@type' => 'WebPage', '@id' => 'https://xiachaoqing.com' . (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'))
 );
@@ -48,6 +48,9 @@ unset($_epgo_article_schema);
                         </div>
                         <div style="font-size: 13px; color: #999;">
                             <i class="icon wb-time"></i> {$data.inputtime|date_format:'%Y-%m-%d %H:%M'}
+                        </div>
+                        <div style="font-size: 13px; color: #1565C0; font-weight: 500;">
+                            作者：Cathy｜英语陪跑GO
                         </div>
                     </div>
 
@@ -221,5 +224,9 @@ unset($_epgo_article_schema);
         </div>
     </section>
 </main>
+
+<style>
+.epgo-article-author{color:#1565C0;font-weight:500;}
+</style>
 
 <include file="foot.php" />

@@ -42,6 +42,11 @@
                     </div>
                 </div>
 
+                <div class="epgo-about-editor">
+                    <strong>内容编辑：Cathy｜英语陪跑GO</strong>
+                    <p>负责 KET / PET 学习内容整理、原创练习设计和文章复核。文章中的示例会尽量使用自编场景，并注明适用的学习阶段。</p>
+                </div>
+
                 <div class="epgo-about-path">
                     <h3>推荐学习路径</h3>
                     <div class="epgo-about-steps">
@@ -79,6 +84,9 @@
 .epgo-about-card{background:#F8FAFC;border:1px solid #E5E7EB;border-radius:12px;padding:20px;}
 .epgo-about-card h3{margin:0 0 10px;font-size:18px;color:#111827;}
 .epgo-about-card p{margin:0;color:#6B7280;font-size:14px;line-height:1.8;}
+.epgo-about-editor{margin:0 0 28px;padding:16px 20px;border-left:3px solid #2563EB;background:#F8FAFC;color:#374151;border-radius:0 10px 10px 0;}
+.epgo-about-editor strong{display:block;margin-bottom:6px;color:#111827;font-size:15px;}
+.epgo-about-editor p{margin:0;color:#6B7280;font-size:13px;line-height:1.8;}
 .epgo-about-path{background:linear-gradient(135deg,#EFF6FF,#F8FAFC);border-radius:14px;padding:24px;margin-bottom:24px;}
 .epgo-about-path h3{margin:0 0 18px;font-size:20px;color:#111827;}
 .epgo-about-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
