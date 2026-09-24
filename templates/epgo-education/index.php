@@ -279,7 +279,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                 <div class="epgo-course-card" style="border-top-color:#2563EB;">
                     <div class="epgo-course-icon" style="background:#EFF6FF;color:#2563EB;">K</div>
                     <h3 class="epgo-course-title">KET 备考</h3>
-                    <p class="epgo-course-desc">剑桥英语初级认证，适合初中到高中学生，全面覆盖听说读写，从零基础到高分通过。</p>
+                    <p class="epgo-course-desc">围绕听说读写建立词汇、阅读、听力和口语的备考习惯，适合需要系统准备 KET 的学习者。</p>
                     <div class="epgo-course-links">
                         <a href="/ket-exam/list-111.html">题型解析</a>
                         <a href="/ket-word/list-112.html">词汇速记</a>
@@ -292,7 +292,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                 <div class="epgo-course-card" style="border-top-color:#16A34A;">
                     <div class="epgo-course-icon" style="background:#F0FDF4;color:#16A34A;">P</div>
                     <h3 class="epgo-course-title">PET 备考</h3>
-                    <p class="epgo-course-desc">剑桥英语中级认证，适合高中到大学学生，国际认可资格证书，提升竞争力必备选择。</p>
+                    <p class="epgo-course-desc">按阅读、写作、听力和口语分项练习，适合已有基础、希望逐步提高综合英语能力的学习者。</p>
                     <div class="epgo-course-links">
                         <a href="/pet-exam/list-121.html">题型解析</a>
                         <a href="/pet-word/list-122.html">词汇速记</a>

@@ -7,8 +7,10 @@ $_epgo_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 $_epgo_path = '/' . ltrim($_epgo_path, '/');
 $_epgo_canonical = 'https://xiachaoqing.com' . $_epgo_path;
 echo '<link rel="canonical" href="' . htmlspecialchars($_epgo_canonical, ENT_QUOTES, 'UTF-8') . '">' . "\n";
-/* 搜索、标签、会员和互动页不作为搜索落地页。 */
-if (preg_match('#^/(search|tags|member|message|feedback)(/|$)#', $_epgo_path)) {
+/* 搜索、标签、会员、互动页和版权待核验下载页不作为搜索落地页。 */
+/* speech/607、speech/621 当前正文过短，完成重写前暂不让搜索引擎收录。 */
+if (preg_match('#^/(search|tags|member|message|feedback|download)(/|$)#', $_epgo_path)
+    || preg_match('#^/speech/(607|621)\.html$#', $_epgo_path)) {
     echo '<meta name="robots" content="noindex,follow">' . "\n";
 }
 unset($_epgo_path, $_epgo_canonical);
