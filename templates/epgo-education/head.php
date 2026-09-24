@@ -84,7 +84,12 @@ unset($_epgo_raw,$_eh,$_eu,$_ep,$_en,$_et,$_epgo_db,$_epgo_pre,$_epgo_sql,$_epgo
                                 $_murl = '/' . ltrim($_murl, './');
                             }
                             $_nsub = isset($_epgo_children[$_mid]) ? $_epgo_children[$_mid] : [];
+                            /* 英语陪跑 GO 不提供公开会员中心；保留后台会员能力，但不在前台导航展示。 */
+                            $_epgo_is_member = ((int)($m['module'] ?? 0) === 10)
+                                || (bool)preg_match('#(^|/)member(?:/|$)#i', $_murl)
+                                || trim((string)($m['_name'] ?? $m['name'] ?? '')) === '会员中心';
                         ?>
+                        <?php if (!$_epgo_is_member): ?>
                         <?php if (!empty($_nsub)): ?>
                         <li class="nav-item dropdown">
                             <a href="<?php echo htmlspecialchars($_murl); ?>" title="{$m.name}" class="nav-link dropdown-toggle {$m.class}" data-toggle="dropdown" data-hover="dropdown">{$m._name}</a>
@@ -100,6 +105,7 @@ unset($_epgo_raw,$_eh,$_eu,$_ep,$_en,$_et,$_epgo_db,$_epgo_pre,$_epgo_sql,$_epgo
                         <li class='nav-item'>
                             <a href="<?php echo htmlspecialchars($_murl); ?>" {$m.urlnew} title="{$m.name}" class="nav-link {$m.class}">{$m._name}</a>
                         </li>
+                        <?php endif; ?>
                         <?php endif; ?>
                         </tag>
                     </ul>
