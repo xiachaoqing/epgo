@@ -1,10 +1,20 @@
 <met_meta page="$met_page" />
-<!-- AdSense 站点连接代码；正式投放前不放未知广告位编号。 -->
+<?php
+/*
+ * 工具、测评、搜索和互动页不是广告落地页：这些页面服务用户完成操作，
+ * 不加载自动广告脚本，避免广告覆盖主要功能或出现在低内容页面。
+ */
+$_epgo_request_path = '/' . ltrim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/', '/');
+$_epgo_no_ads = (bool)preg_match('#^/(epgo/(assessment|tools)\.html|search|tags|member|message|feedback|download)(/|$)#i', $_epgo_request_path)
+    || (defined('M_NAME') && in_array(M_NAME, array('search', 'tags', 'member', 'message', 'feedback', 'download'), true));
+if (!$_epgo_no_ads):
+?>
+<!-- AdSense 站点连接代码；仅在文章和学习内容页加载。 -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313" crossorigin="anonymous"></script>
+<?php endif; ?>
 <?php
 /* 统一主域 canonical；忽略筛选、分页和追踪参数，避免同一文章多地址收录。 */
-$_epgo_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-$_epgo_path = '/' . ltrim($_epgo_path, '/');
+$_epgo_path = $_epgo_request_path;
 $_epgo_canonical = 'https://xiachaoqing.com' . $_epgo_path;
 echo '<link rel="canonical" href="' . htmlspecialchars($_epgo_canonical, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 /* 搜索、标签、会员、互动页和版权待核验下载页不作为搜索落地页。 */
@@ -14,7 +24,7 @@ if (preg_match('#^/(search|tags|member|message|feedback|download)(/|$)#', $_epgo
     || preg_match('#^/(ket|pet)/(202|227|356|357|358|412|425|184|186|216|218|219|220)\.html$#', $_epgo_path)) {
     echo '<meta name="robots" content="noindex,follow">' . "\n";
 }
-unset($_epgo_path, $_epgo_canonical);
+unset($_epgo_path, $_epgo_canonical, $_epgo_request_path, $_epgo_no_ads);
 ?>
 <?php
 /* 动态查询子栏目，使用 PATH_CONFIG 常量定位配置文件 */
