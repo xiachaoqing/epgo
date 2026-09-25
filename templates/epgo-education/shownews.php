@@ -60,6 +60,14 @@ unset($_epgo_article_schema);
                             {$data.content}
                         </section>
 
+                        <section class="epgo-article-next" aria-label="学习路径入口">
+                            <div>
+                                <strong>想知道孩子现在适合从哪里开始？</strong>
+                                <p>用一套基础入学测评了解阅读、听力、词汇和表达情况，再把结果交给老师安排下一步练习。</p>
+                            </div>
+                            <a href="/epgo/assessment.html">免费做入学测评 →</a>
+                        </section>
+
                         <!-- 标签 -->
                         <if value="1">
                             <list data="$data['taglist']" name="$tag" num="4"></list>
@@ -165,5 +173,10 @@ unset($_epgo_article_schema);
 .epgo-detail-cover{margin:22px 0 28px;border-radius:16px;overflow:hidden;background:#F3F4F6;box-shadow:0 4px 18px rgba(0,0,0,.08);}
 .epgo-detail-cover img{display:block;width:100%;height:auto;min-height:220px;object-fit:cover;}
 .epgo-article-author{color:#1565C0;font-weight:500;}
+.epgo-article-next{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:30px 0;padding:20px 22px;border:1px solid #dbeafe;border-radius:14px;background:#eff6ff;}
+.epgo-article-next strong{display:block;color:#15356f;font-size:17px;margin-bottom:5px;}
+.epgo-article-next p{margin:0;color:#52627a;font-size:14px;line-height:1.7;}
+.epgo-article-next a{flex:none;padding:10px 16px;border-radius:8px;background:#1565c0;color:#fff;text-decoration:none;font-size:14px;}
+@media(max-width:600px){.epgo-article-next{display:block}.epgo-article-next a{display:inline-block;margin-top:12px;}}
 </style>
 <include file="foot.php" />

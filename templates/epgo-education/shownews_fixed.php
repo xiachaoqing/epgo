@@ -66,6 +66,11 @@ unset($_epgo_article_schema);
                         {$data.content}
                     </div>
 
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin:30px 0;padding:20px 22px;border:1px solid #dbeafe;border-radius:14px;background:#eff6ff;">
+                        <div><strong style="display:block;color:#15356f;font-size:17px;margin-bottom:5px;">想知道孩子现在适合从哪里开始？</strong><p style="margin:0;color:#52627a;font-size:14px;line-height:1.7;">用一套基础入学测评了解阅读、听力、词汇和表达情况，再把结果交给老师安排下一步练习。</p></div>
+                        <a href="/epgo/assessment.html" style="flex:none;padding:10px 16px;border-radius:8px;background:#1565c0;color:#fff;text-decoration:none;font-size:14px;">免费做入学测评 →</a>
+                    </div>
+
                     <!-- 文章标签 -->
                     <if value="$data['tags']">
                     <div style="padding-top: 20px; border-top: 1px solid #EEEEEE; margin-bottom: 40px;">
