@@ -16,9 +16,14 @@ unset($_epgo_home_schema);
 /* ── Banner：保留可核验素材，过滤旧宣传口径，并补足统一的学习入口 ── */
 $_epgo_banners = array();
 try {
+    $_epgo_raw = file_get_contents(PATH_CONFIG . 'config_db.php');
+    preg_match('/con_db_host\s*=\s*"([^"]+)"/', $_epgo_raw, $_eh);
+    preg_match('/con_db_id\s*=\s*"([^"]+)"/', $_epgo_raw, $_eu);
+    preg_match('/con_db_pass\s*=\s*"([^"]+)"/', $_epgo_raw, $_ep);
+    preg_match('/con_db_name\s*=\s*"([^"]+)"/', $_epgo_raw, $_en);
     $_epgo_pdo = new PDO(
-        'mysql:host=127.0.0.1;dbname=epgo_db;charset=utf8',
-        'xiachaoqing', 'Xia@07090218',
+        'mysql:host=' . ($_eh[1] ?? 'localhost') . ';dbname=' . ($_en[1] ?? '') . ';charset=utf8mb4',
+        $_eu[1] ?? '', $_ep[1] ?? '',
         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
     );
     $_epgo_stmt = $_epgo_pdo->query(
@@ -344,17 +349,23 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
             <?php
             $_epgo_home_articles = array();
             try {
+                $_epgo_article_raw = file_get_contents(PATH_CONFIG . 'config_db.php');
+                preg_match('/con_db_host\s*=\s*"([^"]+)"/', $_epgo_article_raw, $_eah);
+                preg_match('/con_db_id\s*=\s*"([^"]+)"/', $_epgo_article_raw, $_eau);
+                preg_match('/con_db_pass\s*=\s*"([^"]+)"/', $_epgo_article_raw, $_eap);
+                preg_match('/con_db_name\s*=\s*"([^"]+)"/', $_epgo_article_raw, $_ean);
                 $_epgo_article_pdo = new PDO(
-                    'mysql:host=127.0.0.1;dbname=epgo_db;charset=utf8',
-                    'xiachaoqing',
-                    'Xia@07090218',
+                    'mysql:host=' . ($_eah[1] ?? 'localhost') . ';dbname=' . ($_ean[1] ?? '') . ';charset=utf8mb4',
+                    $_eau[1] ?? '',
+                    $_eap[1] ?? '',
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
                 );
                 $_epgo_article_sql = "
                     SELECT id,title,description,imgurl,updatetime,hits,class1,class2,class3,issue
                     FROM ep_news
-                    WHERE recycle=0 AND id IN (593,592,591,590,588,597,596,595,300)
-                    ORDER BY FIELD(id,593,592,591,590,588,597,596,595,300)
+                    WHERE recycle=0 AND issue='原创专题' AND LENGTH(content)>=1800
+                    ORDER BY updatetime DESC, id DESC
+                    LIMIT 15
                 ";
                 $_epgo_article_stmt = $_epgo_article_pdo->query($_epgo_article_sql);
                 if ($_epgo_article_stmt) {
@@ -434,6 +445,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php unset($_epgo_article_raw, $_eah, $_eau, $_eap, $_ean); ?>
         </div>
     </div>
 </section>
