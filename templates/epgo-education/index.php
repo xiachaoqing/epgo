@@ -365,7 +365,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                     FROM ep_news
                     WHERE recycle=0 AND issue='原创专题' AND LENGTH(content)>=1800
                     ORDER BY updatetime DESC, id DESC
-                    LIMIT 15
+                    LIMIT 9
                 ";
                 $_epgo_article_stmt = $_epgo_article_pdo->query($_epgo_article_sql);
                 if ($_epgo_article_stmt) {
@@ -451,21 +451,23 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
 </section>
 
 <style>
-.epgo-article-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px solid #E5E7EB;transition:box-shadow .3s,transform .3s;height:100%;}
+.epgo-article-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px solid #E5E7EB;transition:box-shadow .3s,transform .3s;height:100%;display:flex;flex-direction:column;}
 .epgo-article-card:hover{box-shadow:0 8px 20px rgba(0,0,0,.11);transform:translateY(-4px);}
-.epgo-article-img{height:180px;overflow:hidden;background:#F3F4F6;}
+.epgo-article-img{height:180px;overflow:hidden;background:#F3F4F6;flex:none;}
 .epgo-article-img a{display:block;width:100%;height:100%;}
 .epgo-article-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
 .epgo-article-card:hover .epgo-article-img img{transform:scale(1.04);}
 .epgo-article-img-fallback{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);}
 .epgo-article-img-fallback span{font-size:13px;color:#3B82F6;font-weight:700;}
-.epgo-article-body{padding:18px;}
+.epgo-article-body{padding:18px;display:flex;flex-direction:column;flex:1;}
 .epgo-article-cat{font-size:11px;color:#2563EB;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
 .epgo-article-title{font-size:15px;font-weight:700;color:#111827;margin:0 0 10px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .epgo-article-title a{color:inherit;text-decoration:none;}
 .epgo-article-title a:hover{color:#2563EB;}
 .epgo-article-desc{color:#6B7280;font-size:13px;line-height:1.6;margin:0 0 12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.epgo-article-meta{display:flex;justify-content:space-between;font-size:11px;color:#9CA3AF;padding-top:10px;border-top:1px solid #F3F4F6;}
+.epgo-article-meta{display:flex;justify-content:space-between;font-size:11px;color:#9CA3AF;padding-top:10px;border-top:1px solid #F3F4F6;margin-top:auto;}
+@media(max-width:991px){.epgo-article-img{height:170px;}}
+@media(max-width:575px){.epgo-article-img{height:190px;}.epgo-article-body{padding:16px;}}
 </style>
 
 
