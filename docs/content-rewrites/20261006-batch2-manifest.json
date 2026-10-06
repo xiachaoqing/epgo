@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "purpose": "Second editorial batch: seven guides with self-authored exercises and answer explanations",
+  "items": [
+    {
+      "id": 591,
+      "title": "孩子学了很久英语仍不稳定：从输入、输出和复习记录找原因",
+      "action": "rewrite",
+      "file": "591.html",
+      "description": "孩子学了很久英语仍不稳定？用输入、输出和间隔复习记录找到真正的中断点。",
+      "expected_sha256": "0d31b5a93c403c42eb2dd1e2f356e9e68816376a757ce6d042eedaafb280c8f2"
+    },
+    {
+      "id": 597,
+      "title": "KET / PET 写作常见错误：从短句堆叠到完整表达",
+      "action": "rewrite",
+      "file": "597.html",
+      "description": "KET/PET 写作修改先看句子完整、时态和逻辑关系，附自编练习与修改理由。",
+      "expected_sha256": "68e846aa7298757b1e46f752472650d66df28c3b938863d93f95eb06507b4726"
+    },
+    {
+      "id": 616,
+      "title": "线下课、家庭练习和英语陪跑GO App：一周学习如何配合",
+      "action": "rewrite",
+      "file": "616.html",
+      "description": "线下课、家庭练习和英语陪跑GO App 如何配合？用一个每周目标把三者串起来。",
+      "expected_sha256": "45218b782f31aad3fb6d5f894962059f773a16e242bb359f985d68b6a39e564b"
+    },
+    {
+      "id": 622,
+      "title": "孩子每天听英语却不愿开口：15分钟家庭陪练怎么做",
+      "action": "rewrite",
+      "file": "622.html",
+      "description": "孩子每天听英语却不愿开口？用 15 分钟完成整体听、跟读、替换和复述。",
+      "expected_sha256": "6f79006fa55d7e40ae74b0ad14481135597d885ba165f23e58c3f50166c90e67"
+    },
+    {
+      "id": 623,
+      "title": "KET/PET学习计划怎么复盘：用一张记录表决定下周练什么",
+      "action": "rewrite",
+      "file": "623.html",
+      "description": "学习计划怎么复盘？用四项最小记录决定下周只调整哪一个问题。",
+      "expected_sha256": "30dda2d5fd4d43ab9619c7b0c441046572823cfdbb20bf458d11bc51ce6dbb57"
+    },
+    {
+      "id": 624,
+      "title": "背过的单词不会用：把词汇放进句子和任务里",
+      "action": "rewrite",
+      "file": "624.html",
+      "description": "背过的单词不会用？从句子、搭配、替换和真实任务练到能表达。",
+      "expected_sha256": "10f22b54281af5f8b8572956bed2d1c5d15860c27d7bcea204e9429c21657691"
+    },
+    {
+      "id": 625,
+      "title": "三个月熏听计划怎样开始：先定输入材料，再安排输出",
+      "action": "rewrite",
+      "file": "625.html",
+      "description": "三个月熏听计划怎么开始？先选可理解材料，再安排分阶段听懂和复述。",
+      "expected_sha256": "ff86cd52d5957a480579cbfd0129aec9b347ed615674b0775ff3e3e580d27e4a"
+    }
+  ]
+}

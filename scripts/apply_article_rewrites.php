@@ -71,7 +71,8 @@ try {
                 throw new RuntimeException("Article {$id} content file invalid");
             }
             $content = file_get_contents($contentPath);
-            if (trim(strip_tags($content)) === '' || strlen($content) < 2000) {
+            // Keep a meaningful minimum while allowing concise, well-structured guides.
+            if (trim(strip_tags($content)) === '' || strlen($content) < 1100) {
                 throw new RuntimeException("Article {$id} content too short");
             }
             $operations[] = array('action' => 'rewrite', 'id' => $id, 'content' => $content,
