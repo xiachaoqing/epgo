@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "purpose": "Fourth editorial batch",
+  "items": [
+    {
+      "id": 177,
+      "title": "PET 听力训练：从明确事实到转折和说话人态度",
+      "action": "rewrite",
+      "file": "177.html",
+      "description": "PET 听力长对话如何记录原计划、转折和最终决定。",
+      "expected_sha256": "4b35912ced54829fb599bc3ee98b1b9fbf38bda0f9e1eea72ed848fa9c945bfe"
+    },
+    {
+      "id": 200,
+      "title": "KET 听力图片题：先看类别，再听动作和差异",
+      "action": "rewrite",
+      "file": "200.html",
+      "description": "KET 听力图片题如何比较差异、识别共同信息和否定表达。",
+      "expected_sha256": "847f8f80128f56848e732140ddd1d561a4552f0645a9e0f01e3a904ee5ea0635"
+    },
+    {
+      "id": 433,
+      "title": "KET / PET 入学测评后：家长先看这 3 个结果，再安排 14 天计划",
+      "action": "rewrite",
+      "file": "433.html",
+      "description": "入学测评后如何按错误类型安排 14 天学习计划。",
+      "expected_sha256": "614f69a76067034a829e008f1633dfe66aa60d2eef07023d2afc65a05e179067"
+    },
+    {
+      "id": 548,
+      "title": "KET 到 PET 词汇衔接：从认识单词到在语境中使用",
+      "action": "rewrite",
+      "file": "548.html",
+      "description": "KET 到 PET 词汇如何从单词表进入搭配、句子和真实任务。",
+      "expected_sha256": "b25918e66dd4a0299110743e63098a06b34e49d58700fad98c1f663e127fa6c4"
+    },
+    {
+      "id": 577,
+      "title": "PET 听力长对话：四步抓住人物、转折和最终决定",
+      "action": "rewrite",
+      "file": "577.html",
+      "description": "PET 听力长对话如何压缩选项并听出最终安排。",
+      "expected_sha256": "6734f1d2769d3f9fff67aa85b62ad87e2836e605a2e0544cca17502245887121"
+    },
+    {
+      "id": 578,
+      "title": "PET 故事续写：用时间线把图片线索写成完整情节",
+      "action": "rewrite",
+      "file": "578.html",
+      "description": "PET 故事续写如何用人物、问题、行动和结果组织时间线。",
+      "expected_sha256": "52e6d44f25ed0f5766ad258cdc10be506b1093e0f6ea11e9b13a23ef5ae8a545"
+    }
+  ]
+}
