@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "purpose": "Deep quality upgrade of three flagship guides",
+  "items": [
+    {
+      "id": 433,
+      "title": "KET / PET 入学测评后：家长先看这 3 个结果，再安排 14 天计划",
+      "action": "rewrite",
+      "file": "433.html",
+      "description": "入学测评后如何按错误类型安排一份可复查的14天学习计划。",
+      "expected_sha256": "257f1eaf0e573204b66a398a4309ecec29b9a6d45433f16cade498c294ceef2c"
+    },
+    {
+      "id": 597,
+      "title": "KET / PET 写作常见错误：从短句堆叠到完整表达",
+      "action": "rewrite",
+      "file": "597.html",
+      "description": "KET/PET写作如何从任务完成、句子结构、时态和逻辑关系逐层修改。",
+      "expected_sha256": "7c633c962abc2438ea5047c6667645a6fb6a965f579c88f719d567af4b1c55d3"
+    },
+    {
+      "id": 625,
+      "title": "三个月熏听计划怎样开始：先定输入材料，再安排输出",
+      "action": "rewrite",
+      "file": "625.html",
+      "description": "三个月熏听如何选择可理解材料、安排输出并用证据判断效果。",
+      "expected_sha256": "f13bd963a51b808167c690c87917b0d3d41807450f6c18abd6dae2073aab8b16"
+    }
+  ]
+}
