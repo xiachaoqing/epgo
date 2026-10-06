@@ -340,8 +340,8 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
     <div class="container">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:12px;">
             <div>
-                <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">最新学习资源</h2>
-            <p style="font-size:14px;color:#6B7280;margin:0;">围绕真实学习问题持续更新</p>
+                <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">精选学习指南</h2>
+            <p style="font-size:14px;color:#6B7280;margin:0;">每篇聚焦一个问题，附自编练习与答案解析</p>
             </div>
             <a href="/reading/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
         </div>
@@ -363,9 +363,9 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                 $_epgo_article_sql = "
                     SELECT id,title,description,imgurl,updatetime,hits,class1,class2,class3,issue
                     FROM ep_news
-                    WHERE recycle=0 AND issue='原创专题' AND LENGTH(content)>=1800
-                    ORDER BY updatetime DESC, id DESC
-                    LIMIT 9
+                    WHERE recycle=0 AND id IN (599,600,602,604,650,651)
+                    ORDER BY FIELD(id,599,602,604,600,650,651)
+                    LIMIT 6
                 ";
                 $_epgo_article_stmt = $_epgo_article_pdo->query($_epgo_article_sql);
                 if ($_epgo_article_stmt) {

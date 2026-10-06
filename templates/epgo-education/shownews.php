@@ -1,18 +1,25 @@
 <?php defined('IN_MET') or exit('No permission'); ?>
 <include file="head.php" />
 <?php
+$_epgo_author_name = trim((string)($data['publisher'] ?? ''));
+if ($_epgo_author_name === '' || strtolower($_epgo_author_name) === 'system') {
+    $_epgo_author_name = '英语陪跑GO';
+}
+$_epgo_author_schema = $_epgo_author_name === 'Cathy'
+    ? array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/about/')
+    : array('@type' => 'Organization', 'name' => $_epgo_author_name);
 $_epgo_article_schema = array(
     '@context' => 'https://schema.org',
     '@type' => 'Article',
     'headline' => trim(strip_tags($data['title'] ?? '英语学习文章')),
     'description' => trim(strip_tags($data['description'] ?? '英语学习与 KET/PET 备考内容')),
     'dateModified' => !empty($data['updatetime']) ? date('c', strtotime($data['updatetime'])) : date('c'),
-    'author' => array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/about/'),
+    'author' => $_epgo_author_schema,
     'publisher' => array('@type' => 'Organization', 'name' => '英语陪跑GO', 'logo' => array('@type' => 'ImageObject', 'url' => 'https://xiachaoqing.com/epgo/logo.png')),
     'mainEntityOfPage' => array('@type' => 'WebPage', '@id' => 'https://xiachaoqing.com' . (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'))
 );
 echo '<script type="application/ld+json">' . json_encode($_epgo_article_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
-unset($_epgo_article_schema);
+unset($_epgo_article_schema, $_epgo_author_schema);
 ?>
 <main class="met-shownews animsition">
     <div class="container">
@@ -27,7 +34,7 @@ unset($_epgo_article_schema);
                         <section class="details-title border-bottom1">
                             <h1 class="m-0">{$data.title}</h1>
                             <div class="info font-weight-300">
-                                <span class="epgo-article-author">作者：Cathy｜英语陪跑GO</span>
+                                <span class="epgo-article-author">作者：<?php echo htmlspecialchars($_epgo_author_name, ENT_QUOTES, 'UTF-8'); ?></span>
                                 <span>{$data.updatetime}</span>
                                 <if value="1">
                                     <span>{$data.issue}</span>

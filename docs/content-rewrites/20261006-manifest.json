@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "purpose": "Improve six featured guides; hold 27 thin or unverified articles for editorial review",
+  "items": [
+    {
+      "id": 599,
+      "title": "主谓一致总错怎么办：先找句子的核心主语",
+      "action": "rewrite",
+      "file": "599.html",
+      "description": "主谓一致总被邻近名词带偏？用找主语、遮修饰、连读检查三步判断，附四道自编练习与逐题解释。",
+      "expected_sha256": "a1a54eee22c1b88c97c14c8904938c04a0fccdc369376765949d4c58cbba3224"
+    },
+    {
+      "id": 600,
+      "title": "孩子作文总写 good 和 interesting：怎样把空评价写成具体句",
+      "action": "rewrite",
+      "file": "600.html",
+      "description": "作文只会写 good 和 interesting？从动作、变化和原因补出可见细节，附三道自编改写练习。",
+      "expected_sha256": "5597e63793b191047de65a9964fd8e83446694c73da57c1c4b087a5fb5289703"
+    },
+    {
+      "id": 602,
+      "title": "PET阅读题干怎么拆：先判断题目要找原因、结果还是态度",
+      "action": "rewrite",
+      "file": "602.html",
+      "description": "PET 阅读题干问原因、结果还是态度？用一段自编短文演示定位证据、识别转折和排除干扰项。",
+      "expected_sha256": "ffa0840dd6adc3524e5a3eb55959699b29cf7c0a77ffc22631c9281c009ce841"
+    },
+    {
+      "id": 604,
+      "title": "KET/PET听力如何避免听到一个词就选：建立完整判断链",
+      "action": "rewrite",
+      "file": "604.html",
+      "description": "KET/PET 听力听到选项词就选容易错。用两段自编对话练提议与决定、人物任务和最终证据。",
+      "expected_sha256": "7d26d69a22d53d98e0f04e4247e37c7a3878e7cf7ad7e43cb31207de78a7cc1f"
+    },
+    {
+      "id": 650,
+      "title": "英语学习计划总是中断怎么办：先找中断点再调整任务",
+      "action": "rewrite",
+      "file": "650.html",
+      "description": "英语计划三天就中断？先记录中断点，再调整时间、难度和反馈，附可执行的一周样例。",
+      "expected_sha256": "a8769c85d9869b7e46fdf211e779d16394c3631055196c8f69be0964de0d4d74"
+    },
+    {
+      "id": 651,
+      "title": "KET/PET考试前一周怎么安排：保持熟悉度，不做突击换题",
+      "action": "rewrite",
+      "file": "651.html",
+      "description": "KET/PET 考前一周如何安排？按常见失误做短练习、保持熟悉节奏，并核对考点要求。",
+      "expected_sha256": "8269bfea6141323c8e75ce366d375656e0743d379eae9906448a446d3bc49516"
+    },
+    {
+      "id": 626,
+      "title": "KET阅读短通知怎么做：先找动作、时间和限制条件",
+      "action": "hide",
+      "expected_sha256": "c9e9655923f7f16710b9afeef4f93d4862483d9b82ef4e48c3d1167ee5d74edf"
+    },
+    {
+      "id": 627,
+      "title": "KET阅读匹配题：三篇短文如何避免“看见关键词就配对”",
+      "action": "hide",
+      "expected_sha256": "f3afffc0a911b3e21bc63d6e2052fe40e6934ec8f15cc02e1e49ebf40bdf53d4"
+    },
+    {
+      "id": 628,
+      "title": "KET开放完形不靠猜：先判断句子需要哪一类词",
+      "action": "hide",
+      "expected_sha256": "f17b69d21e73c98c6438f39985ab3d22518bd48fcbcb58c92f5be91bb896e704"
+    },
+    {
+      "id": 629,
+      "title": "KET邮件写作25词起步：先完成三项任务，再检查语气",
+      "action": "hide",
+      "expected_sha256": "76b3fd90413359edd00a48c860ee0bcfeab90d1aee46a38f3cfaf368cfeb7bfd"
+    },
+    {
+      "id": 630,
+      "title": "KET图片故事怎么写：用时间线把三幅图连成一件事",
+      "action": "hide",
+      "expected_sha256": "770984d73ec08687257e9e9a88199feb9e6858f3b05871547daca55dbc15c0e6"
+    },
+    {
+      "id": 631,
+      "title": "KET口语第一部分怎么准备：把个人信息说成完整回答",
+      "action": "hide",
+      "expected_sha256": "1c847b6eac44f813d1c1e637d44853713c175d064815ef695f7d3edccfc53547"
+    },
+    {
+      "id": 632,
+      "title": "PET阅读长文选择题：先找证据，再判断作者意思",
+      "action": "hide",
+      "expected_sha256": "be0038fa8d675d410cbfc42a5d03494ff02d725854feefbe2b9aef601cfb8542"
+    },
+    {
+      "id": 633,
+      "title": "PET阅读同义替换进阶：把题干改写成自己的关键词",
+      "action": "hide",
+      "expected_sha256": "2d3df967cc8f114c3fdf5b82ad1210206546d79a0744eb8bdf5550595a5b29ed"
+    },
+    {
+      "id": 634,
+      "title": "PET写作邮件与文章：先确定读者，再决定语气和结构",
+      "action": "hide",
+      "expected_sha256": "73f36586bcceb128f067cdd05190883af09dd60a1cf2fe7408dd3475e41affdf"
+    },
+    {
+      "id": 635,
+      "title": "PET口语讨论如何合作：先回应同伴，再提出自己的理由",
+      "action": "hide",
+      "expected_sha256": "9ec207c729335e7a96b07743b7d103ec99374dc1361910f1142a8eec7e6d37c5"
+    },
+    {
+      "id": 636,
+      "title": "PET听力长对话怎么记笔记：只记录变化，不抄完整句子",
+      "action": "hide",
+      "expected_sha256": "bf44b5efe2483b431d4f3aba3aa45683caf0e918f54c8f9a2d32cb7fe07706d7"
+    },
+    {
+      "id": 637,
+      "title": "KET/PET测评结果怎么转成学习计划：不要只盯着一个总分",
+      "action": "hide",
+      "expected_sha256": "1e5b704f9d4ce54933a0bff36760d05281a0da3306defb2e7fb2b9007e583e6b"
+    },
+    {
+      "id": 638,
+      "title": "家庭英语复习怎么安排：一周四次短练习比一次突击更容易坚持",
+      "action": "hide",
+      "expected_sha256": "7b7760f011dad6fc6868168829db7ca2edf0c5b1bfbb6cca92453bc44a1c32ca"
+    },
+    {
+      "id": 639,
+      "title": "英语绘本怎么选：先看可理解程度，再看孩子是否愿意重复",
+      "action": "hide",
+      "expected_sha256": "c9219b9557557dcec478aaa19d1a5a0ec353c514624294f2ee5ede2ca8d1427f"
+    },
+    {
+      "id": 640,
+      "title": "如何记录英语口语进步：不用追求“像母语者”，先看信息是否完整",
+      "action": "hide",
+      "expected_sha256": "a71677229a3efa0717a571f0da9b73714deac14c88b6a97f55c31fa84807deb4"
+    },
+    {
+      "id": 641,
+      "title": "KET到PET什么时候衔接：先看能否稳定使用，再看是否学完词表",
+      "action": "hide",
+      "expected_sha256": "baa15d3aa0ec024fc223d7309260094b5b21dc2c6a83948f1e33b7d083fc1f94"
+    },
+    {
+      "id": 642,
+      "title": "老师如何把一次课堂作业变成可追踪任务：从布置到反馈的五个节点",
+      "action": "hide",
+      "expected_sha256": "1819fbfad7d3faaa7b42c29b8abad7b50b844c33e7821972dd0906e8454ef3c6"
+    },
+    {
+      "id": 643,
+      "title": "英语学习工具怎么用才不变成“打卡截图”：把工具连接到真实任务",
+      "action": "hide",
+      "expected_sha256": "ac1d1e7e96421582578a25949b71e544565ab0610e9ee0faa2c13926f8bcbad1"
+    },
+    {
+      "id": 644,
+      "title": "KET听力填空题怎么练：先分清数字、姓名和拼写任务",
+      "action": "hide",
+      "expected_sha256": "bb0e580b1ffd09b8d11cda2bbf2303a3b804ec326268cf328883be989c32f4e8"
+    },
+    {
+      "id": 645,
+      "title": "PET语法和词汇选择题：用句子关系代替单词直觉",
+      "action": "hide",
+      "expected_sha256": "e8b52f9a9285614895e51c01ac2db6afa86883c5aae70630e0fa8ae351d798d4"
+    },
+    {
+      "id": 646,
+      "title": "PET听力选择题如何排除干扰：听到相同单词也不要马上选",
+      "action": "hide",
+      "expected_sha256": "fd19d2855f96f21820a2ced7ae6fe232b0deda6335bd314fc6f64d736f8472e8"
+    },
+    {
+      "id": 647,
+      "title": "KET/PET作文怎么做自我修改：先改影响理解的问题",
+      "action": "hide",
+      "expected_sha256": "2684f623a8eb1bf549da2d2e889dd47a133b2e7babec35dd5d426d0600b9dc1d"
+    },
+    {
+      "id": 648,
+      "title": "KET/PET口语录音怎么回听：先听内容，再听语言",
+      "action": "hide",
+      "expected_sha256": "70721f643b0b5ce31429e533c04b868cc8c9554bca3d270f4073ec3bb0cd3d15"
+    },
+    {
+      "id": 649,
+      "title": "家长如何陪孩子读英文：少翻译，多提问和复述",
+      "action": "hide",
+      "expected_sha256": "531cb230a394e960f91ac06e98d6c35e24102fc983a98fc4433cd5dfe71f875b"
+    },
+    {
+      "id": 601,
+      "title": "KET/PET口语总卡壳：用固定启动句缩短反应时间",
+      "action": "hide",
+      "expected_sha256": "4ed4ef59eee0954d6d093eec83845c82d7a5593a710ba96fc80e741b4aadfcc6"
+    },
+    {
+      "id": 603,
+      "title": "KET/PET写作原因句怎么写：把“我喜欢”继续说完整",
+      "action": "hide",
+      "expected_sha256": "cd5166249c0e7a106959b0ff9b9817e84d0eedaee82caab7c94870fdc95c36f9"
+    },
+    {
+      "id": 605,
+      "title": "背过的单词不会用：把一个词放进三个生活场景",
+      "action": "hide",
+      "expected_sha256": "29f493838c6fea6906453f631d706a9cfa553dedd67e67a0a1875887e441e040"
+    }
+  ]
+}
