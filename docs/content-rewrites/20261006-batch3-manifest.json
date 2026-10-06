@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "purpose": "Third editorial batch",
+  "items": [
+    {
+      "id": 417,
+      "title": "KET 阅读细节题：如何定位信息、识别换说法和排除干扰项",
+      "action": "rewrite",
+      "file": "417.html",
+      "description": "KET 阅读细节题如何定位信息、识别同义替换并排除干扰项。",
+      "expected_sha256": "8274fbe1508c19c4be85a6a4bf8b31990096813ef1fc0c182d4936ccea25d3b1"
+    },
+    {
+      "id": 444,
+      "title": "KET 听力数字、时间、价格和地址题：如何听到并写对",
+      "action": "rewrite",
+      "file": "444.html",
+      "description": "KET 听力数字、时间、价格和地址题的记录与复核方法。",
+      "expected_sha256": "ccc8a54f9967265245a8ab3395f33870aa82ffe5e64f3c31c2eb18294a56b5b5"
+    },
+    {
+      "id": 447,
+      "title": "PET 写作展开句：如何从观点写出原因、例子和结果",
+      "action": "rewrite",
+      "file": "447.html",
+      "description": "PET 写作如何从观点补出原因、例子和结果，附自编练习。",
+      "expected_sha256": "40ae55214215a3ffe53530d5e6ce68fb9cc3ca324861675e6e56b87d9fa1fbaa"
+    },
+    {
+      "id": 448,
+      "title": "PET 阅读同义替换：如何从题干找到原文对应信息",
+      "action": "rewrite",
+      "file": "448.html",
+      "description": "PET 阅读同义替换如何核对完整意思，避免只看相同单词。",
+      "expected_sha256": "cfe537327e64217b3782bbcba74212d1b033a6359f71b39ff7fd4b36237e4a14"
+    },
+    {
+      "id": 555,
+      "title": "KET 口语图片描述：从观察顺序到完整表达",
+      "action": "rewrite",
+      "file": "555.html",
+      "description": "KET 口语图片描述如何按人物、地点、动作和结果组织表达。",
+      "expected_sha256": "a1d5d66996a830e851aef42d2c3b413c70e4458b0616a5f2d53d9a49258ceaf1"
+    },
+    {
+      "id": 568,
+      "title": "KET 和 PET 怎么选：从词汇、阅读和表达判断学习阶段",
+      "action": "rewrite",
+      "file": "568.html",
+      "description": "KET 和 PET 如何根据四项任务表现判断学习准备度。",
+      "expected_sha256": "c5e5e6f041677bdc2acdf7ad2f4089ee2183fa658f531faa085e0ba9b1053d9f"
+    }
+  ]
+}

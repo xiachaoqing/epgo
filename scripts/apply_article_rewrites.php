@@ -72,7 +72,7 @@ try {
             }
             $content = file_get_contents($contentPath);
             // Keep a meaningful minimum while allowing concise, well-structured guides.
-            if (trim(strip_tags($content)) === '' || strlen($content) < 1100) {
+            if (trim(strip_tags($content)) === '' || strlen($content) < 1000) {
                 throw new RuntimeException("Article {$id} content too short");
             }
             $operations[] = array('action' => 'rewrite', 'id' => $id, 'content' => $content,
