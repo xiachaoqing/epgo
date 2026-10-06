@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "purpose": "Restore five fully rewritten guides to reach 30 public articles",
+  "items": [
+    {
+      "id": 626,
+      "title": "KET阅读短通知怎么做：先找动作、时间和限制条件",
+      "action": "restore",
+      "file": "626.html",
+      "description": "KET 阅读短通知如何定位动作、时间、对象和限制条件。",
+      "expected_sha256": "c9e9655923f7f16710b9afeef4f93d4862483d9b82ef4e48c3d1167ee5d74edf"
+    },
+    {
+      "id": 627,
+      "title": "KET阅读匹配题：三篇短文如何避免“看见关键词就配对”",
+      "action": "restore",
+      "file": "627.html",
+      "description": "KET 阅读匹配题如何拆解需求并核对多个条件。",
+      "expected_sha256": "f3afffc0a911b3e21bc63d6e2052fe40e6934ec8f15cc02e1e49ebf40bdf53d4"
+    },
+    {
+      "id": 628,
+      "title": "KET开放完形不靠猜：先判断句子需要哪一类词",
+      "action": "restore",
+      "file": "628.html",
+      "description": "KET 开放完形如何先判断词性、搭配和句子关系。",
+      "expected_sha256": "f17b69d21e73c98c6438f39985ab3d22518bd48fcbcb58c92f5be91bb896e704"
+    },
+    {
+      "id": 629,
+      "title": "KET邮件写作25词起步：先完成三项任务，再检查语气",
+      "action": "restore",
+      "file": "629.html",
+      "description": "KET 邮件写作如何先完成三项沟通任务，再检查语气和格式。",
+      "expected_sha256": "76b3fd90413359edd00a48c860ee0bcfeab90d1aee46a38f3cfaf368cfeb7bfd"
+    },
+    {
+      "id": 630,
+      "title": "KET图片故事怎么写：用时间线把三幅图连成一件事",
+      "action": "restore",
+      "file": "630.html",
+      "description": "KET 图片故事如何用问题、行动和结果组织时间线。",
+      "expected_sha256": "770984d73ec08687257e9e9a88199feb9e6858f3b05871547daca55dbc15c0e6"
+    }
+  ]
+}

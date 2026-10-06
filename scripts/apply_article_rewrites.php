@@ -46,26 +46,27 @@ $pdo->beginTransaction();
 try {
     $select = $pdo->prepare('SELECT id,title,description,content,publisher,issue,updatetime,recycle FROM ep_news WHERE id=? FOR UPDATE');
     $rewrite = $pdo->prepare('UPDATE ep_news SET content=?,description=?,publisher=?,updatetime=? WHERE id=?');
+    $restore = $pdo->prepare('UPDATE ep_news SET content=?,description=?,publisher=?,updatetime=?,recycle=0 WHERE id=?');
     $hide = $pdo->prepare('UPDATE ep_news SET recycle=1 WHERE id=?');
     $seen = array();
     $backup = array();
     $operations = array();
     foreach ($manifest['items'] as $item) {
         $id = filter_var($item['id'] ?? null, FILTER_VALIDATE_INT);
-        if (!$id || isset($seen[$id]) || !in_array($item['action'] ?? '', array('rewrite', 'hide'), true)) {
+        if (!$id || isset($seen[$id]) || !in_array($item['action'] ?? '', array('rewrite', 'restore', 'hide'), true)) {
             throw new RuntimeException('Bad or duplicate item');
         }
         $seen[$id] = true;
         $select->execute(array($id));
         $row = $select->fetch(PDO::FETCH_ASSOC);
-        if (!$row || (int)$row['recycle'] !== 0) {
+        if (!$row || (($item['action'] ?? '') === 'restore' && (int)$row['recycle'] !== 1) || (($item['action'] ?? '') !== 'restore' && (int)$row['recycle'] !== 0)) {
             throw new RuntimeException("Article {$id} missing or already hidden");
         }
         if (!hash_equals($item['expected_sha256'], hash('sha256', $row['content']))) {
             throw new RuntimeException("Article {$id} changed after audit; aborting all changes");
         }
         $backup[] = $row;
-        if ($item['action'] === 'rewrite') {
+        if ($item['action'] === 'rewrite' || $item['action'] === 'restore') {
             $contentPath = realpath(dirname($manifestPath) . '/' . $item['file']);
             if (!$contentPath || strpos($contentPath, dirname($manifestPath) . DIRECTORY_SEPARATOR) !== 0) {
                 throw new RuntimeException("Article {$id} content file invalid");
@@ -75,15 +76,15 @@ try {
             if (trim(strip_tags($content)) === '' || strlen($content) < 800) {
                 throw new RuntimeException("Article {$id} content too short");
             }
-            $operations[] = array('action' => 'rewrite', 'id' => $id, 'content' => $content,
+            $operations[] = array('action' => $item['action'], 'id' => $id, 'content' => $content,
                 'description' => $item['description']);
         } else {
             $operations[] = array('action' => 'hide', 'id' => $id);
         }
     }
-    $counts = array('rewrite' => 0, 'hide' => 0);
+    $counts = array('rewrite' => 0, 'restore' => 0, 'hide' => 0);
     foreach ($operations as $op) $counts[$op['action']]++;
-    echo 'Validated: ' . $counts['rewrite'] . ' rewrites, ' . $counts['hide'] . " reversible hides\n";
+    echo 'Validated: ' . $counts['rewrite'] . ' rewrites, ' . $counts['restore'] . ' restores, ' . $counts['hide'] . " reversible hides\n";
     if (!$apply) {
         $pdo->rollBack();
         exit(0);
@@ -95,8 +96,9 @@ try {
     chmod($backupPath, 0600);
     $now = date('Y-m-d H:i:s');
     foreach ($operations as $op) {
-        if ($op['action'] === 'rewrite') {
-            $rewrite->execute(array($op['content'], $op['description'], '英语陪跑GO', $now, $op['id']));
+        if ($op['action'] === 'rewrite' || $op['action'] === 'restore') {
+            $statement = $op['action'] === 'restore' ? $restore : $rewrite;
+            $statement->execute(array($op['content'], $op['description'], '英语陪跑GO', $now, $op['id']));
         } else {
             $hide->execute(array($op['id']));
         }
