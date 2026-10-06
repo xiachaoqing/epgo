@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "purpose": "Deep quality upgrade of three more flagship guides",
+  "items": [
+    {
+      "id": 417,
+      "title": "KET 阅读细节题：如何定位信息、识别换说法和排除干扰项",
+      "action": "rewrite",
+      "file": "417.html",
+      "description": "KET 阅读细节题如何识别题干任务、同义替换和干扰项，附自编短文与答案理由。",
+      "expected_sha256": "6a60a1a002523498c4dbc7fcbc750f84e6f5f5f6bf316d3f697fa48b40b8266d"
+    },
+    {
+      "id": 444,
+      "title": "KET 听力数字、时间、价格和地址题：如何听到并写对",
+      "action": "rewrite",
+      "file": "444.html",
+      "description": "KET 听力数字、时间、价格和地址题如何记录、复核和分类复盘。",
+      "expected_sha256": "e1c8cde27b3afffcdc5d128bb2c524129baa3522610f6d5c72c26b5d184399b7"
+    },
+    {
+      "id": 447,
+      "title": "PET 写作展开句：如何从观点写出原因、例子和结果",
+      "action": "rewrite",
+      "file": "447.html",
+      "description": "PET 写作如何把观点扩展为原因、例子和结果，并完成十分钟自查。",
+      "expected_sha256": "9d29dfe56f7c86eef3c9c474c75728c0d9f7047c5aedb12f27740e56c8fad509"
+    }
+  ]
+}
