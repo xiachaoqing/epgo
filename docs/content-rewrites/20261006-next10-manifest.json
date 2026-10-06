@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "purpose": "Restore ten fully rewritten guides for the assessment-to-study-plan series",
+  "items": [
+    {"id": 631, "title": "KET口语第一部分怎么准备：把个人信息说成完整回答", "action": "restore", "file": "631.html", "description": "KET 口语个人信息回答的完整句和录音复盘方法。", "expected_sha256": "1c847b6eac44f813d1c1e637d44853713c175d064815ef695f7d3edccfc53547"},
+    {"id": 632, "title": "PET阅读长文选择题：先找证据，再判断作者意思", "action": "restore", "file": "632.html", "description": "PET 阅读长文选择题的题干改写、证据定位和排除推断方法。", "expected_sha256": "be0038fa8d675d410cbfc42a5d03494ff02d725854feefbe2b9aef601cfb8542"},
+    {"id": 633, "title": "PET阅读同义替换进阶：把题干改写成自己的关键词", "action": "restore", "file": "633.html", "description": "PET 阅读同义替换的关键词拆解和范围核对方法。", "expected_sha256": "2d3df967cc8f114c3fdf5b82ad1210206546d79a0744eb8bdf5550595a5b29ed"},
+    {"id": 634, "title": "PET写作邮件与文章：先确定读者，再决定语气和结构", "action": "restore", "file": "634.html", "description": "PET 写作中邮件与文章的读者、语气和结构选择。", "expected_sha256": "73f36586bcceb128f067cdd05190883af09dd60a1cf2fe7408dd3475e41affdf"},
+    {"id": 635, "title": "PET口语讨论如何合作：先回应同伴，再提出自己的理由", "action": "restore", "file": "635.html", "description": "PET 口语讨论的回应、理由和追问练习。", "expected_sha256": "9ec207c729335e7a96b07743b7d103ec99374dc1361910f1142a8eec7e6d37c5"},
+    {"id": 636, "title": "PET听力长对话怎么记笔记：只记录变化，不抄完整句子", "action": "restore", "file": "636.html", "description": "PET 听力长对话抓取变化、时间和最终决定的笔记法。", "expected_sha256": "bf44b5efe2483b431d4f3aba3aa45683caf0e918f54c8f9a2d32cb7fe07706d7"},
+    {"id": 637, "title": "KET/PET测评结果怎么转成学习计划：不要只盯着一个总分", "action": "restore", "file": "637.html", "description": "把测评分项、错误类型和时间投入转成可执行计划。", "expected_sha256": "1e5b704f9d4ce54933a0bff36760d05281a0da3306defb2e7fb2b9007e583e6b"},
+    {"id": 638, "title": "家庭英语复习怎么安排：一周四次短练习比一次突击更容易坚持", "action": "restore", "file": "638.html", "description": "家庭每周四次短练习的任务、证据和中断恢复方法。", "expected_sha256": "7b7760f011dad6fc6868168829db7ca2edf0c5b1bfbb6cca92453bc44a1c32ca"},
+    {"id": 639, "title": "英语绘本怎么选：先看可理解程度，再看孩子是否愿意重复", "action": "restore", "file": "639.html", "description": "按可理解程度、重复意愿和延伸任务选择英语绘本。", "expected_sha256": "c9219b9557557dcec478aaa19d1a5a0ec353c514624294f2ee5ede2ca8d1427f"},
+    {"id": 640, "title": "如何记录英语口语进步：不用追求像母语者，先看信息是否完整", "action": "restore", "file": "640.html", "description": "用两周录音记录信息完整、表达清楚和互动修正。", "expected_sha256": "a71677229a3efa0717a571f0da9b73714deac14c88b6a97f55c31fa84807deb4"}
+  ]
+}
