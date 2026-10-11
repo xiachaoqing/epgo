@@ -16,6 +16,8 @@ from __future__ import print_function
 
 import argparse
 from collections import Counter
+import glob
+import hashlib
 import html
 import json
 import re
@@ -75,13 +77,22 @@ def strip_dangerous_html(value):
     value = re.sub(r"\s+on[a-z]+\s*=\s*([\"']).*?\1", "", value, flags=re.I | re.S)
     value = re.sub(r"\s+data-[a-z0-9_-]+\s*=\s*([\"']).*?\1", "", value, flags=re.I | re.S)
     value = re.sub(r"\s+leaf\s*=\s*([\"']).*?\1", "", value, flags=re.I | re.S)
-    # Keep a responsive image rule even when the source used a fixed width.
-    def responsive_image(match):
-        attrs = match.group(1)
-        attrs = re.sub(r"\s+style\s*=\s*([\"']).*?\1", "", attrs, flags=re.I | re.S)
-        return '<img{} style="max-width:100%;height:auto;border-radius:8px;" />'.format(attrs)
+    # The website uses its own local cover images.  Remove inline WeChat
+    # images altogether so no article depends on a remote image host.
+    value = re.sub(r"<img\b[^>]*?/?>", "", value, flags=re.I | re.S)
+    value = re.sub(r"<svg\b[^>]*>.*?</svg\s*>", "", value, flags=re.I | re.S)
+    value = re.sub(r"\s+powered-by\s*=\s*([\"']).*?\1", "", value, flags=re.I | re.S)
+    # Remove the WeChat-only closing block and hidden editor marker.
+    def clean_section(match):
+        section = match.group(0)
+        text = plain_text(section)
+        if any(marker in text for marker in ("觉得有用", "THE END", "禁止转载")):
+            return ""
+        return section
 
-    value = re.sub(r"<img([^>]*)/?>", responsive_image, value, flags=re.I)
+    value = re.sub(r"<section\b[^>]*>.*?</section\s*>", clean_section, value, flags=re.I | re.S)
+    value = re.sub(r"<p\b[^>]*>.*?(觉得有用.*?(转发|分享)|THE\s*END|原创内容\s*[·•]\s*禁止转载).*?</p\s*>", "", value, flags=re.I | re.S)
+    value = re.sub(r"<p\b[^>]*>\s*<mp-style-type>.*?</p\s*>", "", value, flags=re.I | re.S)
     return value.strip()
 
 
@@ -159,10 +170,34 @@ def website_content(item):
         'background:#eff6ff;border-radius:8px;line-height:1.8;">'
         '<strong>继续学习</strong><br>'
         '<a href="https://go.xiachaoqing.com/epgo/assessment.html">做一次 KET/PET 入学测评</a> · '
-        '<a href="https://go.xiachaoqing.com/epgo/">了解英语陪跑GO</a>'
+        '<a href="https://go.xiachaoqing.com/epgo/">了解英语陪跑GO</a> · '
+        '<a href="https://go.xiachaoqing.com/epgo/#follow">关注公众号「英语陪跑GO」</a>'
         '</div>'
     )
     return note + body + related
+
+
+def local_cover(class_id, title):
+    """Choose a deterministic pseudo-random local cover for this article."""
+    paths = glob.glob("/www/wwwroot/go.xiachaoqing.com/upload/epgo-photo-covers/*/*")
+    paths = [p for p in paths if p.lower().endswith((".jpg", ".jpeg", ".png", ".webp"))]
+    groups = {
+        "ket": {101, 111, 112, 113, 114},
+        "pet": {102, 121, 122, 123, 124},
+        "reading": {103},
+        "speech": {104},
+        "daily": {105},
+    }
+    group = next((name for name, ids in groups.items() if class_id in ids), "daily")
+    selected = [p for p in paths if "/{}/".format(group) in p]
+    if not selected:
+        selected = paths
+    if not selected:
+        return ""
+    selected.sort()
+    idx = int(hashlib.sha1(title.encode("utf-8")).hexdigest()[:12], 16) % len(selected)
+    path = selected[idx]
+    return path.split("/www/wwwroot/go.xiachaoqing.com", 1)[-1]
 
 
 def load_items(path):
@@ -202,14 +237,15 @@ def main():
             skipped += 1
             continue
         html_body = website_content(item)
+        class_id = classify(item["title"])
         candidates.append(
             {
                 "title": item["title"].strip(),
                 "content": html_body,
                 "description": plain_text(item.get("digest") or item.get("content", ""))[:200],
-                "class1": classify(item["title"]),
+                "class1": class_id,
                 "keywords": keywords(item["title"]),
-                "imgurl": item.get("thumb_url") or "",
+                "imgurl": local_cover(class_id, item["title"]),
                 "addtime": published_at(item),
             }
         )
