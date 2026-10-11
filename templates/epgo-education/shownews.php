@@ -2,8 +2,9 @@
 <include file="head.php" />
 <?php
 $_epgo_author_name = trim((string)($data['publisher'] ?? ''));
-if ($_epgo_author_name === '' || strtolower($_epgo_author_name) === 'system') {
-    $_epgo_author_name = '英语陪跑GO';
+if ($_epgo_author_name === '' || strtolower($_epgo_author_name) === 'system'
+    || preg_match('/^英语陪跑go$/iu', $_epgo_author_name)) {
+    $_epgo_author_name = 'Cathy';
 }
 $_epgo_author_schema = $_epgo_author_name === 'Cathy'
     ? array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/about/')
