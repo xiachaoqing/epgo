@@ -20,6 +20,26 @@ $_epgo_article_schema = array(
 );
 echo '<script type="application/ld+json">' . json_encode($_epgo_article_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 unset($_epgo_article_schema, $_epgo_author_schema);
+
+$_epgo_article_class_id = intval($data['class1'] ?? 0);
+$_epgo_article_audience = '英语学习者和家长，可根据文章主题选择适合自己的练习方式。';
+$_epgo_article_method = '先通读文章，再完成其中的例句或练习；把不确定的词句记录下来，隔天复习一次。';
+if (in_array($_epgo_article_class_id, array(101, 111, 112, 113, 114), true)) {
+    $_epgo_article_audience = '正在准备 KET，或需要系统补充基础词汇、阅读、听力和写作能力的学习者。';
+    $_epgo_article_method = '先明确题型或知识点，再做文中的例题；把错题按“为什么错、依据在哪、下次怎么判断”记录下来。';
+} elseif (in_array($_epgo_article_class_id, array(102, 121, 122, 123, 124), true)) {
+    $_epgo_article_audience = '已经具备一定英语基础，正在准备 PET 或希望提高综合运用能力的学习者。';
+    $_epgo_article_method = '先读懂题目要求，再定位文章或句子中的证据；完成练习后，用自己的话复述判断过程。';
+} elseif ($_epgo_article_class_id === 103) {
+    $_epgo_article_audience = '希望通过分级阅读、精读和泛读逐步提高理解能力的英语学习者。';
+    $_epgo_article_method = '第一遍先理解大意，第二遍圈出影响理解的词句，最后用一两句话复述文章主旨。';
+} elseif ($_epgo_article_class_id === 104) {
+    $_epgo_article_audience = '希望练习英语表达、演讲结构和口语组织能力的学习者。';
+    $_epgo_article_method = '先模仿文章中的表达，再替换成自己的经历或观点，录音后检查信息是否完整、语速是否自然。';
+} elseif ($_epgo_article_class_id === 105) {
+    $_epgo_article_audience = '希望用短时间保持英语输入和输出习惯的学习者，适合安排在日常碎片时间完成。';
+    $_epgo_article_method = '先听或朗读一遍，再理解关键词和句型，最后不看原文复述或造一个自己的句子。';
+}
 ?>
 <main class="met-shownews animsition">
     <div class="container">
@@ -41,6 +61,21 @@ unset($_epgo_article_schema, $_epgo_author_schema);
                                 </if>
                             </div>
                         </section>
+
+                        <aside class="epgo-article-context" aria-label="文章学习说明">
+                            <div class="epgo-article-context-item">
+                                <strong>作者与编辑</strong>
+                                <span>Cathy｜英语陪跑GO</span>
+                            </div>
+                            <div class="epgo-article-context-item">
+                                <strong>适合人群</strong>
+                                <span><?php echo htmlspecialchars($_epgo_article_audience, ENT_QUOTES, 'UTF-8'); ?></span>
+                            </div>
+                            <div class="epgo-article-context-item">
+                                <strong>建议用法</strong>
+                                <span><?php echo htmlspecialchars($_epgo_article_method, ENT_QUOTES, 'UTF-8'); ?></span>
+                            </div>
+                        </aside>
 
                         <?php
                             $_detail_cover = trim($data['imgurl']);
@@ -180,10 +215,15 @@ unset($_epgo_article_schema, $_epgo_author_schema);
 .epgo-detail-cover{margin:22px 0 28px;border-radius:16px;overflow:hidden;background:#F3F4F6;box-shadow:0 4px 18px rgba(0,0,0,.08);}
 .epgo-detail-cover img{display:block;width:100%;height:auto;min-height:220px;object-fit:cover;}
 .epgo-article-author{color:#1565C0;font-weight:500;}
+.epgo-article-context{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 28px;padding:16px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;}
+.epgo-article-context-item{min-width:0;}
+.epgo-article-context-item strong{display:block;margin-bottom:6px;color:#15356F;font-size:13px;}
+.epgo-article-context-item span{display:block;color:#52627A;font-size:13px;line-height:1.7;}
 .epgo-article-next{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:30px 0;padding:20px 22px;border:1px solid #dbeafe;border-radius:14px;background:#eff6ff;}
 .epgo-article-next strong{display:block;color:#15356f;font-size:17px;margin-bottom:5px;}
 .epgo-article-next p{margin:0;color:#52627a;font-size:14px;line-height:1.7;}
 .epgo-article-next a{flex:none;padding:10px 16px;border-radius:8px;background:#1565c0;color:#fff;text-decoration:none;font-size:14px;}
 @media(max-width:600px){.epgo-article-next{display:block}.epgo-article-next a{display:inline-block;margin-top:12px;}}
+@media(max-width:767px){.epgo-article-context{grid-template-columns:1fr;padding:14px;gap:14px;}.epgo-article-context-item{padding-bottom:12px;border-bottom:1px solid #E2E8F0;}.epgo-article-context-item:last-child{padding-bottom:0;border-bottom:0;}}
 </style>
 <include file="foot.php" />
