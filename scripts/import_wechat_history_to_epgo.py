@@ -86,12 +86,36 @@ def strip_dangerous_html(value):
     def clean_section(match):
         section = match.group(0)
         text = plain_text(section)
-        if any(marker in text for marker in ("觉得有用", "THE END", "禁止转载")):
+        # Some WeChat exports wrap the complete article (including the
+        # closing copyright block) in one large <section>.  Removing that
+        # whole match would silently delete the article body.  Only remove a
+        # short, footer-like section; the paragraph cleanup below still strips
+        # the marker paragraphs when they sit inside a larger wrapper.
+        if (
+            len(text) <= 1200
+            and "禁止转载" in text
+            and ("THE END" in text or "原创内容" in text)
+        ):
             return ""
         return section
 
     value = re.sub(r"<section\b[^>]*>.*?</section\s*>", clean_section, value, flags=re.I | re.S)
-    value = re.sub(r"<p\b[^>]*>.*?(觉得有用.*?(转发|分享)|THE\s*END|原创内容\s*[·•]\s*禁止转载).*?</p\s*>", "", value, flags=re.I | re.S)
+
+    def clean_paragraph(match):
+        paragraph = match.group(0)
+        text = plain_text(paragraph)
+        if (
+            "THE END" in text.upper()
+            or "禁止转载" in text
+            or ("觉得有用" in text and ("转发" in text or "分享" in text))
+        ):
+            return ""
+        return paragraph
+
+    # Match one paragraph at a time.  The previous cross-tag expression could
+    # start at the first paragraph and consume the whole article until it
+    # found the closing footer marker.
+    value = re.sub(r"<p\b[^>]*>.*?</p\s*>", clean_paragraph, value, flags=re.I | re.S)
     value = re.sub(r"<p\b[^>]*>\s*<mp-style-type>.*?</p\s*>", "", value, flags=re.I | re.S)
     return value.strip()
 
