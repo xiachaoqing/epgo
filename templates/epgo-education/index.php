@@ -340,10 +340,10 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
     <div class="container">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:12px;">
             <div>
-                <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">公众号精选</h2>
-            <p style="font-size:14px;color:#6B7280;margin:0;">来自英语陪跑GO公众号的学习文章，按主题持续整理</p>
+                <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">精选学习指南</h2>
+            <p style="font-size:14px;color:#6B7280;margin:0;">围绕 KET / PET 学习问题整理的原创练习与方法</p>
             </div>
-            <a href="/daily/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
+            <a href="/reading/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
         </div>
         <div class="row">
             <?php
@@ -360,13 +360,15 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                     $_eap[1] ?? '',
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT)
                 );
-                // The official WeChat imports carry the site publisher name.
-                // Use their publication time instead of a hand-maintained ID list
-                // so the homepage keeps updating as new articles are imported.
+                // Only editorially reviewed articles belong on the public homepage.
+                // WeChat imports remain hidden until a human has checked their
+                // originality, usefulness, and copyright status.
                 $_epgo_article_sql = "
                     SELECT id,title,description,imgurl,updatetime,addtime,hits,class1,class2,class3,issue
                     FROM ep_news
-                    WHERE recycle=0 AND lang='cn' AND publisher='英语陪跑GO'
+                    WHERE recycle=0 AND lang='cn'
+                      AND issue IN ('原创专题','editorial-v2')
+                      AND LENGTH(content) >= 2000
                     ORDER BY addtime DESC, id DESC
                     LIMIT 9
                 ";
@@ -442,7 +444,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                         <p class="epgo-article-desc"><?php echo htmlspecialchars(mb_substr($_desc, 0, 90)); ?></p>
                         <div class="epgo-article-meta">
                             <span><?php echo $_time; ?></span>
-                            <span>公众号整理</span>
+                            <span>原创练习与方法</span>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,10 @@ Examples (run on the EPGO server):
 
     python3 import_wechat_history_to_epgo.py --input /tmp/wechat-history.json
     python3 import_wechat_history_to_epgo.py --input /tmp/wechat-history.json --apply
+
+New imports are written as ``pending-review`` and remain hidden by default.
+Only after a human has checked the article should the row be assigned an
+editorial issue and made public.
 """
 from __future__ import print_function
 
@@ -245,12 +249,26 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True)
     parser.add_argument("--apply", action="store_true", help="write into ep_news; default is dry-run")
+    parser.add_argument(
+        "--publish-reviewed", action="store_true",
+        help="make reviewed rows public; requires --issue to be an editorial issue",
+    )
+    parser.add_argument(
+        "--issue", default="pending-review",
+        choices=("pending-review", "原创专题", "editorial-v2"),
+        help="editorial state for imported rows (default: pending-review)",
+    )
     args = parser.parse_args()
+
+    if args.publish_reviewed and args.issue == "pending-review":
+        parser.error("--publish-reviewed requires --issue 原创专题 or --issue editorial-v2")
 
     items = load_items(args.input)
     db = pymysql.connect(**DEFAULT_DB, cursorclass=pymysql.cursors.DictCursor)
     cur = db.cursor()
-    cur.execute("SELECT title FROM ep_news WHERE recycle=0")
+    # Check hidden rows too, otherwise a pending review item would be inserted
+    # again every time the source history is synchronized.
+    cur.execute("SELECT title FROM ep_news WHERE lang='cn'")
     existing = {normalize_title(row["title"]) for row in cur.fetchall()}
 
     candidates = []
@@ -287,18 +305,20 @@ def main():
         db.close()
         return 0
 
+    recycle = 0 if args.publish_reviewed else 1
     try:
         for row in candidates:
             cur.execute(
                 """INSERT INTO ep_news
                 (title, ctitle, keywords, description, content, class1,
-                 imgurl, img_ok, wap_ok, displaytype, lang, recycle,
+                 imgurl, img_ok, wap_ok, displaytype, lang, recycle, issue,
                  publisher, updatetime, addtime)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,1,1,'cn',0,%s,%s,%s)""",
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,1,1,'cn',%s,%s,%s,%s,%s)""",
                 (
                     row["title"], row["title"], row["keywords"], row["description"],
                     row["content"], row["class1"], row["imgurl"],
-                    1 if row["imgurl"] else 0, "英语陪跑GO", row["addtime"], row["addtime"],
+                    1 if row["imgurl"] else 0, recycle, args.issue,
+                    "英语陪跑GO", row["addtime"], row["addtime"],
                 ),
             )
         db.commit()
@@ -307,7 +327,8 @@ def main():
         raise
     finally:
         db.close()
-    print("inserted: {}".format(len(candidates)))
+    state = "public" if recycle == 0 else "pending-review (hidden)"
+    print("inserted: {} ({})".format(len(candidates), state))
     return 0
 
 

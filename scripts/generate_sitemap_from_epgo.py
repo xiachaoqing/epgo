@@ -20,7 +20,7 @@ import pymysql
 BASE = "https://xiachaoqing.com"
 STATIC = [
     ("/", "monthly"), ("/ket/", "monthly"), ("/pet/", "monthly"),
-    ("/reading/", "monthly"), ("/speech/", "monthly"), ("/daily/", "monthly"),
+    ("/reading/", "monthly"), ("/speech/", "monthly"),
     ("/about/", "monthly"), ("/about1/", "monthly"),
     ("/ket-exam/list-111.html", "monthly"), ("/ket-word/list-112.html", "monthly"),
     ("/ket-write/list-113.html", "monthly"), ("/ket-listen/list-114.html", "monthly"),
@@ -29,6 +29,12 @@ STATIC = [
     ("/epgo/assessment.html", "monthly"), ("/epgo/tools.html", "monthly"),
     ("/privacy.html", "yearly"), ("/terms.html", "yearly"),
 ]
+
+# Articles imported from the service account are not automatically public.
+# Keep them out of the sitemap until an editor has checked originality,
+# usefulness, and copyright.  The values match the editorial manifests used
+# by the review workflow.
+EDITORIAL_ISSUES = ("原创专题", "editorial-v2")
 
 
 def main():
@@ -49,7 +55,12 @@ def main():
     cur = db.cursor()
     cur.execute("SELECT id, foldername FROM ep_column WHERE isshow=1")
     folders = {int(row["id"]): (row["foldername"] or "").strip("/") for row in cur.fetchall()}
-    cur.execute("SELECT id, class1, addtime FROM ep_news WHERE recycle=0 AND lang='cn' ORDER BY id")
+    cur.execute(
+        "SELECT id, class1, addtime FROM ep_news "
+        "WHERE recycle=0 AND lang='cn' AND issue IN (%s,%s) "
+        "AND LENGTH(content) >= 2000 ORDER BY id",
+        EDITORIAL_ISSUES,
+    )
     articles = cur.fetchall()
     db.close()
 
