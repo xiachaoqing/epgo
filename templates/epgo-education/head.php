@@ -5,7 +5,7 @@
  * 不加载自动广告脚本，避免广告覆盖主要功能或出现在低内容页面。
  */
 $_epgo_request_path = '/' . ltrim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/', '/');
-$_epgo_no_ads = (bool)preg_match('#^/(epgo/(assessment|tools)\.html|search|tags|member|message|feedback|download)(/|$)#i', $_epgo_request_path)
+$_epgo_no_ads = (bool)preg_match('#^/(epgo/(assessment|tools)\.html|daily|search|tags|member|message|feedback|download)(/|$)#i', $_epgo_request_path)
     || (defined('M_NAME') && in_array(M_NAME, array('search', 'tags', 'member', 'message', 'feedback', 'download'), true));
 if (!$_epgo_no_ads):
 ?>
