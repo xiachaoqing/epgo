@@ -100,8 +100,10 @@ unset($_epgo_raw,$_eh,$_eu,$_ep,$_en,$_et,$_epgo_db,$_epgo_pre,$_epgo_sql,$_epgo
                             $_epgo_is_member = ((int)($m['module'] ?? 0) === 10)
                                 || (bool)preg_match('#(^|/)member(?:/|$)#i', $_murl)
                                 || trim((string)($m['_name'] ?? $m['name'] ?? '')) === '会员中心';
+                            $_epgo_is_daily = (bool)preg_match('#(^|/)daily(?:/|$)#i', $_murl)
+                                || trim((string)($m['_name'] ?? $m['name'] ?? '')) === '每日英语';
                         ?>
-                        <?php if (!$_epgo_is_member): ?>
+                        <?php if (!$_epgo_is_member && !$_epgo_is_daily): ?>
                         <?php if (!empty($_nsub)): ?>
                         <li class="nav-item dropdown">
                             <a href="<?php echo htmlspecialchars($_murl); ?>" title="{$m.name}" class="nav-link dropdown-toggle {$m.class}" data-toggle="dropdown" data-hover="dropdown">{$m._name}</a>

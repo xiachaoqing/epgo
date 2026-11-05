@@ -206,7 +206,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                     "The secret of getting ahead is getting started."
                 </blockquote>
                 <p style="font-size:14px;opacity:.85;margin:0 0 20px;">万事开头难，迈出第一步才是关键。— Mark Twain</p>
-                <a href="/daily/" style="display:inline-block;background:rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.4);">查看更多金句 →</a>
+                <a href="/reading/" style="display:inline-block;background:rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.4);">查看更多练习 →</a>
                 <div style="position:absolute;right:-20px;bottom:-20px;font-size:120px;opacity:.06;line-height:1;">❝</div>
             </div>
 
@@ -313,7 +313,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                     <p class="epgo-course-desc">日常英语综合学习，涵盖阅读、写作和演讲等，提升综合语言能力，适合各个年龄段。</p>
                     <div class="epgo-course-links">
                         <a href="/reading/">英语阅读</a>
-                        <a href="/daily/">每日英语</a>
+                        <a href="/epgo/tools.html">学习工具</a>
                         <a href="/download/">资料下载</a>
                         <a href="/reading/">学习资讯</a>
                     </div>
