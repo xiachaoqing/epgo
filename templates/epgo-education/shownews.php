@@ -115,15 +115,15 @@ if (in_array($_epgo_article_class_id, array(101, 111, 112, 113, 114), true)) {
                         <?php
                             $_epgo_related_map = array(
                                 101 => array('/ket/', 'KET 备考总览'),
-                                111 => array('/ket-exam/', 'KET 题型解析'),
-                                112 => array('/ket-word/', 'KET 词汇速记'),
-                                113 => array('/ket-write/', 'KET 写作指导'),
-                                114 => array('/ket-listen/', 'KET 听力技巧'),
+                                111 => array('/ket-exam/list-111.html', 'KET 题型解析'),
+                                112 => array('/ket-word/list-112.html', 'KET 词汇速记'),
+                                113 => array('/ket-write/list-113.html', 'KET 写作指导'),
+                                114 => array('/ket-listen/list-114.html', 'KET 听力技巧'),
                                 102 => array('/pet/', 'PET 备考总览'),
-                                121 => array('/pet-exam/', 'PET 题型解析'),
-                                122 => array('/pet-word/', 'PET 词汇速记'),
-                                123 => array('/pet-write/', 'PET 写作指导'),
-                                124 => array('/pet-read/', 'PET 阅读技巧'),
+                                121 => array('/pet-exam/list-121.html', 'PET 题型解析'),
+                                122 => array('/pet-word/list-122.html', 'PET 词汇速记'),
+                                123 => array('/pet-write/list-123.html', 'PET 写作指导'),
+                                124 => array('/pet-read/list-124.html', 'PET 阅读技巧'),
                                 103 => array('/reading/', '英语阅读'),
                                 104 => array('/speech/', '英语表达'),
                                 107 => array('/about/', '了解英语陪跑GO')
