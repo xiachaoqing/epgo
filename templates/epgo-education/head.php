@@ -38,8 +38,7 @@ echo '<link rel="alternate" type="application/rss+xml" title="英语陪跑GO学�
 /* 搜索、标签、会员、互动页和版权待核验下载页不作为搜索落地页。 */
 /* 旧的重复专题保留页面访问，但先 noindex，避免多个近似页面争抢收录。 */
 /* 搜索、标签、会员和互动页的系统模板已经输出 noindex,nofollow；这里仅补充下载页和历史重复专题。 */
-if (preg_match('#^/download(/|$)#', $_epgo_path)
-    || (int)($data['classnow'] ?? 0) === 105
+if (preg_match('#^/(download|daily)(/|$)#', $_epgo_path)
     || preg_match('#^/speech/(607|621)\.html$#', $_epgo_path)
     || preg_match('#^/(ket|pet)/(202|227|356|357|358|412|425|184|186|216|218|219|220)\.html$#', $_epgo_path)) {
     echo '<meta name="robots" content="noindex,follow">' . "\n";
