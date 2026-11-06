@@ -4,6 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 met-download-body">
+                <div class="epgo-download-note" style="margin-bottom:24px;padding:18px 20px;background:#eff6ff;border-left:4px solid #2563eb;color:#334155;line-height:1.8;">
+                    公开资料正在按原创性和授权范围逐项整理。暂未确认来源的文件不会提供下载；你可以先浏览<a href="/guides.html">学习指南索引</a>，使用网站上的原创练习和方法。
+                </div>
                 <div class="row">
                     <div class="met-download-list">
                         <tag action='download.list' num="$c['met_download_list']"></tag>
