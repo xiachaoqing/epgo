@@ -7,7 +7,7 @@ $_epgo_article_schema = array(
     'headline' => trim(strip_tags($data['title'] ?? '英语学习文章')),
     'description' => trim(strip_tags($data['description'] ?? '英语学习与 KET/PET 备考内容')),
     'dateModified' => !empty($data['updatetime']) ? date('c', strtotime($data['updatetime'])) : date('c'),
-    'author' => array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/about/'),
+    'author' => array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/author-cathy.html'),
     'publisher' => array('@type' => 'Organization', 'name' => '英语陪跑GO', 'logo' => array('@type' => 'ImageObject', 'url' => 'https://xiachaoqing.com/epgo/logo.png')),
     'mainEntityOfPage' => array('@type' => 'WebPage', '@id' => 'https://xiachaoqing.com' . (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'))
 );

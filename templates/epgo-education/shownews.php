@@ -7,7 +7,7 @@ if ($_epgo_author_name === '' || strtolower($_epgo_author_name) === 'system'
     $_epgo_author_name = 'Cathy';
 }
 $_epgo_author_schema = $_epgo_author_name === 'Cathy'
-    ? array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/about/')
+    ? array('@type' => 'Person', 'name' => 'Cathy', 'url' => 'https://xiachaoqing.com/author-cathy.html')
     : array('@type' => 'Organization', 'name' => $_epgo_author_name);
 $_epgo_article_schema = array(
     '@context' => 'https://schema.org',
