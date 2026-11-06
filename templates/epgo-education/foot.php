@@ -5,11 +5,12 @@
             <!-- 关于英语陪跑GO：页脚保持居中，给搜索和用户一个明确的品牌入口 -->
             <div class="col-lg-4 col-md-4 col-xs-12 info masonry-item epgo-footer-about">
                 <h4 class='font-size-20 m-t-0'>关于英语陪跑GO</h4>
-                <p class="epgo-footer-about-text">专注 KET / PET 学习内容、入学测评、英语学习工具和陪跑 App，帮助孩子建立可执行的学习路径。</p>
+                <p class="epgo-footer-about-text">专注 KET / PET / FCE 学习内容、原创练习和学习记录工具，帮助孩子建立可执行的学习路径。</p>
                 <div class="epgo-footer-quicklinks">
                     <a href="/about/">了解我们</a>
                     <a href="/ket/">KET 备考</a>
                     <a href="/pet/">PET 备考</a>
+                    <a href="/study-log.html">学习记录表</a>
                     <a href="/reading/">英语阅读</a>
                 </div>
             </div>

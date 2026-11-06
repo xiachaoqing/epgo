@@ -26,7 +26,7 @@
                 <div class="epgo-about-grid">
                     <div class="epgo-about-card">
                         <h3>平台定位</h3>
-                        <p>英语陪跑GO 聚焦 KET、PET、FCE 等剑桥英语考试，围绕词汇、阅读、写作、听力与真题解析，提供长期、系统、可执行的学习内容。</p>
+                        <p>英语陪跑GO 聚焦 KET、PET、FCE 等剑桥英语考试，围绕词汇、阅读、写作、听力与题型拆解，提供长期、系统、可执行的学习内容。</p>
                     </div>
                     <div class="epgo-about-card">
                         <h3>适合人群</h3>
@@ -34,11 +34,11 @@
                     </div>
                     <div class="epgo-about-card">
                         <h3>内容体系</h3>
-                    <p>平台涵盖 KET / PET / FCE 备考、英语阅读、英语演讲、每日英语与资料下载，帮助学习者在考试与实际应用之间建立稳定提升路径。</p>
+                    <p>平台涵盖 KET / PET / FCE 备考、英语阅读、英语演讲、学习指南索引和原创学习记录表，帮助学习者在考试与实际应用之间建立稳定提升路径。</p>
                     </div>
                     <div class="epgo-about-card">
                         <h3>学习方式</h3>
-                        <p>从高频词汇积累、真题精讲、写作模板，到每日练习和资料整理，我们坚持“小步积累、持续进步”的内容设计方式。</p>
+                        <p>从高频词汇积累、题型拆解、写作表达，到每日练习和学习记录，我们坚持“小步积累、持续进步”的内容设计方式。</p>
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
                     <h3>推荐学习路径</h3>
                     <div class="epgo-about-steps">
                         <div class="step"><span>1</span><strong>词汇打基础</strong><p>先用高频词汇与固定搭配构建基本输入。</p></div>
-                        <div class="step"><span>2</span><strong>真题抓重点</strong><p>通过真题解析建立题型意识与答题框架。</p></div>
+                        <div class="step"><span>2</span><strong>题型抓重点</strong><p>通过题型拆解和证据练习建立答题框架。</p></div>
                         <div class="step"><span>3</span><strong>写作与表达</strong><p>积累句型模板，提高写作与口语组织能力。</p></div>
                         <div class="step"><span>4</span><strong>每日持续输入</strong><p>通过每日英语与阅读内容维持学习节奏。</p></div>
                     </div>

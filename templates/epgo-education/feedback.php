@@ -1,7 +1,7 @@
 <?php defined('IN_MET') or exit('No permission');
 $data['page_title'] = '联系我们｜英语陪跑GO';
-$data['page_description'] = '联系英语陪跑GO，咨询 KET/PET 学习内容、入学测评、学习工具和陪跑 App 服务。';
-$data['page_keywords'] = '英语陪跑GO,联系我们,KET,PET,英语学习';
+$data['page_description'] = '联系英语陪跑GO，咨询 KET/PET/FCE 学习内容、入学测评、学习工具和陪跑 App 服务。';
+$data['page_keywords'] = '英语陪跑GO,联系我们,KET,PET,FCE,英语学习';
 ?>
 <include file="head.php" />
 <section class="met-feedback animsition" m-id="feedback" m-type='noset'>

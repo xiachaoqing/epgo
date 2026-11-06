@@ -20,7 +20,7 @@ echo '<link rel="canonical" href="' . htmlspecialchars($_epgo_canonical, ENT_QUO
 echo '<link rel="alternate" type="application/rss+xml" title="英语陪跑GO学习指南" href="https://xiachaoqing.com/feed.xml">' . "\n";
 /* 搜索、标签、会员、互动页和版权待核验下载页不作为搜索落地页。 */
 /* 旧的重复专题保留页面访问，但先 noindex，避免多个近似页面争抢收录。 */
-if (preg_match('#^/(search|tags|member|message|feedback|download)(/|$)#', $_epgo_path)
+if (preg_match('#^/(search|tags|member|message|download)(/|$)#', $_epgo_path)
     || (int)($data['classnow'] ?? 0) === 105
     || preg_match('#^/speech/(607|621)\.html$#', $_epgo_path)
     || preg_match('#^/(ket|pet)/(202|227|356|357|358|412|425|184|186|216|218|219|220)\.html$#', $_epgo_path)) {

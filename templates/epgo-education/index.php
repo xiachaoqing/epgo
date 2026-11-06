@@ -229,9 +229,9 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                         <span>英语阅读 · 精读泛读技巧</span>
                         <span class="epgo-path-arrow">→</span>
                     </a>
-                    <a href="/download/" class="epgo-path-item" style="--c:#7C3AED;">
-                        <span class="epgo-path-badge" style="background:#F5F3FF;color:#7C3AED;">资料</span>
-                        <span>原创学习表格与资料</span>
+                    <a href="/study-log.html" class="epgo-path-item" style="--c:#7C3AED;">
+                        <span class="epgo-path-badge" style="background:#F5F3FF;color:#7C3AED;">记录</span>
+                        <span>原创学习记录表</span>
                         <span class="epgo-path-arrow">→</span>
                     </a>
                 </div>

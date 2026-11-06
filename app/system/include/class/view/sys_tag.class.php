@@ -45,7 +45,7 @@ $favicon_filemtime = filemtime(PATH_WEB."favicon.ico");
 <head>
 <meta charset="utf-8">
 <?php if($nofollow){ ?>
-<meta name="robots" content="noindex,nofllow" />
+<meta name="robots" content="noindex,nofollow" />
 <?php } ?>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

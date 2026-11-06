@@ -1,29 +1,51 @@
 #!/usr/bin/env python3
+import os
+import re
+
 import pymysql
+
+
+def load_db_config():
+    """Read the deployment's existing MetInfo DB config without storing a secret."""
+    path = os.environ.get("EPGO_DB_CONFIG", "config/config_db.php")
+    raw = open(path, encoding="utf-8").read()
+
+    def value(name):
+        match = re.search(rf"{name}\s*=\s*\"([^\"]*)\"", raw)
+        if not match:
+            raise RuntimeError(f"Missing database setting: {name}")
+        return match.group(1)
+
+    return {
+        "host": value("con_db_host"),
+        "user": value("con_db_id"),
+        "password": value("con_db_pass"),
+        "db": value("con_db_name"),
+    }
 
 content = """<div>
 <h2>关于英语陪跑GO</h2>
-<p>英语陪跑GO 是专注于剑桥英语备考（KET / PET / FCE）的在线学习平台，致力于帮助中国学生系统、高效地备考剑桥系列英语考试，取得理想成绩。</p>
+<p>英语陪跑GO 是专注于剑桥英语学习（KET / PET / FCE）的在线平台，帮助学生和家长把词汇、阅读、听力、写作与口语练习整理成可执行、可复盘的学习路径。</p>
 
 <h2>我们的使命</h2>
 <p>让每一位备考剑桥英语的学生都能获得专业、系统的学习资源，不再为备考资料分散、方法不对路而烦恼。</p>
 
 <h2>我们提供什么</h2>
 <ul>
-  <li><strong>KET备考（A2 Key）</strong>：真题解析、高频词汇、写作模板、听力技巧，系统覆盖全部考点</li>
-  <li><strong>PET备考（B1 Preliminary）</strong>：阅读策略、写作范文、口语话题、词汇专题，全面备战</li>
-  <li><strong>FCE备考（B2 First）</strong>：进阶英语学习，冲击B2水平</li>
-  <li><strong>英语阅读</strong>：精选英文原文材料，配合考点讲解，提升阅读理解能力</li>
-  <li><strong>每日英语</strong>：每日推送备考词汇、例句、语法小知识，坚持打卡积累</li>
-  <li><strong>资料下载</strong>：历年真题、官方样题、备考笔记等学习资料免费下载</li>
+  <li><strong>KET备考（A2 Key）</strong>：高频词汇、阅读、写作和听力方法，配合自编练习逐步复盘</li>
+  <li><strong>PET备考（B1 Preliminary）</strong>：阅读策略、写作表达、口语任务和词汇专题</li>
+  <li><strong>FCE备考（B2 First）</strong>：面向进阶学习者的阅读、词汇、写作、听力和口语指南</li>
+  <li><strong>英语阅读与演讲</strong>：围绕真实学习场景拆解文章结构、证据和表达方式</li>
+  <li><strong>学习记录表</strong>：记录练习证据、错误原因和下一步行动，帮助形成稳定复习节奏</li>
+  <li><strong>学习指南索引</strong>：集中浏览已完成编辑复核的原创文章和专题</li>
 </ul>
 
 <h2>我们的优势</h2>
 <ul>
-  <li><strong>内容专注</strong>：只做剑桥英语备考，专注KET/PET/FCE，不泛不散</li>
-  <li><strong>体系完整</strong>：从词汇到语法到题型到模拟，覆盖备考全阶段</li>
-  <li><strong>持续更新</strong>：每日更新学习内容，紧跟考试动态</li>
-  <li><strong>社群陪跑</strong>：微信公众号每日推送，学习不孤单</li>
+  <li><strong>内容专注</strong>：围绕 KET/PET/FCE 和英语综合能力持续整理</li>
+  <li><strong>过程可复盘</strong>：文章不只给结论，还提供证据、错误分类和下一步练习</li>
+  <li><strong>边界清晰</strong>：自编示例会注明，不冒充 Cambridge 官方材料，也不承诺考试结果</li>
+  <li><strong>持续维护</strong>：根据读者反馈修订文章，并保留作者、更新时间和纠错入口</li>
 </ul>
 
 <h2>剑桥英语级别说明</h2>
@@ -50,9 +72,16 @@ content = """<div>
 </p>
 </div>"""
 
-conn = pymysql.connect(host='localhost', user='xiachaoqing', password='Xia@07090218', db='epgo_db', charset='utf8mb4')
+conn = pymysql.connect(charset="utf8mb4", **load_db_config())
 cur = conn.cursor()
-cur.execute("UPDATE ep_column SET content=%s WHERE id=107", (content,))
+cur.execute(
+    "UPDATE ep_column SET content=%s, description=%s, keywords=%s WHERE id=107",
+    (
+        content,
+        "英语陪跑GO介绍：提供KET、PET、FCE剑桥英语学习指南、原创练习和学习记录工具。",
+        "英语陪跑GO,KET,PET,FCE,英语学习指南,学习记录表",
+    ),
+)
 conn.commit()
 print(f"Updated {cur.rowcount} row(s)")
 conn.close()
