@@ -1,0 +1,17 @@
+{
+  "purpose": "Record the editorial batch dates for the ten gap-filling guides while preserving their actual edit timestamps in updatetime.",
+  "date_field": "addtime",
+  "modified_field": "updatetime",
+  "items": {
+    "854": "2026-11-01 10:30:00",
+    "855": "2026-11-01 16:20:00",
+    "856": "2026-11-02 09:45:00",
+    "857": "2026-11-02 17:10:00",
+    "858": "2026-11-03 11:00:00",
+    "859": "2026-11-03 16:40:00",
+    "860": "2026-11-04 10:15:00",
+    "861": "2026-11-04 18:00:00",
+    "862": "2026-11-05 09:50:00",
+    "863": "2026-11-05 15:30:00"
+  }
+}
