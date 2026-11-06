@@ -1,0 +1,13 @@
+{
+  "purpose": "Expand short but accurate descriptions for eight reviewed articles so search snippets explain the actual learning value without changing their publication dates or article bodies.",
+  "items": [
+    {"id": 177, "description": "PET 听力长对话练习方法：记录原计划、转折、说话人态度和最终决定，并用自编步骤复盘听漏与顺序错误。"},
+    {"id": 200, "description": "KET 听力图片题训练方法：先判断图片类别，再听动作、位置和差异，避免只记单个词而漏掉完整信息。"},
+    {"id": 433, "description": "KET / PET 入学测评后的学习安排：根据阅读、听力、写作和口语错误类型，制定可复查的 14 天练习计划。"},
+    {"id": 448, "description": "PET 阅读同义替换方法：从题干确定信息范围，再回原文核对完整意思、逻辑关系和干扰选项。"},
+    {"id": 555, "description": "KET 口语图片描述方法：按照人物、地点、动作和结果组织表达，用自编场景练习把零散观察说成完整回答。"},
+    {"id": 568, "description": "KET 和 PET 选择参考：从词汇、阅读、听力、写作和口语任务表现判断当前学习阶段，不用单一分数做决定。"},
+    {"id": 577, "description": "PET 听力长对话复盘方法：用人物、转折、原因和最终安排四步压缩信息，训练从干扰选项中找到真正答案。"},
+    {"id": 578, "description": "PET 故事续写方法：用人物、问题、行动和结果建立时间线，把图片线索组织成连贯情节并检查时态与衔接。"}
+  ]
+}

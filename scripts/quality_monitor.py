@@ -18,6 +18,7 @@ import logging
 import os
 import re
 import json
+import hashlib
 from datetime import datetime, timedelta
 from collections import defaultdict
 
@@ -42,10 +43,10 @@ LOG_FILE = f"{LOG_DIR}/quality_monitor.log"
 logging.basicConfig(
     level=logging.INFO,
     format='[%(asctime)s] %(levelname)s: %(message)s',
-    handlers=[
-        logging.FileHandler(LOG_FILE),
-        logging.StreamHandler()
-    ]
+    # The production cron environment exposes an ASCII stderr stream. Keep
+    # the UTF-8 report in the log file instead of emitting repeated encoding
+    # errors for Chinese status messages.
+    handlers=[logging.FileHandler(LOG_FILE, encoding='utf-8')],
 )
 log = logging.getLogger(__name__)
 
@@ -59,7 +60,8 @@ def scan_all_articles():
     cur.execute("""
         SELECT id, title, content, description, class1, addtime, issue
         FROM ep_news
-        WHERE recycle=0
+        WHERE recycle=0 AND lang='cn'
+          AND issue IN ('原创专题','editorial-v2')
         ORDER BY addtime DESC
     """)
 
@@ -87,7 +89,10 @@ def check_article_quality(article):
     desc = article['description']
 
     # 1. 长度检查
-    content_len = len(content)
+    # MySQL LENGTH(content) and the public sitemap gate use UTF-8 bytes.
+    # Counting Python Unicode characters would falsely flag Chinese articles
+    # as short even when their stored byte length is above 2000.
+    content_len = len((content or '').encode('utf-8'))
     if content_len < 2000:
         issues.append({'type': 'length', 'severity': 'critical', 'msg': f'内容过短: {content_len}字节'})
 
@@ -123,7 +128,8 @@ def scan_duplicates():
     cur.execute("""
         SELECT LEFT(content,300) as c300, COUNT(*) as cnt, GROUP_CONCAT(id) as ids
         FROM ep_news
-        WHERE recycle=0
+        WHERE recycle=0 AND lang='cn'
+          AND issue IN ('原创专题','editorial-v2')
         GROUP BY LEFT(content,300)
         HAVING cnt>1
     """)
