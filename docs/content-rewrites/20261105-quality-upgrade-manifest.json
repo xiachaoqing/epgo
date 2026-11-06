@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "purpose": "Expand the twelve shortest reviewed guides with original practice, answer reasoning, and study boundaries",
+  "items": [
+    {
+      "id": 548,
+      "title": "KET 到 PET 词汇衔接：从认识单词到在语境中使用",
+      "action": "rewrite",
+      "file": "548.html",
+      "description": "KET 到 PET 词汇如何从单词表进入搭配、句子和真实任务。",
+      "expected_sha256": "f4f197f099eb8b1aeb191cc817f53d9b352cab289b849a91a34a8931a3166ec9"
+    },
+    {
+      "id": 448,
+      "title": "PET 阅读同义替换：如何从题干找到原文对应信息",
+      "action": "rewrite",
+      "file": "448.html",
+      "description": "PET 阅读同义替换如何核对完整意思，避免只看相同单词。",
+      "expected_sha256": "88b51eb4fc717b6cf99714eed7ebed44b311c0fe6b5ba7d6c6993f5c30c90894"
+    },
+    {
+      "id": 578,
+      "title": "PET 故事续写：用时间线把图片线索写成完整情节",
+      "action": "rewrite",
+      "file": "578.html",
+      "description": "PET 故事续写如何用人物、问题、行动和结果组织时间线。",
+      "expected_sha256": "2ccdfc18f0096ab98b4843becc44cb9c1061085624967e26a592b235ac779c99"
+    },
+    {
+      "id": 577,
+      "title": "PET 听力长对话：四步抓住人物、转折和最终决定",
+      "action": "rewrite",
+      "file": "577.html",
+      "description": "PET 听力长对话如何压缩选项并听出最终安排。",
+      "expected_sha256": "3801802050be7b20de0a7a09513caa18c91e196f012e9bd975423d5f30eec021"
+    },
+    {
+      "id": 555,
+      "title": "KET 口语图片描述：从观察顺序到完整表达",
+      "action": "rewrite",
+      "file": "555.html",
+      "description": "KET 口语图片描述如何按人物、地点、动作和结果组织表达。",
+      "expected_sha256": "f7e0e6fc81a4538447d0aae55981014da372dc99af4a5ee81f575474a9864c40"
+    },
+    {
+      "id": 177,
+      "title": "PET 听力训练：从明确事实到转折和说话人态度",
+      "action": "rewrite",
+      "file": "177.html",
+      "description": "PET 听力长对话如何记录原计划、转折和最终决定。",
+      "expected_sha256": "16c12b509fe51ca53da29a730748fca926d669d00f883a5fe17a3452ffcdf8c5"
+    },
+    {
+      "id": 200,
+      "title": "KET 听力图片题：先看类别，再听动作和差异",
+      "action": "rewrite",
+      "file": "200.html",
+      "description": "KET 听力图片题如何比较差异、识别共同信息和否定表达。",
+      "expected_sha256": "d78feeeb34330ad776af823d5dc5defabb016699a5099b322773ce03ffe32a51"
+    },
+    {
+      "id": 636,
+      "title": "PET听力长对话怎么记笔记：只记录变化，不抄完整句子",
+      "action": "rewrite",
+      "file": "636.html",
+      "description": "PET 听力长对话抓取变化、时间和最终决定的笔记法，减少听到关键词就急着选答案。",
+      "expected_sha256": "6198c135aa53ae80536954e51cc338e7724d9f7b84a2e970812318c56143774e"
+    },
+    {
+      "id": 640,
+      "title": "如何记录英语口语进步：不用追求“像母语者”，先看信息是否完整",
+      "action": "rewrite",
+      "file": "640.html",
+      "description": "用两周录音记录信息完整、表达清楚和互动修正，判断口语进步应该看哪些证据。",
+      "expected_sha256": "6c42074fe531edf76a20fd0e15bb44970fd865ab7e79a97e6ab5e7fd1b8b5b75"
+    },
+    {
+      "id": 637,
+      "title": "KET/PET测评结果怎么转成学习计划：不要只盯着一个总分",
+      "action": "rewrite",
+      "file": "637.html",
+      "description": "把测评分项、错误类型和时间投入转成可执行学习计划，而不是只盯着一个总分。",
+      "expected_sha256": "01597ada5a3b8f184c15e8a574c22c655badfea92a5aa9e10a8dcb46bd284b19"
+    },
+    {
+      "id": 638,
+      "title": "家庭英语复习怎么安排：一周四次短练习比一次突击更容易坚持",
+      "action": "rewrite",
+      "file": "638.html",
+      "description": "家庭每周四次短练习的任务、证据和中断恢复方法，帮助学习从一次突击变成稳定节奏。",
+      "expected_sha256": "4b9d5fd8ffe2a4338245eee4df88f39483a7e21e6b990b6ffbcd2037fd4686e1"
+    },
+    {
+      "id": 568,
+      "title": "KET 和 PET 怎么选：从词汇、阅读和表达判断学习阶段",
+      "action": "rewrite",
+      "file": "568.html",
+      "description": "KET 和 PET 如何根据四项任务表现判断学习准备度。",
+      "expected_sha256": "c266b064a65b742f1569d39eca1ce357e3ea026401bbb0bc702d9c16859e71c3"
+    }
+  ]
+}

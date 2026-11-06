@@ -111,6 +111,31 @@ if (in_array($_epgo_article_class_id, array(101, 111, 112, 113, 114), true)) {
                             <a href="/epgo/assessment.html">免费做入学测评 →</a>
                         </section>
 
+                        <?php
+                            $_epgo_related_map = array(
+                                101 => array('/ket/', 'KET 备考总览'),
+                                111 => array('/ket-exam/', 'KET 题型解析'),
+                                112 => array('/ket-word/', 'KET 词汇速记'),
+                                113 => array('/ket-write/', 'KET 写作指导'),
+                                114 => array('/ket-listen/', 'KET 听力技巧'),
+                                102 => array('/pet/', 'PET 备考总览'),
+                                121 => array('/pet-exam/', 'PET 题型解析'),
+                                122 => array('/pet-word/', 'PET 词汇速记'),
+                                123 => array('/pet-write/', 'PET 写作指导'),
+                                124 => array('/pet-read/', 'PET 阅读技巧'),
+                                103 => array('/reading/', '英语阅读'),
+                                104 => array('/speech/', '英语表达'),
+                                107 => array('/about/', '了解英语陪跑GO')
+                            );
+                            $_epgo_related = $_epgo_related_map[$_epgo_article_class_id] ?? array('/reading/', '英语阅读');
+                        ?>
+                        <nav class="epgo-article-related" aria-label="相关学习入口">
+                            <strong>按主题继续阅读</strong>
+                            <a href="<?php echo htmlspecialchars($_epgo_related[0], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($_epgo_related[1], ENT_QUOTES, 'UTF-8'); ?></a>
+                            <a href="/epgo/tools.html">学习工具</a>
+                            <a href="/about/">内容与编辑说明</a>
+                        </nav>
+
                         <!-- 标签 -->
                         <if value="1">
                             <list data="$data['taglist']" name="$tag" num="4"></list>
@@ -224,6 +249,10 @@ if (in_array($_epgo_article_class_id, array(101, 111, 112, 113, 114), true)) {
 .epgo-article-next strong{display:block;color:#15356f;font-size:17px;margin-bottom:5px;}
 .epgo-article-next p{margin:0;color:#52627a;font-size:14px;line-height:1.7;}
 .epgo-article-next a{flex:none;padding:10px 16px;border-radius:8px;background:#1565c0;color:#fff;text-decoration:none;font-size:14px;}
+.epgo-article-related{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:14px 16px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;color:#52627a;font-size:13px;}
+.epgo-article-related strong{color:#15356f;margin-right:4px;}
+.epgo-article-related a{padding:5px 10px;border-radius:6px;background:#f3f6fb;color:#2563eb;text-decoration:none;}
+.epgo-article-related a:hover{background:#dbeafe;}
 @media(max-width:600px){.epgo-article-next{display:block}.epgo-article-next a{display:inline-block;margin-top:12px;}}
 @media(max-width:767px){.epgo-article-context{grid-template-columns:1fr;padding:14px;gap:14px;}.epgo-article-context-item{padding-bottom:12px;border-bottom:1px solid #E2E8F0;}.epgo-article-context-item:last-child{padding-bottom:0;border-bottom:0;}}
 </style>
