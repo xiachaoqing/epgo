@@ -77,3 +77,8 @@
 
 - `20261107-subcolumn-metadata.json` 为 8 个 KET/PET 子栏目补充独立 description 和 keywords；发布前备份在服务器 `/root/epgo-subcolumn-meta-before-20261107.json`。
 - 模板对固定子栏目路径增加兜底，避免数据库字段为空时回退到首页摘要；线上 sitemap 页面重复 description 已核验为 0。
+
+## 历史空栏目收口（2026-11-07）
+
+- 旧 `/about1/` “特色功能”栏目没有正文，已在数据库中设为不显示、不进导航。
+- `about1/index.php` 和 `about1/show.php` 统一 301 到维护中的 `/about/`，避免空白页加载广告或形成薄内容入口。
