@@ -151,6 +151,8 @@ def classify(title):
             return COLUMNS["pet_write"]
         if "阅读" in title:
             return COLUMNS["pet_read"]
+        if "听力" in title:
+            return COLUMNS["pet_exam"]
         return COLUMNS["pet"]
     if any(k in title for k in ("阅读", "绘本", "故事")):
         return COLUMNS["reading"]
