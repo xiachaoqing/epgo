@@ -152,6 +152,8 @@
                 <span style="margin:0 8px;opacity:.45;">|</span>
                 <a href="/guides.html">学习指南索引</a>
                 <span style="margin:0 8px;opacity:.45;">|</span>
+                <a href="/editorial.html">内容编辑说明</a>
+                <span style="margin:0 8px;opacity:.45;">|</span>
                 <a href="/feedback/">联系我们</a>
             </div>
             <if value="$c['met_footright'] || $c['met_footstat']">

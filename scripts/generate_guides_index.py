@@ -73,7 +73,7 @@ def main():
         '<link rel="alternate" type="application/rss+xml" title="英语陪跑GO学习指南" href="{}/feed.xml">'.format(BASE),
         '<style>body{margin:0;background:#f6f8fb;color:#1f2937;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.7}.wrap{max-width:1080px;margin:0 auto;padding:0 20px}.top{background:#1565c0;color:#fff;padding:22px 0}.top a{color:#fff;text-decoration:none;margin-right:18px;font-size:14px}.hero{background:#fff;padding:42px 0 32px;border-bottom:1px solid #e5e7eb}.hero h1{margin:0 0 8px;font-size:32px;color:#111827}.hero p{margin:0;max-width:760px;color:#667085}.count{display:inline-block;margin-top:18px;padding:6px 12px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:13px}.group{background:#fff;margin:22px 0;padding:24px;border-radius:12px;box-shadow:0 2px 8px rgba(15,23,42,.05)}.group h2{margin:0 0 14px;font-size:22px;color:#111827}.group ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px;list-style:none;padding:0;margin:0}.group li{border-bottom:1px solid #eef2f7;padding:6px 0}.group a{color:#1d4ed8;text-decoration:none}.group a:hover{text-decoration:underline}.desc{display:block;color:#667085;font-size:13px;line-height:1.5}.foot{padding:30px 0 50px;text-align:center;color:#667085;font-size:13px}.foot a{color:#1d4ed8}@media(max-width:700px){.group ul{grid-template-columns:1fr}.hero h1{font-size:27px}}</style>',
         '</head><body>',
-        '<header class="top"><div class="wrap"><a href="/">英语陪跑GO</a><a href="/ket/">KET备考</a><a href="/pet/">PET备考</a><a href="/reading/">英语阅读</a><a href="/speech/">英语演讲</a><a href="/about/">关于我们</a></div></header>',
+        '<header class="top"><div class="wrap"><a href="/">英语陪跑GO</a><a href="/ket/">KET备考</a><a href="/pet/">PET备考</a><a href="/reading/">英语阅读</a><a href="/speech/">英语演讲</a><a href="/guides.html">学习指南索引</a><a href="/editorial.html">内容编辑说明</a></div></header>',
         '<main><section class="hero"><div class="wrap"><h1>学习指南索引</h1><p>这里集中整理英语陪跑GO 已完成编辑复核的长期学习指南，覆盖 KET、PET、FCE、阅读、写作、听力和口语。文章中的练习和场景以自编内容为主，并在正文中说明适用边界。</p><span class="count">共 {} 篇公开指南</span></div></section>'.format(len(rows)),
     ]
     for column_id in sorted(groups):
@@ -88,7 +88,7 @@ def main():
         lines.append('</ul></section>')
     lines.extend([
         '</main><footer class="foot"><div class="wrap">',
-        '<a href="/privacy.html">隐私政策</a> · <a href="/terms.html">服务条款</a> · <a href="/feedback/">联系我们</a> · <a href="/">返回首页</a>',
+        '<a href="/privacy.html">隐私政策</a> · <a href="/terms.html">服务条款</a> · <a href="/editorial.html">内容编辑说明</a> · <a href="/feedback/">联系我们</a> · <a href="/">返回首页</a>',
         '<br>英语陪跑GO｜文章示例不等同于官方考试题目或成绩承诺</div></footer>',
         '</body></html>',
     ])

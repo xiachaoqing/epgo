@@ -21,7 +21,7 @@ BASE = "https://xiachaoqing.com"
 STATIC = [
     ("/", "monthly"), ("/ket/", "monthly"), ("/pet/", "monthly"),
     ("/reading/", "monthly"), ("/speech/", "monthly"),
-    ("/about/", "monthly"), ("/guides.html", "weekly"),
+    ("/about/", "monthly"), ("/guides.html", "weekly"), ("/editorial.html", "yearly"),
     ("/ket-exam/list-111.html", "monthly"), ("/ket-word/list-112.html", "monthly"),
     ("/ket-write/list-113.html", "monthly"), ("/ket-listen/list-114.html", "monthly"),
     ("/pet-exam/list-121.html", "monthly"), ("/pet-word/list-122.html", "monthly"),
