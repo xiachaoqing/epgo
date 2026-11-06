@@ -51,9 +51,9 @@ def main():
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<rss version="2.0"><channel>',
-        '<title>英语陪跑GO｜KET/PET 学习指南</title>',
+        '<title>英语陪跑GO｜KET/PET/FCE 学习指南</title>',
         '<link>{}/</link>'.format(BASE),
-        '<description>英语陪跑GO 的 KET/PET 备考、阅读、听力、写作和家庭学习指南。</description>',
+        '<description>英语陪跑GO 的 KET/PET/FCE 备考、阅读、听力、写作和家庭学习指南。</description>',
         '<language>zh-CN</language>',
         '<lastBuildDate>{}</lastBuildDate>'.format(now),
     ]
