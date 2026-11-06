@@ -56,7 +56,7 @@ def main():
     cur.execute("SELECT id, foldername FROM ep_column WHERE isshow=1")
     folders = {int(row["id"]): (row["foldername"] or "").strip("/") for row in cur.fetchall()}
     cur.execute(
-        "SELECT id, class1, addtime FROM ep_news "
+        "SELECT id, class1, addtime, updatetime FROM ep_news "
         "WHERE recycle=0 AND lang='cn' AND issue IN (%s,%s) "
         "AND LENGTH(content) >= 2000 ORDER BY id",
         EDITORIAL_ISSUES,
@@ -77,7 +77,8 @@ def main():
         folder = folders.get(int(row["class1"] or 0))
         if not folder:
             continue
-        lastmod = row["addtime"].strftime("%Y-%m-%d") if row["addtime"] else today
+        modified = row["updatetime"] or row["addtime"]
+        lastmod = modified.strftime("%Y-%m-%d") if modified else today
         lines.extend([
             "  <url>",
             "    <loc>{}</loc>".format(html.escape("{}/{}/{}.html".format(BASE, folder, row["id"]))),
