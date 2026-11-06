@@ -12,6 +12,7 @@
                     <a href="/pet/">PET 备考</a>
                     <a href="/study-log.html">学习记录表</a>
                     <a href="/learning-path.html">学习路径</a>
+                    <a href="/faq.html">常见问题</a>
                     <a href="/reading/">英语阅读</a>
                 </div>
             </div>
@@ -155,6 +156,8 @@
                 <a href="/guides.html">学习指南索引</a>
                 <span style="margin:0 8px;opacity:.45;">|</span>
                 <a href="/learning-path.html">学习路径</a>
+                <span style="margin:0 8px;opacity:.45;">|</span>
+                <a href="/faq.html">常见问题</a>
                 <span style="margin:0 8px;opacity:.45;">|</span>
                 <a href="/editorial.html">内容编辑说明</a>
                 <span style="margin:0 8px;opacity:.45;">|</span>

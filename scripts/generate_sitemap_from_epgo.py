@@ -22,7 +22,7 @@ STATIC = [
     ("/", "monthly"), ("/ket/", "monthly"), ("/pet/", "monthly"),
     ("/reading/", "monthly"), ("/speech/", "monthly"),
     ("/about/", "monthly"), ("/guides.html", "weekly"), ("/editorial.html", "yearly"),
-    ("/learning-path.html", "monthly"),
+    ("/learning-path.html", "monthly"), ("/faq.html", "monthly"),
     ("/study-log.html", "weekly"),
     ("/ket-exam/list-111.html", "monthly"), ("/ket-word/list-112.html", "monthly"),
     ("/ket-write/list-113.html", "monthly"), ("/ket-listen/list-114.html", "monthly"),
