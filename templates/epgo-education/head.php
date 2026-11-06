@@ -25,6 +25,7 @@ if (isset($_epgo_subcolumn_meta[$_epgo_request_path])) {
     unset($_epgo_meta);
 }
 $_epgo_no_ads = (bool)preg_match('#^/(epgo/(assessment|tools)\.html|daily|search|tags|member|message|feedback|download|sitemap)(/|$)#i', $_epgo_request_path)
+    || (bool)preg_match('#^/(ket-exam|ket-word|ket-write|ket-listen|pet-exam|pet-word|pet-write|pet-read)/list-[0-9]+\.html$#i', $_epgo_request_path)
     || (defined('M_NAME') && in_array(M_NAME, array('search', 'tags', 'member', 'message', 'feedback', 'download', 'sitemap'), true));
 if (!$_epgo_no_ads):
 ?>

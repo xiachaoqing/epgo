@@ -41,7 +41,18 @@
 
                     // 如果 classnow 是二级栏目（111-114, 121-124等），用 class2=classnow 查询
                     if ($_fix_cid >= 111 && $_fix_cid <= 124) {
-                        $_mysqli = new mysqli('127.0.0.1', 'xiachaoqing', 'Xia@07090218', 'epgo_db');
+                        // Read the CMS database settings instead of embedding credentials in the template.
+                        $_epgo_news_raw = @file_get_contents(PATH_CONFIG . 'config_db.php');
+                        preg_match('/con_db_host\s*=\s*"([^"]+)"/', $_epgo_news_raw ?: '', $_epgo_news_host);
+                        preg_match('/con_db_id\s*=\s*"([^"]+)"/', $_epgo_news_raw ?: '', $_epgo_news_user);
+                        preg_match('/con_db_pass\s*=\s*"([^"]*)"/', $_epgo_news_raw ?: '', $_epgo_news_pass);
+                        preg_match('/con_db_name\s*=\s*"([^"]+)"/', $_epgo_news_raw ?: '', $_epgo_news_name);
+                        $_mysqli = new mysqli(
+                            $_epgo_news_host[1] ?? '127.0.0.1',
+                            $_epgo_news_user[1] ?? '',
+                            $_epgo_news_pass[1] ?? '',
+                            $_epgo_news_name[1] ?? ''
+                        );
                         if (!$_mysqli->connect_error) {
                             $_mysqli->set_charset('utf8mb4');
                             $_offset = ($_fix_page - 1) * $_fix_pagesize;
@@ -68,6 +79,7 @@
                             }
                             $sub = !empty($result); // 用于判断是否有数据
                         }
+                        unset($_epgo_news_raw, $_epgo_news_host, $_epgo_news_user, $_epgo_news_pass, $_epgo_news_name);
                     }
                     ?>
                     <tag action='news.list' num="$c['met_news_list']" cid="$data['classnow']"></tag>
