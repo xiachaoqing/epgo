@@ -34,7 +34,7 @@
                     </div>
                     <div class="epgo-about-card">
                         <h3>内容体系</h3>
-                        <p>平台涵盖 KET / PET 备考、英语阅读、英语演讲、每日英语与资料下载，帮助学习者在考试与实际应用之间建立稳定提升路径。</p>
+                    <p>平台涵盖 KET / PET / FCE 备考、英语阅读、英语演讲、每日英语与资料下载，帮助学习者在考试与实际应用之间建立稳定提升路径。</p>
                     </div>
                     <div class="epgo-about-card">
                         <h3>学习方式</h3>
@@ -44,7 +44,7 @@
 
                 <div class="epgo-about-editor">
                     <strong>内容编辑：Cathy｜英语陪跑GO</strong>
-                    <p>负责 KET / PET 学习内容整理、原创练习设计和文章复核。文章中的示例会尽量使用自编场景，并注明适用的学习阶段。</p>
+                    <p>负责 KET / PET / FCE 学习内容整理、原创练习设计和文章复核。文章中的示例会尽量使用自编场景，并注明适用的学习阶段。</p>
                 </div>
 
                 <div class="epgo-about-standards">

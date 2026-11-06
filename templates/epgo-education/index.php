@@ -6,7 +6,7 @@ $_epgo_home_schema = array(
     '@type' => 'EducationalOrganization',
     'name' => '英语陪跑GO',
     'url' => 'https://xiachaoqing.com/',
-    'description' => '面向孩子和家长的 KET、PET 英语学习内容、入学测评和学习工具。'
+    'description' => '面向孩子和家长的 KET、PET、FCE 英语学习内容、入学测评和学习工具。'
 );
 echo '<script type="application/ld+json">' . json_encode($_epgo_home_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 unset($_epgo_home_schema);
@@ -55,7 +55,7 @@ $_epgo_fallback_banners = array(
         'img_bg'    => 'linear-gradient(135deg,#15356f 0%,#2563eb 58%,#60a5fa 100%)',
     ),
     array(
-        'img_title' => 'KET / PET 题型解析',
+        'img_title' => 'KET / PET / FCE 题型解析',
         'img_des'   => '按阅读、写作、听力和口语拆解学习方法，帮助孩子把每天的练习做得更具体。',
         'img_link'  => '/ket/',
         'img_path'  => '',
@@ -277,7 +277,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
     <div class="container">
         <div style="text-align:center;margin-bottom:40px;">
             <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 10px;">精选课程体系</h2>
-            <p style="font-size:15px;color:#6B7280;margin:0;">从入门到进阶，全覆盖 KET / PET 备考需求</p>
+            <p style="font-size:15px;color:#6B7280;margin:0;">从入门到进阶，覆盖 KET / PET / FCE 备考需求</p>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom:24px;">
@@ -341,7 +341,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:12px;">
             <div>
                 <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">精选学习指南</h2>
-            <p style="font-size:14px;color:#6B7280;margin:0;">围绕 KET / PET 学习问题整理的原创练习与方法</p>
+            <p style="font-size:14px;color:#6B7280;margin:0;">围绕 KET / PET / FCE 学习问题整理的原创练习与方法</p>
             </div>
             <a href="/guides.html" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
         </div>

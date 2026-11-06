@@ -1,0 +1,8 @@
+{
+  "purpose": "Align the homepage title, keywords, and description with the current KET/PET/FCE editorial scope without changing product or payment pages.",
+  "fields": {
+    "met_hometitle": "英语陪跑GO - KET/PET/FCE剑桥英语学习平台",
+    "met_keywords": "KET备考,PET备考,FCE备考,剑桥英语,英语阅读,英语写作,英语听力,英语演讲,英语学习",
+    "met_description": "英语陪跑GO面向孩子和家长，提供KET、PET、FCE剑桥英语学习指南，覆盖阅读、写作、听力、口语、词汇和可执行的复习方法。"
+  }
+}
