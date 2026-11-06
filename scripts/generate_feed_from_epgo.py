@@ -62,8 +62,11 @@ def main():
         folder = folders.get(int(row["class1"] or 0))
         if not folder:
             continue
-        modified = row["updatetime"] or row["addtime"]
-        stamp = modified.strftime("%a, %d %b %Y %H:%M:%S +0800") if modified else now
+        # RSS pubDate is the editorial publication date.  Keep updatetime for
+        # page last-modified metadata, but do not make a staggered batch look
+        # like eight articles were published at the same second.
+        published = row["addtime"] or row["updatetime"]
+        stamp = published.strftime("%a, %d %b %Y %H:%M:%S +0800") if published else now
         url = "{}/{}/{}.html".format(BASE, folder, row["id"])
         summary = plain_text(row["description"] or row["content"])[:240]
         lines.extend([
