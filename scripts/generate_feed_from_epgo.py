@@ -41,7 +41,7 @@ def main():
     cur.execute(
         "SELECT id,title,description,content,class1,updatetime,addtime FROM ep_news "
         "WHERE recycle=0 AND lang='cn' AND issue IN (%s,%s) AND LENGTH(content)>=2000 "
-        "ORDER BY COALESCE(updatetime,addtime) DESC, id DESC LIMIT 60",
+        "ORDER BY COALESCE(updatetime,addtime) DESC, id DESC LIMIT 100",
         EDITORIAL_ISSUES,
     )
     articles = cur.fetchall()
