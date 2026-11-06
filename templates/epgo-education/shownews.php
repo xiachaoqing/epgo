@@ -56,7 +56,7 @@ if (in_array($_epgo_article_class_id, array(101, 111, 112, 113, 114), true)) {
                         <section class="details-title border-bottom1">
                             <h1 class="m-0">{$data.title}</h1>
                             <div class="info font-weight-300">
-                                <span class="epgo-article-author">作者：<?php echo htmlspecialchars($_epgo_author_name, ENT_QUOTES, 'UTF-8'); ?></span>
+                                <span class="epgo-article-author">作者：<?php if ($_epgo_author_name === 'Cathy'): ?><a href="/author-cathy.html">Cathy</a><?php else: ?><?php echo htmlspecialchars($_epgo_author_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?></span>
                                 <span>{$data.updatetime}</span>
                                 <if value="1">
                                     <span>{$data.issue}</span>

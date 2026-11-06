@@ -70,7 +70,7 @@ if (in_array($_epgo_article_class_id, array(101, 111, 112, 113, 114), true)) {
                             <i class="icon wb-time"></i> {$data.inputtime|date_format:'%Y-%m-%d %H:%M'}
                         </div>
                         <div style="font-size: 13px; color: #1565C0; font-weight: 500;">
-                            作者：Cathy｜英语陪跑GO
+                            作者：<a href="/author-cathy.html">Cathy</a>｜英语陪跑GO
                         </div>
                     </div>
 
