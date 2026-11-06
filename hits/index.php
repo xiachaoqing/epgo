@@ -1,6 +1,10 @@
 <?php
 # MetInfo Enterprise Content Management System
 
+// The hits endpoint only records view counters and has no indexable content.
+// Keep crawler requests from treating its tiny response as a public page.
+header('X-Robots-Tag: noindex, nofollow');
+
 $a = @$_GET['a'] ? $_GET['a'] : 'dohits';
 
 define('M_NAME', 'hits');
