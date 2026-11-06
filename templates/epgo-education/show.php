@@ -47,6 +47,15 @@
                     <p>负责 KET / PET 学习内容整理、原创练习设计和文章复核。文章中的示例会尽量使用自编场景，并注明适用的学习阶段。</p>
                 </div>
 
+                <div class="epgo-about-standards">
+                    <h3>内容编辑原则</h3>
+                    <div class="epgo-about-standards-grid">
+                        <div><strong>原创与改写</strong><p>公开文章以网站版原创指南、原创练习和经过编辑加工的学习材料为主，不自动复制其他网站内容。</p></div>
+                        <div><strong>事实与边界</strong><p>自编示例会明确标注；涉及考试的文章不冒充官方真题、评分或通过承诺，正式备考以官方说明为准。</p></div>
+                        <div><strong>持续更新</strong><p>文章会根据学习阶段和常见问题调整，更新时间、作者和相关学习入口会在页面中保留。</p></div>
+                    </div>
+                </div>
+
                 <div class="epgo-about-path">
                     <h3>推荐学习路径</h3>
                     <div class="epgo-about-steps">
@@ -87,6 +96,12 @@
 .epgo-about-editor{margin:0 0 28px;padding:16px 20px;border-left:3px solid #2563EB;background:#F8FAFC;color:#374151;border-radius:0 10px 10px 0;}
 .epgo-about-editor strong{display:block;margin-bottom:6px;color:#111827;font-size:15px;}
 .epgo-about-editor p{margin:0;color:#6B7280;font-size:13px;line-height:1.8;}
+.epgo-about-standards{margin:0 0 28px;padding:20px;border:1px solid #E5E7EB;border-radius:12px;background:#fff;}
+.epgo-about-standards h3{margin:0 0 15px;font-size:18px;color:#111827;}
+.epgo-about-standards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.epgo-about-standards-grid>div{padding:14px;background:#F8FAFC;border-radius:9px;}
+.epgo-about-standards-grid strong{display:block;margin-bottom:6px;color:#1F3A72;font-size:14px;}
+.epgo-about-standards-grid p{margin:0;color:#6B7280;font-size:13px;line-height:1.75;}
 .epgo-about-path{background:linear-gradient(135deg,#EFF6FF,#F8FAFC);border-radius:14px;padding:24px;margin-bottom:24px;}
 .epgo-about-path h3{margin:0 0 18px;font-size:20px;color:#111827;}
 .epgo-about-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
@@ -102,6 +117,7 @@
   .epgo-show-content{font-size:14px;}
   section .container > div{padding:20px !important;}
   .epgo-about-grid{grid-template-columns:1fr;}
+  .epgo-about-standards-grid{grid-template-columns:1fr;}
   .epgo-about-steps{grid-template-columns:1fr;}
 }
 </style>
