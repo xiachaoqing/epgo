@@ -314,7 +314,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                     <div class="epgo-course-links">
                         <a href="/reading/">英语阅读</a>
                         <a href="/epgo/tools.html">学习工具</a>
-                        <a href="/download/">资料下载</a>
+                        <a href="/study-log.html">学习记录表</a>
                         <a href="/reading/">学习资讯</a>
                     </div>
                 </div>
