@@ -1,4 +1,6 @@
 <met_meta page="$met_page" />
+<!-- AdSense 站点归属验证；与 ads.txt 和页面广告脚本使用同一发布者 ID。 -->
+<meta name="google-adsense-account" content="ca-pub-2043497135383313" />
 <?php
 /*
  * 工具、测评、搜索和互动页不是广告落地页：这些页面服务用户完成操作，
