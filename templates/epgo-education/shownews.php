@@ -14,6 +14,7 @@ $_epgo_article_schema = array(
     '@type' => 'Article',
     'headline' => trim(strip_tags($data['title'] ?? '英语学习文章')),
     'description' => trim(strip_tags($data['description'] ?? '英语学习与 KET/PET 备考内容')),
+    'datePublished' => !empty($data['addtime']) ? date('c', strtotime($data['addtime'])) : (!empty($data['updatetime']) ? date('c', strtotime($data['updatetime'])) : date('c')),
     'dateModified' => !empty($data['updatetime']) ? date('c', strtotime($data['updatetime'])) : date('c'),
     'author' => $_epgo_author_schema,
     'publisher' => array('@type' => 'Organization', 'name' => '英语陪跑GO', 'logo' => array('@type' => 'ImageObject', 'url' => 'https://xiachaoqing.com/epgo/logo.png')),
