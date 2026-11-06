@@ -24,8 +24,8 @@ if (isset($_epgo_subcolumn_meta[$_epgo_request_path])) {
     $data['page_keywords'] = $_epgo_meta[1];
     unset($_epgo_meta);
 }
-$_epgo_no_ads = (bool)preg_match('#^/(epgo/(assessment|tools)\.html|daily|search|tags|member|message|feedback|download)(/|$)#i', $_epgo_request_path)
-    || (defined('M_NAME') && in_array(M_NAME, array('search', 'tags', 'member', 'message', 'feedback', 'download'), true));
+$_epgo_no_ads = (bool)preg_match('#^/(epgo/(assessment|tools)\.html|daily|search|tags|member|message|feedback|download|sitemap)(/|$)#i', $_epgo_request_path)
+    || (defined('M_NAME') && in_array(M_NAME, array('search', 'tags', 'member', 'message', 'feedback', 'download', 'sitemap'), true));
 if (!$_epgo_no_ads):
 ?>
 <!-- AdSense 站点连接代码；仅在文章和学习内容页加载。 -->
