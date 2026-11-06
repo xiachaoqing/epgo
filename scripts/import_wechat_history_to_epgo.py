@@ -154,6 +154,21 @@ def classify(title):
         if "听力" in title:
             return COLUMNS["pet_exam"]
         return COLUMNS["pet"]
+    # FCE has no separate public column in the current navigation.  Keep its
+    # articles discoverable under the matching skill column instead of
+    # silently filing most FCE titles into the daily stream.
+    if "fce" in text:
+        if "写作" in title or "作文" in title:
+            return COLUMNS["pet_write"]
+        if "口语" in title:
+            return COLUMNS["speech"]
+        if "听力" in title:
+            return COLUMNS["pet_exam"]
+        if "词汇" in title or "单词" in title or "短语" in title:
+            return COLUMNS["pet_word"]
+        if "阅读" in title:
+            return COLUMNS["reading"]
+        return COLUMNS["pet"]
     if any(k in title for k in ("阅读", "绘本", "故事")):
         return COLUMNS["reading"]
     if any(k in title for k in ("演讲", "TED")):
