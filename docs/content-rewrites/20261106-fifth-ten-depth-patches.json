@@ -1,0 +1,12 @@
+{
+  "purpose": "Add article-specific review tasks to the shortest seven articles in the 835-844 batch so every public article clears the 2000-byte sitemap threshold.",
+  "items": [
+    {"id": 837, "section": "听后复述任务"},
+    {"id": 838, "section": "段落复核任务"},
+    {"id": 840, "section": "替换训练"},
+    {"id": 841, "section": "比较练习"},
+    {"id": 842, "section": "陪练记录"},
+    {"id": 843, "section": "演讲复述任务"},
+    {"id": 844, "section": "细节复写任务"}
+  ]
+}
