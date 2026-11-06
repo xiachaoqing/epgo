@@ -5,6 +5,23 @@
  * 不加载自动广告脚本，避免广告覆盖主要功能或出现在低内容页面。
  */
 $_epgo_request_path = '/' . ltrim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/', '/');
+/* 子栏目没有可靠的 description 时不要回退到首页摘要，避免多个列表页共用同一 meta description。 */
+$_epgo_subcolumn_meta = array(
+    '/ket-exam/list-111.html' => array('KET题型拆解与阅读、口语、听力练习方法，使用自编示例说明定位证据和复盘步骤。', 'KET题型,KET阅读,KET口语,KET听力'),
+    '/ket-word/list-112.html' => array('KET词汇按场景、搭配和动作整理，提供自编句子与记忆、复习方法。', 'KET词汇,KET搭配,KET单词复习'),
+    '/ket-write/list-113.html' => array('KET写作任务拆解、句子检查和邮件表达方法，配合自编练习建立清晰结构。', 'KET写作,KET邮件,KET句子检查'),
+    '/ket-listen/list-114.html' => array('KET听力图片、数字、地点和变化信息训练，提供自编对话与错误分类。', 'KET听力,KET图片题,KET听力复盘'),
+    '/pet-exam/list-121.html' => array('PET阅读、听力、口语和写作题型拆解，使用自编材料练习证据和答题步骤。', 'PET题型,PET阅读,PET听力,PET口语'),
+    '/pet-word/list-122.html' => array('PET词汇搭配、近义词和语境复习方法，帮助把单词放入句子和真实场景。', 'PET词汇,PET搭配,PET近义词'),
+    '/pet-write/list-123.html' => array('PET写作观点、连接词、邮件和文章结构方法，配合自编任务进行检查和复盘。', 'PET写作,PET连接词,PET文章结构'),
+    '/pet-read/list-124.html' => array('PET阅读定位、态度、比较和图表信息处理方法，强调证据、范围和排除理由。', 'PET阅读,PET态度题,PET阅读证据'),
+);
+if (isset($_epgo_subcolumn_meta[$_epgo_request_path])) {
+    $_epgo_meta = $_epgo_subcolumn_meta[$_epgo_request_path];
+    $data['page_description'] = $_epgo_meta[0];
+    $data['page_keywords'] = $_epgo_meta[1];
+    unset($_epgo_meta);
+}
 $_epgo_no_ads = (bool)preg_match('#^/(epgo/(assessment|tools)\.html|daily|search|tags|member|message|feedback|download)(/|$)#i', $_epgo_request_path)
     || (defined('M_NAME') && in_array(M_NAME, array('search', 'tags', 'member', 'message', 'feedback', 'download'), true));
 if (!$_epgo_no_ads):
@@ -26,7 +43,7 @@ if (preg_match('#^/(search|tags|member|message|download)(/|$)#', $_epgo_path)
     || preg_match('#^/(ket|pet)/(202|227|356|357|358|412|425|184|186|216|218|219|220)\.html$#', $_epgo_path)) {
     echo '<meta name="robots" content="noindex,follow">' . "\n";
 }
-unset($_epgo_path, $_epgo_canonical, $_epgo_request_path, $_epgo_no_ads);
+unset($_epgo_path, $_epgo_canonical, $_epgo_request_path, $_epgo_no_ads, $_epgo_subcolumn_meta);
 ?>
 <?php
 /* 动态查询子栏目，使用 PATH_CONFIG 常量定位配置文件 */

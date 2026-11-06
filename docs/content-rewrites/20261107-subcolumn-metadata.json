@@ -1,0 +1,42 @@
+[
+  {
+    "id": 111,
+    "description": "KET题型拆解与阅读、口语、听力练习方法，使用自编示例说明定位证据和复盘步骤。",
+    "keywords": "KET题型,KET阅读,KET口语,KET听力"
+  },
+  {
+    "id": 112,
+    "description": "KET词汇按场景、搭配和动作整理，提供自编句子与记忆、复习方法。",
+    "keywords": "KET词汇,KET搭配,KET单词复习"
+  },
+  {
+    "id": 113,
+    "description": "KET写作任务拆解、句子检查和邮件表达方法，配合自编练习建立清晰结构。",
+    "keywords": "KET写作,KET邮件,KET句子检查"
+  },
+  {
+    "id": 114,
+    "description": "KET听力图片、数字、地点和变化信息训练，提供自编对话与错误分类。",
+    "keywords": "KET听力,KET图片题,KET听力复盘"
+  },
+  {
+    "id": 121,
+    "description": "PET阅读、听力、口语和写作题型拆解，使用自编材料练习证据和答题步骤。",
+    "keywords": "PET题型,PET阅读,PET听力,PET口语"
+  },
+  {
+    "id": 122,
+    "description": "PET词汇搭配、近义词和语境复习方法，帮助把单词放入句子和真实场景。",
+    "keywords": "PET词汇,PET搭配,PET近义词"
+  },
+  {
+    "id": 123,
+    "description": "PET写作观点、连接词、邮件和文章结构方法，配合自编任务进行检查和复盘。",
+    "keywords": "PET写作,PET连接词,PET文章结构"
+  },
+  {
+    "id": 124,
+    "description": "PET阅读定位、态度、比较和图表信息处理方法，强调证据、范围和排除理由。",
+    "keywords": "PET阅读,PET态度题,PET阅读证据"
+  }
+]

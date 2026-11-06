@@ -72,3 +72,8 @@
 - 新增 864–871 八篇原创指南，覆盖 KET 口语/阅读、PET 口语/听力、英语阅读和英语演讲；每篇正文均超过 2000 UTF-8 字节，并包含自编练习、复盘和下一步行动。
 - 使用 `scripts/publish_editorial_batch.py` 先做标题去重、正文长度、栏目和发布时间校验，再用 `--apply` 入库；线上备份在 `/root/epgo-editorial-batch-20261106-232842.json`，权限为 `0600`。
 - 发布时间按 `addtime` 分散在 2026-10-26 至 2026-11-05，`updatetime` 保留实际编辑时间；sitemap、指南索引和 RSS 均已同步，线上质量监测 97 篇文章严重问题 0、重复组 0。
+
+## 子栏目元信息修复（2026-11-07）
+
+- `20261107-subcolumn-metadata.json` 为 8 个 KET/PET 子栏目补充独立 description 和 keywords；发布前备份在服务器 `/root/epgo-subcolumn-meta-before-20261107.json`。
+- 模板对固定子栏目路径增加兜底，避免数据库字段为空时回退到首页摘要；线上 sitemap 页面重复 description 已核验为 0。
