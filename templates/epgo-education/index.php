@@ -343,7 +343,7 @@ unset($_epgo_raw_banners, $_promo_text, $_b, $_fallback);
                 <h2 style="font-size:32px;font-weight:800;color:#111827;margin:0 0 6px;">精选学习指南</h2>
             <p style="font-size:14px;color:#6B7280;margin:0;">围绕 KET / PET 学习问题整理的原创练习与方法</p>
             </div>
-            <a href="/reading/" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
+            <a href="/guides.html" style="background:#EFF6FF;color:#2563EB;padding:9px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;">查看全部 →</a>
         </div>
         <div class="row">
             <?php
