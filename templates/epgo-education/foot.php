@@ -165,6 +165,8 @@
                 <a href="/editorial.html">内容编辑说明</a>
                 <span style="margin:0 8px;opacity:.45;">|</span>
                 <a href="/feedback/">联系我们</a>
+                <span style="margin:0 8px;opacity:.45;">|</span>
+                <a href="/?fc=alwaysshow&amp;fctype=gdpr" rel="nofollow">广告隐私选择</a>
             </div>
             <if value="$c['met_footright'] || $c['met_footstat']">
                 <div class="met_footright">
