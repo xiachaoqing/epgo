@@ -25,6 +25,7 @@ STATIC = [
     ("/learning-path.html", "monthly"), ("/faq.html", "monthly"),
     ("/author-cathy.html", "yearly"),
     ("/study-log.html", "weekly"),
+    ("/ad-consent.html", "yearly"),
     ("/ket-exam/list-111.html", "monthly"), ("/ket-word/list-112.html", "monthly"),
     ("/ket-write/list-113.html", "monthly"), ("/ket-listen/list-114.html", "monthly"),
     ("/pet-exam/list-121.html", "monthly"), ("/pet-word/list-122.html", "monthly"),
