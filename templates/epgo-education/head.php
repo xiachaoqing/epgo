@@ -31,6 +31,8 @@ if (!$_epgo_no_ads):
 ?>
 <!-- AdSense 站点连接代码；仅在文章和学习内容页加载。 -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2043497135383313" crossorigin="anonymous"></script>
+<!-- 在 AdSense Privacy & messaging 发布并传递用户选择前，先请求非个性化广告。 -->
+<script>(adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1;</script>
 <?php endif; ?>
 <?php
 /* 统一主域 canonical；忽略筛选、分页和追踪参数，避免同一文章多地址收录。 */
