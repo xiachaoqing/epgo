@@ -120,6 +120,16 @@ h1 span{color:var(--orange)}
 .plan-list li:before{content:"✓";color:var(--green);font-weight:900;margin-right:7px}
 .plan-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .plan-payment-note{color:#8793a3;font-size:.72rem;line-height:1.5}
+.plan-actions .btn{cursor:pointer;border:0}
+.plan-consult{color:var(--blue);font-size:.78rem;font-weight:700;text-decoration:underline}
+.pay-modal{display:none;position:fixed;inset:0;z-index:50;background:rgba(16,28,48,.55);padding:18px;align-items:center;justify-content:center}
+.pay-modal.show{display:flex}
+.pay-dialog{width:min(440px,100%);background:#fff;border-radius:18px;padding:24px;box-shadow:0 18px 60px rgba(0,0,0,.2);position:relative}
+.pay-close{position:absolute;right:14px;top:10px;border:0;background:transparent;color:#8793a3;font-size:1.5rem;cursor:pointer}
+.pay-dialog h3{color:var(--ink);font-size:1.2rem;margin-bottom:5px}.pay-dialog p{color:var(--muted);font-size:.82rem;line-height:1.7;margin-bottom:16px}
+.pay-plan-name{padding:12px;background:#f1f8ff;color:#245884;border-radius:10px;font-weight:800;margin-bottom:13px}
+.pay-field{width:100%;border:1px solid #dbe4ee;border-radius:9px;padding:11px 12px;font:inherit;font-size:.9rem;outline:none;margin-bottom:12px}.pay-field:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(41,141,255,.12)}
+.pay-status{min-height:24px;color:#5d6c7d;font-size:.8rem;line-height:1.6;margin-top:11px}
 .plan-note{text-align:center;color:#8591a0;font-size:.8rem;margin-top:18px}
 .payment-flow{max-width:860px;margin:20px auto 0;padding:13px 16px;border:1px solid #e7edf4;border-radius:12px;background:#fff;color:#657386;font-size:.8rem;line-height:1.8;text-align:center}
 .payment-flow strong{color:var(--ink);margin-right:8px}
@@ -306,13 +316,25 @@ h1 span{color:var(--orange)}
       <p class="section-lead">线上方案包含 App 使用、阶段计划、听单配置和社群陪跑。报名后由 Cathy 人工确认孩子情况，套餐咨询与成交通过公众号完成。</p>
       <div class="divider"></div>
       <div class="plan-grid">
-        <div class="plan-card"><div class="plan-name">3个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1299</div><div class="plan-period">适合先完成一个阶段 · 线上方案</div><ul class="plan-list"><li>入营沟通与阶段计划</li><li>课程期间英语陪跑GO使用权限</li><li>每周听单和执行建议</li><li>社群打卡与阶段反馈</li></ul><div class="plan-actions"><a class="btn btn-secondary" href="#contact">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
-        <div class="plan-card featured"><span class="plan-badge">首期长期方案</span><div class="plan-name">9个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1999</div><div class="plan-period">连续三个阶段，适合长期坚持</div><ul class="plan-list"><li>包含3个月方案全部服务</li><li>课程期间英语陪跑GO使用权限</li><li>连续阶段目标和听单安排</li><li>每周打卡反馈与阶段复盘</li></ul><div class="plan-actions"><a class="btn btn-primary" href="#contact">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
+        <div class="plan-card"><div class="plan-name">3个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1299</div><div class="plan-period">适合先完成一个阶段 · 线上方案</div><ul class="plan-list"><li>入营沟通与阶段计划</li><li>课程期间英语陪跑GO使用权限</li><li>每周听单和执行建议</li><li>社群打卡与阶段反馈</li></ul><div class="plan-actions"><button class="btn btn-secondary" type="button" onclick="startListeningPay('three_month')">立即微信支付</button><a class="plan-consult" href="#contact">先咨询</a></div></div>
+        <div class="plan-card featured"><span class="plan-badge">首期长期方案</span><div class="plan-name">9个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1999</div><div class="plan-period">连续三个阶段，适合长期坚持</div><ul class="plan-list"><li>包含3个月方案全部服务</li><li>课程期间英语陪跑GO使用权限</li><li>连续阶段目标和听单安排</li><li>每周打卡反馈与阶段复盘</li></ul><div class="plan-actions"><button class="btn btn-primary" type="button" onclick="startListeningPay('nine_month')">立即微信支付</button><a class="plan-consult" href="#contact">先咨询</a></div></div>
       </div>
-      <div class="payment-flow"><strong>报名与付款流程</strong>公众号回复“熏听” → Cathy 确认孩子情况和套餐 → 人工收款 → 开通 App 账号并发送第一阶段计划</div>
+      <div class="payment-flow"><strong>报名与付款流程</strong>选择套餐并完成微信支付 → 支付成功后进入人工开通队列 → Cathy 联系家长确认信息 → 开通 App 账号并发送第一阶段计划；也可以先到公众号咨询。</div>
       <p class="plan-note">说明：App 账号由人工开通，具体开通时间以公众号通知为准；陪跑营服务不承诺考试分数或固定学习结果。</p>
     </div>
   </section>
+
+  <div class="pay-modal" id="listeningPayModal" aria-hidden="true">
+    <div class="pay-dialog" role="dialog" aria-modal="true" aria-labelledby="listeningPayTitle">
+      <button class="pay-close" type="button" aria-label="关闭" onclick="closeListeningPay()">×</button>
+      <h3 id="listeningPayTitle">确认熏听陪跑营</h3>
+      <p>支付成功后，Cathy 会人工联系并开通英语陪跑GO学员端，发送第一阶段熏听计划。</p>
+      <div class="pay-plan-name" id="listeningPayPlanName"></div>
+      <input class="pay-field" id="listeningContact" maxlength="80" placeholder="家长称呼或手机号（用于人工开通）" autocomplete="tel">
+      <button class="btn btn-primary" id="listeningPaySubmit" type="button" onclick="submitListeningPayment()">确认并微信支付</button>
+      <div class="pay-status" id="listeningPayStatus"></div>
+    </div>
+  </div>
 
   <section class="section" id="faq">
     <div class="container">
@@ -359,9 +381,19 @@ h1 span{color:var(--orange)}
   <div class="container"><div class="footer-links"><a href="/epgo/">英语陪跑GO</a><a href="#why">为什么熏听</a><a href="#flow">陪跑流程</a><a href="#plans">陪跑营方案</a><a href="#contact">公众号咨询</a></div><div>© 2026 英语陪跑GO · Cathy 熏听陪跑营</div><div style="margin-top:4px"><a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">京ICP备2020039465号-1</a></div></div>
 </footer>
 <script>
-(function initListeningShare(){
-  if(!/MicroMessenger/i.test(navigator.userAgent) || !window.wx) return;
-  const api='https://wechat.xiachaoqing.com';
+const LISTENING_API='https://wechat.xiachaoqing.com';
+const LISTENING_APPID='wx10b4ccec486e7961';
+const LISTENING_PLANS={
+  three_month:{name:'3个月 · Cathy 熏听陪跑营',price:'¥1299'},
+  nine_month:{name:'9个月 · Cathy 熏听陪跑营',price:'¥1999'}
+};
+let listeningPlanId='';
+let listeningWxReady=false;
+let listeningWxReadyPromise=null;
+
+function initListeningShare(){
+  if(!/MicroMessenger/i.test(navigator.userAgent) || !window.wx) return Promise.resolve(false);
+  if(listeningWxReadyPromise) return listeningWxReadyPromise;
   const pageUrl=location.origin+location.pathname;
   const shareData={
     title:'Cathy 熏听陪跑营｜科学熏听，贵在坚持',
@@ -369,19 +401,124 @@ h1 span{color:var(--orange)}
     link:pageUrl,
     imgUrl:'https://go.xiachaoqing.com/epgo/listening-share.jpg'
   };
-  fetch(api+'/api/jzt/wx/jsconfig?url='+encodeURIComponent(pageUrl))
-    .then(r=>r.json())
-    .then(cfg=>{
-      if(!cfg || !cfg.signature) return;
-      wx.config({debug:false,appId:cfg.appId,timestamp:Number(cfg.timestamp),nonceStr:cfg.nonceStr,signature:cfg.signature,jsApiList:['updateAppMessageShareData','updateTimelineShareData','onMenuShareAppMessage','onMenuShareTimeline']});
-      wx.ready(function(){
-        if(wx.updateAppMessageShareData) wx.updateAppMessageShareData(shareData);
-        if(wx.updateTimelineShareData) wx.updateTimelineShareData({title:shareData.title,link:shareData.link,imgUrl:shareData.imgUrl});
-        if(wx.onMenuShareAppMessage) wx.onMenuShareAppMessage({title:shareData.title,desc:shareData.desc,link:shareData.link,imgUrl:shareData.imgUrl});
-        if(wx.onMenuShareTimeline) wx.onMenuShareTimeline({title:shareData.title,link:shareData.link,imgUrl:shareData.imgUrl});
-      });
-    })
-    .catch(function(){});
+  listeningWxReadyPromise=new Promise(resolve=>{
+    fetch(LISTENING_API+'/api/jzt/wx/jsconfig?url='+encodeURIComponent(pageUrl))
+      .then(r=>r.json())
+      .then(cfg=>{
+        if(!cfg || !cfg.signature){ resolve(false); return; }
+        wx.config({
+          debug:false,appId:cfg.appId,timestamp:Number(cfg.timestamp),nonceStr:cfg.nonceStr,signature:cfg.signature,
+          jsApiList:['updateAppMessageShareData','updateTimelineShareData','onMenuShareAppMessage','onMenuShareTimeline','chooseWXPay']
+        });
+        wx.ready(function(){
+          listeningWxReady=true; resolve(true);
+          if(wx.updateAppMessageShareData) wx.updateAppMessageShareData(shareData);
+          if(wx.updateTimelineShareData) wx.updateTimelineShareData({title:shareData.title,link:shareData.link,imgUrl:shareData.imgUrl});
+          if(wx.onMenuShareAppMessage) wx.onMenuShareAppMessage({title:shareData.title,desc:shareData.desc,link:shareData.link,imgUrl:shareData.imgUrl});
+          if(wx.onMenuShareTimeline) wx.onMenuShareTimeline({title:shareData.title,link:shareData.link,imgUrl:shareData.imgUrl});
+        });
+        wx.error(function(){ listeningWxReady=false; resolve(false); });
+      })
+      .catch(function(){ resolve(false); });
+  });
+  return listeningWxReadyPromise;
+}
+
+function getListeningOpenid(){
+  const hashParams=new URLSearchParams(location.hash.replace(/^#/,''));
+  const oidFromHash=hashParams.get('oid');
+  if(oidFromHash){ sessionStorage.setItem('jzt_openid',oidFromHash); history.replaceState({},'',location.pathname+location.search); return oidFromHash; }
+  return sessionStorage.getItem('jzt_openid')||'';
+}
+
+function requestListeningOpenid(planId){
+  sessionStorage.setItem('listening_pending_plan',planId);
+  const returnUrl=location.origin+location.pathname+'?pay='+encodeURIComponent(planId);
+  const callback=encodeURIComponent(LISTENING_API+'/api/jzt/auth/callback');
+  location.replace('https://open.weixin.qq.com/connect/oauth2/authorize?appid='+LISTENING_APPID+'&redirect_uri='+callback+'&response_type=code&scope=snsapi_base&state='+encodeURIComponent(returnUrl)+'#wechat_redirect');
+}
+
+function showListeningPayModal(planId){
+  const plan=LISTENING_PLANS[planId]; if(!plan) return;
+  listeningPlanId=planId;
+  document.getElementById('listeningPayPlanName').textContent=plan.name+' · '+plan.price;
+  document.getElementById('listeningPayStatus').textContent='';
+  document.getElementById('listeningPaySubmit').disabled=false;
+  document.getElementById('listeningPaySubmit').textContent='确认并微信支付';
+  document.getElementById('listeningPayModal').classList.add('show');
+  document.getElementById('listeningPayModal').setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function startListeningPay(planId){
+  if(!LISTENING_PLANS[planId]) return;
+  if(!/MicroMessenger/i.test(navigator.userAgent)){
+    location.hash='contact';
+    alert('微信支付请在微信内打开本页面；也可以先关注公众号咨询。');
+    return;
+  }
+  const openid=getListeningOpenid();
+  if(!openid){ requestListeningOpenid(planId); return; }
+  showListeningPayModal(planId);
+}
+
+function closeListeningPay(){
+  const modal=document.getElementById('listeningPayModal');
+  modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
+}
+document.getElementById('listeningPayModal').addEventListener('click',function(e){if(e.target===this) closeListeningPay();});
+
+async function submitListeningPayment(){
+  const btn=document.getElementById('listeningPaySubmit');
+  const status=document.getElementById('listeningPayStatus');
+  const contact=document.getElementById('listeningContact').value.trim();
+  const openid=getListeningOpenid();
+  if(!contact){ status.textContent='请填写家长称呼或手机号，方便支付后人工开通 App。'; return; }
+  if(!openid){ status.textContent='微信授权信息已失效，请刷新页面后重试。'; return; }
+  btn.disabled=true; btn.textContent='正在创建订单…'; status.textContent='';
+  try{
+    const r=await fetch(LISTENING_API+'/api/listening/order/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan_id:listeningPlanId,openid,contact})});
+    const d=await r.json();
+    if(!r.ok || d.code!==0) throw new Error(d.detail||'创建订单失败');
+    sessionStorage.setItem('listening_order',d.order_no);
+    const ready=await initListeningShare();
+    if(!ready || !window.wx || !wx.chooseWXPay) throw new Error('微信支付环境未准备好，请刷新后重试');
+    btn.textContent='唤起微信支付…';
+    const pay=d.pay_params;
+    wx.chooseWXPay({appId:pay.appId,timestamp:pay.timeStamp,nonceStr:pay.nonceStr,package:pay.package,signType:pay.signType,paySign:pay.paySign,
+      success:function(){ status.textContent='支付已完成，正在确认订单；Cathy 会人工开通 App 并发送第一阶段计划。'; pollListeningStatus(d.order_no,openid); },
+      cancel:function(){ status.textContent='你已取消支付，可随时重新发起。'; },
+      fail:function(err){ status.textContent='支付未完成，请稍后重试。'; console.warn('listening payment failed',err); }
+    });
+  }catch(err){ status.textContent=err.message||'网络错误，请稍后重试'; }
+  finally{ btn.disabled=false; btn.textContent='确认并微信支付'; }
+}
+
+async function pollListeningStatus(orderNo,openid){
+  const status=document.getElementById('listeningPayStatus');
+  for(let i=0;i<8;i++){
+    try{
+      const r=await fetch(LISTENING_API+'/api/listening/order/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order_no:orderNo,openid})});
+      const d=await r.json();
+      if(r.ok && d.code===0 && d.order && Number(d.order.pay_status)===1){
+        status.textContent='支付成功，订单已进入人工开通队列。请保持公众号联系，Cathy 会确认孩子信息并发送 App 账号和第一阶段计划。';
+        return;
+      }
+    }catch(e){}
+    await new Promise(resolve=>setTimeout(resolve,2000));
+  }
+  status.textContent='支付结果正在确认中。若页面仍未更新，请在公众号回复“熏听”，我们会人工核对订单。';
+}
+
+(function bootListeningPage(){
+  const openid=getListeningOpenid();
+  if(/MicroMessenger/i.test(navigator.userAgent)) initListeningShare();
+  const pay=new URLSearchParams(location.search).get('pay')||sessionStorage.getItem('listening_pending_plan')||'';
+  if(openid && pay && LISTENING_PLANS[pay]){
+    sessionStorage.removeItem('listening_pending_plan');
+    history.replaceState({},'',location.pathname);
+    setTimeout(function(){showListeningPayModal(pay);},300);
+  }
 })();
 </script>
 </body>
