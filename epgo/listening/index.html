@@ -53,12 +53,12 @@ h1 span{color:var(--orange)}
 .hero-step{background:#fff;border:1px solid #edf0f3;border-radius:13px;padding:14px}
 .hero-step b{display:block;color:var(--orange);font-size:.76rem;margin-bottom:3px}
 .hero-step span{display:block;color:#4e5a6c;font-size:.86rem}
-.section{padding:72px 0;background:#fff}
+.section{padding:58px 0;background:#fff}
 .section.alt{background:#f7fbff}
 .section.cream{background:var(--cream)}
 .section-title{text-align:center;color:var(--ink);font-size:clamp(1.5rem,2.8vw,2rem);line-height:1.35;margin-bottom:9px}
-.section-lead{text-align:center;color:#8490a1;font-size:.92rem;margin:0 auto 30px;max-width:720px}
-.divider{width:42px;height:3px;border-radius:99px;background:var(--blue);margin:0 auto 34px}
+.section-lead{text-align:center;color:#8490a1;font-size:.92rem;margin:0 auto 22px;max-width:720px}
+.divider{width:42px;height:3px;border-radius:99px;background:var(--blue);margin:0 auto 26px}
 .pain-grid,.principle-grid,.flow-grid,.deliver-grid,.faq-grid{display:grid;gap:16px}
 .pain-grid{grid-template-columns:repeat(4,1fr)}
 .pain-card,.principle-card,.deliver-card,.faq-item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 3px 14px rgba(27,52,87,.04)}
@@ -126,6 +126,7 @@ h1 span{color:var(--orange)}
 .faq-grid{grid-template-columns:repeat(2,1fr);max-width:920px;margin:0 auto}
 .faq-item h3{color:var(--ink);font-size:.92rem;margin-bottom:7px}
 .faq-item p{color:var(--muted);font-size:.83rem;line-height:1.8}
+.contact-grid{display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:center;max-width:860px;margin:0 auto}.contact-copy{color:var(--muted);font-size:.92rem;line-height:1.85;max-width:640px}.contact-points{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 10px}.contact-points span{padding:6px 10px;background:#fff;border:1px solid #dcecf8;border-radius:999px;color:#47708f;font-size:.78rem}.contact-note{color:#8490a1;font-size:.8rem}.contact-card{background:#fff;border:1px solid #dfeaf4;border-radius:16px;padding:15px;text-align:center;box-shadow:var(--shadow)}.contact-card img{width:150px;height:150px;margin:0 auto 8px;object-fit:contain}.contact-card strong{display:block;color:var(--ink);font-size:.84rem}.contact-card span{display:block;color:#8490a1;font-size:.75rem;margin-top:2px}
 .cta{padding:66px 0;background:linear-gradient(135deg,#1d73d5,#45a4ff);color:#fff;text-align:center}
 .cta h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:10px}
 .cta p{color:rgba(255,255,255,.82);font-size:.92rem;margin-bottom:22px}
@@ -134,8 +135,8 @@ h1 span{color:var(--orange)}
 .footer{background:#17243e;color:#9aa8bc;text-align:center;padding:25px 0;font-size:.78rem}
 .footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:9px}
 .footer a:hover{color:#fff}
-@media(max-width:960px){.nav-links{display:none}.hero-grid{grid-template-columns:1fr;gap:30px}.pain-grid{grid-template-columns:repeat(2,1fr)}.flow-grid{grid-template-columns:repeat(3,1fr);row-gap:25px}.flow-grid:before{display:none}.deliver-grid{grid-template-columns:repeat(2,1fr)}.app-benefits{grid-template-columns:repeat(2,1fr)}.visual-grid{grid-template-columns:1fr}.preview-card{grid-column:auto}}
-@media(max-width:640px){.container{width:min(100% - 28px,560px)}.nav-inner{height:54px}.nav-cta{padding:7px 11px;font-size:.78rem}.hero{padding:52px 0 42px}.hero-card{padding:18px;border-radius:16px}.hero-steps{grid-template-columns:1fr}.section{padding:52px 0}.pain-grid,.principle-grid,.flow-grid,.deliver-grid,.app-benefits,.plan-grid,.faq-grid,.app-box{grid-template-columns:1fr}.app-box{padding:18px}.plan-card,.plan-card.featured{padding:22px}.plan-card.featured{padding:21px}.hero-actions>*{width:100%}.cta-actions>*{width:100%}.btn{width:100%}.flow-dot{width:66px;height:66px}.screen-card img{height:220px}.plan-profile{grid-template-columns:1fr 1fr}.plan-preview-head,.plan-preview-row{grid-template-columns:.85fr .8fr 1.35fr .55fr;font-size:.68rem;padding:8px 7px}.preview-card{padding:14px}}
+@media(max-width:960px){.contact-grid{grid-template-columns:1fr 190px}.contact-card img{width:130px;height:130px}.nav-links{display:none}.hero-grid{grid-template-columns:1fr;gap:30px}.pain-grid{grid-template-columns:repeat(2,1fr)}.flow-grid{grid-template-columns:repeat(3,1fr);row-gap:25px}.flow-grid:before{display:none}.deliver-grid{grid-template-columns:repeat(2,1fr)}.app-benefits{grid-template-columns:repeat(2,1fr)}.visual-grid{grid-template-columns:1fr}.preview-card{grid-column:auto}}
+@media(max-width:640px){.container{width:min(100% - 28px,560px)}.nav-inner{height:54px}.nav-cta{padding:7px 11px;font-size:.78rem}.hero{padding:52px 0 42px}.hero-card{padding:18px;border-radius:16px}.hero-steps{grid-template-columns:1fr}.section{padding:52px 0}.pain-grid,.principle-grid,.flow-grid,.deliver-grid,.app-benefits,.plan-grid,.faq-grid,.app-box,.contact-grid{grid-template-columns:1fr}.app-box{padding:18px}.contact-grid{gap:18px}.plan-card,.plan-card.featured{padding:22px}.plan-card.featured{padding:21px}.hero-actions>*{width:100%}.cta-actions>*{width:100%}.btn{width:100%}.flow-dot{width:66px;height:66px}.screen-card img{height:220px}.plan-profile{grid-template-columns:1fr 1fr}.plan-preview-head,.plan-preview-row{grid-template-columns:.85fr .8fr 1.35fr .55fr;font-size:.68rem;padding:8px 7px}.preview-card{padding:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 </style>
 </head>
@@ -150,7 +151,7 @@ h1 span{color:var(--orange)}
       <a href="#app-benefits">App权益</a>
       <a href="#plans">陪跑营方案</a>
     </div>
-    <a class="nav-cta" href="/epgo/#follow">公众号咨询</a>
+    <a class="nav-cta" href="#contact">公众号咨询</a>
   </div>
 </nav>
 
@@ -163,7 +164,7 @@ h1 span{color:var(--orange)}
         <p class="hero-lead">为 3–10 岁家庭设计的英语听力输入计划。报名 Cathy 熏听陪跑营，课程价格已包含服务期内的英语陪跑GO App 学员端使用权限，不再单独收取 App 费用；Cathy 根据孩子的年龄、基础和家庭时间安排配置听单，陪家长把每天的一点点积累坚持下来。</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#plans">查看陪跑营方案</a>
-          <a class="btn btn-secondary" href="/epgo/#follow">关注公众号咨询</a>
+          <a class="btn btn-secondary" href="#contact">关注公众号咨询</a>
         </div>
         <div class="hero-tags"><span>个性化计划</span><span>App 听单执行</span><span>社群打卡</span><span>阶段复盘</span></div>
       </div>
@@ -305,8 +306,8 @@ h1 span{color:var(--orange)}
       <p class="section-lead">线上方案包含 App 使用、阶段计划、听单配置和社群陪跑。报名后由 Cathy 人工确认孩子情况，套餐咨询与成交通过公众号完成。</p>
       <div class="divider"></div>
       <div class="plan-grid">
-        <div class="plan-card"><div class="plan-name">3个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1299</div><div class="plan-period">适合先完成一个阶段 · 线上方案</div><ul class="plan-list"><li>入营沟通与阶段计划</li><li>课程期间英语陪跑GO使用权限</li><li>每周听单和执行建议</li><li>社群打卡与阶段反馈</li></ul><div class="plan-actions"><a class="btn btn-secondary" href="/epgo/#follow">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
-        <div class="plan-card featured"><span class="plan-badge">首期长期方案</span><div class="plan-name">9个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1999</div><div class="plan-period">连续三个阶段，适合长期坚持</div><ul class="plan-list"><li>包含3个月方案全部服务</li><li>课程期间英语陪跑GO使用权限</li><li>连续阶段目标和听单安排</li><li>每周打卡反馈与阶段复盘</li></ul><div class="plan-actions"><a class="btn btn-primary" href="/epgo/#follow">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
+        <div class="plan-card"><div class="plan-name">3个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1299</div><div class="plan-period">适合先完成一个阶段 · 线上方案</div><ul class="plan-list"><li>入营沟通与阶段计划</li><li>课程期间英语陪跑GO使用权限</li><li>每周听单和执行建议</li><li>社群打卡与阶段反馈</li></ul><div class="plan-actions"><a class="btn btn-secondary" href="#contact">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
+        <div class="plan-card featured"><span class="plan-badge">首期长期方案</span><div class="plan-name">9个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1999</div><div class="plan-period">连续三个阶段，适合长期坚持</div><ul class="plan-list"><li>包含3个月方案全部服务</li><li>课程期间英语陪跑GO使用权限</li><li>连续阶段目标和听单安排</li><li>每周打卡反馈与阶段复盘</li></ul><div class="plan-actions"><a class="btn btn-primary" href="#contact">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
       </div>
       <div class="payment-flow"><strong>报名与付款流程</strong>公众号回复“熏听” → Cathy 确认孩子情况和套餐 → 人工收款 → 开通 App 账号并发送第一阶段计划</div>
       <p class="plan-note">说明：App 账号由人工开通，具体开通时间以公众号通知为准；陪跑营服务不承诺考试分数或固定学习结果。</p>
@@ -329,17 +330,33 @@ h1 span{color:var(--orange)}
     </div>
   </section>
 
+  <section class="section alt contact-section" id="contact">
+    <div class="container contact-grid">
+      <div>
+        <h2 class="section-title" style="text-align:left;margin-bottom:8px">关注公众号，咨询 Cathy 熏听陪跑营</h2>
+        <p class="contact-copy">点击下方二维码关注「英语陪跑go」公众号，回复“熏听”，我们会根据孩子年龄、基础和每天可用时间确认适合的套餐与入营安排。</p>
+        <div class="contact-points"><span>✓ 3个月 ¥1299</span><span>✓ 9个月 ¥1999</span><span>✓ 课程期间包含 App 使用</span></div>
+        <p class="contact-note">付款后由人工开通英语陪跑GO学员端，并发送第一阶段熏听计划。</p>
+      </div>
+      <div class="contact-card">
+        <img src="/epgo/qrcode_hd.png" alt="英语陪跑go公众号二维码" loading="lazy">
+        <strong>长按识别二维码</strong>
+        <span>关注后回复：熏听</span>
+      </div>
+    </div>
+  </section>
+
   <section class="cta">
     <div class="container">
       <h2>先了解孩子，再开始每天的英语输入</h2>
       <p>关注英语陪跑GO公众号，回复“熏听”获取 Cathy 熏听陪跑营报名说明。</p>
-      <div class="cta-actions"><a class="btn btn-secondary" href="/epgo/#follow">关注公众号</a><a class="btn btn-secondary" href="/epgo/">返回英语陪跑GO首页</a></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="#contact">关注公众号</a><a class="btn btn-secondary" href="/epgo/">返回英语陪跑GO首页</a></div>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <div class="container"><div class="footer-links"><a href="/epgo/">英语陪跑GO</a><a href="#why">为什么熏听</a><a href="#flow">陪跑流程</a><a href="#plans">陪跑营方案</a><a href="/epgo/#follow">公众号咨询</a></div><div>© 2026 英语陪跑GO · Cathy 熏听陪跑营</div><div style="margin-top:4px"><a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">京ICP备2020039465号-1</a></div></div>
+  <div class="container"><div class="footer-links"><a href="/epgo/">英语陪跑GO</a><a href="#why">为什么熏听</a><a href="#flow">陪跑流程</a><a href="#plans">陪跑营方案</a><a href="#contact">公众号咨询</a></div><div>© 2026 英语陪跑GO · Cathy 熏听陪跑营</div><div style="margin-top:4px"><a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">京ICP备2020039465号-1</a></div></div>
 </footer>
 <script>
 (function initListeningShare(){
