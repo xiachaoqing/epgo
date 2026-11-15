@@ -82,10 +82,15 @@ h1 span{color:var(--orange)}
 .app-list{display:grid;gap:10px}
 .app-list li{list-style:none;display:flex;gap:9px;align-items:flex-start;color:#58677a;font-size:.86rem}
 .app-list li:before{content:"✓";color:var(--green);font-weight:900}
+.device-note{margin-top:18px;padding:13px 14px;background:#fff;border:1px solid #dcecf8;border-radius:12px;color:#5e6f81;font-size:.8rem;line-height:1.7}
+.device-note strong{display:block;color:var(--ink);font-size:.86rem;margin-bottom:4px}
+.device-link{display:inline-block;margin-top:6px;color:var(--blue);font-weight:700}
+.device-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.device-item{padding:9px 8px;border:1px solid #e4edf5;border-radius:9px;background:#f8fbff;color:#4f6a83;font-size:.72rem;line-height:1.5;text-align:center}
 .app-screen{min-height:250px;border-radius:14px;background:#dceeff;border:1px solid #c9e4fb;display:flex;align-items:center;justify-content:center;padding:14px;text-align:center;color:#214b79;overflow:hidden}
 .app-screen img{width:100%;height:100%;min-height:290px;object-fit:contain;object-position:center;border-radius:10px;box-shadow:0 8px 22px rgba(35,82,130,.14)}
 .app-screen-caption{display:block;margin-top:8px;color:#50708e;font-size:.76rem;text-align:center}
-.visual-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:stretch}
+.visual-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:stretch;max-width:860px;margin:0 auto}
 .screen-card{margin:0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
 .screen-card img{width:100%;height:340px;object-fit:contain;object-position:center;background:#eaf5ff}
 .screen-card figcaption{padding:13px 16px;color:#5c6b7e;font-size:.82rem;border-top:1px solid #edf0f4}
@@ -148,7 +153,7 @@ h1 span{color:var(--orange)}
 .footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:9px}
 .footer a:hover{color:#fff}
 @media(max-width:960px){.contact-grid{grid-template-columns:1fr 190px}.contact-card img{width:130px;height:130px}.nav-links{display:none}.hero-grid{grid-template-columns:1fr;gap:30px}.pain-grid{grid-template-columns:repeat(2,1fr)}.flow-grid{grid-template-columns:repeat(3,1fr);row-gap:25px}.flow-grid:before{display:none}.deliver-grid{grid-template-columns:repeat(2,1fr)}.app-benefits{grid-template-columns:repeat(2,1fr)}.visual-grid{grid-template-columns:1fr}.preview-card{grid-column:auto}}
-@media(max-width:640px){.container{width:min(100% - 28px,560px)}.nav-inner{height:54px}.nav-cta{padding:7px 11px;font-size:.78rem}.hero{padding:52px 0 42px}.hero-lead{font-size:.94rem;line-height:1.82}.hero-card{padding:18px;border-radius:16px}.hero-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.hero-step{padding:11px}.hero-step span{font-size:.76rem}.section{padding:52px 0}.pain-grid,.principle-grid,.flow-grid,.deliver-grid,.app-benefits{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pain-card,.principle-card,.deliver-card,.app-benefit{padding:14px}.pain-card p,.principle-card p,.deliver-card p,.app-benefit p{font-size:.76rem;line-height:1.65}.pain-card h3,.principle-card h3,.deliver-card h3,.app-benefit h3{font-size:.88rem}.principle-card:nth-child(3),.flow-card:nth-child(5){grid-column:1 / -1;width:calc(50% - 6px);justify-self:center}.flow-grid{row-gap:22px}.flow-dot{width:54px;height:54px;border-width:5px;font-size:1.35rem;margin-bottom:8px}.flow-card h3{font-size:.86rem}.flow-card p{font-size:.7rem;line-height:1.55}.deliver-card{min-height:0}.app-benefit-icon{font-size:1.3rem;margin-bottom:5px}.app-benefit p{font-size:.72rem}.plan-grid,.faq-grid,.app-box,.contact-grid{grid-template-columns:1fr}.app-box{padding:18px}.app-screen{min-height:0;padding:10px}.app-screen img{min-height:0;height:auto;max-height:240px}.contact-grid{gap:18px}.contact-card img{width:136px;height:136px}.plan-card,.plan-card.featured{padding:22px}.plan-card.featured{padding:21px}.hero-actions>*{width:100%}.cta-actions>*{width:100%}.btn{width:100%}.screen-card img{height:200px}.plan-profile{grid-template-columns:1fr 1fr}.preview-title{align-items:flex-start;flex-direction:column;gap:2px}.plan-preview-head,.plan-preview-row{grid-template-columns:.9fr .75fr 1.55fr .5fr;font-size:.66rem;line-height:1.5;padding:8px 6px}.plan-actions{align-items:stretch}.plan-actions .plan-consult{display:block;padding:5px 0}.payment-flow{text-align:left;padding:12px}.pay-dialog{padding:20px;padding-bottom:max(20px,env(safe-area-inset-bottom))}.pay-dialog .btn{width:100%}.preview-card{padding:14px}}
+@media(max-width:640px){.container{width:min(100% - 28px,560px)}.nav-inner{height:54px}.nav-cta{padding:7px 11px;font-size:.78rem}.hero{padding:52px 0 42px}.hero-lead{font-size:.94rem;line-height:1.82}.hero-card{padding:18px;border-radius:16px}.hero-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.hero-step{padding:11px}.hero-step span{font-size:.76rem}.section{padding:52px 0}.pain-grid,.principle-grid,.flow-grid,.deliver-grid,.app-benefits{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pain-card,.principle-card,.deliver-card,.app-benefit{padding:14px}.pain-card p,.principle-card p,.deliver-card p,.app-benefit p{font-size:.76rem;line-height:1.65}.pain-card h3,.principle-card h3,.deliver-card h3,.app-benefit h3{font-size:.88rem}.principle-card:nth-child(3),.flow-card:nth-child(5){grid-column:1 / -1;width:calc(50% - 6px);justify-self:center}.flow-grid{row-gap:22px}.flow-dot{width:54px;height:54px;border-width:5px;font-size:1.35rem;margin-bottom:8px}.flow-card h3{font-size:.86rem}.flow-card p{font-size:.7rem;line-height:1.55}.deliver-card{min-height:0}.app-benefit-icon{font-size:1.3rem;margin-bottom:5px}.app-benefit p{font-size:.72rem}.device-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.plan-grid,.faq-grid,.app-box,.contact-grid{grid-template-columns:1fr}.app-box{padding:18px}.app-screen{min-height:0;padding:10px}.app-screen img{min-height:0;height:auto;max-height:240px}.contact-grid{gap:18px}.contact-card img{width:136px;height:136px}.plan-card,.plan-card.featured{padding:22px}.plan-card.featured{padding:21px}.hero-actions>*{width:100%}.cta-actions>*{width:100%}.btn{width:100%}.screen-card img{height:200px}.plan-profile{grid-template-columns:1fr 1fr}.preview-title{align-items:flex-start;flex-direction:column;gap:2px}.plan-preview-head,.plan-preview-row{grid-template-columns:.9fr .75fr 1.55fr .5fr;font-size:.66rem;line-height:1.5;padding:8px 6px}.plan-actions{align-items:stretch}.plan-actions .plan-consult{display:block;padding:5px 0}.payment-flow{text-align:left;padding:12px}.pay-dialog{padding:20px;padding-bottom:max(20px,env(safe-area-inset-bottom))}.pay-dialog .btn{width:100%}.preview-card{padding:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 </style>
 </head>
@@ -236,14 +241,15 @@ h1 span{color:var(--orange)}
 
   <section class="section" id="app">
     <div class="container">
-      <h2 class="section-title">每天按 Cathy 的安排完成熏听</h2>
-      <p class="section-lead">下面只展示和熏听直接相关的 App 片段。家长按 Cathy 配置好的内容执行，不需要自己在多个入口之间反复寻找。</p>
+      <h2 class="section-title">App 里怎么用？</h2>
+      <p class="section-lead">熏听日常主要在手机或平板完成。家长打开当天听单，播放、记录，再把孩子的反应反馈给 Cathy。</p>
       <div class="divider"></div>
       <div class="app-box">
         <div class="app-copy">
-          <h3>Cathy 熏听陪跑营 · 每天按计划执行</h3>
-          <p>这是英语陪跑GO学员端中与熏听相关的真实片段。Cathy 会根据孩子阶段安排内容，家长打开当天的听力内容即可开始。</p>
-          <ul class="app-list"><li>只展示与熏听相关的内容和播放区域，减少家长找资源的时间</li><li>播放页支持加入听单、循环、定时、上一首和下一首</li><li>每天记录听了什么、听了多久，以及孩子的实际反应</li><li>Cathy 根据打卡情况调整下一周的内容和节奏</li></ul>
+          <h3>Cathy 把当天要做的内容放进听单</h3>
+          <p>家长不需要在多个资源入口之间来回找。打开英语陪跑GO学员端，按当天安排播放，完成后留下记录即可。</p>
+          <ul class="app-list"><li>播放、循环、定时，以及上一首/下一首</li><li>记录听了什么、听了多久和孩子的实际反应</li><li>需要跟读时，可以录音、点读或完成配音练习</li></ul>
+          <div class="device-note"><strong>手机、平板、电脑怎么选？</strong><span>日常熏听优先用 iOS 或 Android 手机/平板；Windows 和 macOS 更适合大屏查看课程、练习和管理。一体机/TV 按当前客户端支持情况使用。具体功能以当前客户端版本为准，不同设备不保证所有功能完全一致。</span><div class="device-grid"><div class="device-item">📱 iOS<br>iPhone / iPad</div><div class="device-item">🤖 Android<br>手机 / 平板</div><div class="device-item">🪟 Windows<br>电脑端</div><div class="device-item">🍎 macOS<br>电脑端</div></div><a class="device-link" href="/epgo/#download">查看各端下载教程 →</a></div>
         </div>
         <div><div class="app-screen"><img src="assets/app-science-focus.jpg" alt="英语陪跑GO 科学熏听贵在坚持内容页真实截图" loading="lazy"></div><span class="app-screen-caption">真实 App 片段：科学熏听贵在坚持内容页</span></div>
       </div>
@@ -252,11 +258,10 @@ h1 span{color:var(--orange)}
 
   <section class="section alt" id="examples">
     <div class="container">
-      <h2 class="section-title">先看看怎么执行，再决定是否报名</h2>
-      <p class="section-lead">下面只放与 Cathy 熏听陪跑营有关的真实 App 片段和一份计划示例，完整管理入口不在这里展开。</p>
+      <h2 class="section-title">一周计划大概是什么样？</h2>
+      <p class="section-lead">下面是一份示例，实际内容会按孩子年龄、基础和每天能安排的时间调整。</p>
       <div class="divider"></div>
       <div class="visual-grid">
-        <figure class="screen-card"><img src="assets/app-science-focus.jpg" alt="英语陪跑GO 科学熏听贵在坚持内容页真实截图" loading="lazy"><figcaption>真实 App 片段：科学熏听贵在坚持内容页，展示适合阶段化安排的听力素材。</figcaption></figure>
         <figure class="screen-card"><img src="assets/app-player-focus.jpg" alt="英语陪跑GO 熏听播放区域真实截图" loading="lazy"><figcaption>真实 App 片段：熏听播放区域，可查看内容、时长和播放控制。</figcaption></figure>
         <div class="preview-card">
           <div class="preview-title"><strong>Cathy 一周熏听计划</strong><span>示例 · 按孩子情况调整</span></div>
@@ -294,19 +299,16 @@ h1 span{color:var(--orange)}
 
   <section class="section" id="app-benefits">
     <div class="container">
-      <h2 class="section-title">购买熏听陪跑营，配套使用英语陪跑GO</h2>
-      <p class="section-lead">App 是 Cathy 熏听计划的日常执行工具。报名即包含服务期内的学员端使用权限，把内容、练习和记录放在一个地方完成，不需要另外购买 App。</p>
+      <h2 class="section-title">除了熏听，App 还能做什么？</h2>
+      <p class="section-lead">熏听是每天的主线，下面这些功能按孩子情况选用，不要求一次全部做。报名即包含服务期内的学员端使用权限，不需要另外购买 App。</p>
       <div class="divider"></div>
       <div class="app-benefits">
-        <div class="app-benefit"><div class="app-benefit-icon">🎧</div><h3>听单与播放</h3><p>按 Cathy 的阶段计划打开对应内容，支持播放、循环和定时，减少家长临时找资源的时间。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">📚</div><h3>绘本与教材资源</h3><p>可结合分级绘本、自然拼读、儿歌和教材内容安排输入，按孩子当前阶段逐步进阶。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">🎙️</div><h3>点读与跟读</h3><p>孩子可以听原音、点读和录音跟读，留下练习记录，帮助家长观察是否愿意开口。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">🗣️</div><h3>口语练习与 AI 反馈</h3><p>配合口语练习、情景对话和语音反馈，把“听得懂”逐步连接到“敢开口”；具体能力以当前版本为准。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">🎬</div><h3>趣味视频配音</h3><p>用孩子喜欢的动画和短视频做跟读、配音和作品记录，让开口练习更有参与感。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">🎮</div><h3>单词闯关</h3><p>可根据阶段内容进行单词复习和闯关，适合作为熏听之外的轻量巩固环节。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">📖</div><h3>阅读营与打卡任务</h3><p>可配合绘本阅读、阅读营和阶段打卡任务，把听力输入延伸到理解和阅读习惯。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">📝</div><h3>作业与老师点评</h3><p>老师可以布置练习、查看完成情况并进行点评，家长能看到孩子每天做了什么。</p></div>
-        <div class="app-benefit"><div class="app-benefit-icon">📊</div><h3>水平测试与阶段记录</h3><p>根据阶段学习情况查看练习记录和阶段反馈，用于调整下一步计划，不承诺固定考试分数。</p></div>
+        <div class="app-benefit"><div class="app-benefit-icon">🎧</div><h3>听单与播放</h3><p>按 Cathy 的安排打开当天内容，支持播放、循环和定时。</p></div>
+        <div class="app-benefit"><div class="app-benefit-icon">📚</div><h3>绘本、教材和儿歌</h3><p>结合分级绘本、自然拼读、儿歌和教材做阶段输入。</p></div>
+        <div class="app-benefit"><div class="app-benefit-icon">🎙️</div><h3>点读、跟读和口语</h3><p>听原音、点读、录音跟读，配合口语练习和语音反馈。</p></div>
+        <div class="app-benefit"><div class="app-benefit-icon">🎬</div><h3>配音和作品记录</h3><p>用短视频做配音练习，留下孩子自己的录音和作品。</p></div>
+        <div class="app-benefit"><div class="app-benefit-icon">🎮</div><h3>单词、阅读和打卡</h3><p>通过单词闯关、阅读任务和每日打卡做轻量巩固。</p></div>
+        <div class="app-benefit"><div class="app-benefit-icon">📝</div><h3>作业、点评和阶段记录</h3><p>老师布置任务并点评，家长查看完成情况和阶段反馈。</p></div>
       </div>
       <div class="app-benefit-note">说明：App 使用权限已经包含在熏听陪跑营价格内，不单独售卖或另收费用；具体可用内容以当前英语陪跑GO版本和 Cathy 为孩子配置的计划为准。</div>
     </div>
@@ -349,7 +351,7 @@ h1 span{color:var(--orange)}
         <div class="faq-item"><h3>每天必须听很长时间吗？</h3><p>以家庭能稳定执行为优先。具体时长会结合孩子年龄、基础和每日可用时间安排，逐步调整。</p></div>
         <div class="faq-item"><h3>只有一个孩子可以参加吗？</h3><p>套餐默认按一个孩子建立计划。如需多个孩子参加，需要在报名时单独确认服务安排。</p></div>
         <div class="faq-item"><h3>社群什么时候答疑？</h3><p>社群用于打卡和集中答疑，具体答疑时段以入营通知为准，不承诺全天候即时回复。</p></div>
-        <div class="faq-item"><h3>为什么熏听课程里包含 App 使用？</h3><p>App 是陪跑营的执行工具，用来播放听单、完成练习和记录打卡。购买的是 Cathy 的计划与陪跑服务，App 使用权限作为配套权益开通，不影响原有 App 独立购买页面和支付流程。</p></div>
+        <div class="faq-item"><h3>手机、平板和电脑都能用吗？</h3><p>英语陪跑GO提供 iOS、Android、Windows 和 macOS 入口。日常熏听建议使用手机或平板，电脑更适合大屏学习和管理；不同设备的具体功能以当前客户端版本为准。陪跑营购买的是 Cathy 的计划与陪跑服务，App 使用权限作为配套权益开通。</p></div>
       </div>
     </div>
   </section>
