@@ -156,6 +156,20 @@ img{max-width:100%;display:block}
 .tool-status{font-size:.74rem;color:var(--blue);font-weight:700;margin-top:16px}
 .tool-card.ready{border-color:#bcdcff}
 
+/* ── CATHY 熏听训练营入口 ── */
+.listening-entry{padding:56px 0;background:linear-gradient(135deg,#fffaf0 0%,#fff 55%,#eef8ff 100%);border-top:1px solid #f3e5c8;border-bottom:1px solid #dcecff}
+.listening-entry-box{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;max-width:980px;margin:0 auto;background:rgba(255,255,255,.82);border:1px solid #f0dfbd;border-radius:18px;padding:30px 34px;box-shadow:0 8px 28px rgba(91,73,35,.08)}
+.listening-kicker{display:inline-flex;align-items:center;gap:6px;color:#b36d21;background:#fff3d9;border:1px solid #f4d79e;border-radius:999px;padding:5px 13px;font-size:.78rem;font-weight:700;margin-bottom:12px}
+.listening-entry h2{font-size:1.65rem;color:var(--dark);margin-bottom:9px}
+.listening-entry h2 span{color:#c8752b}
+.listening-entry p{font-size:.9rem;color:#667085;line-height:1.85;margin-bottom:16px}
+.listening-points{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.listening-point{font-size:.78rem;color:#5a6575;background:#fff;border:1px solid #e9e4d8;border-radius:999px;padding:5px 10px}
+.listening-entry-actions{display:flex;gap:10px;flex-wrap:wrap}
+.listening-entry-art{background:linear-gradient(145deg,#e7f7ff,#fff4dc);border-radius:14px;min-height:180px;padding:24px;display:flex;align-items:center;justify-content:center;text-align:center}
+.listening-entry-art strong{display:block;font-size:2rem;color:#c8752b;line-height:1.25}
+.listening-entry-art small{display:block;color:#667085;font-size:.82rem;margin-top:8px}
+
 /* ── STATS ── */
 .stats-sec{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%);padding:40px 0}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
@@ -292,6 +306,7 @@ section[id]{scroll-margin-top:76px}
   .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
   .nav-links{display:none}
+  .listening-entry-box{grid-template-columns:1fr;gap:18px}
 }
 @media(max-width:600px){
   .hero{padding:72px 0 36px}
@@ -314,6 +329,10 @@ section[id]{scroll-margin-top:76px}
   .vtabs{flex-wrap:wrap}.vtab{padding:10px 16px}
   .nav-inner{gap:8px}.btn-nav-primary{padding:8px 12px}
   .qr-card{padding:10px}.qr-card img{width:100%;height:auto;aspect-ratio:1}
+  .listening-entry{padding:38px 0}
+  .listening-entry-box{padding:22px 18px;border-radius:14px}
+  .listening-entry h2{font-size:1.35rem}
+  .listening-entry-actions>*{width:100%;justify-content:center;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.buy-ticker-inner{animation:none}*{transition:none!important}}
 </style>
@@ -330,6 +349,7 @@ section[id]{scroll-margin-top:76px}
       </div>
       <div class="nav-links">
         <a href="#features">功能介绍</a>
+        <a href="/epgo/listening/">熏听训练营</a>
         <a href="/epgo/assessment.html">入学测评</a>
         <a href="#tools">学习工具</a>
         <a href="#pricing">激活套餐</a>
@@ -356,6 +376,7 @@ section[id]{scroll-margin-top:76px}
         <div class="hero-btns">
           <a class="btn-primary" href="https://app.lingshi.com/bjxxsy" target="_blank">📥 立即免费下载</a>
           <a class="btn-ghost" href="/epgo/assessment.html">📝 先做入学测评</a>
+          <a class="btn-ghost" href="/epgo/listening/">🎧 Cathy 熏听训练营</a>
           <button class="btn-ghost" onclick="openModal('trial')">⚡ 7天体验 ¥9.9</button>
         </div>
         <div class="hero-tags">
@@ -525,6 +546,32 @@ section[id]{scroll-margin-top:76px}
       <div class="tool-card" data-tool="plan">
         <div class="tool-card-main"><div class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M7 11h10M7 15h7"></path></svg></div><div><h3>7日 KET 学习计划</h3><p>根据每天可用时间生成一份能马上执行的学习安排，完成测评后再让老师调整。</p></div></div>
         <a class="tool-status" href="/epgo/tools.html#plan">生成学习计划 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATHY LISTENING ENTRY -->
+<section class="listening-entry" id="listening">
+  <div class="container">
+    <div class="listening-entry-box">
+      <div>
+        <div class="listening-kicker">🎧 Cathy 熏听训练营</div>
+        <h2>科学熏听，<span>贵在坚持</span></h2>
+        <p>不是把资源丢给家长，而是由 Cathy 根据孩子的年龄、基础和时间，安排 App 听单、每日执行和阶段复盘，让每天的英语输入真正落地。</p>
+        <div class="listening-points">
+          <span class="listening-point">个性化计划</span>
+          <span class="listening-point">App 听单执行</span>
+          <span class="listening-point">社群打卡陪伴</span>
+          <span class="listening-point">每周复盘调整</span>
+        </div>
+        <div class="listening-entry-actions">
+          <a class="btn-primary" href="/epgo/listening/">查看训练营详情 →</a>
+          <a class="btn-ghost" href="/epgo/#follow">关注公众号咨询</a>
+        </div>
+      </div>
+      <div class="listening-entry-art" aria-label="科学熏听贵在坚持">
+        <div><strong>每天一点点<br>听见孩子的积累</strong><small>3–10岁家庭英语听力输入计划</small></div>
       </div>
     </div>
   </div>
@@ -708,6 +755,7 @@ section[id]{scroll-margin-top:76px}
       <a href="/">返回首页</a>
       <a href="#features">功能介绍</a>
       <a href="#tools">学习工具</a>
+      <a href="/epgo/listening/">熏听训练营</a>
       <a href="#pricing">激活套餐</a>
       <a href="https://app.lingshi.com/bjxxsy" target="_blank">免费下载</a>
       <a href="#order-query">查询订单</a>
