@@ -6,11 +6,14 @@
 <meta name="description" content="Cathy 熏听陪跑营：为3-10岁孩子制定英语听力输入计划，配合英语陪跑GO App、每日打卡、每周反馈和阶段调整。">
 <meta property="og:title" content="Cathy 熏听陪跑营｜科学熏听，贵在坚持">
 <meta property="og:description" content="个性化熏听计划、App听单、每日打卡和阶段复盘，帮助家庭把英语听力输入坚持下来。">
-<meta property="og:image" content="https://go.xiachaoqing.com/epgo/share.jpg">
+<meta property="og:image" content="https://go.xiachaoqing.com/epgo/listening-share.jpg">
+<meta property="og:image:width" content="560">
+<meta property="og:image:height" content="560">
 <meta property="og:url" content="https://go.xiachaoqing.com/epgo/listening/">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://go.xiachaoqing.com/epgo/listening/">
 <link rel="icon" type="image/x-icon" href="/epgo/favicon.ico">
+<script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <title>Cathy 熏听陪跑营｜科学熏听，贵在坚持</title>
 <style>
 :root{--blue:#298dff;--blue-dark:#1565c0;--blue-soft:#eef7ff;--ink:#17233d;--muted:#667085;--orange:#c8752b;--cream:#fff8ec;--green:#35a66f;--line:#e8edf4;--shadow:0 10px 30px rgba(31,59,95,.08)}
@@ -111,7 +114,11 @@ h1 span{color:var(--orange)}
 .plan-list{list-style:none;margin:18px 0 20px;display:grid;gap:8px}
 .plan-list li{font-size:.86rem;color:#5e6b7d}
 .plan-list li:before{content:"✓";color:var(--green);font-weight:900;margin-right:7px}
+.plan-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.plan-payment-note{color:#8793a3;font-size:.72rem;line-height:1.5}
 .plan-note{text-align:center;color:#8591a0;font-size:.8rem;margin-top:18px}
+.payment-flow{max-width:860px;margin:20px auto 0;padding:13px 16px;border:1px solid #e7edf4;border-radius:12px;background:#fff;color:#657386;font-size:.8rem;line-height:1.8;text-align:center}
+.payment-flow strong{color:var(--ink);margin-right:8px}
 .faq-grid{grid-template-columns:repeat(2,1fr);max-width:920px;margin:0 auto}
 .faq-item h3{color:var(--ink);font-size:.92rem;margin-bottom:7px}
 .faq-item p{color:var(--muted);font-size:.83rem;line-height:1.8}
@@ -273,9 +280,10 @@ h1 span{color:var(--orange)}
       <p class="section-lead">线上方案包含 App 使用、阶段计划、听单配置和社群陪跑。报名后由 Cathy 人工确认孩子情况，套餐咨询与成交通过公众号完成。</p>
       <div class="divider"></div>
       <div class="plan-grid">
-        <div class="plan-card"><div class="plan-name">3个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1299</div><div class="plan-period">适合先完成一个阶段 · 线上方案</div><ul class="plan-list"><li>入营沟通与阶段计划</li><li>英语陪跑GO App 学习账号</li><li>每周听单和执行建议</li><li>社群打卡与阶段反馈</li></ul><a class="btn btn-secondary" href="/epgo/#follow">公众号咨询报名</a></div>
-        <div class="plan-card featured"><span class="plan-badge">首期长期方案</span><div class="plan-name">9个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1999</div><div class="plan-period">连续三个阶段，适合长期坚持</div><ul class="plan-list"><li>包含3个月方案全部服务</li><li>连续阶段目标和听单安排</li><li>每周打卡反馈与阶段复盘</li><li>可衔接 KET/PET 学习规划</li></ul><a class="btn btn-primary" href="/epgo/#follow">公众号咨询报名</a></div>
+        <div class="plan-card"><div class="plan-name">3个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1299</div><div class="plan-period">适合先完成一个阶段 · 线上方案</div><ul class="plan-list"><li>入营沟通与阶段计划</li><li>英语陪跑GO App 学习账号</li><li>每周听单和执行建议</li><li>社群打卡与阶段反馈</li></ul><div class="plan-actions"><a class="btn btn-secondary" href="/epgo/#follow">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
+        <div class="plan-card featured"><span class="plan-badge">首期长期方案</span><div class="plan-name">9个月 · 熏听陪跑</div><div class="plan-price"><small>¥</small>1999</div><div class="plan-period">连续三个阶段，适合长期坚持</div><ul class="plan-list"><li>包含3个月方案全部服务</li><li>连续阶段目标和听单安排</li><li>每周打卡反馈与阶段复盘</li><li>可衔接 KET/PET 学习规划</li></ul><div class="plan-actions"><a class="btn btn-primary" href="/epgo/#follow">公众号咨询报名</a><span class="plan-payment-note">确认方案后人工收款</span></div></div>
       </div>
+      <div class="payment-flow"><strong>报名与付款流程</strong>公众号回复“熏听” → Cathy 确认孩子情况和套餐 → 人工收款 → 开通 App 账号并发送第一阶段计划</div>
       <p class="plan-note">说明：App 账号由人工开通，具体开通时间以公众号通知为准；陪跑营服务不承诺考试分数或固定学习结果。</p>
     </div>
   </section>
@@ -308,5 +316,31 @@ h1 span{color:var(--orange)}
 <footer class="footer">
   <div class="container"><div class="footer-links"><a href="/epgo/">英语陪跑GO</a><a href="#why">为什么熏听</a><a href="#flow">陪跑流程</a><a href="#plans">陪跑营方案</a><a href="/epgo/#follow">公众号咨询</a></div><div>© 2026 英语陪跑GO · Cathy 熏听陪跑营</div><div style="margin-top:4px"><a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">京ICP备2020039465号-1</a></div></div>
 </footer>
+<script>
+(function initListeningShare(){
+  if(!/MicroMessenger/i.test(navigator.userAgent) || !window.wx) return;
+  const api='https://wechat.xiachaoqing.com';
+  const pageUrl=location.origin+location.pathname;
+  const shareData={
+    title:'Cathy 熏听陪跑营｜科学熏听，贵在坚持',
+    desc:'3–10岁家庭英语听力输入计划：每日执行、每周复盘、阶段调整。',
+    link:pageUrl,
+    imgUrl:'https://go.xiachaoqing.com/epgo/listening-share.jpg'
+  };
+  fetch(api+'/api/jzt/wx/jsconfig?url='+encodeURIComponent(pageUrl))
+    .then(r=>r.json())
+    .then(cfg=>{
+      if(!cfg || !cfg.signature) return;
+      wx.config({debug:false,appId:cfg.appId,timestamp:Number(cfg.timestamp),nonceStr:cfg.nonceStr,signature:cfg.signature,jsApiList:['updateAppMessageShareData','updateTimelineShareData','onMenuShareAppMessage','onMenuShareTimeline']});
+      wx.ready(function(){
+        if(wx.updateAppMessageShareData) wx.updateAppMessageShareData(shareData);
+        if(wx.updateTimelineShareData) wx.updateTimelineShareData({title:shareData.title,link:shareData.link,imgUrl:shareData.imgUrl});
+        if(wx.onMenuShareAppMessage) wx.onMenuShareAppMessage({title:shareData.title,desc:shareData.desc,link:shareData.link,imgUrl:shareData.imgUrl});
+        if(wx.onMenuShareTimeline) wx.onMenuShareTimeline({title:shareData.title,link:shareData.link,imgUrl:shareData.imgUrl});
+      });
+    })
+    .catch(function(){});
+})();
+</script>
 </body>
 </html>
